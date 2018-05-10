@@ -5,7 +5,11 @@
 Autor: Sebastian Janzen
 
 Was ist eine Blockchain?  
-Es gibt mehrere Definitionen, da die Entwicklung der Blockchain noch recht jung ist. Eine Definition besagt, dass es ein elektronischer Register für Datensätze, Ereignisse oder Transaktionen ist, wo die Teilnehmer eines Netzwerkes diesen verwalten. Eine andere Definition ist, dass Blockchain eine Datenbank ist in welcher Einträge in Blöcken gruppiert werden. Aus diesen Definitionen geht hervor, dass Blockchain-Systeme den verteilten Systemen angehören. <a>[[SCHL16]](#ref_Schl16)</a>
+Es gibt mehrere Definitionen, da die Entwicklung der Blockchain noch recht jung ist. Eine Definition besagt, dass es ein elektronischer Register für Datensätze, Ereignisse oder Transaktionen ist, wo die Teilnehmer eines Netzwerkes diesen verwalten. Hier wird zwischen der Blockchain als Datenstruktur und dem zugehörigen Verwaltungssystem unterschieden.  
+Eine andere Definition ist, dass die Blockchain eine Datenbank ist in welcher Einträge chronologisch in Blöcken gruppiert und miteinander kryptografisch verknüpft werden. Wobei hier Blockchains von Distributed Ledgers abgegrenzt werden.  
+Die Blockchain-Verwaltungssysteme werden als verteilte Konsensussysteme bezeichnet, welche auf Kryptografie und P2P-Prinzipien aufbauen. So erreichen sie eine Verifikation des Systemsstatus im ganzen Netzwerk. Aus diesen Definitionen geht hervor, dass Blockchain-Systeme den verteilten Systemen angehören. <a>[[SCHL16]](#ref_Schl16)</a>
+
+In anderen Worten: Ein Blockchain-System ist eine sequenzielle Datenbank mit konstanten Datensätzen, welche in einem P2P-Netzwerk mithilfe von Crypto-Economics und Konsensusalgorithmen validiert und gespeichert werden.
 
 Der Aufbau einer Blockchain ist eine Blocksequenz in denen die komplette Transaktionshistorie festgehalten wird, wie zum Beispiel einem öffentlichen Konto. Jeder Block zeigt auf den Vorgänger die ganze Blockkette entlang bis auf den ersten Block einer Blockchain, den sogenannten "Genesisblock". <a>[[ZHENG17]](#ref_Zheng17)</a>
 
@@ -14,8 +18,6 @@ Die Abbildung "Blockchain Architektur" zeigt, dass eine zufällige Zeichenkette 
 ![blockchain_architecture](./images/blockchain_architecture.png "Blockchain Architektur")
 
 _Blockchain Architektur_ Abbildung angepasst aus <a>[[ANDE16]](#ref_Ande16)</a>
-
->___<font color="orange">Das nächste Unterkapitel "Block" überschneidet sich mit dem Unterkapitel "Blöcke" von Björn. Bleibt erstmal so stehen, wir entscheiden später wie wir vorgehen!!!</font>___ 
 
 ### Block
 
@@ -29,7 +31,7 @@ In den Blockheader gehören: <a>[[ZHENG17]](#ref_Zheng17)</a>
 - __Merkle tree root hash:__	Ist der Hashwert aller Transaktionen im Block
 - __Timestamp:__				Aktueller Zeitwert in Sekunden seit 01.01.1970
 - __nBits:__ 					Schwellwert eines Hashes ab dem ein Block als valide gilt
-- __Nonce:__					Ist ein 4-Byte Feld, welches üblicherweise mit Null anfängt und pro Hashkalkulation inkrementiert
+- __Nonce:__					Ist ein 4-Byte Feld, welches üblicherweise mit Null anfängt und pro Hash-Kalkulation inkrementiert
 - __Parent block hash:__		Ist ein 256-Bit Hashwert das auf den Vorgänger zeigt
 
 Der Body besteht aus dem Transaktionszähler und den Transaktionen selbst. Je nach Block- und Transaktionsgröße variiert die Anzahl der Transaktionen im Block. Zur Verifizierung von Transaktionen dient asymmetrische Kryptografie. <a>[[ZHENG17]](#ref_Zheng17)</a>
@@ -38,7 +40,7 @@ Der Body besteht aus dem Transaktionszähler und den Transaktionen selbst. Je na
 
 Jeder Benutzer besitzt ein Schlüsselpaar aus einem öffentlichen Schlüssel und einem privaten Schlüssel. Damit kann eine digitale Signatur generiert werden. Eine Nachricht oder Transaktion wird mit dem privaten Schlüssel signiert und an den Empfänger gesendet, der die Echtheit der Nachricht mit dem öffentlichen Schlüssel anhand der Signatur überprüfen kann. <a>[[ZHENG17]](#ref_Zheng17)</a>
 
-Aufgrund dessen, dass nur der Absender den privaten Schlüssel kennt, kann so die Authenzität der Nachricht und des Absenders sichergestellt werden. Des Weiteren kann die Nachricht nicht durch asymemtrische Verschlüsselung unbemerkt verändert werden. <a>[[SCHL16]](#ref_Schl16)</a>
+Aufgrund dessen, dass nur der Absender den privaten Schlüssel kennt, kann so die Authentizität der Nachricht und des Absenders sichergestellt werden. Des Weiteren kann die Nachricht nicht durch asymmetrische Verschlüsselung unbemerkt verändert werden. <a>[[SCHL16]](#ref_Schl16)</a>
 
 In diesem Unterkapitel wird die digitale Signatur nur am Rande erwähnt. Für mehr Informationen siehe Unterkapitel "Digitale Signaturen" in Kryptografie, Grundlagen.
 
@@ -56,43 +58,53 @@ __Anonymität__
 
 Die Identität eines Benutzers ist geschützt, denn für die Interaktion mit der Blockchain wird eine generierte Adresse verwendet, aus der nicht ohne weiteres möglich ist auf einen Benutzer zurückzuführen. Dennoch gibt es keine hundertprozentige Garantie, dass ein Benutzers absolut anonym ist. <a>[[ZHENG17]](#ref_Zheng17)</a>
 
-__Nachvollziehbarkeit__
-
-Jeder Netzknoten im Netzwerk enthält neben der kompletten Blockchainkopie noch einen Cache (Unspent Transaction Output, UTXO), der die Transaktionsausgänge der Blockchain beinhaltet, die noch nicht für neue Transaktionen verwendet wurden.  Außerdem beinhaltet es eine Datenbank mit unbestätigten Transaktionen, welche nicht in die Blockchain aufgenommen wurden.  
-Wenn die Transaktion den ersten Netzknoten erreicht, prüft dieser über UTXO, ob die in der Transaktion referenzierten Eingänge nicht für andere Transaktionen verwendet wurden. Weiterhin wird die Summe der Eingänge überprüft; sie muss kleiner oder gleich der Summe der Ausgänge sein. Wenn die Signaturen gültig sind, leitet der Knoten die Transaktion an andere Netzknoten weiter. Dort wird die transaktion geprüft und in die Datenbank mit unbestätigten Transaktion aufgenommen. Dieser Vorgang heißt _Transaktionsverifikation_. <a>[[SCHL16]](#ref_Schl16)</a>
-
 ### Arten einer Blockchain 
 
 Es gibt drei Arten von Blockchain: öffentliche, private und diejenigen welche einem Konsortium angehören.
 
 __Öffentlich__
 
-![blockchain_public](./images/blockchain_public.jpg "Public Blockchain")
-
-_Öffentliche Blockchain_, Abbildung aus <a>[[DEMUSH]](#ref_Demush)</a>
-
 Die ursprüngliche Art einer Blockchain (siehe Bitcoin-Blockchain). Alle Einträge sind öffentlich sichtbar. Jeder kann im Netzwerk eine Transaktion tätigen und solange diese valide ist, wird sie auch einer Blockchain hinzugefügt. Es ist allen freigestellt am Konsensus teilzunehmen und sogar die Netzwerke zu verwalten. Im Gegenzug gibt es niemanden der das Alleinrecht im Netzwerk hat - alle Teilnehmer sind gleich. Aus diesem Grund wird ein öffentliches Blockchain auch _permissionless blockchain_ genannt.
-Der Einfluss ist proportional der Ressourcen eines Teilnehmers. Öffentliche Blockchains nutzen Crypto-Economics, eine Kombination aus Konsensalgorithmen und wirtschaftlichen Anreizen, als Ersatz für einen zentralen Trust.  Die üblichen Konsensusalgorithmen sind Proof of Work und Proof of Stake (Bitcoin, Ethereum). Die Vorteile von öffentlichen Blockchains sind Transparenz und Anonymität, wobei die Skalierbarkeit und Effizienz eher zweitrangig sind. Diese Art der Blockchain wird als völlig dezentral bezeichnet. <a>[[DEMUSH]](#ref_Demush)</a>, <a>[[BUTE15]](#ref_Bute15)</a>
+Der Einfluss ist proportional der Ressourcen eines Teilnehmers. Öffentliche Blockchains nutzen Crypto-Economics, eine Kombination aus Konsensalgorithmen und wirtschaftlichen Anreizen, als Ersatz für eine zentralen Entität der vertraut wird.  Die üblichen Konsensusalgorithmen sind Proof of Work und Proof of Stake (Bitcoin, Ethereum). Die Vorteile von öffentlichen Blockchains sind Transparenz und Anonymität, wobei die Skalierbarkeit und Effizienz eher zweitrangig sind. Diese Art der Blockchain wird als völlig dezentral bezeichnet. <a>[[DEMUSH]](#ref_Demush)</a>, <a>[[BUTE15]](#ref_Bute15)</a>
+
+Im öffentlichen Blockchain-Netzwerk kann jeder Knoten am Konsensus teilnehmen, um den nächsten Block zu validieren. Ist die Validierung abgeschlossen, wird der Block der Blockchain hinzugefügt, siehe nächste Abbildung.
+
+![blockchain_public](./images/blockchain_public.png "Public Blockchain")
+
+_Öffentliches Blockchain-Netzwerk_, eigene Abbildung
 
 __Privat und Konsortium__
 
-![blockchain_private](./images/blockchain_private.jpg "Private und Konsortium Blockchain")
-
-_Private und Konsortium Blockchains_, Abbildung aus <a>[[DEMUSH]](#ref_Demush)</a>
-
-Wie der Name schon andeutet, sind private Blockchains nicht für jeden sichtbar und zugänglich. Sie werden aufgrund von überschaulichen Anzahl von Knoten viel effektiver verwaltet. Die Schreibrechte an der Blockchain gehören üblicherweise einer einzigen Organisation, die Leserechte können zum Teil oder ganz öffentlich sein. Diese Art von Blockchain heißt _permissioned blockchain_. Die üblichen Verwendungszwecke sind Datenhaltung und Wirtschaftsprüfung im Rahmen einer einzigen Firma.  
+Wie der Name schon andeutet, sind private Blockchains nicht für jeden sichtbar und zugänglich. Sie werden aufgrund einer überschaulichen Anzahl von Knoten viel effektiver verwaltet. Die Schreibrechte an der Blockchain gehören üblicherweise einer einzigen Organisation, die Leserechte können zum Teil oder ganz öffentlich sein. Diese Art von Blockchain heißt _permissioned blockchain_. Die üblichen Verwendungszwecke sind Datenhaltung und Wirtschaftsprüfung im Rahmen einer einzigen Firma.  
 Konsortium-Blockchains unterscheiden sich insofern von privaten, dass nur vorausgewählte Knoten am Konsensus teilnehmen können. Diese Knoten können einer Gruppe von Banken gehören, wo jede Bank einen Knoten steuert. Wie im Falle der privaten Blockchain, kann das Leserecht teilweise oder ganz öffentlich sein, was dazu führt, dass Teilnehmern außerhalb des Konsortiums eine eingeschränkte Möglichkeit haben über eine API die Block Hashes zu überprüfen. Banken und Unternehmen bekommen damit eine Möglichkeit direkt ihre Vermögenswerte untereinander in Sekunden zu übertragen und die private P2P-Netzwerke zu überwachen. Diese Blockchains werden als teilweise dezentralisiert bezeichnet.
 <a>[[DEMUSH]](#ref_Demush)</a>, <a>[[BUTE15]](#ref_Bute15)</a>
+
+Private bzw. Konsortium Blockchain-Netzwerke bestehen aus einer zugelassenen Anzahl von Knoten, was den Konsensusprozess erheblich beschleunigt. Zur Validierung eines Blocks sind öffentliche Knoten nicht zugelassen, siehe nächste Abbildung.
+
+![blockchain_private](./images/blockchain_private.png "Private und Konsortium Blockchain")
+
+_Privates und Konsortium Blockchain-Netzwerk_, eigene Abbildung
 
 ### Unterschiede zwischen permissionless und permissioned
 
 In dieser Tabelle sind die wichtigsten Unterschiede nochmals zusammengefasst.
 
-![blockchain_private_vs_public](./images/blockchain_private_vs_public.png "Blockchain Unterschiede")
+|                                                       | __Permissioned Blockchain__     | __Permissionless Blockchain__ |
+|-------------------------------------------------------|---------------------------------|-------------------------------|
+|_Instandhaltung:_                                      | Kleine Gruppe von Entitäten     | Jeder der will                |
+|_Schutz vor Unaufrichtigkeit:_                         | Reputationsschaden              | Crypto-Economics              |
+|_Transaktionsrechte:_                                  | Zugelassene Gruppe von Menschen | Jeder der will                |
+|_Zugang:_                                              | Kleine Gruppe von Entitäten     | Jeder der will                |
+|_Speicherort:_                                         | Zentraler Server                | Verteilt                      |
+|_Vertrauen in eine zentrale Entität zur Sicherheit:_   | Ja                              | Nein                          |
+|_Transaktionskosten:_                                  | Klein                           | Hoch                          |
+|_Geschwindigkeit:_                                     | Schnell                         | Langsam                       |
+|_Schutz vor Zensur:_                                   | Nein                            | Ja                            |
+|_Token:_                                               | Nein                            | Ja                            |
 
-_Blockchain Unterschiede_, Abbildung angepasst aus <a>[[GHAL15]](#ref_Ghal15)</a>
+_Blockchain Unterschiede_, Tabelle angepasst aus <a>[[GHAL15]](#ref_Ghal15)</a>
 
-In einer begrenzten Umgebung, bezogen auf die Knoten, spielt permissioned Blockchain ihre Stärken aus - hohe Geschwidigkeit und niedrige Transaktionskosten. Aufgrund ihres Grundprinzips sind Zensurresistenz, Offenheit und dezentrales Vertrauen hierfür unnötig, während sie für eine permissionless Blockchain unabdingbar sind. Ein Radar-Diagramm in der nächsten Abbildung macht nochmal die Unterschiede deutlich. 
+In einer begrenzten Umgebung, bezogen auf die Knoten, spielt permissioned Blockchain ihre Stärken aus - hohe Geschwindigkeit und niedrige Transaktionskosten. Aufgrund ihres Grundprinzips sind Zensurresistenz, Offenheit und dezentrales Vertrauen hierfür unnötig, während sie für eine permissionless Blockchain unabdingbar sind. Ein Radar-Diagramm in der nächsten Abbildung macht nochmal die Unterschiede deutlich. 
 
 ![blockchain_permissioned_vs_permissionless](./images/blockchain_permissioned_vs_permissionless.png "Permissioned vs Permissionless")
 
