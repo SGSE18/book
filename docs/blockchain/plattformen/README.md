@@ -308,6 +308,7 @@ kann aus dieser eine Client-Bibliothek generiert werden, um den Zugriff auf die
 Funktionen in dem Chaincode zu ermöglichen.
 
 
+
 ## Literaturverzeichnis
 
 <a name="ref_andr18">[ANDR18]</a>: Androulaki, Elli, et al. Hyperledger fabric: a distributed operating system for permissioned blockchains. arXiv preprint arXiv:1801.10228, 2018
