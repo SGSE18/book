@@ -74,6 +74,8 @@ Zusammenfassend sind viele Bereiche des juristischen Marktes durch technologisch
 
 ## Blockchain in Education
 
+Autor: Matthias Kersting
+
 Ein Anwendungsfall für Blockchain Technologien abseits der weit verbreiteten Einsatzmöglichkeit zur Realisierung von dezentralisierten Währungen wie Bitcoin oder Ethereum findet sich im Bereich der Bildung. In diesem Zusammenhang können die Vorteile von Blockchains dazu genutzt werden um Probleme, die in sich im aktuellen Bildungssystem ergeben zu lösen. Zu diesen Schwierigkeiten zählen:
 - Bildungseinrichtungen welteit verwenden unterschiedliche Standarts und Technologien, um die Fortschritte der Lernenden festzuhalten. Durch diese Unterschiede ist es schwierig, erbrachte Leistungen in ein anderes System zu übertragen und so anzuerkennen.
 - Sollte ein Nachweis über eine erbrachte Leistung wie z.B. eine Urkunde zu einem Abschluss verloren gehen, ist es zeitaufwändig, diesen zu ersetzen, da die Bildungseinrichtung kontaktiert und ein neuer Nachweis ausgestellt werden muss.
@@ -118,10 +120,9 @@ Um die privaten Daten der Nutzer zu schützen, kommen bei Disciplina zwei unters
 Durch diese Trennung ist es möglich, zu garantieren, dass die privaten Blockchains nicht manipuliert werden können und gleichzeitig zu verhindern, dass private Daten öffentlich zugänglich sind.
 Um zu verhindern, dass die public Blockchain mit unnötigen Daten überfüllt wird, müssen Lehrende für das Eintragen von neuen Ergebnissen eine Gebühr entrichten. Diese wird daraufhin verwendet, um die Witnesses zu entlohnen, die den Konsens über die Kette bilden.
 
-Autor: Matthias Kersting
-
-
 ## Blockchain und KI
+
+Autor: Matthias Kersting
 
 Im Verlauf der letzten Jahre hat es in dem Bereich der Blockchaintechnologien eine immer schneller werdende Entwicklung gegeben, da nicht zuletzt durch die vierte industrielle Revolution Software in weiten Bereichen der Gesellschaft Anwendung findet und so immer mehr Ressourcen in die Erforschung von neuen Technologien investiert werden. 
 Die weite Verbreitung von Software sorgt dafür, dass sich immer mehr Menschen auf die korrekte Funktionsweise der Programme verlassen müssen. Dies ist auch bei Blockchaintechnologien der Fall und obwohl diese häufig als dezentralisiert bezeichnet werden, werden die zugrundeliegenden Programme, wie z.B. die Smart Contracts von Ethereum, dennoch von einigen wenigen Menschen entwickelt, wodurch ungewolltes Verhalten auftreten kann. [[MARW18]](#ref_marw18)
@@ -144,9 +145,6 @@ Die durch künstliche Intelligenz erreichbaren Vorteile wirken sich dabei aber a
 - Durch die Verbesserung von Hash-Algorithmen kann besser sichergestellt werden, dass private Daten von Nutzern, die sich in Blockchains befinden, besser geschützt werden können.
 
 Durch die stetige Entwicklung von neuen Technologien im Bereich der künstlichen Intelligenz werden sich auch in Zukunft noch weitere Anwendungsfälle im Bezug auf Blockchaintechnologien ergeben.
-
-Autor: Matthias Kersting
-
 
 ## Literaturverzeichnis
 
