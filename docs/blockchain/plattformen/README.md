@@ -307,13 +307,6 @@ und können als Chaincode in die Fabric Blockchain deployed werden. Zusätzlich
 kann aus dieser eine Client-Bibliothek generiert werden, um den Zugriff auf die
 Funktionen in dem Chaincode zu ermöglichen.
 
-## Ethereum
-
-Autor: Philipp Möller
-
-Testing, Verifikation, etc.
-
-Tools (Truffle, etc.)
 
 
 ## Literaturverzeichnis
