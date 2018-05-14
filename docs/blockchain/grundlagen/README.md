@@ -1,7 +1,3 @@
-# Cheat Sheet - Präsentation:
-
-[Click me](https://docs.google.com/presentation/d/1NIlEgz439n10PML5Zsk6VAiJYydIWHd1uk4vXjwuJYk/edit?usp=sharing)
-
 # Grundlagen
 
 ## Kryptographie
