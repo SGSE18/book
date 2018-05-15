@@ -64,19 +64,27 @@ repräsentiert werden.
 Zur Veränderung der Daten können nun verschiedene Funktionen geschrieben werden. Dabei sollten allerdings verschiedene
 Schlüsselkonzepte beachtet werden: 
 
-
 <center><b>1. Funktionen haben eine einzige Aufgabe</b></center>
+
 Die geschriebenen Funktionen haben genau eine Aufgabe. Dadurch wird erreicht das verschiedene Funktionen 
 miteinander kombinierbar werden und so ein komplexeres Programm bilden. Zudem erhöht das Beschränken einer
 Funktion auf eine einzige Aufgabe die Testbarkeit des Codes. Für das Arbeiterbeispiel bedeutet dies, dass
 es eine Funktion names gehälter_erhöhen() geben wird, welche nur dafür Zuständig ist über die Arbeiter der 
 Liste zu iterieren. Diese Funktions erhält zwei Eingabeparameter: Eine Liste mit Arbeiters und der eigentliche 
 Gehaltserhöhung. 
-Zusätzlich wird es eine Funktion geben, welche anschließend nur zur Aufgabe hat, das Gehalt eines einzelnen 
+Zusätzlich wird es eine Funktion gehalt_erhöhen() implementiert, welche anschließend nur zur Aufgabe hat, das Gehalt eines einzelnen 
 Arbeiters zu erhöhen. 
 
-<center><b>Daten sind Immutable</b></center>
+<center><b>2. Daten sind Immutable</b></center>
 
+Durch den Funktionsaufruf von gehalt_erhöhen() wird kein Wert des originalen Arrays verändert. Immutable bedeutet,
+dass es keine Funktion geben kann, welche die Daten auf irgendeine weise verändern kann. Im OOP-Ansatz ist es übelich den
+Zustand oder "state" eines Objektes beliebig zu verändern. Im FP-Ansatz hingegen werden nur Kopien der veränderten Daten 
+erzeugt, mit denen im Verlauf des Programmes weiter gearbeitet wird. Der originale "state" in einem funktionalen Programm
+bleibt somit erhalten. 
+Dies hat zum Vorteile das einerseits ein Funktionsaufruf auf den selben Daten in jedem Fall den selben Output besitzt,
+zum anderen kann der Zustand so, falls gewünscht, über den gesamten Programmablauf verfolgt werden. Auch dieses 
+Konzept trägt zur Lesbarkeit und Wartbarkeit des Codes bei.
 
 
 

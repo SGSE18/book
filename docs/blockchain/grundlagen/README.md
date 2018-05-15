@@ -534,7 +534,7 @@ Wie bei anderen Konsens Algorithmen auch werden zunächst alle empfangen Transak
 eine Sammlung an Blöcken, zu welchen sie eine Stimme abgeben dürfen. Erhält ein Block einer Node mindestens 50 Prozent der Stimmen im ersten Wahlgang von seinen Validatoren, so kommt der Block in die nächste Runde des Wahlvorgangs. Ein Wahlvorgang geht über vier Runden, wobei in jeder Runde der Grenzwert für eine Entscheidung erhöht wird. Am Ende eines Wahlgangs müssen mindestens 80 Prozent der Nodes für einen Block gestimmt haben, damit dieser hinzugefügt werden kann. <a>[[SCHW14]](#ref_schw14)</a>
 
 
-### Übersich über die Vorgestellten Algorithemen
+### Übersicht über die Vorgestellten Algorithemen
 Algorithmus | PoW | PoS | PBFT | PoET | FBA
 --- | --- | --- | --- | --- | ---
 Erlaubt Anonyme Nodes | Ja | Ja | Nein | Ja | Ja
