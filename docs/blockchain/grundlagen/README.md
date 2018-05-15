@@ -396,9 +396,11 @@ in den allermeisten Fällen das Internet genutzt, da hier Rechner auf der Welt m
 die geschaffene Infrastruktur einen einfachen Zugang ermöglicht. Zudem wird ein verteiltes System darüber definiert, dass ein Benutzer das
 Systems als ein einziges System sieht, egal mit welcher Node beziehungsweise Computer im Systems er sich verbindet.
 
-Verteilte Systeme können verschiedene Typologien haben. Eine Topologie beschreibt, in welcher Weise die Nodes im System miteinander verbunden
+Verteilte Systeme können verschiedene Topologien haben. Eine Topologie beschreibt, in welcher Weise die Nodes im System miteinander verbunden
 sind.
 ![Verschiedene Typologien](./images/NetzwerkTopologien.png)
+<a>[[WIKI12]](#ref_wiki12)</a>
+
 
 Beispielsweise kennt eine Node in einem vollvermaschten System jede andere Node und kann so auf direktem Wege miteinander kommunizieren.
 Die direkte Kommunikation ist einer der Vorteile dieser Topologie. Wenn jedoch eine neue Node dem Netzwerk beitreten will, muss nicht nur
@@ -533,7 +535,7 @@ eine Sammlung an Blöcken, zu welchen sie eine Stimme abgeben dürfen. Erhält e
 
 
 ### Übersich über die Vorgestellten Algorithemen
-Algorthmus | PoW | PoS | PBFT | PoET | FBA
+Algorithmus | PoW | PoS | PBFT | PoET | FBA
 --- | --- | --- | --- | --- | ---
 Erlaubt Anonyme Nodes | Ja | Ja | Nein | Ja | Ja
 Energieverbrauch | Hoch | Moderat | Niedrig | Niedrig | Moderat
@@ -720,6 +722,8 @@ https://courses.cs.ut.ee/MTAT.07.022/2017_fall/uploads/Main/janno-report-f17.pdf
 <a name="ref_tai17">[ TAI17]</a>: Tai S., Eberhardt J., Klems M.: Not ACID, not BASE, but SALT: A Transaction Processing Perspective on Blockchains. URL: http://www.ise.tu-berlin.de/fileadmin/fg308/publications/2017/2017-tai-eberhardt-klems-SALT.pdf (abgerufen am 14.05.2018)
 
 <a name="ref_thom16">[THOM16]</a>: Thompson, Collin : Private Blockchain or Database?  URL: https://www.linkedin.com/pulse/private-blockchain-database-collin-thompson (abgerufen am 29.04.2018)
+
+<a name="ref_wiki12">[WIKI12]</a>: Wikipedia, Schematische Veranschaulichung der grundlegenden Arten von Netzwerktopologien. URL: https://commons.wikimedia.org/wiki/File:NetzwerkTopologien.png (abgerufen am 15.05.2018)
 
 <a name="ref_wiki18a">[WIKI18a]</a>: Wikipedia, ACID. URL: https://de.wikipedia.org/wiki/ACID (abgerufen am 29.04.2018)
 
