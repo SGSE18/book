@@ -1,12 +1,12 @@
 # Microservices
 
->Ein Microservice ist ein leichtgewichtiger autonomer Dienst, der eine einzige Aufgabe erfüllt und mit anderen ähnlichen Diensten über eine gut definierte Schnittstelle kollaboriert. <a>[[NAMI14]](#ref_Nami14)</a>
+>Ein Microservice ist ein leichtgewichtiger autonomer Dienst, der eine einzige Aufgabe erfüllt und mit anderen ähnlichen Diensten über eine gut definierte Schnittstelle kollaboriert. Eine der Hauptaufgaben von Microservices ist eine Minimierung von Einflüssen im Falle einer möglichen Schnittstellenänderung. <a>[[NAMI14]](#ref_Nami14)</a>
 
 Die Abbildung _Architektur_ zeigt einen möglichen Aufbau von Microservices. Jedem Dienst entspricht eine Funktionalität. Einige Dienste haben eigene Datenbanken, andere greifen auf eine gemeinsame Datenbank zu.
 
 ![Architektur](./images/architecture.png)
 
-_Architektur_, Abbildung aus <a>[[MIRI17]](#ref_Miri17)</a>
+_Architektur_, Abbildung entnommen aus <a>[[MIRI17]](#ref_Miri17)</a>
 
 ## Charakteristiken einer Microservice-Architektur
 
@@ -82,27 +82,31 @@ Einige häufig anzutreffende Entwürfen von Remote Calls sind Direct Call, Gatew
 
 __Direct Call__
 
-<img src="./images/direct_call_pattern.png" alt="Direct Call" style="width: 400px;"/>
+Der erste Kommunikationsentwurf ist ein Direct Call. Wie die Bezeichnung impliziert, werden Webservices direkt von der Applikation aufgerufen. Obwohl sehr flexibel kann es zu potentiellen Verzögerungen kommen wenn die Anzahl der Remote Calls zu groß wird. 
+
+![Direct Call](./images/direct_call_pattern.png)
 
 _Direct Call_, Abbildung angepasst aus <a>[[NAMI14]](#ref_Nami14)</a>
 
 __Gateway__
 
-<img src="./images/gateway_pattern.png" alt="Gateway" style="width: 400px;"/>
+Um den Verzögerunden entgegenzuwirken kommt der Gateway-Entwurf zum Einsatz. Um den Andrang zu verringern kommen diverse Caches und Middleware, wie ein Transaktionsmonitor, hinzu.
+
+![Gateway](./images/gateway_pattern.png)
 
 _Gateway_, Abbildung angepasst aus <a>[[NAMI14]](#ref_Nami14)</a>
 
 __Message-bus__
 
-<img src="./images/message_bus_pattern.png" alt="Message Bus" style="width: 400px;"/>
+Message Bus erlaubt asynchrone Requests und Responses. Das kommt gerade den Applikationen aus dem IoT-Bereich zugute.
+
+![Message Bus](./images/message_bus_pattern.png)
 
 _Message Bus_, Abbildung angepasst aus <a>[[NAMI14]](#ref_Nami14)</a>
 
-Eine der Hauptaufgaben von Microservices ist eine Minimierung von Einflüssen im Falle einer möglichen Schnittstellenänderung. <a>[[NAMI14]](#ref_Nami14)</a>
-
 ## Unterschiede zu monolithischen Anwendungen
 
-Monolithischen Anwendungen werden als ein Ganzes entwickelt. Sie bestehen oft aus drei Schichten:
+Monolithischen Anwendungen werden als ein Ganzes entwickelt. Die sogenannte Drei-Schichten-Architektur:
 - Clientseitige Applikation
 - Serverseitige Applikation
 - Datenbank
@@ -110,36 +114,25 @@ Monolithischen Anwendungen werden als ein Ganzes entwickelt. Sie bestehen oft au
 Eine serverseitige Applikation ist ein solches Monolith, weil sie für HTTP-Anfragen zuständig ist, Zugriffe auf die Datenbank steuert und mit dem Browser interagiert. Eine Änderung im System führt zu einer neuen Version der ganzen Software. Die ganze Logik konzentriert sich in einer ausführbaren Datei. Es ist ein natürlich Weg zu entwickeln. Optimierung kan mithilfe eines Load Balancer erfolgen, damit mehrere Instanzen der Applikation nebenbei laufen können.
 Allerdings kann schwierig werden eine solche Anwendung auf Dauer zu entwickeln. Es erfordert viel Aufwand ständige Änderungen und Korrekturen zu implementieren, denn bei einem Monolith muss jedes Mal das ganze System neu erstellt werden. Desweiteren ist es aufwändig die Modularität der Software aufrecht zu erhalten, ohne das intern ungewollte Abhängigkeiten zwischen den Modulen entstehen. Auch eine Skalierung des ganzen Systems erfordert viel mehr Ressourcen, als eines einzelnen Moduls. <a>[[LEWI14]](#ref_Lewi14)</a>
 
-Eine schematischer Aufteilung einer monolithischen Anwendung in Microservices kann in der nächsten Abbildung betrachtet werden.
+Eine schematischer Aufteilung einer monolithischen Anwendung in Microservices kann in der nächsten Abbildung betrachtet werden. Die Module werden zu eigenständigen Webservices, die untereinander kommunizieren.
 
 ![Microservices vs Monolith](./images/microservices_vs_monolith.png)
 
 _Microservices vs Monolith_, Eigene Darstellung
 
-Jedes einzelnes Microservice kann in komplett anderer Programmiersprache geschrieben sein. Im Gegensatz dazu kann eine monolithische Architektur zwar mehrere Dienste oder Komponenten enthalten - sie bilden aber trotzdem ein Ganzes.<a>[[NAMI14]](#ref_Nami14)</a>
+Jedes einzelnes Microservice kann in komplett anderer Programmiersprache geschrieben sein. Im Gegensatz dazu kann eine monolithische Architektur zwar mehrere Dienste oder Komponenten enthalten - sie bilden aber trotzdem ein Ganzes und haben eine Programmiersprache.<a>[[NAMI14]](#ref_Nami14)</a>
 
 ### Vorteile
 
-- übersichtlicher Code, weil je Dienst, deswegen einfacher neuer Entwickler reinzubringen
-- Modifizierbarkeit, muss nicht die gesamte Architektur verändert werden
-- Macht kontinuierliche Entwicklung einfacher
-<a>[[LEWI14]](#ref_Lewi14)</a>
-
-- Erhöhte Einsatzfähigkeit
-- Unabhängigkeit in der Entwicklung pro Dienst
-- Kürzere Entwicklungszeiten
-- Resistenz
-- Erleichterte Umsetzung innovativer Lösungen
-<a>[[NAMI14]](#ref_Nami14)</a>
+Der offensichtlichste Vorteil welchen Microservices mit sich bringen ist eine bessere Übersicht von Quellcode. Jeder Service ist sauber logisch und technisch von anderen getrennt, was es viel einfacher macht neue Entwickler reinzubringen. Soll ein Microservice modifiziert werden, muss nicht die gesamte Architektur deswegen verändert werden, da es keine Abhängigkeiten zu anderen Microservices gibt. Dies favorisiert eine kontinuierliche Entwicklung, weil von vorne rein keine Verworrenheit im Quellcode entsteht. Daraus resultiert eine erhöhte Einsatzfähigkeit, kürzere Entwicklungszeiten und bessere Umsetzung von innovativen Lösungen. Microservices haben eine höhere Resistenz gegenüber Fehlern, da aufgrund ihrer Größe der Code übersichtlicher ist und die Kommunikation mit anderen Microservices über klar definierte Schnittstellen erfolgt. Daraus resultiert ein weiterer Vorteil: Unabhängigkeit in der Entwicklung. Jeder Dienst wird autonom von einem Team entwickelt. Laut Amazon sollte ein Teams maximal so groß sein, dass es von zwei Pizza satt wird, also nicht mehr als ein Dutzend Entwickler. 
 
 - Besser testbarkeit - kleine Services sind einfacher zu testen
 - bessere Einsatzfähigkeit - Services sind unabhängiger
-- "Zwei Pizzen" Teams - mehrere autonome Gruppen pro Service
 - Service ist relativ klein gehalten wegen Einfachheit, schnellerer Entwicklung und größerer Produktivität
 - Bessere Fehlereingrenzung
 - Unabhängigkeit und Stabilität - andere Services arbeiten weiter
 -  Technologie-unabhängig, Vorteile von neuen Technologien und Sprachen, hohe Modifizierbarkeit
-<a>[[RICH17]](#ref_Rich17)</a>
+<a>[[LEWI14]](#ref_Lewi14)</a>, <a>[[NAMI14]](#ref_Nami14)</a>, <a>[[RICH17]](#ref_Rich17)</a>
 
 http://microservices.io/patterns/microservices.html
 
@@ -193,7 +186,7 @@ Die folgende Abbildung zeigt die Unterschiede zwischen der üblichen Architektur
 
 _Serverless_, Abbildung angepasst aus <a>[[ROBE18]](#ref_Robe18)</a>
 
-Vereinfacht ausgedrückt - FaaS ist eine Ausführung von Backend-Quellcode ohne dabei einen eigenen Server oder dauerhaft arbeitende Serverprogramme laufen zu haben. FaaS ist darauf ausgelegt innerhalb kürzester Zeit (Millisekunden) benötigte Anwendungen je nach Anfrage zu starten und zu beenden. Die Vorteile sind eine Vereinfachung der Architektur durch den Wegfall einer Schicht und Übergabe der serverseitigen Logik an die Cloud-Services. Die Einsparung von Entwicklungs-, Installations- und Instandhaltungsaufwänden zählt ebenfalls zu den Vorteilen gegenüber der üblichen Drei-Schichten-Architektur. <a>[[ROBE18]](#ref_Robe18)</a>
+Vereinfacht ausgedrückt - FaaS ist eine Ausführung von Backend-Quellcode ohne dabei einen eigenen Server oder dauerhaft arbeitende Serverprogramme laufen zu haben. FaaS ist darauf ausgelegt innerhalb kürzester Zeit (Millisekunden) je nach Anfrage benötigte Anwendungen zu starten und zu beenden. Die Vorteile sind eine Vereinfachung der Architektur durch den Wegfall einer Schicht und Übergabe der serverseitigen Logik an die Cloud-Services. Die Einsparung von Entwicklungs-, Installations- und Instandhaltungsaufwänden zählt ebenfalls zu den Vorteilen gegenüber der üblichen Drei-Schichten-Architektur. <a>[[ROBE18]](#ref_Robe18)</a>
 
 ## Microservice as frontends
 
@@ -213,7 +206,6 @@ Wie aufteilen?
 - Aufteilung nach Nomen oder Ressourcen, wenn Service für Operationen an Ressourcen zuständig ist
 - Ein Service sollte ein Set an Verantwortlichkeiten haben, Single Responsibility Principle
 - Eine Aufgabe pro Service
-<a>[[RICH17]](#ref_Rich17)</a>
 
 - Netflix, Amazon, EBay evolutionierten von Monolith bis Microservices Architektur 
 - Netflix 30% des Internetverkehr, 1 Milliarde Aufrufe, 800 verschiedenen Geräten
