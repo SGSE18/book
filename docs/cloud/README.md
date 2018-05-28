@@ -19,7 +19,7 @@ Die Bedeutung von "Cloud Computing" wie sie heute existiert und was damit verbun
 Populär wurde der Begriff "Cloud Computing", als Amazon 2006 ihre Elastic Compute Cloud (EC2) auf den Markt brachte. In den anschließenden Jahren brachten auch Unternehmen wie Google, Microsoft, IBM und auch Oracle vergleichbare Produkte auf den Markt, um den neu erzeugten Bedarf nach externer und mietbarer Rechenleistung zu bedienen. [[FOOT17]](#ref_foot17)
 
 
-## Architektur (?)
+## ?? Architektur
 
 
 ### Charakteristika
@@ -40,7 +40,7 @@ NIST Charakteristika:
 #### Function as a Service (FaaS)
 
 
-### Cloud-Formen (?)
+### ?? Cloud-Formen
 
 #### Public
 
@@ -55,7 +55,7 @@ NIST Charakteristika:
 
 ### Edge Computing
 
-Mit dem Begriff "Edge Computing" wird der Ansatz beschrieben, mit dem die Intelligenz eines Systems zur Quelle von Daten verschoben wird. Gemeint ist, dass Rechenleistung und Speicher an die "Edge", also die Kante, eines Netzwerkes gebracht werden, um vor Ort die dort entstehenden Daten zu verarbeiten. Der Wandel, der durch Edge Computing vollzogen wird, ist in mehreren Bereichen sehr vielversprechend und bringt einige Vorteile mit sich.
+Mit dem Begriff "Edge Computing" wird der Ansatz beschrieben, mit dem die Intelligenz eines Netzwerkes zur Datenquelle verschoben wird. Gemeint ist, dass Rechenleistung und Speicher an die "Edge", also die Kante, eines Netzwerkes gebracht werden, um vor Ort die dort entstehenden Daten zu verarbeiten. Der Wandel, der durch Edge Computing vollzogen wird, ist in mehreren Bereichen sehr vielversprechend und bringt einige Vorteile mit sich.
 
 Zum einen senkt es die Latenz, die eine Anwendung oder ein Gerät für eine Entscheidungsfindung oder ein Ergebnis braucht. Eine Anfrage quer über den Globus zu schicken, wo eventuell weitere Anfragen entstehen, ehe eine Antwort zurück kommt, dauert deutlich länger als auf alle benötigten Mittel vor Ort zugreifen zu können. Laut Matthew Lynley von "techcrunch.com" [[LYNL18]](#ref_lynl18) entwickelt Amazon möglicherweise Chips für Amazon Echo, um genau diesem Latenz-Problem entgegen zu wirken. Diese Chips sollen die Informationen und Anfragen, die in die Cloud geschickt werden müssen, senken, um so die Antwortzeit drastisch zu reduzieren.
 
@@ -70,6 +70,8 @@ Getrieben wird der Wandel zum Edge Computing vor allem in der Industrie. Mit der
 Die Zentralisierung, auf der Cloud Computing aufbaut, wird durch Edge Computing etwas aufgelockert. Das heißt nicht, dass erstes überflüssig wird, sondern vielmehr, dass Aufgaben an den Rand des Netzwerkes abgeben werden. Je nach Anwendungszenario ist diese Verschiebung stärken oder schwächer ausgeprägt, allerdings ist das Zusammenspiel unabdingbar.
 
 [[GEDI18]](#ref_gedi18) [[MILL18]](#ref_mill18) [[FELD17]](#ref_feld17)
+
+- Technologien, die Edge Computing ermöglichen
 
 ### Fog Computing
 
@@ -89,7 +91,7 @@ Die Zentralisierung, auf der Cloud Computing aufbaut, wird durch Edge Computing 
 - Container deployment
 - Eventverarbeitung
 - Generelle Erläuterung und kleinere Anleitungen
-
+- AWS API gateway (Skalierbare APIs) ?
 
 ### Einführung & Grundlagen
 
@@ -111,7 +113,7 @@ Die Zentralisierung, auf der Cloud Computing aufbaut, wird durch Edge Computing 
 
 ## Zusammenfassung
 
-### Aktuelle Trends (?)
+### ?? Aktuelle Trends
 
 - Hier evtl. Ausblicke auf derzeitige Trends der verbreitesten Cloud Anbieter
 
