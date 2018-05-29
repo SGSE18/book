@@ -78,6 +78,8 @@ Wenn es um Microservices geht müssen die Remote Calls näher betrachtet werden.
 
 ### Kommunikation mit Microservice
 
+__TODO: 3D CUBE__
+
 Einige häufig anzutreffende Entwürfen von Remote Calls sind Direct Call, Gateway und Message Bus.
 
 __Direct Call__
@@ -124,7 +126,8 @@ Jedes einzelnes Microservice kann in komplett anderer Programmiersprache geschri
 
 ### Vorteile
 
-Der offensichtlichste Vorteil welchen Microservices mit sich bringen ist eine bessere Übersicht von Quellcode. Jeder Service ist sauber logisch und technisch von anderen getrennt, was es viel einfacher macht neue Entwickler reinzubringen. Soll ein Microservice modifiziert werden, muss nicht die gesamte Architektur deswegen verändert werden, da es keine Abhängigkeiten zu anderen Microservices gibt. Dies favorisiert eine kontinuierliche Entwicklung, weil von vorne rein keine Verworrenheit im Quellcode entsteht. Daraus resultiert eine erhöhte Einsatzfähigkeit, kürzere Entwicklungszeiten und bessere Umsetzung von innovativen Lösungen. Microservices haben eine höhere Resistenz gegenüber Fehlern, da aufgrund ihrer Größe der Code übersichtlicher ist und die Kommunikation mit anderen Microservices über klar definierte Schnittstellen erfolgt. Daraus resultiert ein weiterer Vorteil: Unabhängigkeit in der Entwicklung. Jeder Dienst wird autonom von einem Team entwickelt. Laut Amazon sollte ein Teams maximal so groß sein, dass es von zwei Pizza satt wird, also nicht mehr als ein Dutzend Entwickler. 
+Der offensichtlichste Vorteil welchen Microservices mit sich bringen ist eine bessere Übersicht von Quellcode. Jeder Service ist sauber logisch und technisch von anderen getrennt, was es viel einfacher macht neue Entwickler reinzubringen. Soll ein Microservice modifiziert werden, muss nicht die gesamte Architektur deswegen verändert werden, da es keine Abhängigkeiten zu anderen Microservices gibt. Dies favorisiert eine kontinuierliche Entwicklung, weil von vorne rein keine Verworrenheit im Quellcode entsteht. Daraus resultiert eine erhöhte Einsatzfähigkeit, kürzere Entwicklungszeiten und bessere Umsetzung von innovativen Lösungen. Microservices haben eine höhere Resistenz gegenüber Fehlern, da aufgrund ihrer Größe der Code übersichtlicher ist und die Kommunikation mit anderen Microservices über klar definierte Schnittstellen erfolgt. Daraus resultiert ein weiterer Vorteil: Unabhängigkeit in der Entwicklung. Jeder Dienst wird autonom von einem Team entwickelt. Laut Amazon sollte ein Teams maximal so groß sein, dass es von zwei Pizzen satt wird, also nicht mehr als ein Dutzend Entwickler. Es gibt ebenfalls eine Regel der halben Pizza, wovon ein zwei Mann Team satt wird. Die optimale Größe von Microservice Entwicklerteams variiert also von 2 bis 12 Leuten.  
+Für Microservices können aufgrund ihrer Granularität und Isoliertheit einfacher Tests geschrieben werden. Das sorgt für bessere Einsatzfähigkeit.
 
 - Besser testbarkeit - kleine Services sind einfacher zu testen
 - bessere Einsatzfähigkeit - Services sind unabhängiger
@@ -158,6 +161,8 @@ http://microservices.io/patterns/microservices.html
 - Größerer Speicherbedarf
 -
 <a>[[RICH17]](#ref_Rich17)</a>
+
+__TODO: Tabelle mit Vorteilen und Nachteilen!!!__
 
 http://microservices.io/patterns/microservices.html
 
