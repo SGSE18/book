@@ -120,24 +120,16 @@ Eine schematischer Aufteilung einer monolithischen Anwendung in Microservices ka
 
 _Microservices vs Monolith_, Eigene Darstellung
 
-Jedes einzelnes Microservice kann in komplett anderer Programmiersprache geschrieben sein. Im Gegensatz dazu kann eine monolithische Architektur zwar mehrere Dienste oder Komponenten enthalten - sie bilden aber trotzdem ein Ganzes und haben eine Programmiersprache.<a>[[NAMI14]](#ref_Nami14)</a>
+TODO: 3D CUBE
 
 ### Vorteile
 
-Der offensichtlichste Vorteil welchen Microservices mit sich bringen ist eine bessere Übersicht von Quellcode. Jeder Service ist sauber logisch und technisch von anderen getrennt, was es viel einfacher macht neue Entwickler reinzubringen. Soll ein Microservice modifiziert werden, muss nicht die gesamte Architektur deswegen verändert werden, da es keine Abhängigkeiten zu anderen Microservices gibt. Dies favorisiert eine kontinuierliche Entwicklung, weil von vorne rein keine Verworrenheit im Quellcode entsteht. Daraus resultiert eine erhöhte Einsatzfähigkeit, kürzere Entwicklungszeiten und bessere Umsetzung von innovativen Lösungen. Microservices haben eine höhere Resistenz gegenüber Fehlern, da aufgrund ihrer Größe der Code übersichtlicher ist und die Kommunikation mit anderen Microservices über klar definierte Schnittstellen erfolgt. Daraus resultiert ein weiterer Vorteil: Unabhängigkeit in der Entwicklung. Jeder Dienst wird autonom von einem Team entwickelt. Laut Amazon sollte ein Teams maximal so groß sein, dass es von zwei Pizza satt wird, also nicht mehr als ein Dutzend Entwickler. 
-
-- Besser testbarkeit - kleine Services sind einfacher zu testen
-- bessere Einsatzfähigkeit - Services sind unabhängiger
-- Service ist relativ klein gehalten wegen Einfachheit, schnellerer Entwicklung und größerer Produktivität
-- Bessere Fehlereingrenzung
-- Unabhängigkeit und Stabilität - andere Services arbeiten weiter
--  Technologie-unabhängig, Vorteile von neuen Technologien und Sprachen, hohe Modifizierbarkeit
-<a>[[LEWI14]](#ref_Lewi14)</a>, <a>[[NAMI14]](#ref_Nami14)</a>, <a>[[RICH17]](#ref_Rich17)</a>
-
-http://microservices.io/patterns/microservices.html
+Der offensichtlichste Vorteil welchen Microservices mit sich bringen ist eine bessere Übersicht von Quellcode. Jeder Service ist sauber logisch und technisch von anderen getrennt, was es viel einfacher macht neue Entwickler reinzubringen. Soll ein Microservice modifiziert werden, muss nicht die gesamte Architektur deswegen verändert werden, da es keine Abhängigkeiten zu anderen Microservices gibt. Dies favorisiert eine kontinuierliche Entwicklung, weil von vorne rein viel weniger Raum für Querabhängigkeiten im Quellcode entsteht. Daraus resultiert eine erhöhte Einsatzfähigkeit, kürzere Entwicklungszeiten und bessere Umsetzung von innovativen Lösungen - Continuous Integration und Continuous Delivery. Microservices haben eine höhere Resistenz gegenüber Fehlern, da aufgrund ihrer Größe der Code übersichtlicher ist und die Kommunikation mit anderen Microservices über klar definierte Schnittstellen erfolgt. Daraus resultiert ein weiterer Vorteil: Unabhängigkeit in der Entwicklung. Jeder Dienst wird autonom von einem Team entwickelt. Laut Amazon sollte ein Teams maximal so groß sein, dass es von zwei Pizza satt wird, also nicht mehr als ein Dutzend Entwickler.  
+Microservices vereinfach das schreiben von Tests aufgrund ihrer Granularität und Unabhängigkeit, was auch zur besseren Fehlereingrenzung führt. Jedes einzelnes Microservice kann in komplett anderer Programmiersprache geschrieben sein und sich technologisch komplett unterscheiden. So kann ein Service flexibel auf die kommenden Forderungen reagieren und sich mit der zeit anpassen, was es zu einem langlebigen Programm macht. Im Gegensatz dazu kann eine monolithische Architektur zwar mehrere Dienste oder Komponenten enthalten - sie bilden aber trotzdem ein Ganzes und haben eine Programmiersprache. Bei einem Ausfall, können andere Microservices weiterarbeiten und ihren Beitrag zur Funktionalität der Applikation leisten. <a>[[LEWI14]](#ref_Lewi14)</a>, <a>[[NAMI14]](#ref_Nami14)</a>, <a>[[RICH17]](#ref_Rich17)</a>
 
 ### Nachteile
 
+Zu den Nachteilen zählt unteranderem die schiere Menge an Remote Calls zwischen den Microservices und der Applikation.
 - Viele Remote Calls
 - Bis zu einer bestimmten Größe, schwieriger zu entwickeln, da Partitionierung
 - Schwerer aufzusetzen als eine monolithische Struktur (größter Nachteil)
@@ -156,10 +148,10 @@ http://microservices.io/patterns/microservices.html
 - Die Kommmunikation zwischen den Services muss gerwährleistet sein
 - UseCases können über mehrere Services gehen
 - Größerer Speicherbedarf
--
+- Am Anfang nicht lohnenswert, da der vorteil nciht offensichtlich ist
 <a>[[RICH17]](#ref_Rich17)</a>
 
-http://microservices.io/patterns/microservices.html
+TODO: Tabelle mit Vorteilen und Nachteilen!!!
 
 ## Humane Registries
 
