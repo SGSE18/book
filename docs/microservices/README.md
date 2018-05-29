@@ -49,7 +49,7 @@ Einen weiterer Ansatz der dezentralisierten Führung bringt die Amazon Herangehe
 
 Die Dezentralisierung bei Microservices betrifft auch die Datenbanken. Es wird bevorzugt pro Service eine Datenbank zu haben, seien es nur unterschiedliche Datenbank-Instanzen oder komplett unterschiedliche Datenbanktechnologien. <a>[[LEWI14]](#ref_Lewi14)</a>
 
-Die nächste Abbildung vergleicht ein monolithisches System mit Webservices in Bezug auf die Datenbanken.
+Die nächste Abbildung vergleicht ein monolithisches System mit Microservices in Bezug auf die Datenbanken.
 
 ![Dezentralisierte Datenbanken](./images/decentralised_data.png)
 
@@ -82,7 +82,7 @@ Einige häufig anzutreffende Entwürfen von Remote Calls sind Direct Call, Gatew
 
 __Direct Call__
 
-Der erste Kommunikationsentwurf ist ein Direct Call. Wie die Bezeichnung impliziert, werden Webservices direkt von der Applikation aufgerufen. Obwohl sehr flexibel kann es zu potentiellen Verzögerungen kommen wenn die Anzahl der Remote Calls zu groß wird. 
+Der erste Kommunikationsentwurf ist ein Direct Call. Wie die Bezeichnung impliziert, werden Microservices direkt von der Applikation aufgerufen. Obwohl sehr flexibel kann es zu potentiellen Verzögerungen kommen wenn die Anzahl der Remote Calls zu groß wird. 
 
 ![Direct Call](./images/direct_call_pattern.png)
 
@@ -114,62 +114,68 @@ Monolithischen Anwendungen werden als ein Ganzes entwickelt. Die sogenannte Drei
 Eine serverseitige Applikation ist ein solches Monolith, weil sie für HTTP-Anfragen zuständig ist, Zugriffe auf die Datenbank steuert und mit dem Browser interagiert. Eine Änderung im System führt zu einer neuen Version der ganzen Software. Die ganze Logik konzentriert sich in einer ausführbaren Datei. Es ist ein natürlich Weg zu entwickeln. Optimierung kan mithilfe eines Load Balancer erfolgen, damit mehrere Instanzen der Applikation nebenbei laufen können.
 Allerdings kann schwierig werden eine solche Anwendung auf Dauer zu entwickeln. Es erfordert viel Aufwand ständige Änderungen und Korrekturen zu implementieren, denn bei einem Monolith muss jedes Mal das ganze System neu erstellt werden. Desweiteren ist es aufwändig die Modularität der Software aufrecht zu erhalten, ohne das intern ungewollte Abhängigkeiten zwischen den Modulen entstehen. Auch eine Skalierung des ganzen Systems erfordert viel mehr Ressourcen, als eines einzelnen Moduls. <a>[[LEWI14]](#ref_Lewi14)</a>
 
-Eine schematischer Aufteilung einer monolithischen Anwendung in Microservices kann in der nächsten Abbildung betrachtet werden. Die Module werden zu eigenständigen Webservices, die untereinander kommunizieren.
+Eine schematischer Aufteilung einer monolithischen Anwendung in Microservices kann in der nächsten Abbildung betrachtet werden. Die Module werden zu eigenständigen Microservices, die untereinander über Schnittstellen kommunizieren.
 
 ![Microservices vs Monolith](./images/microservices_vs_monolith.png)
 
 _Microservices vs Monolith_, Eigene Darstellung
 
-TODO: 3D CUBE
+![Scale cube](./images/scale_cube.png)
+
+_Scale cube_, Abbildung angepasst aus <a>[[NAMI14]](#ref_Nami14)</a>
 
 ### Vorteile
 
-Der offensichtlichste Vorteil welchen Microservices mit sich bringen ist eine bessere Übersicht von Quellcode. Jeder Service ist sauber logisch und technisch von anderen getrennt, was es viel einfacher macht neue Entwickler reinzubringen. Soll ein Microservice modifiziert werden, muss nicht die gesamte Architektur deswegen verändert werden, da es keine Abhängigkeiten zu anderen Microservices gibt. Dies favorisiert eine kontinuierliche Entwicklung, weil von vorne rein viel weniger Raum für Querabhängigkeiten im Quellcode entsteht. Daraus resultiert eine erhöhte Einsatzfähigkeit, kürzere Entwicklungszeiten und bessere Umsetzung von innovativen Lösungen - Continuous Integration und Continuous Delivery. Microservices haben eine höhere Resistenz gegenüber Fehlern, da aufgrund ihrer Größe der Code übersichtlicher ist und die Kommunikation mit anderen Microservices über klar definierte Schnittstellen erfolgt. Daraus resultiert ein weiterer Vorteil: Unabhängigkeit in der Entwicklung. Jeder Dienst wird autonom von einem Team entwickelt. Laut Amazon sollte ein Teams maximal so groß sein, dass es von zwei Pizza satt wird, also nicht mehr als ein Dutzend Entwickler.  
-Microservices vereinfach das schreiben von Tests aufgrund ihrer Granularität und Unabhängigkeit, was auch zur besseren Fehlereingrenzung führt. Jedes einzelnes Microservice kann in komplett anderer Programmiersprache geschrieben sein und sich technologisch komplett unterscheiden. So kann ein Service flexibel auf die kommenden Forderungen reagieren und sich mit der zeit anpassen, was es zu einem langlebigen Programm macht. Im Gegensatz dazu kann eine monolithische Architektur zwar mehrere Dienste oder Komponenten enthalten - sie bilden aber trotzdem ein Ganzes und haben eine Programmiersprache. Bei einem Ausfall, können andere Microservices weiterarbeiten und ihren Beitrag zur Funktionalität der Applikation leisten. <a>[[LEWI14]](#ref_Lewi14)</a>, <a>[[NAMI14]](#ref_Nami14)</a>, <a>[[RICH17]](#ref_Rich17)</a>
+Der offensichtlichste Vorteil welchen Microservices mit sich bringen ist eine bessere Übersicht von Quellcode. Jeder Service ist sauber logisch und technisch von anderen getrennt, was es viel einfacher macht neue Entwickler reinzubringen. Wenn ein Microservice modifiziert werden soll, muss nicht die gesamte Architektur deswegen verändert werden, weil es keine Abhängigkeiten zu anderen Microservices gibt. Dies favorisiert eine kontinuierliche Entwicklung, weil von vorne rein viel weniger Raum für Querabhängigkeiten im Quellcode entsteht. Daraus resultiert eine erhöhte Einsatzfähigkeit, kürzere Entwicklungszeiten und bessere Umsetzung von innovativen Lösungen - Continuous Integration und Continuous Delivery. Microservices haben eine höhere Resistenz gegenüber Fehlern, da aufgrund ihrer Größe der Quellcode übersichtlicher ist und die Kommunikation mit anderen Microservices über klar definierte Schnittstellen erfolgt. Daraus resultiert ein weiterer Vorteil: Unabhängigkeit in der Entwicklung. Jeder Dienst wird autonom von einem Team entwickelt. Laut Amazon sollte ein Teams maximal so groß sein, dass es von zwei Pizza satt wird, also nicht mehr als ein Dutzend Entwickler.Es gibt ebenfalls eine Regel der halben Pizza, wovon ein zwei Mann Team satt wird. Die optimale Größe von Microservice Entwicklerteams variiert also zwischen zwei bis zwölf Mitgliedern.   
+Microservices vereinfach das schreiben von Tests aufgrund ihrer Granularität und Unabhängigkeit, was auch zur besseren Fehlereingrenzung führt. Jedes einzelnes Microservice kann in komplett anderer Programmiersprache geschrieben sein und sich technologisch komplett unterscheiden. So kann ein Service flexibel auf die kommenden Forderungen reagieren und sich mit der zeit anpassen, was zu einem langlebigen Programm führt. Allerdings hat es sich herausgestellt, dass Microservices eher verworfen und neu realisiert werden, anstatt sich auf lange Sicht darum zu kümmern. Im Gegensatz dazu kann eine monolithische Architektur zwar mehrere Dienste oder Komponenten enthalten - sie bilden aber trotzdem ein Ganzes und haben eine Programmiersprache. Bei einem Ausfall, können andere Microservices weiterarbeiten und ihren Beitrag zur Funktionalität der Applikation leisten. <a>[[LEWI14]](#ref_Lewi14)</a>, <a>[[NAMI14]](#ref_Nami14)</a>, <a>[[RICH17]](#ref_Rich17)</a>
 
 ### Nachteile
 
-Zu den Nachteilen zählt unteranderem die schiere Menge an Remote Calls zwischen den Microservices und der Applikation.
-- Viele Remote Calls
-- Bis zu einer bestimmten Größe, schwieriger zu entwickeln, da Partitionierung
-- Schwerer aufzusetzen als eine monolithische Struktur (größter Nachteil)
-- Mehrere Kopien gleichzeitig laufen zu lassen nicht möglich, Load Balancer
-- Zusätzliche Komplexität, weil ein System in unterschiedliche Dienste partitioniert werden soll
-- Größerer Speicherbedarf, weil jeder Dienst eigenen Platz beansprucht
-- Testen ist komplizierter, da die Dienste verteilt sind
-<a>[[NAMI14]](#ref_Nami14)</a>
+Die Kommunikation zwischen den Microservices und der Applikation geschieht nur über die Schnittstellen, was zu einer großen Menge an Remote Calls führt. Sie verbrauchen mehr Ressourcen als In-Prozess Calls einer monolithischen Struktur. Ein großer Nachteil ist, dass Microservices zuerst partitioniert werden müssen. Am Anfang eines Systems ist nicht unbedingt offensichtlich wie es in Zukunft aussehen wird und der Aufwand einer Microservice-Architektur ist kann zu immens erscheinen. Jedes Service braucht einen klar definierten Anwendungsfall und muss frei von unnützen Funktionalitäten sein. Das kann wie im Falle von Amazon zu hunderten Microservices führen und dementsprechend zu hunderten Teams. Kommunikation zwischen diesen Entwicklerteams ist von entscheidender Bedeutung, denn Anwendungsfälle können sich über mehrere Services spannen. Monolithische Systeme können ebenfalls in einzelne Dienste aufgebrochen werden. Je größer eine Applikation ist, desto komplizierter ist die Umstrukturierung, denn zuerst müssen alle internen Abhängigkeiten aufgelöst werden. Microservices beanspruchen mehr Ressourcen, weil die Menge an monolithische Instanzen N ersetzt wird durch die Menge an Microservice-Instanzen N x M. Beim Einsatz von JVM oder deren Äquivalenten, um die einzelnen Microservices zu isolieren, steigt der Overhead ins M-fache der eingesetzten JVM-Runtimes.   
+Obwohl die kompakte Größe das schreiben von Testfällen erleichtert, wird durch die Komplexität der gesamten Architektur das Testen insofern schwieriger, dass die Zusammenarbeit mit anderen verteilten Diensten überprüft werden muss.
 
-- Remote Calls verbrauchen mehr Ressourcen als In-Prozess Calls
+- Datenkonsistenz
 - Prozessgrenzen machen Verteilung der Kompetenzen schwieriger
-<a>[[LEWI14]](#ref_Lewi14)</a>
+
 
 - mehr Komplexität da verteilte Systeme, managen und einsetzen
-- Testen wird aufwendiger
+- Testen wird aufwendiger wegen Komplexität
 - Die Kommmunikation zwischen den Services muss gerwährleistet sein
 - UseCases können über mehrere Services gehen
-- Größerer Speicherbedarf
-- Am Anfang nicht lohnenswert, da der vorteil nciht offensichtlich ist
-<a>[[RICH17]](#ref_Rich17)</a>
+<a>[[LEWI14]](#ref_Lewi14)</a>, <a>[[NAMI14]](#ref_Nami14)</a>, <a>[[RICH17]](#ref_Rich17)</a>
 
-TODO: Tabelle mit Vorteilen und Nachteilen!!!
+Die nächststehende Tabelle führt die Vor- und Nachteile kurz nochmal zusammen.
+
+| __Vorteile__                    | __Nachteile__                 |
+|---------------------------------|-------------------------------|
+| Kompakter Quellcode             | Größerer Ressourcenbedarf     |
+| Leichterer Einstieg ins Team    | Use Cases nicht eindeutig     |
+| Erhöhte Einsatzfähigkeit        | Kompliziert zu entwerfen      |
+| Kürzere Entwicklungszeiten      | Überhang an Services möglich  |
+| Autonome Services               | Tests werden komplexer        |
+| Kleine dedizierte Teams         | Abhängig von Schnittstellen   |
+| Resistent gegen Ausfall         | Datenkonsistenz schwierig zu bewahren |
+| Business Case abhängig          | -                             |
+| Technologie unabhängig          | -                             |
+| -                               | -                             |
 
 ## Humane Registries
 
-Humane Registry ist eine automatisierte Dokumentation für Webservices, designt um Informationen automatisch in menschlich lesbaren Form zu schreiben und zu aktualisieren. Die wichtigesten Merkmale so einer Dokumentation sind:
+Humane Registry ist eine automatisierte Dokumentation für Microservices, designt um Informationen automatisch in menschlich lesbaren Form zu schreiben und zu aktualisieren. Die wichtigesten Merkmale so einer Dokumentation sind:
 - _Verständlichkeit_: der Format sollte für alle lesbar und verständlich sein
 - _Automation_: Entwickler haben selten Zeit eine Dokumentation zu pflegen
 - _Einfachheit_: eine Erweiterung der Informationen sollte unkompliziert sein
 
-Solch ein Dokumentationswerkzeug durchsucht den Quellcode des Systems und stellt detaillierte Informationen darüber bereit, welcher entwickler wann und wieviel zum Webservice beigetragen hat. So können Mitarbeiter sehen an wem sie sich in bestimmten Fällen wenden können. Mithilfe von Daten aus verschiedensten Systemen, wie Continuous-Integration-Servern, von Versionsverwaltungsprogrammen und Issue-Tracking-Systemen, wird eine übergreifende Dokumentation erschaffen. <a>[[FOWL08]](#ref_Fowl08)</a>
+Solch ein Dokumentationswerkzeug durchsucht den Quellcode des Systems und stellt detaillierte Informationen darüber bereit, welcher entwickler wann und wieviel zum Microservices beigetragen hat. So können Mitarbeiter sehen an wem sie sich in bestimmten Fällen wenden können. Mithilfe von Daten aus verschiedensten Systemen, wie Continuous-Integration-Servern, von Versionsverwaltungsprogrammen und Issue-Tracking-Systemen, wird eine übergreifende Dokumentation erschaffen. <a>[[FOWL08]](#ref_Fowl08)</a>
 
-## Abgrenzung zu Self-Contained Systems
+## Abgrenzung zu Self-Contained Systems und Containern
 
 http://scs-architecture.org/vs-ms.html
 
 ## Serverless
 
 Serverless steht für Serverless computing und wird in zwei Bereichen eingesetzt:
-1. Es wird komplett auf die serverseitige Logik verzichtet und stattdessen werden Cloud-Services von Drittanbietern integriert. Übliche Anwender sind sogenannte "Rich Clients" - Single-Page-Webanwendungen und mobile Apps. Zu solchen Cloud-Services zählen Datenbanken, Authentifizierungsmechanismen und so weiter. Weshalb dieser Typ von Webservices auch "Backend as a Service" genannt wird.
+1. Es wird komplett auf die serverseitige Logik verzichtet und stattdessen werden Cloud-Services von Drittanbietern integriert. Übliche Anwender sind sogenannte "Rich Clients" - Single-Page-Webanwendungen und mobile Apps. Zu solchen Cloud-Services zählen Datenbanken, Authentifizierungsmechanismen und so weiter. Weshalb dieser Typ von Microservices auch "Backend as a Service" genannt wird.
 2. Ein anderer Bereich von Serverless ist "Function as a Service" (FaaS). In diesem Szenario wird serverseitige Logik immer noch vom Entwickler geschrieben, jedoch verpackt in Container und von einer Cloud gemanagt. Diese Container sind zustandslos, ereignisgesteuert und kurzlebig. Der bekannteste Beispiel ist AWS Lambda von Amazon.
 
 Die folgende Abbildung zeigt die Unterschiede zwischen der üblichen Architektur und Serverless. Die Authentifizierung erfolgt über den Cloud-Service. Der Client hat Zugriff auf die Produkt-Datenbank, welche von Drittanbietern gehostet wird. Ein Teil der früheren Serverlogik der alten Architektur kann in den Client implementiert werden, siehe Single-Page-Webanwendung. Mit HTTP-Anfragen kann über die API eine Suche in der Datenbank getriggert werden - es ist nicht nötig, dass ständig ein Server am laufen sein muss. Es ist möglich Teile von eigenem Quellcode in Plattformen wie AWS Lambda zu verwenden, falls die Programmiersprache unterstützt wird. Die Funktionalität "Kaufen" kann ebenfalls durch "Function as a Service" ersetzt werden. Zum einen, um den Client leichtgewichtiger zu halten, zum anderen aus Sicherheit. <a>[[ROBE18]](#ref_Robe18)</a>
