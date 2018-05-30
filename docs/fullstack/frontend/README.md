@@ -699,7 +699,7 @@ const MyContext = React.createContext(defaultValue);
 ```
 
 ##### MobX 
-Eine weitere Möglichkeit des State Managements bietet die JavaScript Bibliothek *MobX*. Sie basiert auf auf Observer und Observables, die auch aus dem Observer Pattern bekannt sind.
+Eine weitere Möglichkeit des State Managements bietet die JavaScript Bibliothek *MobX*. Sie basiert auf Observer und Observables, die auch aus dem Observer Pattern bekannt sind.
 
 Das Verwenden dieser Bibliothek gestaltet sich ebenfalls recht einfach [[MOBX18]](#ref_mobx18):
 
