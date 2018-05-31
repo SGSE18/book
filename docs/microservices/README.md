@@ -182,19 +182,25 @@ _Serverless_, Abbildung angepasst aus <a>[[ROBE18]](#ref_Robe18)</a>
 
 Vereinfacht ausgedrückt - FaaS ist eine Ausführung von Backend-Quellcode ohne dabei einen eigenen Server oder dauerhaft arbeitende Serverprogramme laufen zu haben. FaaS ist darauf ausgelegt innerhalb kürzester Zeit (Millisekunden) je nach Anfrage benötigte Anwendungen zu starten und zu beenden. Die Vorteile sind eine Vereinfachung der Architektur durch den Wegfall einer Schicht und Übergabe der serverseitigen Logik an die Cloud-Services. Die Einsparung von Entwicklungs-, Installations- und Instandhaltungsaufwänden zählt ebenfalls zu den Vorteilen gegenüber der üblichen Drei-Schichten-Architektur. <a>[[ROBE18]](#ref_Robe18)</a>
 
-## Microservice as frontends
+## Microservices als Front-Ends
 
-- für webapps front-end immer bedeutender und back-end umgekehrt
-- monolithische Architektur unpraktisch für Webapps
-```
-myapp.com/ - landing page built with static HTML.
-myapp.com/settings - old settings module built in AngularJS 1.x.
-myapp.com/dashboard - new dashboard module built in React.
-```
-- shared codebase, Kollektion an unabhängigen Modulen, Verknüpfung von Modulen
-- Micro frontends
+Für Webanwendungen gewinnt Front-End immer mehr an Bedeutung, während Back-End weniger wichtig wird. Der Trend geht in Richtung einer 90/10 Aufteilung zu Gunsten von Front-End. Der monolithische Design ist für Front-End zu schwerfällig, eine Aufteilung in kleinere Module ist nötig. Eine mögliche Partitionierung könnte wie folgt aussehen:   
+```myapp.com/``` - Startseite mit statischem HTML-Code.  
+```myapp.com/settings``` - veraltetes Modul für Einstellungen in AngularJS 1.x.  
+```myapp.com/dashboard``` - neues Dashboard-Modul erstellt mit React.
+Für dieses Beispiel wären zum Beispiel nötig:
+1. _Gemeinsame Codebasis_: auf JavaScript Basis zum Session-Management und Routing; gemeinsame CSS-Dateien.
+2. _Kollektion von verteilten Modulen_: Mini-Applikationen implementiert in verschiedenen Frameworks und in unterschiedlichen Repositories gespeichert.
+3. _Entwicklungssystem_: um alle Module zu verknüpfen und auf einen Server aufzusetzen, wenn ein Modul aktualisiert wird.
 
-<a>[[SÖDE17]](#ref_Söde17)</a>
+Der aktuelle Trend heißt "Micro frontends" und Unternehmen, wie Spotify und Zalando sind schon umgestiegen. Einige der Umsetzungsmöglichkeiten:
+1. Eine Kombination aus mehreren Frameworks auf einer Webseite ohne das die Webseite aktuallisiert werden muss.
+2. Mehrere Singe-Page-Applikationen, die über verschiedene URLs zugänglich sind. Diese Applikationen nutzen Packagemanager für geteilte Funktionalität.
+3. Micro-Apps in IFrame verpacken und über APIs koordinieren.
+4. Verschiedene Module können über einen gemeinsamen Event-Bus kommunizieren. Jedes Modul benutzt sein eigenes Framework und handelt nur eingehende und ausgehende Events.
+5. Mithilfe von einem Web-Beschleuniger verschiedene Module zu integrieren.
+6. Webkomponenten als eine Integrationsschicht zu verwenden. Sie erlauben wiederverwendbare Komponenten in WEbanwendungen und Webdokumenten zu erstellen.
+7. React-Komponenten in einer Blackbox zu isolieren. Hier wird der Zustand einer Applikation im Komponenten festgehalten und über die API werden nur die Eigenschaften zugänglich gemacht. <a>[[SÖDE17]](#ref_Söde17)</a>
 
 
 ## Einsatz von Microservices
@@ -222,4 +228,4 @@ URL: https://cyberleninka.ru/article/v/on-micro-services-architecture (letzter Z
 
 <a name="ref_Robe18">[ROBE18]</a>: Roberts, Mike: Serverless Architectures, 22.05.2018, URL: https://martinfowler.com/articles/serverless.html (letzter Zugriff: 27.05.2018)
 
-<a name="ref_Söde17">[SÖDE17]</a>: Söderlund, Tom: Micro frontends—a microservice approach to front-end web development, 06.07.2017, URL: https://medium.com/@tomsoderlund/micro-frontends-a-microservice-approach-to-front-end-web-development-f325ebdadc16
+<a name="ref_Söde17">[SÖDE17]</a>: Söderlund, Tom: Micro frontends—a microservice approach to front-end web development, 06.07.2017, URL: https://medium.com/@tomsoderlund/micro-frontends-a-microservice-approach-to-front-end-web-development-f325ebdadc16 (letzter Zugriff: 31.05.2018)
