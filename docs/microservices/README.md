@@ -8,7 +8,7 @@ Die Abbildung _Architektur_ zeigt einen möglichen Aufbau von Microservices. Jed
 
 _Architektur_, Abbildung entnommen aus <a>[[MIRI17]](#ref_Miri17)</a>
 
-Eine der größten Schwierigkeiten ist die Partitionierung in Microservices. Eine Möglichkeit ist sie an Anwendungsfälle zu binden.
+Eine der weit verbreitenden Illustration von verschiedenen Ansätze der Partition von Monolithen ist der Skalierungswürfel. Auf der X-Achse werden mehrere Kopien der Applikation hinter einen Load-Balancer laufen. Auf der Z-Achse der Skalierung würden mehrere Server eine identische Kopie an Code unterhalten. Hier unterhält jeder Server nur eine Untermenge der Daten.
 
 ![Scale cube](./images/scale_cube.png)
 
