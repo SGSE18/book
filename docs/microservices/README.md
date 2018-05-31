@@ -8,6 +8,12 @@ Die Abbildung _Architektur_ zeigt einen möglichen Aufbau von Microservices. Jed
 
 _Architektur_, Abbildung entnommen aus <a>[[MIRI17]](#ref_Miri17)</a>
 
+Eine der größten Schwierigkeiten ist die Partitionierung in Microservices. Eine Möglichkeit ist sie an Anwendungsfälle zu binden.
+
+![Scale cube](./images/scale_cube.png)
+
+_Scale cube_, Abbildung angepasst aus <a>[[NAMI14]](#ref_Nami14)</a>
+
 ## Charakteristiken einer Microservice-Architektur
 
 Es gibt keine formale Definition dieses Architekturstils. Allerdings gibt es gemeinsame Charakteristiken, welche von vielen Microservices geteilt werden. <a>[[LEWI14]](#ref_Lewi14)</a>
@@ -120,10 +126,6 @@ Eine schematischer Aufteilung einer monolithischen Anwendung in Microservices ka
 
 _Microservices vs Monolith_, Eigene Darstellung
 
-![Scale cube](./images/scale_cube.png)
-
-_Scale cube_, Abbildung angepasst aus <a>[[NAMI14]](#ref_Nami14)</a>
-
 ### Vorteile
 
 Der offensichtlichste Vorteil welchen Microservices mit sich bringen ist eine bessere Übersicht von Quellcode. Jeder Service ist sauber logisch und technisch von anderen getrennt, was es viel einfacher macht neue Entwickler reinzubringen. Wenn ein Microservice modifiziert werden soll, muss nicht die gesamte Architektur deswegen verändert werden, weil es keine Abhängigkeiten zu anderen Microservices gibt. Dies favorisiert eine kontinuierliche Entwicklung, weil von vorne rein viel weniger Raum für Querabhängigkeiten im Quellcode entsteht. Daraus resultiert eine erhöhte Einsatzfähigkeit, kürzere Entwicklungszeiten und bessere Umsetzung von innovativen Lösungen - Continuous Integration und Continuous Delivery. Microservices haben eine höhere Resistenz gegenüber Fehlern, da aufgrund ihrer Größe der Quellcode übersichtlicher ist und die Kommunikation mit anderen Microservices über klar definierte Schnittstellen erfolgt. Daraus resultiert ein weiterer Vorteil: Unabhängigkeit in der Entwicklung. Jeder Dienst wird autonom von einem Team entwickelt. Laut Amazon sollte ein Teams maximal so groß sein, dass es von zwei Pizza satt wird, also nicht mehr als ein Dutzend Entwickler.Es gibt ebenfalls eine Regel der halben Pizza, wovon ein zwei Mann Team satt wird. Die optimale Größe von Microservice Entwicklerteams variiert also zwischen zwei bis zwölf Mitgliedern.   
@@ -131,33 +133,22 @@ Microservices vereinfach das schreiben von Tests aufgrund ihrer Granularität un
 
 ### Nachteile
 
-Die Kommunikation zwischen den Microservices und der Applikation geschieht nur über die Schnittstellen, was zu einer großen Menge an Remote Calls führt. Sie verbrauchen mehr Ressourcen als In-Prozess Calls einer monolithischen Struktur. Ein großer Nachteil ist, dass Microservices zuerst partitioniert werden müssen. Am Anfang eines Systems ist nicht unbedingt offensichtlich wie es in Zukunft aussehen wird und der Aufwand einer Microservice-Architektur ist kann zu immens erscheinen. Jedes Service braucht einen klar definierten Anwendungsfall und muss frei von unnützen Funktionalitäten sein. Das kann wie im Falle von Amazon zu hunderten Microservices führen und dementsprechend zu hunderten Teams. Kommunikation zwischen diesen Entwicklerteams ist von entscheidender Bedeutung, denn Anwendungsfälle können sich über mehrere Services spannen. Monolithische Systeme können ebenfalls in einzelne Dienste aufgebrochen werden. Je größer eine Applikation ist, desto komplizierter ist die Umstrukturierung, denn zuerst müssen alle internen Abhängigkeiten aufgelöst werden. Microservices beanspruchen mehr Ressourcen, weil die Menge an monolithische Instanzen N ersetzt wird durch die Menge an Microservice-Instanzen N x M. Beim Einsatz von JVM oder deren Äquivalenten, um die einzelnen Microservices zu isolieren, steigt der Overhead ins M-fache der eingesetzten JVM-Runtimes.   
-Obwohl die kompakte Größe das schreiben von Testfällen erleichtert, wird durch die Komplexität der gesamten Architektur das Testen insofern schwieriger, dass die Zusammenarbeit mit anderen verteilten Diensten überprüft werden muss.
-
-- Datenkonsistenz
-- Prozessgrenzen machen Verteilung der Kompetenzen schwieriger
-
-
-- mehr Komplexität da verteilte Systeme, managen und einsetzen
-- Testen wird aufwendiger wegen Komplexität
-- Die Kommmunikation zwischen den Services muss gerwährleistet sein
-- UseCases können über mehrere Services gehen
-<a>[[LEWI14]](#ref_Lewi14)</a>, <a>[[NAMI14]](#ref_Nami14)</a>, <a>[[RICH17]](#ref_Rich17)</a>
+Die Kommunikation zwischen den Microservices und der Applikation geschieht nur über die Schnittstellen, was zu einer großen Menge an Remote Calls führt. Remote Calls verbrauchen mehr Ressourcen als In-Prozess Calls einer monolithischen Struktur. Ein weiterer großer Nachteil ist, dass Microservices zuerst partitioniert werden müssen. Am Anfang eines Systems ist nicht unbedingt offensichtlich wie es in Zukunft aussehen wird und der Aufwand einer Microservice-Architektur ist kann zu immens erscheinen. Jedes Service braucht einen klar definierten Anwendungsfall und muss frei von unnützen Funktionalitäten sein. Das kann wie im Falle von Amazon zu hunderten Microservices führen und dementsprechend zu hunderten Teams. Kommunikation zwischen diesen Entwicklerteams ist von entscheidender Bedeutung, denn Anwendungsfälle können sich über mehrere Services spannen. Monolithische Systeme können ebenfalls in einzelne Dienste aufgebrochen werden. Je größer eine Applikation ist, desto komplizierter ist die Umstrukturierung, denn zuerst müssen alle internen Abhängigkeiten aufgelöst werden. Microservices beanspruchen mehr Ressourcen, weil die Menge an monolithische Instanzen N ersetzt wird durch die Menge an Microservice-Instanzen N x M. Beim Einsatz von JVM oder deren Äquivalenten für die Isolierung einzelner Microservices steigt der Overhead ins M-fache der eingesetzten JVM-Runtimes.   
+Obwohl die kompakte Größe eines Miroservice das Schreiben von Testfällen erleichtert, wird durch die Komplexität der gesamten Architektur das Testen insofern schwieriger, dass die Zusammenarbeit mit anderen verteilten Diensten überprüft werden muss. Dezentralisierte Datenverteilung ist ein weiterer wichtiger Punkt. In dieser Architektur ist es üblich eine Datenbanklösung pro Service zu haben, wodurch Probleme mit der Datenkonsistenz auftretten können. Die Komplexität die verteilten Systeme zu managen und einzusetzen ist entsprechend höher als mit Monoliths, weil sie in komplett anderen Technologien und Sprachen umgesetzt sein können. <a>[[LEWI14]](#ref_Lewi14)</a>, <a>[[NAMI14]](#ref_Nami14)</a>, <a>[[RICH17]](#ref_Rich17)</a>
 
 Die nächststehende Tabelle führt die Vor- und Nachteile kurz nochmal zusammen.
 
-| __Vorteile__                    | __Nachteile__                 |
-|---------------------------------|-------------------------------|
-| Kompakter Quellcode             | Größerer Ressourcenbedarf     |
-| Leichterer Einstieg ins Team    | Use Cases nicht eindeutig     |
-| Erhöhte Einsatzfähigkeit        | Kompliziert zu entwerfen      |
-| Kürzere Entwicklungszeiten      | Überhang an Services möglich  |
-| Autonome Services               | Tests werden komplexer        |
-| Kleine dedizierte Teams         | Abhängig von Schnittstellen   |
-| Resistent gegen Ausfall         | Datenkonsistenz schwierig zu bewahren |
-| Business Case abhängig          | -                             |
-| Technologie unabhängig          | -                             |
-| -                               | -                             |
+| __Vorteile__                    | __Nachteile__                       |
+|---------------------------------|-------------------------------------|
+| Kompakter Quellcode             | Größerer Ressourcenbedarf           |
+| Leichterer Einstieg ins Team    | Use Cases nicht eindeutig           |
+| Erhöhte Einsatzfähigkeit        | Sehr komplex                        |
+| Kürzere Entwicklungszeiten      | Überhang an Services möglich        |
+| Autonome Services               | Tests werden komplexer              |
+| Kleine dedizierte Teams         | Abhängig von Schnittstellen         |
+| Resistent gegen Ausfall         | Probleme mit Datenkonsistenz        |
+| Business Case abhängig          | Aufwändig zu managen                |
+| Technologie unabhängig          |                                     |
 
 ## Humane Registries
 
