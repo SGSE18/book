@@ -129,7 +129,7 @@ _Microservices vs Monolith_, Eigene Darstellung
 ### Vorteile
 
 Der offensichtlichste Vorteil welchen Microservices mit sich bringen ist eine bessere Übersicht von Quellcode. Jeder Service ist sauber logisch und technisch von anderen getrennt, was es viel einfacher macht neue Entwickler reinzubringen. Wenn ein Microservice modifiziert werden soll, muss nicht die gesamte Architektur deswegen verändert werden, weil es keine Abhängigkeiten zu anderen Microservices gibt. Dies favorisiert eine kontinuierliche Entwicklung, weil von vorne rein viel weniger Raum für Querabhängigkeiten im Quellcode entsteht. Daraus resultiert eine erhöhte Einsatzfähigkeit, kürzere Entwicklungszeiten und bessere Umsetzung von innovativen Lösungen - Continuous Integration und Continuous Delivery. Microservices haben eine höhere Resistenz gegenüber Fehlern, da aufgrund ihrer Größe der Quellcode übersichtlicher ist und die Kommunikation mit anderen Microservices über klar definierte Schnittstellen erfolgt. Daraus resultiert ein weiterer Vorteil: Unabhängigkeit in der Entwicklung. Jeder Dienst wird autonom von einem Team entwickelt. Laut Amazon sollte ein Teams maximal so groß sein, dass es von zwei Pizza satt wird, also nicht mehr als ein Dutzend Entwickler.Es gibt ebenfalls eine Regel der halben Pizza, wovon ein zwei Mann Team satt wird. Die optimale Größe von Microservice Entwicklerteams variiert also zwischen zwei bis zwölf Mitgliedern.   
-Microservices vereinfach das schreiben von Tests aufgrund ihrer Granularität und Unabhängigkeit, was auch zur besseren Fehlereingrenzung führt. Jedes einzelnes Microservice kann in komplett anderer Programmiersprache geschrieben sein und sich technologisch komplett unterscheiden. So kann ein Service flexibel auf die kommenden Forderungen reagieren und sich mit der zeit anpassen, was zu einem langlebigen Programm führt. Allerdings hat es sich herausgestellt, dass Microservices eher verworfen und neu realisiert werden, anstatt sich auf lange Sicht darum zu kümmern. Im Gegensatz dazu kann eine monolithische Architektur zwar mehrere Dienste oder Komponenten enthalten - sie bilden aber trotzdem ein Ganzes und haben eine Programmiersprache. Bei einem Ausfall, können andere Microservices weiterarbeiten und ihren Beitrag zur Funktionalität der Applikation leisten. <a>[[LEWI14]](#ref_Lewi14)</a>, <a>[[NAMI14]](#ref_Nami14)</a>, <a>[[RICH17]](#ref_Rich17)</a>
+Microservices vereinfach das schreiben von Tests aufgrund ihrer Granularität und Unabhängigkeit, was auch zur besseren Fehlereingrenzung führt. Jedes einzelnes Microservice kann in komplett anderer Programmiersprache geschrieben sein und sich technologisch komplett unterscheiden. So kann ein Service flexibel auf die kommenden Forderungen reagieren und sich mit der zeit anpassen, was zu einem langlebigen Programm führt. Allerdings hat es sich herausgestellt, dass Microservices eher verworfen und neu realisiert werden, anstatt sich auf lange Sicht darum zu kümmern. Im Gegensatz dazu kann eine monolithische Architektur zwar mehrere Dienste oder Komponenten enthalten - sie bilden aber trotzdem ein Ganzes und haben eine Programmiersprache. Bei einem Ausfall, können andere Microservices weiterarbeiten und ihren Beitrag zur Funktionalität der Applikation leisten. Ein immenser Vorteil eines Microservice ist die Möglichkeit in anderen Systemen wiederzuverwenden, solange die Schnittstelle richtig konfiguriert ist. <a>[[LEWI14]](#ref_Lewi14)</a>, <a>[[NAMI14]](#ref_Nami14)</a>, <a>[[RICH17]](#ref_Rich17)</a>
 
 ### Nachteile
 
@@ -138,17 +138,20 @@ Obwohl die kompakte Größe eines Miroservice das Schreiben von Testfällen erle
 
 Die nächststehende Tabelle führt die Vor- und Nachteile kurz nochmal zusammen.
 
-| __Vorteile__                    | __Nachteile__                       |
-|---------------------------------|-------------------------------------|
-| Kompakter Quellcode             | Größerer Ressourcenbedarf           |
-| Leichterer Einstieg ins Team    | Use Cases nicht eindeutig           |
-| Erhöhte Einsatzfähigkeit        | Sehr komplex                        |
-| Kürzere Entwicklungszeiten      | Überhang an Services möglich        |
-| Autonome Services               | Tests werden komplexer              |
-| Kleine dedizierte Teams         | Abhängig von Schnittstellen         |
-| Resistent gegen Ausfall         | Probleme mit Datenkonsistenz        |
-| Business Case abhängig          | Aufwändig zu managen                |
-| Technologie unabhängig          |                                     |
+| __Vorteile__                    | __Nachteile__                        |
+|---------------------------------|--------------------------------------|
+| Kompakter Quellcode             | Größerer Ressourcenbedarf            |
+| Leichterer Einstieg ins Team    | Use Cases nicht eindeutig            |
+| Erhöhte Einsatzfähigkeit        | Sehr komplex                         |
+| Kürzere Entwicklungszeiten      | Überhang an Services möglich         |
+| Autonome Services               | Testsfälle werden komplexer          |
+| Kleine dedizierte Teams         | Abhängig von Schnittstellen          |
+| Resistent gegen Ausfall         | Probleme mit Datenkonsistenz         |
+| Business Case abhängig          | Aufwändig zu managen                 |
+| Technologie unabhängig          | Großer Kommunikationsaufwand pro Team|
+| Wiederverwendbare Services      |                                      |
+
+Die Microservice-Architektur ist vorteilhaft, wenn die Rede um eine flexible und dennoch robuste Software geht.
 
 ## Humane Registries
 
