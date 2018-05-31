@@ -191,7 +191,11 @@ myapp.com/ - landing page built with static HTML.
 myapp.com/settings - old settings module built in AngularJS 1.x.
 myapp.com/dashboard - new dashboard module built in React.
 ```
-- 
+- shared codebase, Kollektion an unabhängigen Modulen, Verknüpfung von Modulen
+- Micro frontends
+
+<a>[[SÖDE17]](#ref_Söde17)</a>
+
 
 ## Einsatz von Microservices
 
@@ -217,3 +221,5 @@ URL: https://cyberleninka.ru/article/v/on-micro-services-architecture (letzter Z
 <a name="ref_Rich17">[RICH17]</a>: Richardson, Chris: Pattern: Microservice Architecture, 2017, URL: http://microservices.io/patterns/microservices.html (letzter Zugriff: 31.05.2018)
 
 <a name="ref_Robe18">[ROBE18]</a>: Roberts, Mike: Serverless Architectures, 22.05.2018, URL: https://martinfowler.com/articles/serverless.html (letzter Zugriff: 27.05.2018)
+
+<a name="ref_Söde17">[SÖDE17]</a>: Söderlund, Tom: Micro frontends—a microservice approach to front-end web development, 06.07.2017, URL: https://medium.com/@tomsoderlund/micro-frontends-a-microservice-approach-to-front-end-web-development-f325ebdadc16
