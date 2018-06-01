@@ -8,11 +8,11 @@ Die Abbildung _Architektur_ zeigt einen möglichen Aufbau von Microservices. Jed
 
 _Architektur_, Abbildung entnommen aus <a>[[MIRI17]](#ref_Miri17)</a>
 
-Eine der weit verbreitenden Illustration von verschiedenen Ansätze der Partition von Monolithen ist der Skalierungswürfel. Auf der X-Achse werden mehrere Kopien der Applikation hinter einen Load-Balancer laufen. Auf der Z-Achse der Skalierung würden mehrere Server eine identische Kopie an Code unterhalten. Hier unterhält jeder Server nur eine Untermenge der Daten.
+Eine der weit verbreitenden Illustration der verschiedenen Ansätze der Partitionierung von Monolithen ist der Skalierungswürfel. Auf der horizontalen Ebene geht es um Skalierbarkeiteines Systems durch mehrere Instanzen einer Applikation. Diese können unter anderem hinter einem Load-Balancer laufen. Auf diese Weise wird versucht die Last umzuverteilen und konstante Antwortzeiten zu erzielen. Die Z-Achse der Skalierung würden mehrere Server eine identische Kopie an Code unterhalten. Hier unterhält jeder Server nur eine Untermenge der Daten. Auftretende Probleme wären Datenkonsistenz, Datenverteilung und Datenverfügbarkeit. Die X-Achse und die Z-Achse verbessern die Skalierbarkeit und Verfügbarkeit, jedoch auch die Komplexität des Systems. Um die Komplexität zu verringern wird auf der Y-Achse skaliert. Die Skalierung nach der Y-Achse setzt voraus, dass ein System logisch und physisch in funktionale Bereich zerlegt werden kann. Dies kann zum höheren Kommunikationsaufwand führen, bringt aber mehr Flexibilität mit sich. <a>[[PIEN16]](#ref_Pien16)</a>, <a>[[NAMI14]](#ref_Nami14)</a>
 
 ![Scale cube](./images/scale_cube.png)
 
-_Scale cube_, Abbildung angepasst aus <a>[[NAMI14]](#ref_Nami14)</a>
+_Scale cube_, Abbildung entnommen aus <a>[[PIEN16]](#ref_Pien16)</a>
 
 ## Charakteristiken einer Microservice-Architektur
 
@@ -223,6 +223,8 @@ Den Weg von Monolith zu Microservices gingen unter anderem Netflix, Amazon und E
 URL: https://cyberleninka.ru/article/v/on-micro-services-architecture (letzter Zugriff: 26.04.2018)
 
 <a name="ref_Peck17">[PECK17]</a>: Peck, Nathan: Microservice Principles: Decentralized Governance, 05.09.2017, URL: https://medium.com/@nathankpeck/microservice-principles-decentralized-governance-4cdbde2ff6ca (letzter Zugriff: 24.05.2018)
+
+<a name="ref_Pien16">[PIEN16]</a>: Pientka, Frank: Wie lassen sich Microservice-Muster effizient umsetzen?, 09.02.2016, URL: https://www.informatik-aktuell.de/entwicklung/methoden/wie-lassen-sich-microservice-muster-effizient-umsetzen.html, (letzter Zugriff: 01.06.2018)
 
 <a name="ref_Rich17">[RICH17]</a>: Richardson, Chris: Pattern: Microservice Architecture, 2017, URL: http://microservices.io/patterns/microservices.html (letzter Zugriff: 31.05.2018)
 
