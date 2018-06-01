@@ -1,6 +1,28 @@
-# Microservices
+Microservices
 
->Ein Microservice ist ein leichtgewichtiger autonomer Dienst, der eine einzige Aufgabe erfüllt und mit anderen ähnlichen Diensten über eine gut definierte Schnittstelle kollaboriert. Eine der Hauptaufgaben von Microservices ist eine Minimierung von Einflüssen im Falle einer möglichen Schnittstellenänderung. <a>[[NAMI14]](#ref_Nami14)</a>
+- [Charakteristiken einer Microservice-Architektur](#charakteristiken-einer-microservice-architektur)
+    - [Komponentisierung via Services](#komponentisierung-via-services)
+    - [Aufbau um Business Capabilities](#aufbau-um-business-capabilities)
+    - [Service als Produkt](#service-als-produkt)
+    - [Smart endpoints and dumb pipes](#smart-endpoints-and-dumb-pipes)
+    - [Dezentralisierte Führung](#dezentralisierte-führung)
+    - [Dezentralisiertes Datenmanagement](#dezentralisiertes-datenmanagement)
+    - [Infrastructure Automation](#infrastructure-automation)
+    - [Design for failure](#design-for-failure)
+    - [Evolutionäres Design](#evolutionäres-design)
+    - [Kommunikation mit Microservice](#kommunikation-mit-microservice)
+- [Unterschiede zu monolithischen Anwendungen](#unterschiede-zu-monolithischen-anwendungen)
+    - [Vorteile](#vorteile)
+    - [Nachteile](#nachteile)
+- [Humane Registries](#humane-registries)
+- [Abgrenzung zu Self-Contained Systems und Containern](#abgrenzung-zu-self-contained-systems-und-containern)
+- [Serverless](#serverless)
+- [Microservices als Front-Ends](#microservices-als-front-ends)
+- [Einsatz von Microservices](#einsatz-von-microservices)
+- [Quellen](#quellen)
+
+
+Ein Microservice ist ein leichtgewichtiger autonomer Dienst, der eine einzige Aufgabe erfüllt und mit anderen ähnlichen Diensten über eine gut definierte Schnittstelle kollaboriert. Eine der Hauptaufgaben von Microservices ist eine Minimierung von Einflüssen im Falle einer möglichen Schnittstellenänderung. <a>[[NAMI14]](#ref_Nami14)</a>
 
 Die Abbildung _Architektur_ zeigt einen möglichen Aufbau von Microservices. Jedem Dienst entspricht eine Funktionalität. Einige Dienste haben eigene Datenbanken, andere greifen auf eine gemeinsame Datenbank zu.
 
@@ -201,7 +223,6 @@ Der aktuelle Trend heißt "Micro frontends" und Unternehmen, wie Spotify und Zal
 5. Mithilfe von einem Web-Beschleuniger verschiedene Module zu integrieren.
 6. Webkomponenten als eine Integrationsschicht zu verwenden. Sie erlauben wiederverwendbare Komponenten in WEbanwendungen und Webdokumenten zu erstellen.
 7. React-Komponenten in einer Blackbox zu isolieren. Hier wird der Zustand einer Applikation im Komponenten festgehalten und über die API werden nur die Eigenschaften zugänglich gemacht. <a>[[SÖDE17]](#ref_Söde17)</a>
-
 
 ## Einsatz von Microservices
 
