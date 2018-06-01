@@ -1,12 +1,18 @@
 # Microservices
 
->Ein Microservice ist ein leichtgewichtiger autonomer Dienst, der eine einzige Aufgabe erfüllt und mit anderen ähnlichen Diensten über eine gut definierte Schnittstelle kollaboriert. <a>[[NAMI14]](#ref_Nami14)</a>
+>Ein Microservice ist ein leichtgewichtiger autonomer Dienst, der eine einzige Aufgabe erfüllt und mit anderen ähnlichen Diensten über eine gut definierte Schnittstelle kollaboriert. Eine der Hauptaufgaben von Microservices ist eine Minimierung von Einflüssen im Falle einer möglichen Schnittstellenänderung. <a>[[NAMI14]](#ref_Nami14)</a>
 
 Die Abbildung _Architektur_ zeigt einen möglichen Aufbau von Microservices. Jedem Dienst entspricht eine Funktionalität. Einige Dienste haben eigene Datenbanken, andere greifen auf eine gemeinsame Datenbank zu.
 
 ![Architektur](./images/architecture.png)
 
-_Architektur_, Abbildung aus <a>[[MIRI17]](#ref_Miri17)</a>
+_Architektur_, Abbildung entnommen aus <a>[[MIRI17]](#ref_Miri17)</a>
+
+Eine der weit verbreitenden Illustration von verschiedenen Ansätze der Partition von Monolithen ist der Skalierungswürfel. Auf der X-Achse werden mehrere Kopien der Applikation hinter einen Load-Balancer laufen. Auf der Z-Achse der Skalierung würden mehrere Server eine identische Kopie an Code unterhalten. Hier unterhält jeder Server nur eine Untermenge der Daten.
+
+![Scale cube](./images/scale_cube.png)
+
+_Scale cube_, Abbildung angepasst aus <a>[[NAMI14]](#ref_Nami14)</a>
 
 ## Charakteristiken einer Microservice-Architektur
 
@@ -20,6 +26,8 @@ Der Vorteil eines Service gegenüber einer Bibliothek liegt in der Unabhängigke
 ### Aufbau um Business Capabilities
 
 Microservices sollten rund um die Business Capabilities der Organization aufgebaut werden, ganz nach dem Gesetz von Conway. Das Gesetz von Conway besagt, dass die Struktur eines Systems die Kommunikationsstruktur der umsetzenden Organisation nachbildet. Es wird ein breites Feld von Software abgedeckt, wie GUI, Datenbanken, Schnittstellen. Das wiederum bedeutet, dass es cross-functional Teams sein müssen, um all die Bedingungen zu erfüllen. <a>[[LEWI14]](#ref_Lewi14)</a>
+
+http://microservices.io/patterns/decomposition/decompose-by-business-capability.html
 
 Die nächste Abbildung stellt dar, wie Microservices sich den Business Capabilities einer Organisation anpassen.
 
@@ -49,7 +57,7 @@ Einen weiterer Ansatz der dezentralisierten Führung bringt die Amazon Herangehe
 
 Die Dezentralisierung bei Microservices betrifft auch die Datenbanken. Es wird bevorzugt pro Service eine Datenbank zu haben, seien es nur unterschiedliche Datenbank-Instanzen oder komplett unterschiedliche Datenbanktechnologien. <a>[[LEWI14]](#ref_Lewi14)</a>
 
-Die nächste Abbildung vergleicht ein monolithisches System mit Webservices in Bezug auf die Datenbanken.
+Die nächste Abbildung vergleicht ein monolithisches System mit Microservices in Bezug auf die Datenbanken.
 
 ![Dezentralisierte Datenbanken](./images/decentralised_data.png)
 
@@ -82,27 +90,31 @@ Einige häufig anzutreffende Entwürfen von Remote Calls sind Direct Call, Gatew
 
 __Direct Call__
 
-<img src="./images/direct_call_pattern.png" alt="Direct Call" style="width: 400px;"/>
+Der erste Kommunikationsentwurf ist ein Direct Call. Wie die Bezeichnung impliziert, werden Microservices direkt von der Applikation aufgerufen. Obwohl sehr flexibel kann es zu potentiellen Verzögerungen kommen wenn die Anzahl der Remote Calls zu groß wird. 
+
+![Direct Call](./images/direct_call_pattern.png)
 
 _Direct Call_, Abbildung angepasst aus <a>[[NAMI14]](#ref_Nami14)</a>
 
 __Gateway__
 
-<img src="./images/gateway_pattern.png" alt="Gateway" style="width: 400px;"/>
+Um den Verzögerunden entgegenzuwirken kommt der Gateway-Entwurf zum Einsatz. Um den Andrang zu verringern kommen diverse Caches und Middleware, wie ein Transaktionsmonitor, hinzu.
+
+![Gateway](./images/gateway_pattern.png)
 
 _Gateway_, Abbildung angepasst aus <a>[[NAMI14]](#ref_Nami14)</a>
 
 __Message-bus__
 
-<img src="./images/message_bus_pattern.png" alt="Message Bus" style="width: 400px;"/>
+Message Bus erlaubt asynchrone Requests und Responses. Das kommt gerade den Applikationen aus dem IoT-Bereich zugute.
+
+![Message Bus](./images/message_bus_pattern.png)
 
 _Message Bus_, Abbildung angepasst aus <a>[[NAMI14]](#ref_Nami14)</a>
 
-Eine der Hauptaufgaben von Microservices ist eine Minimierung von Einflüssen im Falle einer möglichen Schnittstellenänderung. <a>[[NAMI14]](#ref_Nami14)</a>
-
 ## Unterschiede zu monolithischen Anwendungen
 
-Monolithischen Anwendungen werden als ein Ganzes entwickelt. Sie bestehen oft aus drei Schichten:
+Monolithischen Anwendungen werden als ein Ganzes entwickelt. Die sogenannte Drei-Schichten-Architektur:
 - Clientseitige Applikation
 - Serverseitige Applikation
 - Datenbank
@@ -110,81 +122,56 @@ Monolithischen Anwendungen werden als ein Ganzes entwickelt. Sie bestehen oft au
 Eine serverseitige Applikation ist ein solches Monolith, weil sie für HTTP-Anfragen zuständig ist, Zugriffe auf die Datenbank steuert und mit dem Browser interagiert. Eine Änderung im System führt zu einer neuen Version der ganzen Software. Die ganze Logik konzentriert sich in einer ausführbaren Datei. Es ist ein natürlich Weg zu entwickeln. Optimierung kan mithilfe eines Load Balancer erfolgen, damit mehrere Instanzen der Applikation nebenbei laufen können.
 Allerdings kann schwierig werden eine solche Anwendung auf Dauer zu entwickeln. Es erfordert viel Aufwand ständige Änderungen und Korrekturen zu implementieren, denn bei einem Monolith muss jedes Mal das ganze System neu erstellt werden. Desweiteren ist es aufwändig die Modularität der Software aufrecht zu erhalten, ohne das intern ungewollte Abhängigkeiten zwischen den Modulen entstehen. Auch eine Skalierung des ganzen Systems erfordert viel mehr Ressourcen, als eines einzelnen Moduls. <a>[[LEWI14]](#ref_Lewi14)</a>
 
-Eine schematischer Aufteilung einer monolithischen Anwendung in Microservices kann in der nächsten Abbildung betrachtet werden.
+Eine schematischer Aufteilung einer monolithischen Anwendung in Microservices kann in der nächsten Abbildung betrachtet werden. Die Module werden zu eigenständigen Microservices, die untereinander über Schnittstellen kommunizieren.
 
 ![Microservices vs Monolith](./images/microservices_vs_monolith.png)
 
 _Microservices vs Monolith_, Eigene Darstellung
 
-Jedes einzelnes Microservice kann in komplett anderer Programmiersprache geschrieben sein. Im Gegensatz dazu kann eine monolithische Architektur zwar mehrere Dienste oder Komponenten enthalten - sie bilden aber trotzdem ein Ganzes.<a>[[NAMI14]](#ref_Nami14)</a>
-
 ### Vorteile
 
-- übersichtlicher Code, weil je Dienst, deswegen einfacher neuer Entwickler reinzubringen
-- Modifizierbarkeit, muss nicht die gesamte Architektur verändert werden
-- Macht kontinuierliche Entwicklung einfacher
-<a>[[LEWI14]](#ref_Lewi14)</a>
-
-- Erhöhte Einsatzfähigkeit
-- Unabhängigkeit in der Entwicklung pro Dienst
-- Kürzere Entwicklungszeiten
-- Resistenz
-- Erleichterte Umsetzung innovativer Lösungen
-<a>[[NAMI14]](#ref_Nami14)</a>
-
-- Besser testbarkeit - kleine Services sind einfacher zu testen
-- bessere Einsatzfähigkeit - Services sind unabhängiger
-- "Zwei Pizzen" Teams - mehrere autonome Gruppen pro Service
-- Service ist relativ klein gehalten wegen Einfachheit, schnellerer Entwicklung und größerer Produktivität
-- Bessere Fehlereingrenzung
-- Unabhängigkeit und Stabilität - andere Services arbeiten weiter
--  Technologie-unabhängig, Vorteile von neuen Technologien und Sprachen, hohe Modifizierbarkeit
-<a>[[RICH17]](#ref_Rich17)</a>
-
-http://microservices.io/patterns/microservices.html
+Der offensichtlichste Vorteil welchen Microservices mit sich bringen ist eine bessere Übersicht von Quellcode. Jeder Service ist sauber logisch und technisch von anderen getrennt, was es viel einfacher macht neue Entwickler reinzubringen. Wenn ein Microservice modifiziert werden soll, muss nicht die gesamte Architektur deswegen verändert werden, weil es keine Abhängigkeiten zu anderen Microservices gibt. Dies favorisiert eine kontinuierliche Entwicklung, weil von vorne rein viel weniger Raum für Querabhängigkeiten im Quellcode entsteht. Daraus resultiert eine erhöhte Einsatzfähigkeit, kürzere Entwicklungszeiten und bessere Umsetzung von innovativen Lösungen - Continuous Integration und Continuous Delivery. Microservices haben eine höhere Resistenz gegenüber Fehlern, da aufgrund ihrer Größe der Quellcode übersichtlicher ist und die Kommunikation mit anderen Microservices über klar definierte Schnittstellen erfolgt. Daraus resultiert ein weiterer Vorteil: Unabhängigkeit in der Entwicklung. Jeder Dienst wird autonom von einem Team entwickelt. Laut Amazon sollte ein Teams maximal so groß sein, dass es von zwei Pizza satt wird, also nicht mehr als ein Dutzend Entwickler.Es gibt ebenfalls eine Regel der halben Pizza, wovon ein zwei Mann Team satt wird. Die optimale Größe von Microservice Entwicklerteams variiert also zwischen zwei bis zwölf Mitgliedern.   
+Microservices vereinfach das schreiben von Tests aufgrund ihrer Granularität und Unabhängigkeit, was auch zur besseren Fehlereingrenzung führt. Jedes einzelnes Microservice kann in komplett anderer Programmiersprache geschrieben sein und sich technologisch komplett unterscheiden. So kann ein Service flexibel auf die kommenden Forderungen reagieren und sich mit der zeit anpassen, was zu einem langlebigen Programm führt. Allerdings hat es sich herausgestellt, dass Microservices eher verworfen und neu realisiert werden, anstatt sich auf lange Sicht darum zu kümmern. Im Gegensatz dazu kann eine monolithische Architektur zwar mehrere Dienste oder Komponenten enthalten - sie bilden aber trotzdem ein Ganzes und haben eine Programmiersprache. Bei einem Ausfall, können andere Microservices weiterarbeiten und ihren Beitrag zur Funktionalität der Applikation leisten. Ein immenser Vorteil eines Microservice ist die Möglichkeit in anderen Systemen wiederzuverwenden, solange die Schnittstelle richtig konfiguriert ist. <a>[[LEWI14]](#ref_Lewi14)</a>, <a>[[NAMI14]](#ref_Nami14)</a>, <a>[[RICH17]](#ref_Rich17)</a>
 
 ### Nachteile
 
-- Viele Remote Calls
-- Bis zu einer bestimmten Größe, schwieriger zu entwickeln, da Partitionierung
-- Schwerer aufzusetzen als eine monolithische Struktur (größter Nachteil)
-- Mehrere Kopien gleichzeitig laufen zu lassen nicht möglich, Load Balancer
-- Zusätzliche Komplexität, weil ein System in unterschiedliche Dienste partitioniert werden soll
-- Größerer Speicherbedarf, weil jeder Dienst eigenen Platz beansprucht
-- Testen ist komplizierter, da die Dienste verteilt sind
-<a>[[NAMI14]](#ref_Nami14)</a>
+Die Kommunikation zwischen den Microservices und der Applikation geschieht nur über die Schnittstellen, was zu einer großen Menge an Remote Calls führt. Remote Calls verbrauchen mehr Ressourcen als In-Prozess Calls einer monolithischen Struktur. Ein weiterer großer Nachteil ist, dass Microservices zuerst partitioniert werden müssen. Am Anfang eines Systems ist nicht unbedingt offensichtlich wie es in Zukunft aussehen wird und der Aufwand einer Microservice-Architektur ist kann zu immens erscheinen. Jedes Service braucht einen klar definierten Anwendungsfall und muss frei von unnützen Funktionalitäten sein. Das kann wie im Falle von Amazon zu hunderten Microservices führen und dementsprechend dutzende  Teams. Kommunikation zwischen diesen Entwicklerteams ist von entscheidender Bedeutung, denn Anwendungsfälle können sich über mehrere Services spannen. Monolithische Systeme können ebenfalls in einzelne Dienste aufgebrochen werden. Je größer eine Applikation ist, desto komplizierter ist die Umstrukturierung, denn zuerst müssen alle internen Abhängigkeiten aufgelöst werden. Microservices beanspruchen mehr Ressourcen, weil die Menge an monolithische Instanzen N ersetzt wird durch die Menge an Microservice-Instanzen N x M. Beim Einsatz von JVM oder deren Äquivalenten für die Isolierung einzelner Microservices steigt der Overhead ins M-fache der eingesetzten JVM-Runtimes.   
+Obwohl die kompakte Größe eines Miroservice das Schreiben von Testfällen erleichtert, wird durch die Komplexität der gesamten Architektur das Testen insofern schwieriger, dass die Zusammenarbeit mit anderen verteilten Diensten überprüft werden muss. Dezentralisierte Datenverteilung ist ein weiterer wichtiger Punkt. In dieser Architektur ist es üblich eine Datenbanklösung pro Service zu haben, wodurch Probleme mit der Datenkonsistenz auftretten können. Die Komplexität die verteilten Systeme zu managen und einzusetzen ist entsprechend höher als mit Monoliths, weil sie in komplett anderen Technologien und Sprachen umgesetzt sein können. <a>[[LEWI14]](#ref_Lewi14)</a>, <a>[[NAMI14]](#ref_Nami14)</a>, <a>[[RICH17]](#ref_Rich17)</a>
 
-- Remote Calls verbrauchen mehr Ressourcen als In-Prozess Calls
-- Prozessgrenzen machen Verteilung der Kompetenzen schwieriger
-<a>[[LEWI14]](#ref_Lewi14)</a>
+Die nächststehende Tabelle führt die Vor- und Nachteile kurz nochmal zusammen.
 
-- mehr Komplexität da verteilte Systeme, managen und einsetzen
-- Testen wird aufwendiger
-- Die Kommmunikation zwischen den Services muss gerwährleistet sein
-- UseCases können über mehrere Services gehen
-- Größerer Speicherbedarf
--
-<a>[[RICH17]](#ref_Rich17)</a>
+| __Vorteile__                    | __Nachteile__                        |
+|---------------------------------|--------------------------------------|
+| Kompakter Quellcode             | Größerer Ressourcenbedarf            |
+| Leichterer Einstieg ins Team    | Use Cases nicht eindeutig            |
+| Erhöhte Einsatzfähigkeit        | Sehr komplex                         |
+| Kürzere Entwicklungszeiten      | Überhang an Services möglich         |
+| Autonome Services               | Testsfälle werden komplexer          |
+| Kleine dedizierte Teams         | Abhängig von Schnittstellen          |
+| Resistent gegen Ausfall         | Probleme mit Datenkonsistenz         |
+| Business Case abhängig          | Aufwändig zu managen                 |
+| Technologie unabhängig          | Großer Kommunikationsaufwand pro Team|
+| Wiederverwendbare Services      |                                      |
 
-http://microservices.io/patterns/microservices.html
+Die Microservice-Architektur ist vorteilhaft, wenn die Rede um eine flexible und dennoch robuste Software geht.
 
 ## Humane Registries
 
-Humane Registry ist eine automatisierte Dokumentation für Webservices, designt um Informationen automatisch in menschlich lesbaren Form zu schreiben und zu aktualisieren. Die wichtigesten Merkmale so einer Dokumentation sind:
+Humane Registry ist eine automatisierte Dokumentation für Microservices, designt um Informationen automatisch in menschlich lesbaren Form zu schreiben und zu aktualisieren. Die wichtigesten Merkmale so einer Dokumentation sind:
 - _Verständlichkeit_: der Format sollte für alle lesbar und verständlich sein
 - _Automation_: Entwickler haben selten Zeit eine Dokumentation zu pflegen
 - _Einfachheit_: eine Erweiterung der Informationen sollte unkompliziert sein
 
-Solch ein Dokumentationswerkzeug durchsucht den Quellcode des Systems und stellt detaillierte Informationen darüber bereit, welcher entwickler wann und wieviel zum Webservice beigetragen hat. So können Mitarbeiter sehen an wem sie sich in bestimmten Fällen wenden können. Mithilfe von Daten aus verschiedensten Systemen, wie Continuous-Integration-Servern, von Versionsverwaltungsprogrammen und Issue-Tracking-Systemen, wird eine übergreifende Dokumentation erschaffen. <a>[[FOWL08]](#ref_Fowl08)</a>
+Solch ein Dokumentationswerkzeug durchsucht den Quellcode des Systems und stellt detaillierte Informationen darüber bereit, welcher entwickler wann und wieviel zum Microservices beigetragen hat. So können Mitarbeiter sehen an wem sie sich in bestimmten Fällen wenden können. Mithilfe von Daten aus verschiedensten Systemen, wie Continuous-Integration-Servern, von Versionsverwaltungsprogrammen und Issue-Tracking-Systemen, wird eine übergreifende Dokumentation erschaffen. <a>[[FOWL08]](#ref_Fowl08)</a>
 
-## Abgrenzung zu Self-Contained Systems
+## Abgrenzung zu Self-Contained Systems und Containern
 
 http://scs-architecture.org/vs-ms.html
 
 ## Serverless
 
 Serverless steht für Serverless computing und wird in zwei Bereichen eingesetzt:
-1. Es wird komplett auf die serverseitige Logik verzichtet und stattdessen werden Cloud-Services von Drittanbietern integriert. Übliche Anwender sind sogenannte "Rich Clients" - Single-Page-Webanwendungen und mobile Apps. Zu solchen Cloud-Services zählen Datenbanken, Authentifizierungsmechanismen und so weiter. Weshalb dieser Typ von Webservices auch "Backend as a Service" genannt wird.
+1. Es wird komplett auf die serverseitige Logik verzichtet und stattdessen werden Cloud-Services von Drittanbietern integriert. Übliche Anwender sind sogenannte "Rich Clients" - Single-Page-Webanwendungen und mobile Apps. Zu solchen Cloud-Services zählen Datenbanken, Authentifizierungsmechanismen und so weiter. Weshalb dieser Typ von Microservices auch "Backend as a Service" genannt wird.
 2. Ein anderer Bereich von Serverless ist "Function as a Service" (FaaS). In diesem Szenario wird serverseitige Logik immer noch vom Entwickler geschrieben, jedoch verpackt in Container und von einer Cloud gemanagt. Diese Container sind zustandslos, ereignisgesteuert und kurzlebig. Der bekannteste Beispiel ist AWS Lambda von Amazon.
 
 Die folgende Abbildung zeigt die Unterschiede zwischen der üblichen Architektur und Serverless. Die Authentifizierung erfolgt über den Cloud-Service. Der Client hat Zugriff auf die Produkt-Datenbank, welche von Drittanbietern gehostet wird. Ein Teil der früheren Serverlogik der alten Architektur kann in den Client implementiert werden, siehe Single-Page-Webanwendung. Mit HTTP-Anfragen kann über die API eine Suche in der Datenbank getriggert werden - es ist nicht nötig, dass ständig ein Server am laufen sein muss. Es ist möglich Teile von eigenem Quellcode in Plattformen wie AWS Lambda zu verwenden, falls die Programmiersprache unterstützt wird. Die Funktionalität "Kaufen" kann ebenfalls durch "Function as a Service" ersetzt werden. Zum einen, um den Client leichtgewichtiger zu halten, zum anderen aus Sicherheit. <a>[[ROBE18]](#ref_Robe18)</a>
@@ -193,34 +180,34 @@ Die folgende Abbildung zeigt die Unterschiede zwischen der üblichen Architektur
 
 _Serverless_, Abbildung angepasst aus <a>[[ROBE18]](#ref_Robe18)</a>
 
-Vereinfacht ausgedrückt - FaaS ist eine Ausführung von Backend-Quellcode ohne dabei einen eigenen Server oder dauerhaft arbeitende Serverprogramme laufen zu haben. FaaS ist darauf ausgelegt innerhalb kürzester Zeit (Millisekunden) benötigte Anwendungen je nach Anfrage zu starten und zu beenden. Die Vorteile sind eine Vereinfachung der Architektur durch den Wegfall einer Schicht und Übergabe der serverseitigen Logik an die Cloud-Services. Die Einsparung von Entwicklungs-, Installations- und Instandhaltungsaufwänden zählt ebenfalls zu den Vorteilen gegenüber der üblichen Drei-Schichten-Architektur. <a>[[ROBE18]](#ref_Robe18)</a>
+Vereinfacht ausgedrückt - FaaS ist eine Ausführung von Backend-Quellcode ohne dabei einen eigenen Server oder dauerhaft arbeitende Serverprogramme laufen zu haben. FaaS ist darauf ausgelegt innerhalb kürzester Zeit (Millisekunden) je nach Anfrage benötigte Anwendungen zu starten und zu beenden. Die Vorteile sind eine Vereinfachung der Architektur durch den Wegfall einer Schicht und Übergabe der serverseitigen Logik an die Cloud-Services. Die Einsparung von Entwicklungs-, Installations- und Instandhaltungsaufwänden zählt ebenfalls zu den Vorteilen gegenüber der üblichen Drei-Schichten-Architektur. <a>[[ROBE18]](#ref_Robe18)</a>
 
-## Microservice as frontends
+## Microservices als Front-Ends
 
-https://medium.com/@tomsoderlund/micro-frontends-a-microservice-approach-to-front-end-web-development-f325ebdadc16
+Für Webanwendungen gewinnt Front-End immer mehr an Bedeutung, während Back-End weniger wichtig wird. Der Trend geht in Richtung einer 90/10 Aufteilung zu Gunsten von Front-End. Der monolithische Design ist für Front-End zu schwerfällig, eine Aufteilung in kleinere Module ist nötig. Eine mögliche Partitionierung könnte wie folgt aussehen:   
+```myapp.com/``` - Startseite mit statischem HTML-Code.  
+```myapp.com/settings``` - veraltetes Modul für Einstellungen in AngularJS 1.x.  
+```myapp.com/dashboard``` - neues Dashboard-Modul erstellt mit React.
+Für dieses Beispiel wären zum Beispiel nötig:
+1. _Gemeinsame Codebasis_: auf JavaScript Basis zum Session-Management und Routing; gemeinsame CSS-Dateien.
+2. _Kollektion von verteilten Modulen_: Mini-Applikationen implementiert in verschiedenen Frameworks und in unterschiedlichen Repositories gespeichert.
+3. _Entwicklungssystem_: um alle Module zu verknüpfen und auf einen Server aufzusetzen, wenn ein Modul aktualisiert wird.
+
+Der aktuelle Trend heißt "Micro frontends" und Unternehmen, wie Spotify und Zalando sind schon umgestiegen. Einige der Umsetzungsmöglichkeiten:
+1. Eine Kombination aus mehreren Frameworks auf einer Webseite ohne das die Webseite aktuallisiert werden muss.
+2. Mehrere Singe-Page-Applikationen, die über verschiedene URLs zugänglich sind. Diese Applikationen nutzen Packagemanager für geteilte Funktionalität.
+3. Micro-Apps in IFrame verpacken und über APIs koordinieren.
+4. Verschiedene Module können über einen gemeinsamen Event-Bus kommunizieren. Jedes Modul benutzt sein eigenes Framework und handelt nur eingehende und ausgehende Events.
+5. Mithilfe von einem Web-Beschleuniger verschiedene Module zu integrieren.
+6. Webkomponenten als eine Integrationsschicht zu verwenden. Sie erlauben wiederverwendbare Komponenten in WEbanwendungen und Webdokumenten zu erstellen.
+7. React-Komponenten in einer Blackbox zu isolieren. Hier wird der Zustand einer Applikation im Komponenten festgehalten und über die API werden nur die Eigenschaften zugänglich gemacht. <a>[[SÖDE17]](#ref_Söde17)</a>
+
 
 ## Einsatz von Microservices
 
-- Schwierig zu entscheiden wann einzusetzen
-- Probleme tauchen mittelfristig auf
-- wenn schnelle Lösungen gefragt sind, nicht sehr populär, da langsamer wegen komplizierten Struktur
-- im Nachhinein funktionelle Dekomposition, schwierig Verworrenheit wieder aufzubröseln
-
-Wie aufteilen?
-- Dekomponierung nach Business Capabilities
-- Dekomponierung nach Domain-Driven Design
-- Aufteilung nach UseCase oder Verb, wenn Service für Aktionen zuständig sind
-- Aufteilung nach Nomen oder Ressourcen, wenn Service für Operationen an Ressourcen zuständig ist
-- Ein Service sollte ein Set an Verantwortlichkeiten haben, Single Responsibility Principle
-- Eine Aufgabe pro Service
-<a>[[RICH17]](#ref_Rich17)</a>
-
-- Netflix, Amazon, EBay evolutionierten von Monolith bis Microservices Architektur 
-- Netflix 30% des Internetverkehr, 1 Milliarde Aufrufe, 800 verschiedenen Geräten
-- Amazon hat bis zu 150 Services für die Webseite
-- Ebay hat mehrere Applikationen und kam von Monolith-Architektur
-
-<a>[[RICH17]](#ref_Rich17)</a>
+Es ist schwierig zu entscheiden in welchen Fällen Microservices eingesetzt werden sollten, denn viele Probleme mit monolithischer Architektur tauchen erst mittelfristig auf und keiner möchte die zusätzliche Komplexität am Anfang eines Projekts auf sich nehmen. Die Entwicklung einer verteilten Architektur ist langwierig. Deswegen sind für Startups, die auf rapide Entwicklung und Versionierung aus sind, Microservices nicht unbedingt die erste Wahl. Allerdings können in späterer Entwicklung Probleme mit der Skalierung auftretten was zu einer funktionellen Dekomposition führt. Es könnte schwierig sein die internen verworrenen Abhängigkeiten aufzulösen.   
+Genauso wichtig wie die Frage "Wann", ist die Frage "Wie" - wie soll die Aufteilung von Microservices aussehen? Eine Möglichkeit ist die Dekomponierung nach Business Capabilities, die andere nach Domain-Driven Design. Die beiden Fälle wurden in vorherigen Kapiteln erklärt. Dekomponierung nach Anwendungsfällen definiert Services die für bestimmte Aktionen verantwortlich wären, wie z.B. Shipping Service. Partitionierung nach Nomen (Ressourcen) definiert Services für Operationen an Ressourcen oder Entitäten, wie z.B. Account Service. Ein Service sollte ein Set an Verantwortlichkeiten haben, wessen Klassen nach Single Responsibility Principle (SPR) entworfen werden. SPR besagt, dass jede Klasse eine einzige fest definierte Aufgabe im System erfüllen muss und diese Zweckerfüllung übernehmen lediglich dessen Methoden.   
+Den Weg von Monolith zu Microservices gingen unter anderem Netflix, Amazon und EBay. Netflix generiert bis zu 30% des weltweiten Datenverkehrs und besitzt eine massive serviceorientierte Architektur, welche über eine Milliarde Zugriffe auf ihren Video-Hostingdienst von 800 verschiedenen Geräten aus verwaltet. Amazon benutzt von 100 bis 150 Microservices beim Einsatz dessen Webseite. <a>[[RICH17]](#ref_Rich17)</a>
 
 ## Quellen
 
@@ -230,13 +217,15 @@ Wie aufteilen?
 
 <a name="ref_Miri17">[MIRI17]</a>: Miri, Ima: Microservices vs. SOA, 04.01.2017, URL: https://dzone.com/articles/microservices-vs-soa-2
 
-<a name="ref_Lewi14">[LEWI14]</a>: Lewis James; Fowler, Martin: Microservices, a definition of this new architectural term, 25.03.2014, URL: https://martinfowler.com/articles/microservices.html (letzter Zugriff: 24.05.2018)
+<a name="ref_Lewi14">[LEWI14]</a>: Lewis James; Fowler, Martin: Microservices, a definition of this new architectural term, 25.03.2014, URL: https://martinfowler.com/articles/microservices.html (letzter Zugriff: 31.05.2018)
 
 <a name="ref_Nami14">[NAMI14]</a>: Namiot, Dmitry; Sneps-Sneppe, Manfred: On Micro-services Architecture, International Journal of Open Information Technologies ISSN: 2307-8162 vol. 2, no. 9, 2014,
 URL: https://cyberleninka.ru/article/v/on-micro-services-architecture (letzter Zugriff: 26.04.2018)
 
 <a name="ref_Peck17">[PECK17]</a>: Peck, Nathan: Microservice Principles: Decentralized Governance, 05.09.2017, URL: https://medium.com/@nathankpeck/microservice-principles-decentralized-governance-4cdbde2ff6ca (letzter Zugriff: 24.05.2018)
 
-<a name="ref_Rich17">[RICH17]</a>: Richardson, Chris: Pattern: Microservice Architecture, 2017, URL: http://microservices.io/patterns/microservices.html (letzter Zugriff: 26.05.2018)
+<a name="ref_Rich17">[RICH17]</a>: Richardson, Chris: Pattern: Microservice Architecture, 2017, URL: http://microservices.io/patterns/microservices.html (letzter Zugriff: 31.05.2018)
 
 <a name="ref_Robe18">[ROBE18]</a>: Roberts, Mike: Serverless Architectures, 22.05.2018, URL: https://martinfowler.com/articles/serverless.html (letzter Zugriff: 27.05.2018)
+
+<a name="ref_Söde17">[SÖDE17]</a>: Söderlund, Tom: Micro frontends—a microservice approach to front-end web development, 06.07.2017, URL: https://medium.com/@tomsoderlund/micro-frontends-a-microservice-approach-to-front-end-web-development-f325ebdadc16 (letzter Zugriff: 31.05.2018)
