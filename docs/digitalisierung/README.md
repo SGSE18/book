@@ -2,7 +2,9 @@
 
 ## Einleitung
 
-„Digitalisierung“ - Das aktuelle Hype-Thema in der Politik, Wirtschaft und Gesellschaft. In so gut wie allen Bereichen des Lebens lässt sie sich finden. Häufig unter anderen Begrifflichkeiten wie „Big-Data“, „Internet of Things“ und „Industrie 4.0“ die als Synonyme verwendet werden. Oftmals wird der Begriff und die Synonyme auch noch falsch verwendet und somit entsteht eine Verwässerung des Begriffs und eine falsche Zielsetzung bei der Umsetzung.
+„Digitalisierung“ - Das aktuelle Hype-Thema in der Politik und Wirtschaft. Sie reicht dabei von digitalen Sprachassistenten für Zuhause über Wearables und Satellitentechnik zu vollautomatisieren Fertigungsstraßen. In so gut wie allen Bereichen des Lebens lässt sie sich finden. Inzwischen existieren vollständige digitale Währungen wie z.B. „Bitcoin“ und man kann während einem Ausflug per Smartphone-App und einem internetfähigen Futterspender die Katze in der Heimat füttern und sie dabei sogar noch über eine Kamera im Livestream beobachten.
+
+Häufig unter anderen Begrifflichkeiten wie „Big-Data“, „Internet of Things“ und „Industrie 4.0“ die als Synonyme verwendet werden. Oftmals wird der Begriff und die Synonyme auch noch falsch verwendet und somit entsteht eine Verwässerung des Begriffs und eine falsche Zielsetzung bei der Umsetzung.
 
 Da der Begriff hat sich in den letzten Jahren gewandelt und steht für mehr als die ursprüngliche Bedeutung. Der Begriff kann aus vielen Blickwinkeln gesehen werden. Den volkswirtschaftlichen Blickwinkel wählt z.B. die Regierung. Das Bundesministerium für Wirtschaft (BMWi) hat den Begriff und die damit verbundene Zielsetzung wie folgt definiert:
 
@@ -22,6 +24,25 @@ Häufig fallen in Verbunding mit solchen Definitionen zusätzliche Begriffe wie 
 * Der Umsatz bricht ein, weil die bisherige Produktpalette nicht attraktiv oder innovativ genug wirken.
 * Ein Customer-Relationship-Management System wird immer wichtiger. Vertriebswegen ändern sich, Digitale-Distribution und Direktvertrieb ersetzen den Fachhandel.
 * Das Unternehmen muss an Flexibilität gewinnen. Dafür ist die bisherige Unternehmensstruktur jedoch nicht ausgelegt und ein Mangel an Fachkräften kommt noch erschwert dazu. 
+
+Wie klar zu erkennen ist geht das Verständnis was Digitalisierung darstellt stark auseinander und es sollte stets darauf geachtet werden, dass von einer einheitlichen Definition und Zielsetzung gesprochen wird.
+
+[Quelle Definition Auszug]
+
+Im Jahr 1941 wurde von Konrad Zuse und Helmut Schreyer der erste Computer entwickelt der Binärcode verwendet und programmierbar war. Der Zuse Z3 lautete das Digitale Zeitalter ein. Dreißig Jahre später wurde der erste Mikroprozessor mit 8.000 Transistoren patentier. Weitere zehn Jahre später 1981 waren es schon ca. 80.000 Transistoren. Der Chip-Entwickler AMD hat 2017 eine CPU mit 32-Kerne veröffentlich. Auf den 768 mm² des „AMD Epyc“ Chips befinden dank neuer 14 nm Fertigungstechnologie 19,2 Milliarden Transitoren. [https://en.wikipedia.org/wiki/Transistor_count]
+
+Gorden Moore hat schon 1965 mit dem „Moore's law“ prognostiziert, dass die Anzahl der Transistoren ca. alle 18 Monate verdoppelt. In der folgenden Abbildung ist der Verlauf von 1971 bis 2016 visualisiert.
+
+[https://en.wikipedia.org/wiki/Moore%27s_law#/media/File:Moore%27s_Law_Transistor_Count_1971-2016.png]
+
+Ob und wie lange sich dieses Wachstum noch steigern lässt werden die nächsten Jahre zeigen. 
+
+Ein weiterer interessanter Punkt ist wie eine derartige Beschleunigung des Fortschritts möglich war bzw. immer noch ist. Eine treibende Kraft ist die Digitalisierung die nicht nur die technischen und praktischen Anwendungsfelder verändert hat, sondern auch die Forschungs- und Entwicklungsarbeit. Ein Prozessor wir der AMD Epyc lässt sich nicht am Zeichenbrett planen. Es werden digitale Modellierungswerkzeuge benötigt und in der Produktion geht es ohne weitgehende Automatisierung und digitalisierten Verfahren zur Konstruktion nicht weiter. Dazu kommt das Optimierung und teils sogar Programmierung von Maschinen übernommen wird. Daher kann die Digitalisierung auch als hochdynamischer Prozess bezeichnet werden der sich sogar zum Teil selbst optimiert. Dazu kommen riesige Datensammlungen aus Fertigungsanlagen, Forschungsprojekten, Sozialen-Medien und dem alltäglichen Leben, die nur noch mit massiver bis vollständiger Unterstützung von Computern analysiert werden können. Auch wenn die Daten schwer zu analysieren sind kann dies zu ganz neuen Erkenntnissen führen, an die in manchen Fällen nicht einmal gedacht wurde oder sie waren vorher schlechtweg mit menschlicher Arbeitskraft nicht erreichbar. 
+
+Ganz neue Möglichkeiten bringt da das aktuelle Hype-Thema der KI. Das s.g. „machine learning“ also Maschinelles Lernen (ML). Kurz erklärt, sammelt eine KI in einer kontrollierten Umgebung Erfahrungen, sie wird trainiert bzw. lernt, dann folgt eine Generalisierung um Probleme mit ähnliche Strukturen lösen zu können. Die KI erzeugt im Grunde Wissen aus den Erfahrungen. Ähnlich wie bei der Digitalisierung könnte auch hier ein exponentielles Wachstum entstehen. Dann wird von der gefürchteten „technological singularity“ oder „AI singularity“ gesprochen. Der Begriff steht dafür, dass Maschinen besser Maschinen als sich selbst entwickeln und dies in einem Iterativen-Prozess fortführen. Der eventuelle Ablauf und die Folgen für die Gesellschaft dienen als Grundlage für die Science-Fiction.
+
+Der starke Bedarf an digitalen System scheint immer weiter zu wachsen. Alles und jeder soll mit dem Internet verbunden werden was zu der starken Dynamik in der Entwicklung führt. Die Anwendungsfelder erscheinen unerschöpflich. Die Menschen wollen alles Verbessern und Optimieren. Dabei steht mehr Leistung, höhere Effizienz, geringerer Ressourcenverbrauch im Vordergrund und treiben so den enormen Entwicklungsschub an. Dieser ist so stark das berechtigterweise schon von der „digitalen Revolution“ gesprochen wird.
+
 
 ## Definition
 
