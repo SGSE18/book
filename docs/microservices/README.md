@@ -158,11 +158,11 @@ Monolithischen Anwendungen werden als ein Ganzes entwickelt. Die sogenannte Drei
 Eine serverseitige Applikation ist ein solches Monolith, weil sie für HTTP-Anfragen zuständig ist, Zugriffe auf die Datenbank steuert und mit dem Browser interagiert. Eine Änderung im System führt zu einer neuen Version der ganzen Software. Die ganze Logik konzentriert sich in einer ausführbaren Datei. Es ist ein natürlich Weg zu entwickeln. Optimierung kan mithilfe eines Load Balancer erfolgen, damit mehrere Instanzen der Applikation nebenbei laufen können.
 Allerdings kann schwierig werden eine solche Anwendung auf Dauer zu entwickeln. Es erfordert viel Aufwand ständige Änderungen und Korrekturen zu implementieren, denn bei einem Monolith muss jedes Mal das ganze System neu erstellt werden. Desweiteren ist es aufwändig die Modularität der Software aufrecht zu erhalten, ohne das intern ungewollte Abhängigkeiten zwischen den Modulen entstehen. Auch eine Skalierung des ganzen Systems erfordert viel mehr Ressourcen, als eines einzelnen Moduls. <a>[[LEWI14]](#ref_Lewi14)</a>
 
-Eine schematischer Aufteilung einer monolithischen Anwendung in Microservices kann in der nächsten Abbildung betrachtet werden. Die Module werden zu eigenständigen Microservices, die untereinander über Schnittstellen kommunizieren.
+Ein Vergleich einer monolithischen Anwendung in Microservices kann in der nächsten Abbildung betrachtet werden.
 
 ![Microservices vs Monolith](./images/microservices_vs_monolith.png)
 
-_Microservices vs Monolith_, Eigene Darstellung
+_Microservices vs Monolith_, Abbildung entnommen aus <a>[[TATV16]](#ref_Tatv16)</a>
 
 ### Vorteile
 
@@ -200,9 +200,18 @@ Humane Registry ist eine automatisierte Dokumentation für Microservices, design
 
 Solch ein Dokumentationswerkzeug durchsucht den Quellcode des Systems und stellt detaillierte Informationen darüber bereit, welcher entwickler wann und wieviel zum Microservices beigetragen hat. So können Mitarbeiter sehen an wem sie sich in bestimmten Fällen wenden können. Mithilfe von Daten aus verschiedensten Systemen, wie Continuous-Integration-Servern, von Versionsverwaltungsprogrammen und Issue-Tracking-Systemen, wird eine übergreifende Dokumentation erschaffen. <a>[[FOWL08]](#ref_Fowl08)</a>
 
-## Abgrenzung zu Self-Contained Systems und Containern
+## Abgrenzung zu Self-Contained Systems
 
-http://scs-architecture.org/vs-ms.html
+Self-contained Systems (SCS) ist ein Architekturmuster, der den Fokus auf Separation einer Funktionalität in mehrere unabhängige Systeme legt. Aus der Kollaboration dieser Systeme entsteht ein neues logisches System. So werden Probleme von großen monolithischen Systemen umgangen, da sie ständig wachsen und nicht mehr wartbar werden.   
+Sie sind den Microservices sehr ähnlich und teilen mit ihnen viele Merkmale. Zu diesen Merkmalen gehören unabhängige Einheiten, Anpassung von organisatorischen und architektonischen Grenzen, Diversität in technologischen Auswahl und dezentralisierte Infrastruktur. Dennoch gibt es einige Unterschiede:
+- Ein Microservice ist üblicherweise kleiner als ein SCS
+- Es gibt normalerweise weniger SCSs als Microservices, ein Shop kann 5-25 SCSs haben oder bis zu 100 Microservices
+- SCSs sollten nicht miteinander kommunizieren, was für Microservices bis zu einem gewissen Grad in Ordnung ist
+- SCSs besitzen eine UI, während Microservices die UI üblicherweise (nicht immer) in eigenes Service auslagern
+- Microservices werden normalerweise auf der Logikschicht integriert und SCSs auf der UI-Schicht
+
+Es ist möglich Self-contained Systems weiter in die Microservices aufzuteilen. SCS fokussiert sich auf großen Projekten und Aufteilungen in mehrere Teams. Bei Microservices sind eher kleine Teams oder einzelne Entwickler im Einsatz, was erlaubt Continuous Delivery einfacher anzuwenden, robustere Systeme zu entwerfen oder einzelne Services zu skalieren. Microservices sind vielseitiger, aber Self-contained Systems lösen Probleme mit der Architektur und Organisation großer Projekte.
+<a>[[SCSVSM]](#ref_Scsvsm)</a>
 
 ## Serverless
 
@@ -229,9 +238,9 @@ Für dieses Beispiel wären zum Beispiel nötig:
 2. _Kollektion von verteilten Modulen_: Mini-Applikationen implementiert in verschiedenen Frameworks und in unterschiedlichen Repositories gespeichert.
 3. _Entwicklungssystem_: um alle Module zu verknüpfen und auf einen Server aufzusetzen, wenn ein Modul aktualisiert wird.
 
-Der aktuelle Trend heißt "Micro frontends" und Unternehmen, wie Spotify und Zalando sind schon umgestiegen. Einige der Umsetzungsmöglichkeiten:
+Der aktuelle Trend heißt "Micro frontends" und Unternehmen, wie Spotify und Zalando sind schon umgestiegen. Das sind einige der Umsetzungsmöglichkeiten:
 1. Eine Kombination aus mehreren Frameworks auf einer Webseite ohne das die Webseite aktuallisiert werden muss.
-2. Mehrere Singe-Page-Applikationen, die über verschiedene URLs zugänglich sind. Diese Applikationen nutzen Packagemanager für geteilte Funktionalität.
+2. Mehrere Singe-Page-Applikationen, die über verschiedene URLs zugänglich sind. Diese Applikationen nutzen Paketverwaltung für geteilte Funktionalität.
 3. Micro-Apps in IFrame verpacken und über APIs koordinieren.
 4. Verschiedene Module können über einen gemeinsamen Event-Bus kommunizieren. Jedes Modul benutzt sein eigenes Framework und handelt nur eingehende und ausgehende Events.
 5. Mithilfe von einem Web-Beschleuniger verschiedene Module zu integrieren.
@@ -246,7 +255,8 @@ Der aktuelle Trend heißt "Micro frontends" und Unternehmen, wie Spotify und Zal
 | Unabhängige Technologiestacks   | Restrukturierung kann sehr komplex werden              |
 | Unabhängig im Fehlerfall        |                                                        |
 | Parallele entwicklung möglich   |                                                        |
-<a>[[LECH17]](#ref_Lech17)</a>
+
+Tabelle angepasst aus <a>[[LECH17]](#ref_Lech17)</a>
 
 ## Einsatz von Microservices
 
@@ -277,4 +287,8 @@ URL: https://cyberleninka.ru/article/v/on-micro-services-architecture (letzter Z
 
 <a name="ref_Robe18">[ROBE18]</a>: Roberts, Mike: Serverless Architectures, 22.05.2018, URL: https://martinfowler.com/articles/serverless.html (letzter Zugriff: 27.05.2018)
 
+<a name="ref_Scsvsm">[SCSVSM]</a>:SCS vs. Microservices, URL: http://scs-architecture.org/vs-ms.html (letzter Zugriff: 02.06.2018)
+
 <a name="ref_Söde17">[SÖDE17]</a>: Söderlund, Tom: Micro frontends—a microservice approach to front-end web development, 06.07.2017, URL: https://medium.com/@tomsoderlund/micro-frontends-a-microservice-approach-to-front-end-web-development-f325ebdadc16 (letzter Zugriff: 31.05.2018)
+
+<a name="ref_Tatv16">[TATV16]</a>: TatvaSoft: The Difference between Web Services and Micro Services, 30.06.2016, URL: https://www.tatvasoft.com/blog/the-difference-between-micro-services-and-web-services/
