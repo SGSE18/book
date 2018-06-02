@@ -56,12 +56,12 @@ Es gibt keine formale Definition dieses Architekturstils. Allerdings gibt es gem
 
 ### Komponentisierung via Services
 
-Normalerweise wird unter einem Komponenten der Teil einer Software verstanden, welches unabhängig von Anderen veränderbar ist. Microservices bezeichnen einzelne Services, aber auch Bibliotheken, als Komponenten. Eine Bibliothek ist eine eingebundene Komponente und wird durch Funktionsaufrufe aus dem Speicher aufgerufen. Ein Service hingegen wird durch Remote Calls bzw. Web Requests aufgerufen.
+Normalerweise wird unter einem Komponenten der Teil einer Software verstanden, welches unabhängig von anderen veränderbar ist. Microservices bezeichnen einzelne Services, aber auch Bibliotheken, als Komponenten. Eine Bibliothek ist eine eingebundene Komponente und wird durch Funktionsaufrufe aus dem Speicher aufgerufen. Ein Service hingegen wird durch Remote Calls bzw. Web Requests aufgerufen.
 Der Vorteil eines Service gegenüber einer Bibliothek liegt in der Unabhängigkeit des Ersten. Ein einziger Prozess kann aus mehreren Bibliotheken bestehen und wäre eine davon verändert, müsste die gesamte Applikation neu aufgesetzt werden. Eine Aufteilung in Services wirkt dem entgegen, weil meistens nur der jeweilige Service geändert werden muss. Desweiteren bringt eine solche Aufsplittung sauber definierte Komponentenschnittstellen mit sich. Das bedeutet, dass einzelne Softwarekomponenten besser voneinander getrennt sind. <a>[[LEWI14]](#ref_Lewi14)</a>
 
 ### Aufbau um Business Capabilities
 
-Microservices sollten rund um die Business Capabilities der Organization aufgebaut werden, ganz nach dem Gesetz von Conway. Das Gesetz von Conway besagt, dass die Struktur eines Systems die Kommunikationsstruktur der umsetzenden Organisation nachbildet. Es wird ein breites Feld von Software abgedeckt, wie GUI, Datenbanken, Schnittstellen. Das wiederum bedeutet, dass es cross-functional Teams sein müssen, um all die Bedingungen zu erfüllen. <a>[[LEWI14]](#ref_Lewi14)</a>
+Microservices sollten rund um die Business Capabilities der Organization aufgebaut werden. Business Capabilities definieren die wichtigsten Businessfunktionen. Sie beschreiben "was" ein Unternehmen macht. Denn das Gesetz von Conway besagt: Jede Organisation die ein System entwirft, bekommt am Ende ein Entwurf welches die Kommunikationsstruktur der Organisation nachbildet. Der Technologiestack deckt ein breites Feld von Software ab, wie GUI, Datenbanken, Schnittstellen. Das wiederum bedeutet, dass es cross-functional Entwicklerteam sein muss, um all die Bedingungen zu erfüllen. <a>[[LEWI14]](#ref_Lewi14)</a>
 
 http://microservices.io/patterns/decomposition/decompose-by-business-capability.html
 
@@ -73,7 +73,7 @@ _Microservices und Business Capabilities_, Abbildung entnommen aus <a>[[LEWI14]]
 
 ### Service als Produkt
 
-Software sollte nicht als ein Projekt, sonder vielmals als ein Produkt gesehen werden. Das bedeutet, dass ein Entwicklungsteam während des gesamten Lebenszyklus sich darum kümmert. Auf diese Weise hat diese Team den Feedback, wie sich die Software in realen Arbeitsbedingungen verhält und hat einen engeren Kontakt zu den Benutzern. Das kreiert eine engere Bindung an das eigene Produkt. <a>[[LEWI14]](#ref_Lewi14)</a>
+Software sollte nicht als ein Projekt, sonder vielmals als ein Produkt gesehen werden. Das bedeutet, dass ein Entwicklungsteam während des gesamten Lebenszyklus sich darum kümmert. Auf diese Weise hat dieses Team das Feedback für das Verhalten der Software in realen Arbeitsbedingungen und einen engeren Kontakt zu den Nutzern. Das kreiert eine engere Bindung an das eigene Produkt. Diese Mentalität geht Hand in Hand mit dem Einsatz von Business Capabilities. Eine Software wird nicht mehr als ein Bündel von Funktionalitäten zu betrachten, die fertiggestellt werden müssen, sondern es wird zu der Software eine andauernde Beziehung aufgebaut, um die Business Capability zu verbessern. <a>[[LEWI14]](#ref_Lewi14)</a>
 
 ![Entwicklung des Produkts](./images/entwicklung_produkt.png)
 
@@ -81,13 +81,13 @@ _Betreuung während des Lebenslaufs_, eigene Abbildung
 
 ### Smart endpoints and dumb pipes
 
-Die Applikationen der Microservices sollten abgekoppelt und zusammenhängend wie möglich sein. Im Sinne von empfangen einer Anfrage, deren Bearbeitung und senden einer Antwort. Die Protokolle hingegen sollten hingegen unkompliziert sein. Einer der meistgenutzten Protokolle ist HTTP. Das erlaubt die Infrastruktur des Webs zu nutzen, um Ressourcen zu sparen.
-Eine andere populäre Möglichkeit ist es lightweight message bus zu nutzen, wo die Infrastruktur nur als Router von Nachrichten fungiert (dumb pipes). <a>[[LEWI14]](#ref_Lewi14)</a>
+Die Applikationen der Microservices sollten abgekoppelt und zusammenhängend wie möglich sein: Empfangen einer Anfrage, Bearbeitung und senden einer Antwort. Die Protokolle sollten hingegen unkompliziert sein. Einer der meistgenutzten Protokolle ist HTTP. Das erlaubt die Infrastruktur des Webs zu nutzen, um Ressourcen zu sparen.
+Eine andere populäre Möglichkeit ist es den Lightweight Message Bus zu nutzen, wo die Infrastruktur nur als Router von Nachrichten fungiert (dumb pipes). <a>[[LEWI14]](#ref_Lewi14)</a>
 
 ### Dezentralisierte Führung
 
 Dezentralisierte Führung ist ein Konzept welches aus mehreren Ansätzen besteht. Eines davon erlaubt den einzelnen Entwicklerteams ihre Stärken in verschiedenen Technologien anzuwenden und zusammen ein leistungsfähiges Produkt zu entwickeln, anstatt ihnen einen technologischen Standard aufzuzwingen. Das heißt, dass unter anderem jeder einzelner Service in der dafür am besten passenden Programmiersprache geschrieben werden kann, aber nicht unbedingt muss. Die Entscheidung liegt auf der Ebene der Entwickler, was nicht bedeutet, dass es überhaupt keine Richtlinien gibt.
-Einen weiterer Ansatz der dezentralisierten Führung bringt die Amazon Herangehensweise zur Geltung: "You build it, you run it!". Damit ist gemeint, dass ein Entwicklungsteam nicht nur die eigentliche Entwicklung übernimmt, sondern auch die Installation, die Überwachung und die Steuerung dieses Produktes im Einsatz. Das geht weg von dem üblichen Konzept "Entwickeln und vergessen", wo nach der Entwicklung andere Gruppen sich darum kümmern. <a>[[LEWI14]](#ref_Lewi14)</a>, <a>[[PECK17]](#ref_Peck17)</a>
+Einen weiterer Ansatz der dezentralisierten Führung bringt die Amazons Herangehensweise zur Geltung: "You build it, you run it!". Damit ist gemeint, dass ein Entwicklungsteam nicht nur die eigentliche Entwicklung übernimmt, sondern auch die Installation, die Überwachung und die Steuerung dieses Produktes im Einsatz. Das geht weg von dem üblichen Konzept "Entwickeln und vergessen", wo nach der Entwicklung andere Bereiche sich um das Produkt kümmern. <a>[[LEWI14]](#ref_Lewi14)</a>, <a>[[PECK17]](#ref_Peck17)</a>
 
 ### Dezentralisiertes Datenmanagement
 
@@ -229,22 +229,13 @@ Vereinfacht ausgedrückt - FaaS ist eine Ausführung von Backend-Quellcode ohne 
 
 ## Microservices als Front-Ends
 
-Für Webanwendungen gewinnt Front-End immer mehr an Bedeutung, während Back-End weniger wichtig wird. Der Trend geht in Richtung einer 90/10 Aufteilung zu Gunsten von Front-End. Der monolithische Design ist für Front-End zu schwerfällig, eine Aufteilung in kleinere Module ist nötig. Eine mögliche Partitionierung könnte wie folgt aussehen:   
-```myapp.com/``` - Startseite mit statischem HTML-Code.  
-```myapp.com/settings``` - veraltetes Modul für Einstellungen in AngularJS 1.x.  
-```myapp.com/dashboard``` - neues Dashboard-Modul erstellt mit React.
-Für dieses Beispiel wären zum Beispiel nötig:
-1. _Gemeinsame Codebasis_: auf JavaScript Basis zum Session-Management und Routing; gemeinsame CSS-Dateien.
-2. _Kollektion von verteilten Modulen_: Mini-Applikationen implementiert in verschiedenen Frameworks und in unterschiedlichen Repositories gespeichert.
-3. _Entwicklungssystem_: um alle Module zu verknüpfen und auf einen Server aufzusetzen, wenn ein Modul aktualisiert wird.
-
-Der aktuelle Trend heißt "Micro frontends" und Unternehmen, wie Spotify und Zalando sind schon umgestiegen. Das sind einige der Umsetzungsmöglichkeiten:
-1. Eine Kombination aus mehreren Frameworks auf einer Webseite ohne das die Webseite aktuallisiert werden muss.
+Für Webanwendungen gewinnt Front-End immer mehr an Bedeutung, während Back-End weniger wichtig wird. Der Trend geht in Richtung einer 90 zu 10 Aufteilung zu Gunsten von Front-End. Der monolithische Design ist für Front-End zu schwerfällig, so dass eine Aufteilung in kleinere Module nötig ist. Der aktuelle Trend heißt "Micro frontends" und Unternehmen, wie Spotify und Zalando sind schon umgestiegen. Das sind einige der Umsetzungsmöglichkeiten:
+1. Eine Kombination aus mehreren Frameworks auf einer Webseite ohne das die Webseite aktualisiert werden muss.
 2. Mehrere Singe-Page-Applikationen, die über verschiedene URLs zugänglich sind. Diese Applikationen nutzen Paketverwaltung für geteilte Funktionalität.
-3. Micro-Apps in IFrame verpacken und über APIs koordinieren.
+3. Micro-Apps in IFrames verpacken und über APIs koordinieren.
 4. Verschiedene Module können über einen gemeinsamen Event-Bus kommunizieren. Jedes Modul benutzt sein eigenes Framework und handelt nur eingehende und ausgehende Events.
 5. Mithilfe von einem Web-Beschleuniger verschiedene Module zu integrieren.
-6. Webkomponenten als eine Integrationsschicht zu verwenden. Sie erlauben wiederverwendbare Komponenten in WEbanwendungen und Webdokumenten zu erstellen.
+6. Webkomponenten als eine Integrationsschicht zu verwenden. Sie erlauben wiederverwendbare Komponenten in Webanwendungen und Webdokumenten zu erstellen.
 7. React-Komponenten in einer Blackbox zu isolieren. Hier wird der Zustand einer Applikation im Komponenten festgehalten und über die API werden nur die Eigenschaften zugänglich gemacht. <a>[[SÖDE17]](#ref_Söde17)</a>
 
 | __Vorteile__                    | __Nachteile__                                          |
