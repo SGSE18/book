@@ -91,7 +91,7 @@ Einen weiterer Ansatz der dezentralisierten Führung bringt die Amazons Herangeh
 
 ### Dezentralisiertes Datenmanagement
 
-Die Dezentralisierung bei Microservices betrifft auch die Datenbanken. Es wird bevorzugt pro Service eine Datenbank zu haben, seien es nur unterschiedliche Datenbank-Instanzen oder komplett unterschiedliche Datenbanktechnologien. <a>[[LEWI14]](#ref_Lewi14)</a>
+Bounded Context ist ein Muster aus dem Domain-driven Design. Es teilt komplexe Domänen in mehrere Kontextgrenzen. Die Dezentralisierung bei Microservices betrifft auch die Datenbanken. Es wird bevorzugt pro Service eine Datenbank zu haben, seien es nur unterschiedliche Datenbank-Instanzen oder komplett unterschiedliche Datenbanktechnologien. <a>[[LEWI14]](#ref_Lewi14)</a>
 
 Die nächste Abbildung vergleicht ein monolithisches System mit Microservices in Bezug auf die Datenbanken.
 
@@ -229,7 +229,7 @@ Vereinfacht ausgedrückt - FaaS ist eine Ausführung von Backend-Quellcode ohne 
 
 ## Microservices als Front-Ends
 
-Für Webanwendungen gewinnt Front-End immer mehr an Bedeutung, während Back-End weniger wichtig wird. Der Trend geht in Richtung einer 90 zu 10 Aufteilung zu Gunsten von Front-End. Der monolithische Design ist für Front-End zu schwerfällig, so dass eine Aufteilung in kleinere Module nötig ist. Der aktuelle Trend heißt "Micro frontends" und Unternehmen, wie Spotify und Zalando sind schon umgestiegen. Das sind einige der Umsetzungsmöglichkeiten:
+Für Webanwendungen gewinnt Front-End immer mehr an Bedeutung, während Back-End weniger wichtig wird. Der Trend geht in Richtung einer 90 zu 10 Aufteilung zu Gunsten von Front-End. Der monolithische Design ist für Front-End zu schwerfällig, so dass eine Aufteilung in kleinere Module nötig ist. Der aktuelle Trend heißt "Micro Front-Ends" und Unternehmen, wie Spotify und Zalando sind schon umgestiegen. Das sind einige der Umsetzungsmöglichkeiten:
 1. Eine Kombination aus mehreren Frameworks auf einer Webseite ohne das die Webseite aktualisiert werden muss.
 2. Mehrere Singe-Page-Applikationen, die über verschiedene URLs zugänglich sind. Diese Applikationen nutzen Paketverwaltung für geteilte Funktionalität.
 3. Micro-Apps in IFrames verpacken und über APIs koordinieren.
@@ -249,6 +249,12 @@ Für Webanwendungen gewinnt Front-End immer mehr an Bedeutung, während Back-End
 
 Tabelle angepasst aus <a>[[LECH17]](#ref_Lech17)</a>
 
+Eine mögliche Aufteilung des Front-End in Micro Front-Ends. Wie auch im Back-End Bereich ist hier jedes Team für einen Dienst zuständig. Links in der Abbildung sind die drei Schichten Front-End, Back-End und Datenbank zu sehen. Sie haben hier keine Relevanz.
+
+![Micro Front-End](./images/micro_frontend.png)
+
+_Micro frontend_, Abbildung entnommen aus <a>[[GEER17]](#ref_Geer17)</a>
+
 ## Einsatz von Microservices
 
 Es ist schwierig zu entscheiden in welchen Fällen Microservices eingesetzt werden sollten, denn viele Probleme mit monolithischer Architektur tauchen erst mittelfristig auf und keiner möchte die zusätzliche Komplexität am Anfang eines Projekts auf sich nehmen. Die Entwicklung einer verteilten Architektur ist langwierig. Deswegen sind für Startups, die auf rapide Entwicklung und Versionierung aus sind, Microservices nicht unbedingt die erste Wahl. Allerdings können in späterer Entwicklung Probleme mit der Skalierung auftretten was zu einer funktionellen Dekomposition führt. Es könnte schwierig sein die internen verworrenen Abhängigkeiten aufzulösen.   
@@ -260,6 +266,8 @@ Den Weg von Monolith zu Microservices gingen unter anderem Netflix, Amazon und E
 <a name="ref_Chen18">[CHEN18]</a>: Chen, Lianping: Microservices: Architecting for Continuous Delivery and DevOps, IEEE International Conference on Software Architecture, 2018, URL: https://www.researchgate.net/publication/323944215_Microservices_Architecting_for_Continuous_Delivery_and_DevOps
 
 <a name="ref_Fowl08">[FOWL08]</a>: Fowler, Martin: HumaneRegistry, 01.12.2008, URL: https://martinfowler.com/bliki/HumaneRegistry.html (letzter Zugriff: 27.05.2018)
+
+<a name="ref_Geer17">[Geer17]</a>: Geers, Michael: What are Micro Frontends?, 2017, URL: https://micro-frontends.org/ (letzter Zugriff: 03.06.2018)
 
 <a name="ref_Miri17">[MIRI17]</a>: Miri, Ima: Microservices vs. SOA, 04.01.2017, URL: https://dzone.com/articles/microservices-vs-soa-2
 
