@@ -1,5 +1,6 @@
 # Microservices
 
+- [Einführung](#einführung)
 - [Charakteristiken einer Microservice-Architektur](#charakteristiken-einer-microservice-architektur)
     - [Komponentisierung via Services](#komponentisierung-via-services)
     - [Aufbau um Business Capabilities](#aufbau-um-business-capabilities)
@@ -21,20 +22,33 @@
 - [Einsatz von Microservices](#einsatz-von-microservices)
 - [Quellen](#quellen)
 
+## Einführung
 
 Ein Microservice ist ein leichtgewichtiger autonomer Dienst, der eine einzige Aufgabe erfüllt und mit anderen ähnlichen Diensten über eine gut definierte Schnittstelle kollaboriert. Eine der Hauptaufgaben von Microservices ist eine Minimierung von Einflüssen im Falle einer möglichen Schnittstellenänderung. <a>[[NAMI14]](#ref_Nami14)</a>
 
-Die Abbildung _Architektur_ zeigt einen möglichen Aufbau von Microservices. Jedem Dienst entspricht eine Funktionalität. Einige Dienste haben eigene Datenbanken, andere greifen auf eine gemeinsame Datenbank zu.
+Eine der weit verbreitenden Illustration der verschiedenen Ansätze der Partitionierung von Monolithen ist der Skalierungswürfel. Auf der horizontalen Ebene geht es um Skalierbarkeiteines Systems durch mehrere Instanzen einer Applikation. Diese können unter anderem hinter einem Load-Balancer laufen. Auf diese Weise wird versucht die Last umzuverteilen und konstante Antwortzeiten zu erzielen. Die Z-Achse der Skalierung würden mehrere Server eine identische Kopie an Code unterhalten. Hier unterhält jeder Server nur eine Untermenge der Daten. Auftretende Probleme wären Datenkonsistenz, Datenverteilung und Datenverfügbarkeit. Die X-Achse und die Z-Achse verbessern die Skalierbarkeit und Verfügbarkeit, jedoch auch die Komplexität des Systems. Um die Komplexität zu verringern wird auf der Y-Achse skaliert. Die Skalierung nach der Y-Achse setzt voraus, dass ein System logisch und physisch in funktionale Bereich zerlegt werden kann. Dies kann zum höheren Kommunikationsaufwand führen, bringt aber mehr Flexibilität mit sich. <a>[[PIEN16]](#ref_Pien16)</a>, <a>[[NAMI14]](#ref_Nami14)</a>
+
+![Skalierungswürfel](./images/scale_cube.png)
+
+_Skalierungswürfel_, Abbildung entnommen aus <a>[[PIEN16]](#ref_Pien16)</a>
+
+Es gibt viele Entwurfsmuster, die zu Microservices verwandt sind. Die abgebildete monolithische Architektur ist als eine  Alternative zu Microservices zu verstehen. Bei einer wachsenden Größe der Microservices, können diese schnell wieder sich zu kleineren Monolithen zusammensetzen. Die Muster werden nach Bereichen Kommunikation, Datenhaltung, Kern, Stil, Deploymentarten, Sicherheit und einige mehr aufgeteilt. Im Laufe der Entwicklung werden Probleme auftauchen für welche diese Muster hilfreich sein werden.     
+Die Dienste werden nach Front-End und Back-End Services unterschieden. Je nach Client ergeben sich unterschiedliche Anforderungen an Granularität und Formate eines Service. Aus diesem Grund anstatt einer universellen Schnittstelle, sollten speziell entwickelte Lösungen für Nutzer angeboten werden. Ein API-Gateway ist eine Vermittlungskomponente welche benötigt wird, damit Services sich nicht direkt aufrufen können. Direkte Aufrufe können bei vielen Diensten die Kommunikationsstruktur schnell unübersichtlich und die Fehlersuche aufwändig machen. Außerdem erlauben lose Koppelungen zwischen den Microservices unabhängige Entwicklung, Einsatz und Skalierung. Das Gateway kann sich um Format- und Protokollumwandlung, Authentifizierung oder Überwachung kümmern. Um die angefordeten, am besten passenden Services zu finden stehen zwei Möglichkeiten zur Verfügung: clientseitig und serverseitig. Beide setzen voraus, dass die Dienste sich bei der Service-Registry an- und abmelden, auch in Fehlerfällen. netflix Eureka oder Apache Zookeeper sind solche Service-Registries.
+1. _Client-side discovery_: Hier wird eine zentrale Service-Registry benötigt, für die Verwaltung von Diensten und deren Orten. Der Client braucht nur den entsprechenden Service aufzufordern und bekommt die nötigen Aufrufinformationen zurück. Die Dynamik, welche mit Microservices verbunden ist, macht die Automatisierung von diesem Prozess notwendig. Die Orte (Host, Port) der Microservices werden zur Laufzeit ermittelt und ändern sich nach Verfügabarkeit.
+2. _Server-side discovery_: Im Gegensatz zur vorherigen Lösung wird die Anfrage an einen Load-Balancer gestellt. Dieser fungiert als ein Router für den Service und kommuniziert mit einer Service-Registry. Der Code ist einfacher strukturiert verglichen mit den clientseitigem Fall, allerdings muss der Load Balancer ausfallsicher und skalierbar sein. Es kann eine cloudbasierte Lösung sein, wie AWS Elastic Load Balancer oder es wird eine Clusterlösung auf jeden Service-Host verwendet, wie Kubernetes als lokalen Proxy. <a>[[RICH17]](#ref_Rich17)</a>, <a>[[PIEN16]](#ref_Pien16)</a>
+
+Auf alle Entwurfsmuster einzugehen würde den zeitlichen Rahmen um vielfaches sprengen, weswegen nur diese drei Muster beschrieben wurden.
+
+![Entwürfe](./images/patterns.jpg)
+
+_Verwandte Entwurfsmuster_, Abbildung entnommen aus <a>[[RICH17]](#ref_Rich17)</a>
+
+Um einen gemeinsamen Datenbestand für alle Services und damit einen Engpass zu vermeiden, sollte "Database-per-service"-Muster zum Einsatz kommen - jeder Service verwaltet seine eigenen Daten. Hes wird bewusst eine Datenredundanz in Kauf genommen. Dies erlaubt jedem Dienst eine eigene, für ihn geeignete Technologie zu wählen. <a>[[PIEN16]](#ref_Pien16)</a> 
+Die Abbildung _Microservices Architektur_ zeigt einen möglichen Aufbau von Microservices. Jedem Dienst entspricht eine Funktionalität. Einige Dienste haben eigene Datenbanken, andere greifen auf eine gemeinsame Datenbank zu.
 
 ![Architektur](./images/architecture.png)
 
-_Architektur_, Abbildung entnommen aus <a>[[MIRI17]](#ref_Miri17)</a>
-
-Eine der weit verbreitenden Illustration der verschiedenen Ansätze der Partitionierung von Monolithen ist der Skalierungswürfel. Auf der horizontalen Ebene geht es um Skalierbarkeiteines Systems durch mehrere Instanzen einer Applikation. Diese können unter anderem hinter einem Load-Balancer laufen. Auf diese Weise wird versucht die Last umzuverteilen und konstante Antwortzeiten zu erzielen. Die Z-Achse der Skalierung würden mehrere Server eine identische Kopie an Code unterhalten. Hier unterhält jeder Server nur eine Untermenge der Daten. Auftretende Probleme wären Datenkonsistenz, Datenverteilung und Datenverfügbarkeit. Die X-Achse und die Z-Achse verbessern die Skalierbarkeit und Verfügbarkeit, jedoch auch die Komplexität des Systems. Um die Komplexität zu verringern wird auf der Y-Achse skaliert. Die Skalierung nach der Y-Achse setzt voraus, dass ein System logisch und physisch in funktionale Bereich zerlegt werden kann. Dies kann zum höheren Kommunikationsaufwand führen, bringt aber mehr Flexibilität mit sich. <a>[[PIEN16]](#ref_Pien16)</a>, <a>[[NAMI14]](#ref_Nami14)</a>
-
-![Scale cube](./images/scale_cube.png)
-
-_Scale cube_, Abbildung entnommen aus <a>[[PIEN16]](#ref_Pien16)</a>
+_Microservices Architektur_, Abbildung entnommen aus <a>[[MIRI17]](#ref_Miri17)</a>
 
 ## Charakteristiken einer Microservice-Architektur
 
@@ -224,6 +238,16 @@ Der aktuelle Trend heißt "Micro frontends" und Unternehmen, wie Spotify und Zal
 6. Webkomponenten als eine Integrationsschicht zu verwenden. Sie erlauben wiederverwendbare Komponenten in WEbanwendungen und Webdokumenten zu erstellen.
 7. React-Komponenten in einer Blackbox zu isolieren. Hier wird der Zustand einer Applikation im Komponenten festgehalten und über die API werden nur die Eigenschaften zugänglich gemacht. <a>[[SÖDE17]](#ref_Söde17)</a>
 
+| __Vorteile__                    | __Nachteile__                                          |
+|---------------------------------|--------------------------------------------------------|
+| Unabhängig                      | Erhöhter Betriebsaufwand                               |
+| Einfacher einzusetzen           | Erhöhte Komplexität (z.B. Infrastruktur, Kommunikation)|
+| Hohe Testbarkeit                | Schlechtere Performance                                |
+| Unabhängige Technologiestacks   | Restrukturierung kann sehr komplex werden              |
+| Unabhängig im Fehlerfall        |                                                        |
+| Parallele entwicklung möglich   |                                                        |
+<a>[[LECH17]](#ref_Lech17)</a>
+
 ## Einsatz von Microservices
 
 Es ist schwierig zu entscheiden in welchen Fällen Microservices eingesetzt werden sollten, denn viele Probleme mit monolithischer Architektur tauchen erst mittelfristig auf und keiner möchte die zusätzliche Komplexität am Anfang eines Projekts auf sich nehmen. Die Entwicklung einer verteilten Architektur ist langwierig. Deswegen sind für Startups, die auf rapide Entwicklung und Versionierung aus sind, Microservices nicht unbedingt die erste Wahl. Allerdings können in späterer Entwicklung Probleme mit der Skalierung auftretten was zu einer funktionellen Dekomposition führt. Es könnte schwierig sein die internen verworrenen Abhängigkeiten aufzulösen.   
@@ -237,6 +261,8 @@ Den Weg von Monolith zu Microservices gingen unter anderem Netflix, Amazon und E
 <a name="ref_Fowl08">[FOWL08]</a>: Fowler, Martin: HumaneRegistry, 01.12.2008, URL: https://martinfowler.com/bliki/HumaneRegistry.html (letzter Zugriff: 27.05.2018)
 
 <a name="ref_Miri17">[MIRI17]</a>: Miri, Ima: Microservices vs. SOA, 04.01.2017, URL: https://dzone.com/articles/microservices-vs-soa-2
+
+<a name="ref_Lech17">[LECH17]</a>: Lechner, Alexander: Micro-Frontends - Die bessere Art User Interfaces zu implementieren?, 15.11.2017, URL: https://www.it-economics.de/blog/2017-11/micro-frontends-die-bessere-art-user-interfaces-zu-implementieren (letzter Zugriff: 02.06.2018)
 
 <a name="ref_Lewi14">[LEWI14]</a>: Lewis James; Fowler, Martin: Microservices, a definition of this new architectural term, 25.03.2014, URL: https://martinfowler.com/articles/microservices.html (letzter Zugriff: 31.05.2018)
 
