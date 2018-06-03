@@ -1,18 +1,54 @@
 # Microservices
 
->Ein Microservice ist ein leichtgewichtiger autonomer Dienst, der eine einzige Aufgabe erfüllt und mit anderen ähnlichen Diensten über eine gut definierte Schnittstelle kollaboriert. Eine der Hauptaufgaben von Microservices ist eine Minimierung von Einflüssen im Falle einer möglichen Schnittstellenänderung. <a>[[NAMI14]](#ref_Nami14)</a>
+- [Einführung](#einführung)
+- [Charakteristiken einer Microservice-Architektur](#charakteristiken-einer-microservice-architektur)
+    - [Komponentisierung via Services](#komponentisierung-via-services)
+    - [Aufbau um Business Capabilities](#aufbau-um-business-capabilities)
+    - [Service als Produkt](#service-als-produkt)
+    - [Smart endpoints and dumb pipes](#smart-endpoints-and-dumb-pipes)
+    - [Dezentralisierte Führung](#dezentralisierte-führung)
+    - [Dezentralisiertes Datenmanagement](#dezentralisiertes-datenmanagement)
+    - [Infrastructure Automation](#infrastructure-automation)
+    - [Design for failure](#design-for-failure)
+    - [Evolutionäres Design](#evolutionäres-design)
+    - [Kommunikation mit Microservice](#kommunikation-mit-microservice)
+- [Unterschiede zu monolithischen Anwendungen](#unterschiede-zu-monolithischen-anwendungen)
+    - [Vorteile](#vorteile)
+    - [Nachteile](#nachteile)
+- [Humane Registries](#humane-registries)
+- [Abgrenzung zu Self-Contained Systems und Containern](#abgrenzung-zu-self-contained-systems-und-containern)
+- [Serverless](#serverless)
+- [Microservices als Front-Ends](#microservices-als-front-ends)
+- [Einsatz von Microservices](#einsatz-von-microservices)
+- [Quellen](#quellen)
 
-Die Abbildung _Architektur_ zeigt einen möglichen Aufbau von Microservices. Jedem Dienst entspricht eine Funktionalität. Einige Dienste haben eigene Datenbanken, andere greifen auf eine gemeinsame Datenbank zu.
+## Einführung
+
+Ein Microservice ist ein leichtgewichtiger autonomer Dienst, der eine einzige Aufgabe erfüllt und mit anderen ähnlichen Diensten über eine gut definierte Schnittstelle kollaboriert. Eine der Hauptaufgaben von Microservices ist eine Minimierung von Einflüssen im Falle einer möglichen Schnittstellenänderung. <a>[[NAMI14]](#ref_Nami14)</a>
+
+Eine der weit verbreitenden Illustration der verschiedenen Ansätze der Partitionierung von Monolithen ist der Skalierungswürfel. Auf der horizontalen Ebene geht es um Skalierbarkeiteines Systems durch mehrere Instanzen einer Applikation. Diese können unter anderem hinter einem Load-Balancer laufen. Auf diese Weise wird versucht die Last umzuverteilen und konstante Antwortzeiten zu erzielen. Die Z-Achse der Skalierung würden mehrere Server eine identische Kopie an Code unterhalten. Hier unterhält jeder Server nur eine Untermenge der Daten. Auftretende Probleme wären Datenkonsistenz, Datenverteilung und Datenverfügbarkeit. Die X-Achse und die Z-Achse verbessern die Skalierbarkeit und Verfügbarkeit, jedoch auch die Komplexität des Systems. Um die Komplexität zu verringern wird auf der Y-Achse skaliert. Die Skalierung nach der Y-Achse setzt voraus, dass ein System logisch und physisch in funktionale Bereich zerlegt werden kann. Dies kann zum höheren Kommunikationsaufwand führen, bringt aber mehr Flexibilität mit sich. <a>[[PIEN16]](#ref_Pien16)</a>, <a>[[NAMI14]](#ref_Nami14)</a>
+
+![Skalierungswürfel](./images/scale_cube.png)
+
+_Skalierungswürfel_, Abbildung entnommen aus <a>[[PIEN16]](#ref_Pien16)</a>
+
+Es gibt viele Entwurfsmuster, die zu Microservices verwandt sind. Die abgebildete monolithische Architektur ist als eine  Alternative zu Microservices zu verstehen. Bei einer wachsenden Größe der Microservices, können diese schnell wieder sich zu kleineren Monolithen zusammensetzen. Die Muster werden nach Bereichen Kommunikation, Datenhaltung, Kern, Stil, Deploymentarten, Sicherheit und einige mehr aufgeteilt. Im Laufe der Entwicklung werden Probleme auftauchen für welche diese Muster hilfreich sein werden.     
+Die Dienste werden nach Front-End und Back-End Services unterschieden. Je nach Client ergeben sich unterschiedliche Anforderungen an Granularität und Formate eines Service. Aus diesem Grund anstatt einer universellen Schnittstelle, sollten speziell entwickelte Lösungen für Nutzer angeboten werden. Ein API-Gateway ist eine Vermittlungskomponente welche benötigt wird, damit Services sich nicht direkt aufrufen können. Direkte Aufrufe können bei vielen Diensten die Kommunikationsstruktur schnell unübersichtlich und die Fehlersuche aufwändig machen. Außerdem erlauben lose Koppelungen zwischen den Microservices unabhängige Entwicklung, Einsatz und Skalierung. Das Gateway kann sich um Format- und Protokollumwandlung, Authentifizierung oder Überwachung kümmern. Um die angefordeten, am besten passenden Services zu finden stehen zwei Möglichkeiten zur Verfügung: clientseitig und serverseitig. Beide setzen voraus, dass die Dienste sich bei der Service-Registry an- und abmelden, auch in Fehlerfällen. netflix Eureka oder Apache Zookeeper sind solche Service-Registries.
+1. _Client-side discovery_: Hier wird eine zentrale Service-Registry benötigt, für die Verwaltung von Diensten und deren Orten. Der Client braucht nur den entsprechenden Service aufzufordern und bekommt die nötigen Aufrufinformationen zurück. Die Dynamik, welche mit Microservices verbunden ist, macht die Automatisierung von diesem Prozess notwendig. Die Orte (Host, Port) der Microservices werden zur Laufzeit ermittelt und ändern sich nach Verfügabarkeit.
+2. _Server-side discovery_: Im Gegensatz zur vorherigen Lösung wird die Anfrage an einen Load-Balancer gestellt. Dieser fungiert als ein Router für den Service und kommuniziert mit einer Service-Registry. Der Code ist einfacher strukturiert verglichen mit den clientseitigem Fall, allerdings muss der Load Balancer ausfallsicher und skalierbar sein. Es kann eine cloudbasierte Lösung sein, wie AWS Elastic Load Balancer oder es wird eine Clusterlösung auf jeden Service-Host verwendet, wie Kubernetes als lokalen Proxy. <a>[[RICH17]](#ref_Rich17)</a>, <a>[[PIEN16]](#ref_Pien16)</a>
+
+Auf alle Entwurfsmuster einzugehen würde den zeitlichen Rahmen um vielfaches sprengen, weswegen nur diese drei Muster beschrieben wurden.
+
+![Entwürfe](./images/patterns.jpg)
+
+_Verwandte Entwurfsmuster_, Abbildung entnommen aus <a>[[RICH17]](#ref_Rich17)</a>
+
+Um einen gemeinsamen Datenbestand für alle Services und damit einen Engpass zu vermeiden, sollte "Database-per-service"-Muster zum Einsatz kommen - jeder Service verwaltet seine eigenen Daten. Hes wird bewusst eine Datenredundanz in Kauf genommen. Dies erlaubt jedem Dienst eine eigene, für ihn geeignete Technologie zu wählen. <a>[[PIEN16]](#ref_Pien16)</a> 
+Die Abbildung _Microservices Architektur_ zeigt einen möglichen Aufbau von Microservices. Jedem Dienst entspricht eine Funktionalität. Einige Dienste haben eigene Datenbanken, andere greifen auf eine gemeinsame Datenbank zu.
 
 ![Architektur](./images/architecture.png)
 
-_Architektur_, Abbildung entnommen aus <a>[[MIRI17]](#ref_Miri17)</a>
-
-Eine der weit verbreitenden Illustration von verschiedenen Ansätze der Partition von Monolithen ist der Skalierungswürfel. Auf der X-Achse werden mehrere Kopien der Applikation hinter einen Load-Balancer laufen. Auf der Z-Achse der Skalierung würden mehrere Server eine identische Kopie an Code unterhalten. Hier unterhält jeder Server nur eine Untermenge der Daten.
-
-![Scale cube](./images/scale_cube.png)
-
-_Scale cube_, Abbildung angepasst aus <a>[[NAMI14]](#ref_Nami14)</a>
+_Microservices Architektur_, Abbildung entnommen aus <a>[[MIRI17]](#ref_Miri17)</a>
 
 ## Charakteristiken einer Microservice-Architektur
 
@@ -20,12 +56,12 @@ Es gibt keine formale Definition dieses Architekturstils. Allerdings gibt es gem
 
 ### Komponentisierung via Services
 
-Normalerweise wird unter einem Komponenten der Teil einer Software verstanden, welches unabhängig von Anderen veränderbar ist. Microservices bezeichnen einzelne Services, aber auch Bibliotheken, als Komponenten. Eine Bibliothek ist eine eingebundene Komponente und wird durch Funktionsaufrufe aus dem Speicher aufgerufen. Ein Service hingegen wird durch Remote Calls bzw. Web Requests aufgerufen.
+Normalerweise wird unter einem Komponenten der Teil einer Software verstanden, welches unabhängig von anderen veränderbar ist. Microservices bezeichnen einzelne Services, aber auch Bibliotheken, als Komponenten. Eine Bibliothek ist eine eingebundene Komponente und wird durch Funktionsaufrufe aus dem Speicher aufgerufen. Ein Service hingegen wird durch Remote Calls bzw. Web Requests aufgerufen.
 Der Vorteil eines Service gegenüber einer Bibliothek liegt in der Unabhängigkeit des Ersten. Ein einziger Prozess kann aus mehreren Bibliotheken bestehen und wäre eine davon verändert, müsste die gesamte Applikation neu aufgesetzt werden. Eine Aufteilung in Services wirkt dem entgegen, weil meistens nur der jeweilige Service geändert werden muss. Desweiteren bringt eine solche Aufsplittung sauber definierte Komponentenschnittstellen mit sich. Das bedeutet, dass einzelne Softwarekomponenten besser voneinander getrennt sind. <a>[[LEWI14]](#ref_Lewi14)</a>
 
 ### Aufbau um Business Capabilities
 
-Microservices sollten rund um die Business Capabilities der Organization aufgebaut werden, ganz nach dem Gesetz von Conway. Das Gesetz von Conway besagt, dass die Struktur eines Systems die Kommunikationsstruktur der umsetzenden Organisation nachbildet. Es wird ein breites Feld von Software abgedeckt, wie GUI, Datenbanken, Schnittstellen. Das wiederum bedeutet, dass es cross-functional Teams sein müssen, um all die Bedingungen zu erfüllen. <a>[[LEWI14]](#ref_Lewi14)</a>
+Microservices sollten rund um die Business Capabilities der Organization aufgebaut werden. Business Capabilities definieren die wichtigsten Businessfunktionen. Sie beschreiben "was" ein Unternehmen macht. Denn das Gesetz von Conway besagt: Jede Organisation die ein System entwirft, bekommt am Ende ein Entwurf welches die Kommunikationsstruktur der Organisation nachbildet. Der Technologiestack deckt ein breites Feld von Software ab, wie GUI, Datenbanken, Schnittstellen. Das wiederum bedeutet, dass es cross-functional Entwicklerteam sein muss, um all die Bedingungen zu erfüllen. <a>[[LEWI14]](#ref_Lewi14)</a>
 
 http://microservices.io/patterns/decomposition/decompose-by-business-capability.html
 
@@ -37,7 +73,7 @@ _Microservices und Business Capabilities_, Abbildung entnommen aus <a>[[LEWI14]]
 
 ### Service als Produkt
 
-Software sollte nicht als ein Projekt, sonder vielmals als ein Produkt gesehen werden. Das bedeutet, dass ein Entwicklungsteam während des gesamten Lebenszyklus sich darum kümmert. Auf diese Weise hat diese Team den Feedback, wie sich die Software in realen Arbeitsbedingungen verhält und hat einen engeren Kontakt zu den Benutzern. Das kreiert eine engere Bindung an das eigene Produkt. <a>[[LEWI14]](#ref_Lewi14)</a>
+Software sollte nicht als ein Projekt, sonder vielmals als ein Produkt gesehen werden. Das bedeutet, dass ein Entwicklungsteam während des gesamten Lebenszyklus sich darum kümmert. Auf diese Weise hat dieses Team das Feedback für das Verhalten der Software in realen Arbeitsbedingungen und einen engeren Kontakt zu den Nutzern. Das kreiert eine engere Bindung an das eigene Produkt. Diese Mentalität geht Hand in Hand mit dem Einsatz von Business Capabilities. Eine Software wird nicht mehr als ein Bündel von Funktionalitäten zu betrachten, die fertiggestellt werden müssen, sondern es wird zu der Software eine andauernde Beziehung aufgebaut, um die Business Capability zu verbessern. <a>[[LEWI14]](#ref_Lewi14)</a>
 
 ![Entwicklung des Produkts](./images/entwicklung_produkt.png)
 
@@ -45,17 +81,17 @@ _Betreuung während des Lebenslaufs_, eigene Abbildung
 
 ### Smart endpoints and dumb pipes
 
-Die Applikationen der Microservices sollten abgekoppelt und zusammenhängend wie möglich sein. Im Sinne von empfangen einer Anfrage, deren Bearbeitung und senden einer Antwort. Die Protokolle hingegen sollten hingegen unkompliziert sein. Einer der meistgenutzten Protokolle ist HTTP. Das erlaubt die Infrastruktur des Webs zu nutzen, um Ressourcen zu sparen.
-Eine andere populäre Möglichkeit ist es lightweight message bus zu nutzen, wo die Infrastruktur nur als Router von Nachrichten fungiert (dumb pipes). <a>[[LEWI14]](#ref_Lewi14)</a>
+Die Applikationen der Microservices sollten abgekoppelt und zusammenhängend wie möglich sein: Empfangen einer Anfrage, Bearbeitung und senden einer Antwort. Die Protokolle sollten hingegen unkompliziert sein. Einer der meistgenutzten Protokolle ist HTTP. Das erlaubt die Infrastruktur des Webs zu nutzen, um Ressourcen zu sparen.
+Eine andere populäre Möglichkeit ist es den Lightweight Message Bus zu nutzen, wo die Infrastruktur nur als Router von Nachrichten fungiert (dumb pipes). <a>[[LEWI14]](#ref_Lewi14)</a>
 
 ### Dezentralisierte Führung
 
 Dezentralisierte Führung ist ein Konzept welches aus mehreren Ansätzen besteht. Eines davon erlaubt den einzelnen Entwicklerteams ihre Stärken in verschiedenen Technologien anzuwenden und zusammen ein leistungsfähiges Produkt zu entwickeln, anstatt ihnen einen technologischen Standard aufzuzwingen. Das heißt, dass unter anderem jeder einzelner Service in der dafür am besten passenden Programmiersprache geschrieben werden kann, aber nicht unbedingt muss. Die Entscheidung liegt auf der Ebene der Entwickler, was nicht bedeutet, dass es überhaupt keine Richtlinien gibt.
-Einen weiterer Ansatz der dezentralisierten Führung bringt die Amazon Herangehensweise zur Geltung: "You build it, you run it!". Damit ist gemeint, dass ein Entwicklungsteam nicht nur die eigentliche Entwicklung übernimmt, sondern auch die Installation, die Überwachung und die Steuerung dieses Produktes im Einsatz. Das geht weg von dem üblichen Konzept "Entwickeln und vergessen", wo nach der Entwicklung andere Gruppen sich darum kümmern. <a>[[LEWI14]](#ref_Lewi14)</a>, <a>[[PECK17]](#ref_Peck17)</a>
+Einen weiterer Ansatz der dezentralisierten Führung bringt die Amazons Herangehensweise zur Geltung: "You build it, you run it!". Damit ist gemeint, dass ein Entwicklungsteam nicht nur die eigentliche Entwicklung übernimmt, sondern auch die Installation, die Überwachung und die Steuerung dieses Produktes im Einsatz. Das geht weg von dem üblichen Konzept "Entwickeln und vergessen", wo nach der Entwicklung andere Bereiche sich um das Produkt kümmern. <a>[[LEWI14]](#ref_Lewi14)</a>, <a>[[PECK17]](#ref_Peck17)</a>
 
 ### Dezentralisiertes Datenmanagement
 
-Die Dezentralisierung bei Microservices betrifft auch die Datenbanken. Es wird bevorzugt pro Service eine Datenbank zu haben, seien es nur unterschiedliche Datenbank-Instanzen oder komplett unterschiedliche Datenbanktechnologien. <a>[[LEWI14]](#ref_Lewi14)</a>
+Bounded Context ist ein Muster aus dem Domain-driven Design. Es teilt komplexe Domänen in mehrere Kontextgrenzen. Die Dezentralisierung bei Microservices betrifft auch die Datenbanken. Es wird bevorzugt pro Service eine Datenbank zu haben, seien es nur unterschiedliche Datenbank-Instanzen oder komplett unterschiedliche Datenbanktechnologien. <a>[[LEWI14]](#ref_Lewi14)</a>
 
 Die nächste Abbildung vergleicht ein monolithisches System mit Microservices in Bezug auf die Datenbanken.
 
@@ -122,11 +158,11 @@ Monolithischen Anwendungen werden als ein Ganzes entwickelt. Die sogenannte Drei
 Eine serverseitige Applikation ist ein solches Monolith, weil sie für HTTP-Anfragen zuständig ist, Zugriffe auf die Datenbank steuert und mit dem Browser interagiert. Eine Änderung im System führt zu einer neuen Version der ganzen Software. Die ganze Logik konzentriert sich in einer ausführbaren Datei. Es ist ein natürlich Weg zu entwickeln. Optimierung kan mithilfe eines Load Balancer erfolgen, damit mehrere Instanzen der Applikation nebenbei laufen können.
 Allerdings kann schwierig werden eine solche Anwendung auf Dauer zu entwickeln. Es erfordert viel Aufwand ständige Änderungen und Korrekturen zu implementieren, denn bei einem Monolith muss jedes Mal das ganze System neu erstellt werden. Desweiteren ist es aufwändig die Modularität der Software aufrecht zu erhalten, ohne das intern ungewollte Abhängigkeiten zwischen den Modulen entstehen. Auch eine Skalierung des ganzen Systems erfordert viel mehr Ressourcen, als eines einzelnen Moduls. <a>[[LEWI14]](#ref_Lewi14)</a>
 
-Eine schematischer Aufteilung einer monolithischen Anwendung in Microservices kann in der nächsten Abbildung betrachtet werden. Die Module werden zu eigenständigen Microservices, die untereinander über Schnittstellen kommunizieren.
+Ein Vergleich einer monolithischen Anwendung in Microservices kann in der nächsten Abbildung betrachtet werden.
 
 ![Microservices vs Monolith](./images/microservices_vs_monolith.png)
 
-_Microservices vs Monolith_, Eigene Darstellung
+_Microservices vs Monolith_, Abbildung entnommen aus <a>[[TATV16]](#ref_Tatv16)</a>
 
 ### Vorteile
 
@@ -164,9 +200,18 @@ Humane Registry ist eine automatisierte Dokumentation für Microservices, design
 
 Solch ein Dokumentationswerkzeug durchsucht den Quellcode des Systems und stellt detaillierte Informationen darüber bereit, welcher entwickler wann und wieviel zum Microservices beigetragen hat. So können Mitarbeiter sehen an wem sie sich in bestimmten Fällen wenden können. Mithilfe von Daten aus verschiedensten Systemen, wie Continuous-Integration-Servern, von Versionsverwaltungsprogrammen und Issue-Tracking-Systemen, wird eine übergreifende Dokumentation erschaffen. <a>[[FOWL08]](#ref_Fowl08)</a>
 
-## Abgrenzung zu Self-Contained Systems und Containern
+## Abgrenzung zu Self-Contained Systems
 
-http://scs-architecture.org/vs-ms.html
+Self-contained Systems (SCS) ist ein Architekturmuster, der den Fokus auf Separation einer Funktionalität in mehrere unabhängige Systeme legt. Aus der Kollaboration dieser Systeme entsteht ein neues logisches System. So werden Probleme von großen monolithischen Systemen umgangen, da sie ständig wachsen und nicht mehr wartbar werden.   
+Sie sind den Microservices sehr ähnlich und teilen mit ihnen viele Merkmale. Zu diesen Merkmalen gehören unabhängige Einheiten, Anpassung von organisatorischen und architektonischen Grenzen, Diversität in technologischen Auswahl und dezentralisierte Infrastruktur. Dennoch gibt es einige Unterschiede:
+- Ein Microservice ist üblicherweise kleiner als ein SCS
+- Es gibt normalerweise weniger SCSs als Microservices, ein Shop kann 5-25 SCSs haben oder bis zu 100 Microservices
+- SCSs sollten nicht miteinander kommunizieren, was für Microservices bis zu einem gewissen Grad in Ordnung ist
+- SCSs besitzen eine UI, während Microservices die UI üblicherweise (nicht immer) in eigenes Service auslagern
+- Microservices werden normalerweise auf der Logikschicht integriert und SCSs auf der UI-Schicht
+
+Es ist möglich Self-contained Systems weiter in die Microservices aufzuteilen. SCS fokussiert sich auf großen Projekten und Aufteilungen in mehrere Teams. Bei Microservices sind eher kleine Teams oder einzelne Entwickler im Einsatz, was erlaubt Continuous Delivery einfacher anzuwenden, robustere Systeme zu entwerfen oder einzelne Services zu skalieren. Microservices sind vielseitiger, aber Self-contained Systems lösen Probleme mit der Architektur und Organisation großer Projekte.
+<a>[[SCSVSM]](#ref_Scsvsm)</a>
 
 ## Serverless
 
@@ -184,24 +229,31 @@ Vereinfacht ausgedrückt - FaaS ist eine Ausführung von Backend-Quellcode ohne 
 
 ## Microservices als Front-Ends
 
-Für Webanwendungen gewinnt Front-End immer mehr an Bedeutung, während Back-End weniger wichtig wird. Der Trend geht in Richtung einer 90/10 Aufteilung zu Gunsten von Front-End. Der monolithische Design ist für Front-End zu schwerfällig, eine Aufteilung in kleinere Module ist nötig. Eine mögliche Partitionierung könnte wie folgt aussehen:   
-```myapp.com/``` - Startseite mit statischem HTML-Code.  
-```myapp.com/settings``` - veraltetes Modul für Einstellungen in AngularJS 1.x.  
-```myapp.com/dashboard``` - neues Dashboard-Modul erstellt mit React.
-Für dieses Beispiel wären zum Beispiel nötig:
-1. _Gemeinsame Codebasis_: auf JavaScript Basis zum Session-Management und Routing; gemeinsame CSS-Dateien.
-2. _Kollektion von verteilten Modulen_: Mini-Applikationen implementiert in verschiedenen Frameworks und in unterschiedlichen Repositories gespeichert.
-3. _Entwicklungssystem_: um alle Module zu verknüpfen und auf einen Server aufzusetzen, wenn ein Modul aktualisiert wird.
-
-Der aktuelle Trend heißt "Micro frontends" und Unternehmen, wie Spotify und Zalando sind schon umgestiegen. Einige der Umsetzungsmöglichkeiten:
-1. Eine Kombination aus mehreren Frameworks auf einer Webseite ohne das die Webseite aktuallisiert werden muss.
-2. Mehrere Singe-Page-Applikationen, die über verschiedene URLs zugänglich sind. Diese Applikationen nutzen Packagemanager für geteilte Funktionalität.
-3. Micro-Apps in IFrame verpacken und über APIs koordinieren.
+Für Webanwendungen gewinnt Front-End immer mehr an Bedeutung, während Back-End weniger wichtig wird. Der Trend geht in Richtung einer 90 zu 10 Aufteilung zu Gunsten von Front-End. Der monolithische Design ist für Front-End zu schwerfällig, so dass eine Aufteilung in kleinere Module nötig ist. Der aktuelle Trend heißt "Micro Front-Ends" und Unternehmen, wie Spotify und Zalando sind schon umgestiegen. Das sind einige der Umsetzungsmöglichkeiten:
+1. Eine Kombination aus mehreren Frameworks auf einer Webseite ohne das die Webseite aktualisiert werden muss.
+2. Mehrere Singe-Page-Applikationen, die über verschiedene URLs zugänglich sind. Diese Applikationen nutzen Paketverwaltung für geteilte Funktionalität.
+3. Micro-Apps in IFrames verpacken und über APIs koordinieren.
 4. Verschiedene Module können über einen gemeinsamen Event-Bus kommunizieren. Jedes Modul benutzt sein eigenes Framework und handelt nur eingehende und ausgehende Events.
 5. Mithilfe von einem Web-Beschleuniger verschiedene Module zu integrieren.
-6. Webkomponenten als eine Integrationsschicht zu verwenden. Sie erlauben wiederverwendbare Komponenten in WEbanwendungen und Webdokumenten zu erstellen.
+6. Webkomponenten als eine Integrationsschicht zu verwenden. Sie erlauben wiederverwendbare Komponenten in Webanwendungen und Webdokumenten zu erstellen.
 7. React-Komponenten in einer Blackbox zu isolieren. Hier wird der Zustand einer Applikation im Komponenten festgehalten und über die API werden nur die Eigenschaften zugänglich gemacht. <a>[[SÖDE17]](#ref_Söde17)</a>
 
+| __Vorteile__                    | __Nachteile__                                          |
+|---------------------------------|--------------------------------------------------------|
+| Unabhängig                      | Erhöhter Betriebsaufwand                               |
+| Einfacher einzusetzen           | Erhöhte Komplexität (z.B. Infrastruktur, Kommunikation)|
+| Hohe Testbarkeit                | Schlechtere Performance                                |
+| Unabhängige Technologiestacks   | Restrukturierung kann sehr komplex werden              |
+| Unabhängig im Fehlerfall        |                                                        |
+| Parallele entwicklung möglich   |                                                        |
+
+Tabelle angepasst aus <a>[[LECH17]](#ref_Lech17)</a>
+
+Eine mögliche Aufteilung des Front-End in Micro Front-Ends. Wie auch im Back-End Bereich ist hier jedes Team für einen Dienst zuständig. Links in der Abbildung sind die drei Schichten Front-End, Back-End und Datenbank zu sehen. Sie haben hier keine Relevanz.
+
+![Micro Front-End](./images/micro_frontend.png)
+
+_Micro frontend_, Abbildung entnommen aus <a>[[GEER17]](#ref_Geer17)</a>
 
 ## Einsatz von Microservices
 
@@ -215,7 +267,11 @@ Den Weg von Monolith zu Microservices gingen unter anderem Netflix, Amazon und E
 
 <a name="ref_Fowl08">[FOWL08]</a>: Fowler, Martin: HumaneRegistry, 01.12.2008, URL: https://martinfowler.com/bliki/HumaneRegistry.html (letzter Zugriff: 27.05.2018)
 
+<a name="ref_Geer17">[Geer17]</a>: Geers, Michael: What are Micro Frontends?, 2017, URL: https://micro-frontends.org/ (letzter Zugriff: 03.06.2018)
+
 <a name="ref_Miri17">[MIRI17]</a>: Miri, Ima: Microservices vs. SOA, 04.01.2017, URL: https://dzone.com/articles/microservices-vs-soa-2
+
+<a name="ref_Lech17">[LECH17]</a>: Lechner, Alexander: Micro-Frontends - Die bessere Art User Interfaces zu implementieren?, 15.11.2017, URL: https://www.it-economics.de/blog/2017-11/micro-frontends-die-bessere-art-user-interfaces-zu-implementieren (letzter Zugriff: 02.06.2018)
 
 <a name="ref_Lewi14">[LEWI14]</a>: Lewis James; Fowler, Martin: Microservices, a definition of this new architectural term, 25.03.2014, URL: https://martinfowler.com/articles/microservices.html (letzter Zugriff: 31.05.2018)
 
@@ -224,8 +280,14 @@ URL: https://cyberleninka.ru/article/v/on-micro-services-architecture (letzter Z
 
 <a name="ref_Peck17">[PECK17]</a>: Peck, Nathan: Microservice Principles: Decentralized Governance, 05.09.2017, URL: https://medium.com/@nathankpeck/microservice-principles-decentralized-governance-4cdbde2ff6ca (letzter Zugriff: 24.05.2018)
 
+<a name="ref_Pien16">[PIEN16]</a>: Pientka, Frank: Wie lassen sich Microservice-Muster effizient umsetzen?, 09.02.2016, URL: https://www.informatik-aktuell.de/entwicklung/methoden/wie-lassen-sich-microservice-muster-effizient-umsetzen.html, (letzter Zugriff: 01.06.2018)
+
 <a name="ref_Rich17">[RICH17]</a>: Richardson, Chris: Pattern: Microservice Architecture, 2017, URL: http://microservices.io/patterns/microservices.html (letzter Zugriff: 31.05.2018)
 
 <a name="ref_Robe18">[ROBE18]</a>: Roberts, Mike: Serverless Architectures, 22.05.2018, URL: https://martinfowler.com/articles/serverless.html (letzter Zugriff: 27.05.2018)
 
+<a name="ref_Scsvsm">[SCSVSM]</a>:SCS vs. Microservices, URL: http://scs-architecture.org/vs-ms.html (letzter Zugriff: 02.06.2018)
+
 <a name="ref_Söde17">[SÖDE17]</a>: Söderlund, Tom: Micro frontends—a microservice approach to front-end web development, 06.07.2017, URL: https://medium.com/@tomsoderlund/micro-frontends-a-microservice-approach-to-front-end-web-development-f325ebdadc16 (letzter Zugriff: 31.05.2018)
+
+<a name="ref_Tatv16">[TATV16]</a>: TatvaSoft: The Difference between Web Services and Micro Services, 30.06.2016, URL: https://www.tatvasoft.com/blog/the-difference-between-micro-services-and-web-services/
