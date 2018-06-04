@@ -1202,7 +1202,7 @@ Vergleiche die alte Liste mit der neuen Liste:
 
 *Anmerkung:*
 
-Seit ca. 2 Jahren arbeitet das React Team zudem an einer neuen Datenstruktur (React Fiber), die den aktuellen Algorithmus verbessern und ersetzen soll, siehe [link](https://gist.github.com/duivvv/2ba00d413b8ff7bc1fa5a2e51c61ba43).
+Seit ca. 2 Jahren arbeitet das React Team zudem an einer neuen Datenstruktur (React Fiber), die den aktuellen Algorithmus verbessern und ersetzen soll, siehe [Link](https://gist.github.com/duivvv/2ba00d413b8ff7bc1fa5a2e51c61ba43).
 
 
 #### Error Boundaries
@@ -1273,7 +1273,7 @@ Abbildung entnommen aus [[SZCZ18]](#ref_szcz18)
 Implementierung:
 ```jsx
 // ...
-// Versetze "ChildComponent" in den strict mode
+// Versetze "ChildComponent" in den Strict Mode
 render() {
   return (
     <StrictMode>
