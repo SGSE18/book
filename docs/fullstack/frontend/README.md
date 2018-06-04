@@ -36,7 +36,7 @@
     - [PropTypes](#proptypes)
     - [Flow](#flow)
     - [Typescript](#typescript)
-  - [Virtuelles DOM](#virtuelles-dom)
+  - [Reconciliation](#reconciliation)
   - [Error Boundaries](#error-boundaries)
   - [React Router](#react-router)
   - [Strict Mode](#strict-mode)
@@ -227,7 +227,7 @@ TODO Motivation...
 
 #### Code-Splitting
 
-Bei der Entwicklung von React Applikationen werden in der Regel eine Vielzahl an einzelnen Paketen verwendet. Tools wie Browserify oder Webpack bündeln die einzelnen Bestandteile zu einer großen Datei. Hierdurch kann eine Anwendung als Ganzes innerhalb einer Webseite inkludiert werden.
+Bei der Entwicklung von modernen Web Applikationen werden in der Regel eine Vielzahl an einzelnen Paketen verwendet. Tools wie Browserify oder Webpack bündeln die einzelnen Bestandteile zu einer großen Datei. Hierdurch kann eine Anwendung als Ganzes innerhalb einer Webseite inkludiert werden.
 
 Bei größeren Single Page Applications kann dies zu Problemen führen, da alle Daten geladen werden müssen, obwohl der Benutzer eventuell gar nicht alle Bereiche der Anwendung verwenden wird. Um diesem Problem aus dem Weg zu gehen, kann *Code-Splitting* eingesetzt werden.
 
@@ -350,11 +350,11 @@ Den Abschluss des React Kapitels sollen fortgeschrittene Themen der Webentwicklu
 Bei der Entwicklung von Webanwendungen mit React spielen Komponenten eine zentrale Rolle. Im Folgenden werden deshalb einige Grundlagen der Komponentenentwicklung mit React vorgestellt.
 
 ##### Arten
-Grundsätzlich unterscheidet man zwischen zwei Arten von Komponenten. Die sogenannten "Dumb Components" und die "Smart Components". 
+Grundsätzlich unterscheidet man zwischen zwei Arten von Komponenten. Die sogenannten "Dumb Components" und die "Smart Components". Zusätzlich werden in diesem Abschnitt noch die Higher Order Components vorgestellt, die genau genommen ein Entwurfsmuster für Komponenten darstellen.
 
 ###### Dumb Components
 
-Dumb Components verfügen über keinen Zustand (*state*). Soll heißen, dass sie einmalig Eigenschaften zugewiesen bekommen (*properties*, im Folgenden auch *props* genannt) und auf Basis dieser Werte ihr Aussehen anpassen. 
+Dumb Components verfügen über keinen Zustand (*state*). Das heißt, dass sie einmalig Eigenschaften zugewiesen bekommen (*properties*, im Folgenden auch *props* genannt) und auf Basis dieser Werte ihr Aussehen anpassen. 
 
 *Anmerkung:* Es ist darauf zu achten, dass JavaScript standardmäßig über keine Typprüfung verfügt und somit auch die Verwendung der Properties ein sorgsames Vorgehen verlangt. Möglichkeiten der statischen Typprüfung werden im Kapitel "Type checking/static types in JavaScript" vorgestellt.
 
@@ -1174,17 +1174,11 @@ Um solche unsauberen Lösungen zu umgehen, kann z.B. das statische Code-Analyse 
 Einen schnellen Einstieg in die Entwicklung von React Anwendungen mit TypeScript und TSLint 
 erhält man [hier](https://github.com/Microsoft/TypeScript-React-Starter#typescript-react-starter).
 
-
-
-
-
-
-
-#### Virtuelles DOM
+#### Reconciliation
 
 Da das Updaten von Elementen des nativen DOMs relativ ineffizient ist, verfügt React über ein virtuelles DOM. Statt Änderungen direkt im DOM zu rendern, wird der alte virtuelle DOM mit dem aus den Änderungen resultierenden DOM verglichen. Hierbei handelt es sich um leichtgewichtige JavaScript Objekte, die in-memory gespeichert werden, sodass dort Operationen deutlich schneller durchgeführt werden können. Initial wird der virtuelle DOM mit der Funktion **ReactDOM.render()** erstellt.
 
-Der Objektbaum wird durch das Aufrufen von **setState()** jeweils komplett neu erstellt und verglichen. Algorithmen, die die minimale Anzahl von nötigen Modifikation bestimmen, liegen bestenfalls in O(n³). Um diesen Vorgang zu beschleunigen, verwendet React eine Heuristik, die das Problem in O(n) lösen kann. Hierzu werden 2 Annahmen getroffen:
+Der Objektbaum wird durch das Aufrufen von **setState()** jeweils komplett neu erstellt und verglichen. Algorithmen, die die minimale Anzahl von nötigen Modifikation bestimmen, liegen bestenfalls in O(n³). Um diesen Vorgang zu beschleunigen, verwendet React den sogenannten *Reconciliation*-Algorithmus. Hierbei wird eine Heuristik verwendet, die das Problem in O(n) lösen kann. Es werden 2 Annahmen getroffen:
 
 **Annahme 1:**
 
