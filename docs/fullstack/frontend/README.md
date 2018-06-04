@@ -7,39 +7,43 @@
 - [Grundlagen](#grundlagen)
   - [Single Page Applications](#single-page-applications)
   - [Progressive Web Apps](#progressive-web-apps)
+- [Konzepte, Technologien und Architekturen im Frontend](#konzepte-technologien-architekturen-im-frontend)
+  - [App Shell Model](#app-shell-model)
   - [JSX](#jsx)
+  - [Flux](#flux)
+  - [State Management](#state-management)
+  - [Code-Splitting](#code-splitting)
+  - [Serverseitiges Rendern](#serverseitiges-rendern)
+- [React Technologien und Konzepte](#react-technologien-und-konzepte)
   - [Komponenten](#komponenten)
-    - [Dumb Components und Smart Components](#dumb-components-und-smart-components)
+    - [Arten](#arten)
+      - [Dumb Components](#dumb-components)
+      - [Smart Components](#smart-components)
+      - [Higher Order Components (HOCs)](#higher-order-components-hocs)
     - [Children](#children)
     - [Rendern](#rendern)
     - [Bedingtes Rendern](#bedingtes-rendern)
     - [Events](#events)
     - [Styling](#styling)
     - [Lifecycle](#lifecycle)
-- [Patterns und Architekturen](#patterns-und-architekturen)
-  - [Flux](#flux)
-  - [State Management](#state-management)
+  - [State Management in React](#state-management-in-react)
     - [setState](#setstate)
     - [Context](#context)
     - [MobX](#mobx)
     - [Redux](#redux)
     - [Auswahlhilfe](#auswahlhilfe)
-  - [Higher Order Components (HOCs)](#higher-order-components-hocs)
-  - [App Shell Model](#app-shell-model)
-- [Weitere React-Themen](#weitere-react-themen)
-  - [Virtuelles DOM](#virtuelles-dom)
-  - [Type Checking und Static Types in JavaScript](#type-checking-und-static-types-in-javascript)
+  - [Type Checking und Static Types](#type-checking-und-static-types)
     - [PropTypes](#proptypes)
     - [Flow](#flow)
     - [Typescript](#typescript)
+  - [Reconciliation](#reconciliation)
   - [Error Boundaries](#error-boundaries)
   - [React Router](#react-router)
-  - [Code-Splitting](#code-splitting)
   - [Strict Mode](#strict-mode)
-  - [Serverseitiges Rendern](#serverseitiges-rendern)
 - [Literaturverzeichnis](#literaturverzeichnis)
-
 ### Grundlagen
+
+TODO an neue Struktur anpassen
 
 Im Folgenden soll ein Überblick über einige Grundlagen der Entwicklung von React-Applikationen geschaffen werden. Hierzu werden zunächst die Begriffe "Single Page Application" und "Progressive Web App" erläutert. Anschließend wird eine Einführung in das Programmieren von UIs mithilfe von "JSX" geboten sowie die Grundlagen der Komponentenentwicklung mit React erklärt.
 
@@ -99,8 +103,26 @@ Zu den Kriterien gehören beispielsweise:
 
 Eine Architekturart, die das Erstellen von PWAs erleichtern soll, wird im Kapitel [App Shell Model](#app-shell-model) vorgestellt.
 
+<a name="konzepte-technologien-architekturen-im-frontend"></a>
+### Konzepte, Technologien und Architekturen im Frontend
+TODO an neue Struktur anpassen
+
+Dieses Kapitel soll einen Überblick über einige Themen der Bereiche Patterns und Architekturen in Bezug auf React-relevante Themen schaffen. Hierzu wird zunächst das Architektur Pattern "Flux" vorgestellt. Danach werden verschiedene Methoden des State Managements sowie die Pattern "Higher Order Component" und das "App Shell Model" vorgestellt.
+#### App Shell Model
+
+App Shell (oder Application Shell) ist eine Architektur, die das Erstellen von zuverlässigen und sofort ladenden Progressive Web Apps ermöglicht (ähnlich wie bei nativen Apps). 
+Die folgende Abbildung zeigt den grundsätzlichen App-Aufbau.
+![ref_app_shell_model](./images/appshell_model.png "App Shell Model Architektur")
+Abbildung entnommen aus <a>[[OSMA18]](#ref_osma13)</a>
+
+Die "Shell" besteht aus wenigen HTML, CSS und JavaScript Bestandteilen, die die grobe App-Struktur definieren. Dieses Grundgerüst kann im Offline-Cache gespeichert werden, wodurch ein erneutes Laden der Anwendung schnell und ohne eine Netzwerkverbindung durchgeführt werden kann. Der benötigte Seiteninhalt wird anschließend aus dem Netzwerk geladen und dann in die Shell eingefügt.
+
+Single Page Applications können dieses Verfahren z.B. mithilfe von sogenannten "Service Workern" durchführen. Hierbei handelt es sich um Skripte, die vom Browser im Hintergrund ausgeführt werden, um beispielsweise Antworten auf Anfragen offline zu cachen [[GRUN18]](#ref_grun18), [[OSMA18]](#ref_osma18).
+
+Besondern viel Sinn macht diese Art der Architektur, wenn eine Webanwendung entwickelt wird, bei der die Navigationelemente gleich bleiben, sich der Inhalt jedoch ändert.  
+
 #### JSX
-JSX erweitert die Programmiersprache JavaScript, indem es eine XML/HTML-artige Struktur zur Programmierung der GUI-Elemente innerhalb des JavaScript Codes erlaubt. Damit aus einem JSX-Code standardmäßiges JavaScript wird, muss der Code übersetzt werden. Dieser Vorgang wird i.d.R. mithilfe des JavaScript-Compilers "Babel" durchgeführt. Streng genommen ist JSX kein zwingendes Muss bei der Verwendung von React, jedoch ist zu vermuten, dass die meisten Entwickler die JSX-Version den kompilierten JavaScript Äquivalent aufgrund der Übersichtlichkeit bevorzugen. Außerdem können so hilfreichere Tool-Unterstützungen (Warnungen, Fehler etc.) angezeigt werden [[FACE18a]](#ref_face18a).
+JSX erweitert die Programmiersprache JavaScript, indem es eine XML/HTML-artige Struktur zur Programmierung der GUI-Elemente innerhalb des JavaScript Codes erlaubt. Damit aus einem JSX-Code standardmäßiges JavaScript wird, muss der Code übersetzt werden. Dieser Vorgang wird i.d.R. mithilfe des JavaScript-Compilers "Babel" durchgeführt. Streng genommen ist JSX kein zwingendes Muss bei der Verwendung von React, jedoch ist zu vermuten, dass die meisten Entwickler die JSX-Version den kompilierten JavaScript Äquivalent aufgrund der Übersichtlichkeit bevorzugen. Außerdem können so hilfreichere Tool-Unterstützungen (Warnungen, Fehler etc.) angezeigt werden [[FACE18a]](#ref_face18a). Die Verwendung von JSX ist nicht auf React beschränkt.
 
 Als Beispiel soll folgender JSX-Code dienen:
 
@@ -118,7 +140,7 @@ function render() {
 ```
 Mit HTML vertraute Personen sollten sich denken können, was der JSX-Code repräsentiert. Es wird ein div-Container erzeugt, der die Überschriften "Master Informatik" (h1-Element), "Campus Minden" (h2-Element), "Modulname:" (h3-Element) sowie ein Text-Eingabefeld enthält. Das Eingabefeld hat den Namen "moduleNameInput" und erhält beim Erzeugen der Komponente den Eingabefokus.
 
-Dieser Code wird von Babel folgendermaßen übersetzt:
+Dieser Code wird von Babel für React Anwendungen folgendermaßen übersetzt:
 
 ```javascript
 function render() {
@@ -155,16 +177,184 @@ const itemCounter = <div>Anzahl an Items: {items.length}</div>;
 // ===============================================================
 ```
 
+#### Flux
+
+Flux ist ein Architektur Pattern, das beim Erstellen von User Interfaces verwendet werden kann. Es wurde erstmal 2014 von Facebook vorgestellt. Facebook nutzt Flux intern für ihre React Projekte, da ihnen die bidirektionalen Verbindungen bei Verwendung eines MVC Patterns aufgrund des großen Umfangs ihrer Projekte Probleme bereiteten [[FACE14]](#ref_face14). 
+Im Gegensatz zu MVC handelt es sich bei Flux um ein unidirektionales Pattern.
+
+Die prinzipielle Architektur von Flux wird in der folgenden Abbildung dargestellt:
+
+<a name="ref_flux_achitecture"></a>![ref_flux_achitecture](./images/basic_flux_architecture.jpg "Flux Architektur")
+
+Abbildung entnommen aus [[TSON18]](#ref_tson18)
+
+Das Pattern besteht aus 4 Bestandteilen [[TSON18]](#ref_tson18):
+
+**Action**
+
+Ereignisse/Benachrichtigungen, die Informationen/Daten an den Dispatcher weiterleiten. Sie werden von der View oder sonstigen Services (z.B. HTTP Anfragen) ausgelöst. 
+
+Typischerweise handelt es sich bei einer Action um ein Objekt, das über zwei Attribute verfügt.
+* *type*: um welche Action handelt es sich  (eine Art ID)?
+* *payload*: Objekt, das die Nutzdaten enthält
+
+Eine Action, bei der eine Person zu einer Liste hinzugefügt werden soll, könnte folgendermaßen aussehen:
+
+```javascript
+{
+  type: 'ADD_PERSON',
+  payload: {
+    forename: 'Max'
+    surname: 'Mustermann'
+  }
+}
+```
+
+**Dispatcher**
+
+Der Dispatcher ist der hauptsächliche Akteur. Alle eingehenden Ereignisse des Systems (bzw. *Actions*) werden im Dispatcher gesammelt und von dort aus an die entsprechenden *Stores* verteilt.
+
+**Store**
+
+Die Stores empfangen die Benachrichtigungen vom Dispatcher und ändern auf Basis der neuen Informationen ggf. ihren Zustand, um Änderungen in der entsprechenden View auszulösen. Verglichen mit dem MVC Pattern handelt es sich bei den Stores also im Prinzip um das Model.
+
+**View**
+
+Die Views dienen der Anzeige der Daten. Sie abonnieren Stores und können Actions auslösen. Bei React sind die Views die entsprechenden React Komponenten.
+
+#### State Management
+TODO Motivation...
+
+#### Code-Splitting
+
+Bei der Entwicklung von modernen Web Applikationen werden in der Regel eine Vielzahl an einzelnen Paketen verwendet. Tools wie Browserify oder Webpack bündeln die einzelnen Bestandteile zu einer großen Datei. Hierdurch kann eine Anwendung als Ganzes innerhalb einer Webseite inkludiert werden.
+
+Bei größeren Single Page Applications kann dies zu Problemen führen, da alle Daten geladen werden müssen, obwohl der Benutzer eventuell gar nicht alle Bereiche der Anwendung verwenden wird. Um diesem Problem aus dem Weg zu gehen, kann *Code-Splitting* eingesetzt werden.
+
+Code-Splitting ermöglicht es, die Bestandteile einer Webanwendung in verschiedene Bereiche aufzuteilen und diese erst bei Bedarf zu laden (quasi *lazy loading*).
+
+In React kann hierzu in Verbindung mit Webpack die dynamische *import()*-Syntax verwendet werden [[FACE18g]](#ref_face18g).
+
+Ohne Code-Splitting:
+```javascript
+import { SubMenu } from './SubMenu';
+
+SubMenu.open();
+```
+
+Mit Code-Splitting:
+```javascript
+// Webpack führt hier ein Code-Splitting durch 
+import("./SubMenu").then(module => {
+  module.SubMenu.open();
+});
+```
+
+**Komponentenbasiertes Code-Splitting mit *React Loadable***
+
+Speziell für React kann auch die Bibliothek *React Loadable* verwendet werden. Sie bietet einen Wrapper für das Code-Splitting und bietet zudem z.B. die Möglichkeit, während des Ladevorganges eine andere Komponente/Text anzuzeigen. Es handelt sich um eine HOC, die [Promises](https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Global_Objects/Promise) für das Laden von Komponenten bereitstellt [[REAC18]](#ref_reac18).
+
+Ohne Code-Splitting:
+```jsx
+import { SomeComponent } from './SomeComponent';
+
+const SomeContainer = () => (
+  <SomeComponent/>
+);
+```
+
+Mit Code-Splitting:
+```jsx
+import Loadable from 'react-loadable';
+
+const SomeLoadableComponent = Loadable({
+  // wird geladen, wenn die Komponente angefordert wird
+  loader: () => import('./SomeComponent'),
+  // wird so lange angezeigt, bis die Komponente geladen ist
+  loading: () => <div>Loading...</div>,
+  // zeige Ladetext erst nach 0,2 Sekunden an
+  delay: 200
+});
+
+const SomeContainer = () => (
+  <SomeLoadableComponent/>
+);
+```
+**Routenbasiertes Code-Splitting mit *React Loadable***
+
+React Loadable kann auch dazu genutzt werden, um ein routenbasiertes Code-Splitting durchzuführen. Hierbei erhält jede Route eine eigene Komponente, die als Loadable implementiert wird [[FACE18g]](#ref_face18g):
+
+```jsx
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Loadable from 'react-loadable';
+
+const Loading = () => <div>Loading...</div>;
+
+const Home = Loadable({
+  loader: () => import('./routes/Home'),
+  loading: Loading,
+});
+
+const About = Loadable({
+  loader: () => import('./routes/About'),
+  loading: Loading,
+});
+
+const App = () => (
+  <Router>
+    <Switch>
+      <Route exact path="/" component={Home}/>
+      <Route path="/about" component={About}/>
+    </Switch>
+  </Router>
+);
+```
+
+
+#### Serverseitiges Rendern
+
+Bei der Erstellung von Webanwendungen kann die Webseite prinzipiell auf verschiedenen Arten gerendert werden. 
+
+*Clientseitiges Rendern:*
+
+Der Browser lädt eine einfache HTML Datei, deren Inhalt durch JavaScript befüllt wird
+
+*Serverseitiges Rendern (SSR):*
+
+Der **Startinhalt** wird auf dem Server generiert, sodass der Browser die Daten als HTML-Seite laden kann. Updates werden jedoch weiterhin im Browser gehandhabt [[LASN18]](#ref_lasn18).
+
+Stellt man sich die Frage, ob man serverseitiges Rendern verwenden sollte, kann [diese](https://www.javascriptstuff.com/server-side-render/) Seite hilfreich sein.
+
+Vorteile:
+* SEO (Search Engine Optimization) Verbesserung möglich (Google, Bing etc.)
+* In der Regel bessere clientseitige Performance
+
+Nachteile:
+* Der Server wird stärker beansprucht, wodurch HTTP Antworten verzögert werden können
+* Die Größe der HTML-Datei steigt und diese braucht somit länger zum Downloaden (i.d.R. vernachlässigbar)
+* Die Komplexität der Anwendung nimmt zu
+
+Zur Vereinfachung von SSR in React-Applikationen, kann das Framework *[Next.js](https://nextjs.org/)* verwendet werden. Hierbei wird zudem ein automatisches Code-Splitting durchgeführt.
+
+
+Alternativ zu SSR kann auch [prerender](https://prerender.io/) verwendet werden.
+Hierbei handelt es sich um eine Middleware, die Crawlern eine vorgerenderte Version der Webseite für eine bessere SEO zurückliefert [[LASN18]](#ref_lasn18). 
+
+### React Technologien und Konzepte
+TODO an neue Struktur anpassen
+
+
+Den Abschluss des React Kapitels sollen fortgeschrittene Themen der Webentwicklung bilden. Angefangen wird mit der Thematik des virtuellen DOMs von React. Darauf folgt ein Überblick über Möglichkeiten des Type Checkings / Static Types in JavaScript. Die React-spezifischen Themen "Error Boundaries", "React Router" und "Strict Mode" sollen zudem einige fortgeschrittene React-Techniken vermitteln. Außerdem werden die Bereiche "Code-Splitting" und "serverseitiges Rendern" vorgestellt.
 #### Komponenten
 
 Bei der Entwicklung von Webanwendungen mit React spielen Komponenten eine zentrale Rolle. Im Folgenden werden deshalb einige Grundlagen der Komponentenentwicklung mit React vorgestellt.
 
-##### Dumb Components und Smart Components
-Grundsätzlich unterscheidet man zwischen zwei Arten von Komponenten. Die sogenannten "Dumb Components" und die "Smart Components". 
+##### Arten
+Grundsätzlich unterscheidet man zwischen zwei Arten von Komponenten. Die sogenannten "Dumb Components" und die "Smart Components". Zusätzlich werden in diesem Abschnitt noch die Higher Order Components vorgestellt, die genau genommen ein Entwurfsmuster für Komponenten darstellen.
 
-**Dumb Components**
+###### Dumb Components
 
-Dumb Components verfügen über keinen Zustand (*state*). Soll heißen, dass sie einmalig Eigenschaften zugewiesen bekommen (*properties*, im Folgenden auch *props* genannt) und auf Basis dieser Werte ihr Aussehen anpassen. 
+Dumb Components verfügen über keinen Zustand (*state*). Das heißt, dass sie einmalig Eigenschaften zugewiesen bekommen (*properties*, im Folgenden auch *props* genannt) und auf Basis dieser Werte ihr Aussehen anpassen. 
 
 *Anmerkung:* Es ist darauf zu achten, dass JavaScript standardmäßig über keine Typprüfung verfügt und somit auch die Verwendung der Properties ein sorgsames Vorgehen verlangt. Möglichkeiten der statischen Typprüfung werden im Kapitel "Type checking/static types in JavaScript" vorgestellt.
 
@@ -193,7 +383,7 @@ const Header = (props) => {
  /// }
  ```
 
-**Smart Components**
+###### Smart Components
 
 Im Gegensatz zu Dumb Components verfügen Sart Components über einen Status (*state*). Hierbei handelt es sich wie bei den Properties um ein Objekt, das aus Key-Value Paaren besteht. Besonders ist hierbei jedoch, dass sich der Status innerhalb des Lebenszyklus der Komponente ändern kann. 
 
@@ -229,6 +419,51 @@ class Counter extends React.Component {
 
 Bei der Verwendung des Status ist zu beachten, dass Werte von Statusvariablen mit der asynchronen Methode *setState()* geändert werden müssen. Die Methode erhält ein Objekt mit den Key-Value Paaren, die geändert werden sollen. Auf diese Art und Weise wird die Anzeige direkt nach dem Ändern eines Statuswerts aktualisiert. Weitere Details zur Verwendung von setState() und alternative Möglichkeiten zum Verwalten des Zustands der Komponenten werden im Kapitel [State Management](#state-management) beschrieben. Informationen zum Lifecycle von Smart Components finden sich im gleichnamigen [Kapitel](#lifecycle).
 
+
+###### Higher Order Components (HOCs)
+Higher Order Components erweitern Komponenten, indem sie ihnen zusätzliche Funktionalitäten oder Properties zur Verfügung stellen (ähnlich wie beim Decorator Pattern) [[TSON18]](#ref_tson18). Möchte man beispielsweise bei jedem Mounting- und Rendervorgang von Komponenten ein Log-Nachricht ausgeben, so müsste man den gleichen Code an vielen Stellen des Projekts einbauen (in der componentDidMount- und der render-Methode der jeweiligen Komponente).
+Eine HOC kann hier Abhilfe schaffen:
+
+```jsx
+// Beispielhafte Komponente, die später erweitert wird
+const Title = (props) => <h1>{props.title}</h1>;
+
+// HOC
+function withLogger(WrappedComponent) {
+  return class extends React.Component {
+    componentDidMount() {
+      console.log(this.props.prefix + ' component did mount')
+    }
+
+    render() {
+      console.log(this.props.prefix + ' render')
+      // mit "{...this.props}" werden alle Properties des HOCs kopiert,
+      // sodass die erweiterte Komponente diese erhält.
+      // Es können auch weitere Properties hinzugefügt werden.
+      // Weitere Infos: Nach "Spread-Operator" suchen
+      return (
+        <WrappedComponent {...this.props}> />
+      )
+    }
+  }
+};
+```
+Bei der HOC handelt es sich um eine Art Factory-Methode, die als Parameter die zu erweiternde Komponente erhält und auf Basis dieser die high-order Komponente erstellt.
+
+Dementsprechend muss die Funktion wie folgt aufgerufen werden:
+```jsx
+const LoggedComponent = withLogger(Title);
+```
+
+Die so erstellte Komponente kann anschließend wie üblich verwendet werden:
+```jsx
+<LoggedComponent 
+    prefix="LoggedComponent:" // Property für den Logger
+    title="test"              // Property für die Komponente
+/>           
+```
+
+In diesem recht simplen Beispiel wird deutlich, dass so Logik und Anzeige besser getrennt werden können, wodurch die Wiederverwendbarkeit der einzelnen Teile verbessert wird. Die Anzeige kann so oftmals durch Dumb Components realisiert werden. Es ist z.B. denkbar, dass eine HOC Daten aus dem Netz abruft und sie diese dann einer statuslosen "Anzeigekomponente" zur Verfügung stellt [[CHAN17]](#ref_chan17). Ebenso könnte eine HOC die Konfiguration einer anderen Komponente übernehmen. All das erleichtert zudem das Testen der Komponenten, da die Aufgaben strikter getrennt werden und so einfacher Mock-Komponenten erstellt werden können [[TSON18]](#ref_tson18).
 
 ##### Children
 
@@ -606,56 +841,7 @@ Unmittelbar bevor eine Methode unmountet und zerstört wird, wird die Methode **
 
 Zusätzlich zu den hier vorgestellten Lifecycle-Methoden existiert auch noch die Methode componentDidCatch(error, errorInfo). Diese erzeugt aus der aktuellen Klasse eine *Error Boundary Klasse*, die JavaScript-Fehler innerhalb ihrer Kinderelemente fängt. Weiterführende Informationen finden sich im Kapitel [Error Boundaries](#error-boundaries).
 
-### Patterns und Architekturen 
-
-Dieses Kapitel soll einen Überblick über einige Themen der Bereiche Patterns und Architekturen in Bezug auf React-relevante Themen schaffen. Hierzu wird zunächst das Architektur Pattern "Flux" vorgestellt. Danach werden verschiedene Methoden des State Managements sowie die Pattern "Higher Order Component" und das "App Shell Model" vorgestellt.
-
-#### Flux
-
-Flux ist ein Architektur Pattern, das beim Erstellen von User Interfaces verwendet werden kann. Es wurde erstmal 2014 von Facebook vorgestellt. Facebook nutzt Flux intern für ihre React Projekte, da ihnen die bidirektionalen Verbindungen bei Verwendung eines MVC Patterns aufgrund des großen Umfangs ihrer Projekte Probleme bereiteten [[FACE14]](#ref_face14). 
-Im Gegensatz zu MVC handelt es sich bei Flux um ein unidirektionales Pattern.
-
-Die prinzipielle Architektur von Flux wird in der folgenden Abbildung dargestellt:
-
-<a name="ref_flux_achitecture"></a>![ref_flux_achitecture](./images/basic_flux_architecture.jpg "Flux Architektur")
-
-Abbildung entnommen aus [[TSON18]](#ref_tson18)
-
-Das Pattern besteht aus 4 Bestandteilen [[TSON18]](#ref_tson18):
-
-**Action**
-
-Ereignisse/Benachrichtigungen, die Informationen/Daten an den Dispatcher weiterleiten. Sie werden von der View oder sonstigen Services (z.B. HTTP Anfragen) ausgelöst. 
-
-Typischerweise handelt es sich bei einer Action um ein Objekt, das über zwei Attribute verfügt.
-* *type*: um welche Action handelt es sich  (eine Art ID)?
-* *payload*: Objekt, das die Nutzdaten enthält
-
-Eine Action, bei der eine Person zu einer Liste hinzugefügt werden soll, könnte folgendermaßen aussehen:
-
-```javascript
-{
-  type: 'ADD_PERSON',
-  payload: {
-    forename: 'Max'
-    surname: 'Mustermann'
-  }
-}
-```
-
-**Dispatcher**
-
-Der Dispatcher ist der hauptsächliche Akteur. Alle eingehenden Ereignisse des Systems (bzw. *Actions*) werden im Dispatcher gesammelt und von dort aus an die entsprechenden *Stores* verteilt.
-
-**Store**
-
-Die Stores empfangen die Benachrichtigungen vom Dispatcher und ändern auf Basis der neuen Informationen ggf. ihren Zustand, um Änderungen in der entsprechenden View auszulösen. Verglichen mit dem MVC Pattern handelt es sich bei den Stores also im Prinzip um das Model.
-
-**View**
-
-Die Views dienen der Anzeige der Daten. Sie abonnieren Stores und können Actions auslösen. Bei React sind die Views die entsprechenden React Komponenten.
-
-#### State Management
+#### State Management in React
 
 Das Erstellen von dynamischen Webseiten bedarf einer guten Strategie zur Verwaltung des Zustandes der Webseite. Im Folgenden werden einige Möglichkeiten des State Managements einer React-Anwendung vorgestellt.
 
@@ -845,99 +1031,7 @@ Ist die **Skalierbarkeit** wichtig?
 
     Redux verwenden
 
-#### Higher Order Components (HOCs)
-Higher Order Components erweitern Komponenten, indem sie ihnen zusätzliche Funktionalitäten oder Properties zur Verfügung stellen (ähnlich wie beim Decorator Pattern) [[TSON18]](#ref_tson18). Möchte man beispielsweise bei jedem Mounting- und Rendervorgang von Komponenten ein Log-Nachricht ausgeben, so müsste man den gleichen Code an vielen Stellen des Projekts einbauen (in der componentDidMount- und der render-Methode der jeweiligen Komponente).
-Eine HOC kann hier Abhilfe schaffen:
-
-```jsx
-// Beispielhafte Komponente, die später erweitert wird
-const Title = (props) => <h1>{props.title}</h1>;
-
-// HOC
-function withLogger(WrappedComponent) {
-  return class extends React.Component {
-    componentDidMount() {
-      console.log(this.props.prefix + ' component did mount')
-    }
-
-    render() {
-      console.log(this.props.prefix + ' render')
-      // mit "{...this.props}" werden alle Properties des HOCs kopiert,
-      // sodass die erweiterte Komponente diese erhält.
-      // Es können auch weitere Properties hinzugefügt werden.
-      // Weitere Infos: Nach "Spread-Operator" suchen
-      return (
-        <WrappedComponent {...this.props}> />
-      )
-    }
-  }
-};
-```
-Bei der HOC handelt es sich um eine Art Factory-Methode, die als Parameter die zu erweiternde Komponente erhält und auf Basis dieser die high-order Komponente erstellt.
-
-Dementsprechend muss die Funktion wie folgt aufgerufen werden:
-```jsx
-const LoggedComponent = withLogger(Title);
-```
-
-Die so erstellte Komponente kann anschließend wie üblich verwendet werden:
-```jsx
-<LoggedComponent 
-    prefix="LoggedComponent:" // Property für den Logger
-    title="test"              // Property für die Komponente
-/>           
-```
-
-In diesem recht simplen Beispiel wird deutlich, dass so Logik und Anzeige besser getrennt werden können, wodurch die Wiederverwendbarkeit der einzelnen Teile verbessert wird. Die Anzeige kann so oftmals durch Dumb Components realisiert werden. Es ist z.B. denkbar, dass eine HOC Daten aus dem Netz abruft und sie diese dann einer statuslosen "Anzeigekomponente" zur Verfügung stellt [[CHAN17]](#ref_chan17). Ebenso könnte eine HOC die Konfiguration einer anderen Komponente übernehmen. All das erleichtert zudem das Testen der Komponenten, da die Aufgaben strikter getrennt werden und so einfacher Mock-Komponenten erstellt werden können [[TSON18]](#ref_tson18).
-
-#### App Shell Model
-
-App Shell (oder Application Shell) ist eine Architektur, die das Erstellen von zuverlässigen und sofort ladenden Progressive Web Apps ermöglicht (ähnlich wie bei nativen Apps). 
-Die folgende Abbildung zeigt den grundsätzlichen App-Aufbau.
-![ref_app_shell_model](./images/appshell_model.png "App Shell Model Architektur")
-Abbildung entnommen aus <a>[[OSMA18]](#ref_osma13)</a>
-
-Die "Shell" besteht aus wenigen HTML, CSS und JavaScript Bestandteilen, die die grobe App-Struktur definieren. Dieses Grundgerüst kann im Offline-Cache gespeichert werden, wodurch ein erneutes Laden der Anwendung schnell und ohne eine Netzwerkverbindung durchgeführt werden kann. Der benötigte Seiteninhalt wird anschließend aus dem Netzwerk geladen und dann in die Shell eingefügt.
-
-Single Page Applications können dieses Verfahren z.B. mithilfe von sogenannten "Service Workern" durchführen. Hierbei handelt es sich um Skripte, die vom Browser im Hintergrund ausgeführt werden, um beispielsweise Antworten auf Anfragen offline zu cachen [[GRUN18]](#ref_grun18), [[OSMA18]](#ref_osma18).
-
-Besondern viel Sinn macht diese Art der Architektur, wenn eine Webanwendung entwickelt wird, bei der die Navigationelemente gleich bleiben, sich der Inhalt jedoch ändert.  
-
-### Weitere React-Themen
-
-Den Abschluss des React Kapitels sollen fortgeschrittene Themen der Webentwicklung bilden. Angefangen wird mit der Thematik des virtuellen DOMs von React. Darauf folgt ein Überblick über Möglichkeiten des Type Checkings / Static Types in JavaScript. Die React-spezifischen Themen "Error Boundaries", "React Router" und "Strict Mode" sollen zudem einige fortgeschrittene React-Techniken vermitteln. Außerdem werden die Bereiche "Code-Splitting" und "serverseitiges Rendern" vorgestellt.
-
-#### Virtuelles DOM
-
-Da das Updaten von Elementen des nativen DOMs relativ ineffizient ist, verfügt React über ein virtuelles DOM. Statt Änderungen direkt im DOM zu rendern, wird der alte virtuelle DOM mit dem aus den Änderungen resultierenden DOM verglichen. Hierbei handelt es sich um leichtgewichtige JavaScript Objekte, die in-memory gespeichert werden, sodass dort Operationen deutlich schneller durchgeführt werden können. Initial wird der virtuelle DOM mit der Funktion **ReactDOM.render()** erstellt.
-
-Der Objektbaum wird durch das Aufrufen von **setState()** jeweils komplett neu erstellt und verglichen. Algorithmen, die die minimale Anzahl von nötigen Modifikation bestimmen, liegen bestenfalls in O(n³). Um diesen Vorgang zu beschleunigen, verwendet React eine Heuristik, die das Problem in O(n) lösen kann. Hierzu werden 2 Annahmen getroffen:
-
-**Annahme 1:**
-
-Zwei Elemente unterschiedlicher Typen erzeugen unterschiedliche DOM-Bäume. 
-Es wird eine Breitensuche (ebenenweises Durchlaufen des Baums) durchgeführt, wobei jeweils die Typen der Elemente beider Bäume verglichen werden. 
-Unterscheiden sich diese, werden die Elemente samt aller Kinder als *dirty* markiert. Komponenten, die als dirty markiert wurden, werden anschließend neu gerendert.
-
-**Annahme 2:**
-
-Elemente können mit einem "Key" als Identifier versehen werden. Bei einer Liste von Elementen mit solchen Keys werden folgende Schritte durchgeführt [[HOPP17]](#ref_hopp17):
-
-Vergleiche die alte Liste mit der neuen Liste:
-
-* Durchlaufe alle Elemente
-  * Key in alter, aber nicht in neuer Liste vorhanden?
-    * rufe **unmount** für die Komponente auf
-  * Key in neuer, aber nicht in alter Liste vorhanden?
-    * rufe **mount** Komponente auf
-  * Key in beiden Listen vorhanden?
-    * rufe **shouldComponentUpdate** auf, um zu entscheiden, was passieren soll
-
-*Anmerkung:*
-
-Seit ca. 2 Jahren arbeitet das React Team zudem an einer neuen Datenstruktur (React Fiber), die den aktuellen Algorithmus verbessern und ersetzen soll, siehe [link](https://gist.github.com/duivvv/2ba00d413b8ff7bc1fa5a2e51c61ba43).
-
-#### Type Checking und Static Types in JavaScript
+#### Type Checking und Static Types
 
 Standardmäßig ist JavaScript eine dynamisch typisierte Programmiersprache. Möchte man dennoch Type-Checking-Methodiken oder statische Typisierung in JavaScript verwenden, bedarf es zusätzlicher Bibliotheken/Tools. Im Folgenden werden in diesem Zusammenhang PropTypes, Flow und TypeScript vorgestellt.
 
@@ -1080,6 +1174,37 @@ Um solche unsauberen Lösungen zu umgehen, kann z.B. das statische Code-Analyse 
 Einen schnellen Einstieg in die Entwicklung von React Anwendungen mit TypeScript und TSLint 
 erhält man [hier](https://github.com/Microsoft/TypeScript-React-Starter#typescript-react-starter).
 
+#### Reconciliation
+
+Da das Updaten von Elementen des nativen DOMs relativ ineffizient ist, verfügt React über ein virtuelles DOM. Statt Änderungen direkt im DOM zu rendern, wird der alte virtuelle DOM mit dem aus den Änderungen resultierenden DOM verglichen. Hierbei handelt es sich um leichtgewichtige JavaScript Objekte, die in-memory gespeichert werden, sodass dort Operationen deutlich schneller durchgeführt werden können. Initial wird der virtuelle DOM mit der Funktion **ReactDOM.render()** erstellt.
+
+Der Objektbaum wird durch das Aufrufen von **setState()** jeweils komplett neu erstellt und verglichen. Algorithmen, die die minimale Anzahl von nötigen Modifikation bestimmen, liegen bestenfalls in O(n³). Um diesen Vorgang zu beschleunigen, verwendet React den sogenannten *Reconciliation*-Algorithmus. Hierbei wird eine Heuristik verwendet, die das Problem in O(n) lösen kann. Es werden 2 Annahmen getroffen:
+
+**Annahme 1:**
+
+Zwei Elemente unterschiedlicher Typen erzeugen unterschiedliche DOM-Bäume. 
+Es wird eine Breitensuche (ebenenweises Durchlaufen des Baums) durchgeführt, wobei jeweils die Typen der Elemente beider Bäume verglichen werden. 
+Unterscheiden sich diese, werden die Elemente samt aller Kinder als *dirty* markiert. Komponenten, die als dirty markiert wurden, werden anschließend neu gerendert.
+
+**Annahme 2:**
+
+Elemente können mit einem "Key" als Identifier versehen werden. Bei einer Liste von Elementen mit solchen Keys werden folgende Schritte durchgeführt [[HOPP17]](#ref_hopp17):
+
+Vergleiche die alte Liste mit der neuen Liste:
+
+* Durchlaufe alle Elemente
+  * Key in alter, aber nicht in neuer Liste vorhanden?
+    * rufe **unmount** für die Komponente auf
+  * Key in neuer, aber nicht in alter Liste vorhanden?
+    * rufe **mount** Komponente auf
+  * Key in beiden Listen vorhanden?
+    * rufe **shouldComponentUpdate** auf, um zu entscheiden, was passieren soll
+
+*Anmerkung:*
+
+Seit ca. 2 Jahren arbeitet das React Team zudem an einer neuen Datenstruktur (React Fiber), die den aktuellen Algorithmus verbessern und ersetzen soll, siehe [link](https://gist.github.com/duivvv/2ba00d413b8ff7bc1fa5a2e51c61ba43).
+
+
 #### Error Boundaries
 
 Error Boundaries (dt. Fehlergrenzen) dienen dem Einfangen von JavaScript Fehlern innerhalb der Kindelemente. Diese Fehler können anschließend protokolliert werden oder alternative GUI-Element angezeigt werden, wenn Kind-Komponenten abstürzen. Die Fehler werden während des Renderns, in anderen Lifecycle Methoden und auch innerhalb von Konstruktoren aufgefangen.
@@ -1138,91 +1263,6 @@ In diesem Beispiel würde ein Aufruf von "*URL*/" die Komponente *Home* aufrufen
 
 Für statische SPAs, bei denen der Server nur statische Dateien liefern kann, kann der *HashRouter* anstelle von *BrowserRouter* verwendet werden. Der HashRouter verwendet den Hash einer URL (window.location.hash) zur Unterteilung. Es wird also nach einem Hash (#) in der URL gesucht und der Text dahinter als Parameter verwendet [[TECH17]](#ref_tech17).
 
-#### Code-Splitting
-
-Bei der Entwicklung von React Applikationen werden in der Regel eine Vielzahl an einzelnen Paketen verwendet. Tools wie Browserify oder Webpack bündeln die einzelnen Bestandteile zu einer großen Datei. Hierdurch kann eine Anwendung als Ganzes innerhalb einer Webseite inkludiert werden.
-
-Bei größeren Single Page Applications kann dies zu Problemen führen, da alle Daten geladen werden müssen, obwohl der Benutzer eventuell gar nicht alle Bereiche der Anwendung verwenden wird. Um diesem Problem aus dem Weg zu gehen, kann *Code-Splitting* eingesetzt werden.
-
-Code-Splitting ermöglicht es, die Bestandteile einer Webanwendung in verschiedene Bereiche aufzuteilen und diese erst bei Bedarf zu laden (quasi *lazy loading*).
-
-In React kann hierzu in Verbindung mit Webpack die dynamische *import()*-Syntax verwendet werden [[FACE18g]](#ref_face18g).
-
-Ohne Code-Splitting:
-```javascript
-import { SubMenu } from './SubMenu';
-
-SubMenu.open();
-```
-
-Mit Code-Splitting:
-```javascript
-// Webpack führt hier ein Code-Splitting durch 
-import("./SubMenu").then(module => {
-  module.SubMenu.open();
-});
-```
-
-**Komponentenbasiertes Code-Splitting mit *React Loadable***
-
-Speziell für React kann auch die Bibliothek *React Loadable* verwendet werden. Sie bietet einen Wrapper für das Code-Splitting und bietet zudem z.B. die Möglichkeit, während des Ladevorganges eine andere Komponente/Text anzuzeigen. Es handelt sich um eine HOC, die [Promises](https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Global_Objects/Promise) für das Laden von Komponenten bereitstellt [[REAC18]](#ref_reac18).
-
-Ohne Code-Splitting:
-```jsx
-import { SomeComponent } from './SomeComponent';
-
-const SomeContainer = () => (
-  <SomeComponent/>
-);
-```
-
-Mit Code-Splitting:
-```jsx
-import Loadable from 'react-loadable';
-
-const SomeLoadableComponent = Loadable({
-  // wird geladen, wenn die Komponente angefordert wird
-  loader: () => import('./SomeComponent'),
-  // wird so lange angezeigt, bis die Komponente geladen ist
-  loading: () => <div>Loading...</div>,
-  // zeige Ladetext erst nach 0,2 Sekunden an
-  delay: 200
-});
-
-const SomeContainer = () => (
-  <SomeLoadableComponent/>
-);
-```
-**Routenbasiertes Code-Splitting mit *React Loadable***
-
-React Loadable kann auch dazu genutzt werden, um ein routenbasiertes Code-Splitting durchzuführen. Hierbei erhält jede Route eine eigene Komponente, die als Loadable implementiert wird [[FACE18g]](#ref_face18g):
-
-```jsx
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Loadable from 'react-loadable';
-
-const Loading = () => <div>Loading...</div>;
-
-const Home = Loadable({
-  loader: () => import('./routes/Home'),
-  loading: Loading,
-});
-
-const About = Loadable({
-  loader: () => import('./routes/About'),
-  loading: Loading,
-});
-
-const App = () => (
-  <Router>
-    <Switch>
-      <Route exact path="/" component={Home}/>
-      <Route path="/about" component={About}/>
-    </Switch>
-  </Router>
-);
-```
-
 #### Strict Mode
 Strict Mode stellt sicher, dass gewisse Best Practices eingehalten werden. Durch das Einfügen von *StrictMode* in den ReactDOM werden die Kinderelemente dieser Komponente auf verschiedene mögliche Probleme hin überprüft [[SZCZ18]](#ref_szcz18). Wird beispielsweise eine veraltete (deprecated) Lifecycle-Methode verwendet, erscheint eine Warnung der folgenden Art:
 
@@ -1243,34 +1283,6 @@ render() {
 }
 // ...
 ```
-#### Serverseitiges Rendern
-
-Bei der Erstellung von Webanwendungen kann die Webseite prinzipiell auf verschiedenen Arten gerendert werden. 
-
-*Clientseitiges Rendern:*
-
-Der Browser lädt eine einfache HTML Datei, deren Inhalt durch JavaScript befüllt wird
-
-*Serverseitiges Rendern (SSR):*
-
-Der **Startinhalt** wird auf dem Server generiert, sodass der Browser die Daten als HTML-Seite laden kann. Updates werden jedoch weiterhin im Browser gehandhabt [[LASN18]](#ref_lasn18).
-
-Stellt man sich die Frage, ob man serverseitiges Rendern verwenden sollte, kann [diese](https://www.javascriptstuff.com/server-side-render/) Seite hilfreich sein.
-
-Vorteile:
-* SEO (Search Engine Optimization) Verbesserung möglich (Google, Bing etc.)
-* In der Regel bessere clientseitige Performance
-
-Nachteile:
-* Der Server wird stärker beansprucht, wodurch HTTP Antworten verzögert werden können
-* Die Größe der HTML-Datei steigt und diese braucht somit länger zum Downloaden (i.d.R. vernachlässigbar)
-* Die Komplexität der Anwendung nimmt zu
-
-Zur Vereinfachung von SSR in React-Applikationen, kann das Framework *[Next.js](https://nextjs.org/)* verwendet werden. Hierbei wird zudem ein automatisches Code-Splitting durchgeführt.
-
-
-Alternativ zu SSR kann auch [prerender](https://prerender.io/) verwendet werden.
-Hierbei handelt es sich um eine Middleware, die Crawlern eine vorgerenderte Version der Webseite für eine bessere SEO zurückliefert [[LASN18]](#ref_lasn18). 
 
 ### Literaturverzeichnis
 
