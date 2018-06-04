@@ -72,11 +72,20 @@ Die Zentralisierung, auf der Cloud Computing aufbaut, wird durch Edge Computing 
 [[GEDI18]](#ref_gedi18) [[MILL18]](#ref_mill18) [[FELD17]](#ref_feld17)
 
 - Technologien, die Edge Computing ermöglichen
+    - DigSig für Identifizierung und Signierung von Daten https://en.wikipedia.org/wiki/ISO/IEC_20248
+    - Edge Entitäten evtl. liste/beschreiben https://www.networkworld.com/article/3224893/internet-of-things/what-is-edge-computing-and-how-it-s-changing-the-network.html
+- Edge Computing eher von Telekomunikations Anbieter
+
 
 ### Fog Computing
 
-- https://en.wikipedia.org/wiki/Fog_computing
 - http://info.opto22.com/fog-vs-edge-computing
+- Begrifflichkeit von Cisco
+- Verfolgt die selben Ziele wie Edge Computing
+- Besteht aus einem "control plane" und einem "data plane" https://en.wikipedia.org/wiki/Fog_computing
+- OpenFog Consortium entwickelt an einem Framework für Fog Computing
+- Geografische Dezentralisierung wird verringert
+- https://web.archive.org/web/20140922061044/http://www.cisco.com/web/about/ac50/ac207/crc_new/university/RFP/rfp13078.html
 
 ### Sicherheitsaspekte
 
