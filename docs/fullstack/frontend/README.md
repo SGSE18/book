@@ -41,6 +41,10 @@
   - [React Router](#react-router)
   - [Strict Mode](#strict-mode)
 - [Literaturverzeichnis](#literaturverzeichnis)
+
+![ref_traditional_vs_spa](./images/react_mindmap.png "Aufbau des React Kapitels")
+
+
 ### Grundlagen
 
 TODO an neue Struktur anpassen
