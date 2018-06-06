@@ -12,10 +12,10 @@
     - [Design for failure](#design-for-failure)
     - [Evolutionäres Design](#evolutionäres-design)
     - [Kommunikation mit Microservice](#kommunikation-mit-microservice)
+    - [Humane Registries](#humane-registries)
 - [Unterschiede zu monolithischen Anwendungen](#unterschiede-zu-monolithischen-anwendungen)
     - [Vorteile](#vorteile)
     - [Nachteile](#nachteile)
-- [Humane Registries](#humane-registries)
 - [Abgrenzung zu Self-Contained Systems und Containern](#abgrenzung-zu-self-contained-systems-und-containern)
 - [Serverless](#serverless)
 - [Microservices als Front-Ends](#microservices-als-front-ends)
@@ -26,20 +26,30 @@
 
 Ein Microservice ist ein leichtgewichtiger autonomer Dienst, der eine einzige Aufgabe erfüllt und mit anderen ähnlichen Diensten über eine gut definierte Schnittstelle kollaboriert. Eine der Hauptaufgaben von Microservices ist eine Minimierung von Einflüssen im Falle einer möglichen Schnittstellenänderung. <a>[[NAMI14]](#ref_Nami14)</a>
 
+- TODO: Beschreibung von Monolith
+
 Eine der weit verbreitenden Illustration der verschiedenen Ansätze der Partitionierung von Monolithen ist der Skalierungswürfel. Auf der horizontalen Ebene geht es um Skalierbarkeiteines Systems durch mehrere Instanzen einer Applikation. Diese können unter anderem hinter einem Load-Balancer laufen. Auf diese Weise wird versucht die Last umzuverteilen und konstante Antwortzeiten zu erzielen. Die Z-Achse der Skalierung würden mehrere Server eine identische Kopie an Code unterhalten. Hier unterhält jeder Server nur eine Untermenge der Daten. Auftretende Probleme wären Datenkonsistenz, Datenverteilung und Datenverfügbarkeit. Die X-Achse und die Z-Achse verbessern die Skalierbarkeit und Verfügbarkeit, jedoch auch die Komplexität des Systems. Um die Komplexität zu verringern wird auf der Y-Achse skaliert. Die Skalierung nach der Y-Achse setzt voraus, dass ein System logisch und physisch in funktionale Bereich zerlegt werden kann. Dies kann zum höheren Kommunikationsaufwand führen, bringt aber mehr Flexibilität mit sich. <a>[[PIEN16]](#ref_Pien16)</a>, <a>[[NAMI14]](#ref_Nami14)</a>
 
 ![Skalierungswürfel](./images/scale_cube.png)
 
 _Skalierungswürfel_, Abbildung entnommen aus <a>[[PIEN16]](#ref_Pien16)</a>
 
-Es gibt viele Entwurfsmuster, die zu Microservices verwandt sind. Die abgebildete monolithische Architektur ist als eine  Alternative zu Microservices zu verstehen. Bei einer wachsenden Größe der Microservices, können diese schnell wieder sich zu kleineren Monolithen zusammensetzen. Die Muster werden nach Bereichen Kommunikation, Datenhaltung, Kern, Stil, Deploymentarten, Sicherheit und einige mehr aufgeteilt. Im Laufe der Entwicklung werden Probleme auftauchen für welche diese Muster hilfreich sein werden.     
-Die Dienste werden nach Front-End und Back-End Services unterschieden. Je nach Client ergeben sich unterschiedliche Anforderungen an Granularität und Formate eines Service. Aus diesem Grund anstatt einer universellen Schnittstelle, sollten speziell entwickelte Lösungen für Nutzer angeboten werden. Ein API-Gateway ist eine Vermittlungskomponente welche benötigt wird, damit Services sich nicht direkt aufrufen können. Direkte Aufrufe können bei vielen Diensten die Kommunikationsstruktur schnell unübersichtlich und die Fehlersuche aufwändig machen. Außerdem erlauben lose Koppelungen zwischen den Microservices unabhängige Entwicklung, Einsatz und Skalierung. Das Gateway kann sich um Format- und Protokollumwandlung, Authentifizierung oder Überwachung kümmern. Um die angefordeten, am besten passenden Services zu finden stehen zwei Möglichkeiten zur Verfügung: clientseitig und serverseitig. Beide setzen voraus, dass die Dienste sich bei der Service-Registry an- und abmelden, auch in Fehlerfällen. netflix Eureka oder Apache Zookeeper sind solche Service-Registries.
+Es gibt viele Entwurfsmuster, die zu Microservices verwandt sind. Die abgebildete monolithische Architektur ist als eine  Alternative zu Microservices zu verstehen. Bei einer wachsenden Größe der Microservices, können diese schnell wieder sich zu kleineren Monolithen zusammensetzen. Die Muster werden nach folgenden Bereichen aufgeteilt:
+- Kommunikation
+- Datenhaltung
+- Kern
+- Stil
+- Einsatzarten
+- Sicherheit
+
+Wobei es noch einige mehr sind. Im Laufe der Entwicklung werden Probleme auftauchen für welche diese Muster hilfreich sein werden.     
+Die Dienste werden nach Front-End und Back-End Services unterschieden. Je nach Client ergeben sich unterschiedliche Anforderungen an Granularität und Formate eines Service. Aus diesem Grund anstatt einer universellen Schnittstelle, sollten speziell entwickelte Lösungen für Nutzer angeboten werden. Ein API-Gateway ist eine Vermittlungskomponente welche benötigt wird, damit Services sich nicht direkt aufrufen können. Direkte Aufrufe können bei vielen Diensten die Kommunikationsstruktur schnell unübersichtlich und die Fehlersuche aufwändig machen. Außerdem erlauben lose Koppelungen zwischen den Microservices unabhängige Entwicklung, Einsatz und Skalierung. Das Gateway kann sich um Format- und Protokollumwandlung, Authentifizierung oder Überwachung kümmern. Um die angefordeten, am besten passenden Services zu finden stehen zwei Möglichkeiten zur Verfügung: clientseitig und serverseitig. Beide setzen voraus, dass die Dienste sich bei der Service-Registry an- und abmelden, auch in Fehlerfällen.
 1. _Client-side discovery_: Hier wird eine zentrale Service-Registry benötigt, für die Verwaltung von Diensten und deren Orten. Der Client braucht nur den entsprechenden Service aufzufordern und bekommt die nötigen Aufrufinformationen zurück. Die Dynamik, welche mit Microservices verbunden ist, macht die Automatisierung von diesem Prozess notwendig. Die Orte (Host, Port) der Microservices werden zur Laufzeit ermittelt und ändern sich nach Verfügabarkeit.
-2. _Server-side discovery_: Im Gegensatz zur vorherigen Lösung wird die Anfrage an einen Load-Balancer gestellt. Dieser fungiert als ein Router für den Service und kommuniziert mit einer Service-Registry. Der Code ist einfacher strukturiert verglichen mit den clientseitigem Fall, allerdings muss der Load Balancer ausfallsicher und skalierbar sein. Es kann eine cloudbasierte Lösung sein, wie AWS Elastic Load Balancer oder es wird eine Clusterlösung auf jeden Service-Host verwendet, wie Kubernetes als lokalen Proxy. <a>[[RICH17]](#ref_Rich17)</a>, <a>[[PIEN16]](#ref_Pien16)</a>
+2. _Server-side discovery_: Im Gegensatz zur vorherigen Lösung wird die Anfrage an einen Load-Balancer gestellt. Dieser fungiert als ein Router für den Service und kommuniziert mit einer Service-Registry. Der Code ist einfacher strukturiert verglichen mit den clientseitigem Fall, allerdings muss der Load Balancer ausfallsicher und skalierbar sein. Es kann eine cloudbasierte Lösung sein oder es wird eine Clusterlösung auf jeden Service-Host verwendet als lokalen Proxy. <a>[[RICH17]](#ref_Rich17)</a>, <a>[[PIEN16]](#ref_Pien16)</a>
 
 Auf alle Entwurfsmuster einzugehen würde den zeitlichen Rahmen um vielfaches sprengen, weswegen nur diese drei Muster beschrieben wurden.
 
-![Entwürfe](./images/patterns.jpg)
+![Entwürfe](./images/patterns.png)
 
 _Verwandte Entwurfsmuster_, Abbildung entnommen aus <a>[[RICH17]](#ref_Rich17)</a>
 
@@ -61,9 +71,7 @@ Der Vorteil eines Service gegenüber einer Bibliothek liegt in der Unabhängigke
 
 ### Aufbau um Business Capabilities
 
-Microservices sollten rund um die Business Capabilities der Organization aufgebaut werden. Business Capabilities definieren die wichtigsten Businessfunktionen. Sie beschreiben "was" ein Unternehmen macht. Denn das Gesetz von Conway besagt: Jede Organisation die ein System entwirft, bekommt am Ende ein Entwurf welches die Kommunikationsstruktur der Organisation nachbildet. Der Technologiestack deckt ein breites Feld von Software ab, wie GUI, Datenbanken, Schnittstellen. Das wiederum bedeutet, dass es cross-functional Entwicklerteam sein muss, um all die Bedingungen zu erfüllen. <a>[[LEWI14]](#ref_Lewi14)</a>
-
-http://microservices.io/patterns/decomposition/decompose-by-business-capability.html
+Microservices sollten rund um die Business Capabilities der Organization aufgebaut werden. Business Capabilities definieren die wichtigsten Businessfunktionen. Sie beschreiben "was" ein Unternehmen macht. Denn das Gesetz von Conway besagt: Jede Organisation die ein System entwirft bekommt am Ende ein Entwurf welches die Kommunikationsstruktur der umzusetzenden Organisation nachbildet. Der Technologiestack deckt ein breites Feld von Software ab, wie GUI, Datenbanken, Schnittstellen. Das wiederum bedeutet, dass es cross-functional Entwicklerteam sein muss, um all die Bedingungen zu erfüllen. <a>[[LEWI14]](#ref_Lewi14)</a>
 
 Die nächste Abbildung stellt dar, wie Microservices sich den Business Capabilities einer Organisation anpassen.
 
@@ -91,7 +99,13 @@ Einen weiterer Ansatz der dezentralisierten Führung bringt die Amazons Herangeh
 
 ### Dezentralisiertes Datenmanagement
 
-Bounded Context ist ein Muster aus dem Domain-driven Design. Es teilt komplexe Domänen in mehrere Kontextgrenzen. Die Dezentralisierung bei Microservices betrifft auch die Datenbanken. Es wird bevorzugt pro Service eine Datenbank zu haben, seien es nur unterschiedliche Datenbank-Instanzen oder komplett unterschiedliche Datenbanktechnologien. <a>[[LEWI14]](#ref_Lewi14)</a>
+Bounded Context ist ein Entwurfsmuster aus dem Domain-driven Design. Es beschreibt eine Abgrenzung in der ein bestimmtes Model definiert und verwendet wird. Es teilt komplexe Domänen in mehrere Kontextgrenzen und beschreibt die Beziehungen zwischen ihnen. Das ist sowohl für Monolithen, als auch für Microservices nutzbar, wobei die letzteren eine natürliche Korrelation zu Bounded Context besitzen. Bounded Context verdeutlicht und verstärkt eine Trennung in verschiedene Bereiche. <a>[[EVAN15]](#ref_Evan15)</a>, <a>[[LEWI14]](#ref_Lewi14)</a>
+
+![Dezentralisierte Datenbanken](./images/bounded_context.png)
+
+_Bounded Context_, Abbildung entnommen aus <a>[[FOWL14]](#ref_FOWL14)</a>
+
+Die Dezentralisierung bei Microservices betrifft auch die Datenbanken. Es wird bevorzugt pro Service eine Datenbank zu haben, seien es nur unterschiedliche Datenbank-Instanzen oder komplett unterschiedliche Datenbanktechnologien. Eine der Probleme von dezentralisiertem Datenmanagement ist Update Management. Wenn im monolithischen Systemen Transaktionen für Updates genutzt werden, um Datenkonsistenz zu garantieren, kann es bei Microservices aufgrund von temporären Kupplung problematisch. Verteilte Transaktion sind sehr schwer umzusetzen, weswegen Microservices transaktionslose Koordination zwischen den Services einsetzen. Mögliche Probleme werden von kompensierenden Operationen abgefangen. <a>[[LEWI14]](#ref_Lewi14)</a>
 
 Die nächste Abbildung vergleicht ein monolithisches System mit Microservices in Bezug auf die Datenbanken.
 
@@ -124,6 +138,8 @@ Wenn es um Microservices geht müssen die Remote Calls näher betrachtet werden.
 
 Einige häufig anzutreffende Entwürfen von Remote Calls sind Direct Call, Gateway und Message Bus.
 
+- TODO: mehr beschreiben
+
 __Direct Call__
 
 Der erste Kommunikationsentwurf ist ein Direct Call. Wie die Bezeichnung impliziert, werden Microservices direkt von der Applikation aufgerufen. Obwohl sehr flexibel kann es zu potentiellen Verzögerungen kommen wenn die Anzahl der Remote Calls zu groß wird. 
@@ -147,6 +163,15 @@ Message Bus erlaubt asynchrone Requests und Responses. Das kommt gerade den Appl
 ![Message Bus](./images/message_bus_pattern.png)
 
 _Message Bus_, Abbildung angepasst aus <a>[[NAMI14]](#ref_Nami14)</a>
+
+### Humane Registries
+
+Humane Registry ist eine automatisierte Dokumentation für Microservices, designt um Informationen automatisch in menschlich lesbaren Form zu schreiben und zu aktualisieren. Die wichtigesten Merkmale so einer Dokumentation sind:
+- _Verständlichkeit_: der Format sollte für alle lesbar und verständlich sein
+- _Automation_: Entwickler haben selten Zeit eine Dokumentation zu pflegen
+- _Einfachheit_: eine Erweiterung der Informationen sollte unkompliziert sein
+
+Solch ein Dokumentationswerkzeug durchsucht den Quellcode des Systems und stellt detaillierte Informationen darüber bereit, welcher entwickler wann und wieviel zum Microservices beigetragen hat. So können Mitarbeiter sehen an wem sie sich in bestimmten Fällen wenden können. Mithilfe von Daten aus verschiedensten Systemen, wie Continuous-Integration-Servern, von Versionsverwaltungsprogrammen und Issue-Tracking-Systemen, wird eine übergreifende Dokumentation erschaffen. <a>[[FOWL08]](#ref_Fowl08)</a>
 
 ## Unterschiede zu monolithischen Anwendungen
 
@@ -190,15 +215,6 @@ Die nächststehende Tabelle führt die Vor- und Nachteile kurz nochmal zusammen.
 | Wiederverwendbare Services      |                                      |
 
 Die Microservice-Architektur ist vorteilhaft, wenn die Rede um eine flexible und dennoch robuste Software geht.
-
-## Humane Registries
-
-Humane Registry ist eine automatisierte Dokumentation für Microservices, designt um Informationen automatisch in menschlich lesbaren Form zu schreiben und zu aktualisieren. Die wichtigesten Merkmale so einer Dokumentation sind:
-- _Verständlichkeit_: der Format sollte für alle lesbar und verständlich sein
-- _Automation_: Entwickler haben selten Zeit eine Dokumentation zu pflegen
-- _Einfachheit_: eine Erweiterung der Informationen sollte unkompliziert sein
-
-Solch ein Dokumentationswerkzeug durchsucht den Quellcode des Systems und stellt detaillierte Informationen darüber bereit, welcher entwickler wann und wieviel zum Microservices beigetragen hat. So können Mitarbeiter sehen an wem sie sich in bestimmten Fällen wenden können. Mithilfe von Daten aus verschiedensten Systemen, wie Continuous-Integration-Servern, von Versionsverwaltungsprogrammen und Issue-Tracking-Systemen, wird eine übergreifende Dokumentation erschaffen. <a>[[FOWL08]](#ref_Fowl08)</a>
 
 ## Abgrenzung zu Self-Contained Systems
 
@@ -265,7 +281,12 @@ Den Weg von Monolith zu Microservices gingen unter anderem Netflix, Amazon und E
 
 <a name="ref_Chen18">[CHEN18]</a>: Chen, Lianping: Microservices: Architecting for Continuous Delivery and DevOps, IEEE International Conference on Software Architecture, 2018, URL: https://www.researchgate.net/publication/323944215_Microservices_Architecting_for_Continuous_Delivery_and_DevOps
 
+<a name="ref_Evan15">[EVAN15]</a>: Evans, Eric: Domain­‐Driven Design Reference, Domain
+Language Inc. pp vi-2, 2015, URL: http://domainlanguage.com/wp-content/uploads/2016/05/DDD_Reference_2015-03.pdf (letzter Zugriff: 06.06.2018)
+
 <a name="ref_Fowl08">[FOWL08]</a>: Fowler, Martin: HumaneRegistry, 01.12.2008, URL: https://martinfowler.com/bliki/HumaneRegistry.html (letzter Zugriff: 27.05.2018)
+
+<a name="ref_Fowl14">[FOWL14]</a>: Fowler, Martin: BoundedContext, 15.01.2014, URL: https://martinfowler.com/bliki/BoundedContext.html (letzter Zugriff: 06.06.2018)
 
 <a name="ref_Geer17">[Geer17]</a>: Geers, Michael: What are Micro Frontends?, 2017, URL: https://micro-frontends.org/ (letzter Zugriff: 03.06.2018)
 
