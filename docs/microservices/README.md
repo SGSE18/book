@@ -13,11 +13,11 @@
     - [Evolutionäres Design](#evolutionäres-design)
     - [Kommunikation mit Microservice](#kommunikation-mit-microservice)
     - [Humane Registries](#humane-registries)
+    - [Serverless](#serverless)
 - [Unterschiede zu monolithischen Anwendungen](#unterschiede-zu-monolithischen-anwendungen)
     - [Vorteile](#vorteile)
     - [Nachteile](#nachteile)
 - [Abgrenzung zu Self-Contained Systems und Containern](#abgrenzung-zu-self-contained-systems-und-containern)
-- [Serverless](#serverless)
 - [Microservices als Front-Ends](#microservices-als-front-ends)
 - [Einsatz von Microservices](#einsatz-von-microservices)
 - [Quellen](#quellen)
@@ -101,7 +101,9 @@ Einen weiterer Ansatz der dezentralisierten Führung bringt die Amazons Herangeh
 
 Bounded Context ist ein Entwurfsmuster aus dem Domain-driven Design. Es beschreibt eine Abgrenzung in der ein bestimmtes Model definiert und verwendet wird. Es teilt komplexe Domänen in mehrere Kontextgrenzen und beschreibt die Beziehungen zwischen ihnen. Das ist sowohl für Monolithen, als auch für Microservices nutzbar, wobei die letzteren eine natürliche Korrelation zu Bounded Context besitzen. Bounded Context verdeutlicht und verstärkt eine Trennung in verschiedene Bereiche. <a>[[EVAN15]](#ref_Evan15)</a>, <a>[[LEWI14]](#ref_Lewi14)</a>
 
-![Dezentralisierte Datenbanken](./images/bounded_context.png)
+Hier sind klar erkennbare Grenzen der Bereiche Sales und Support mit Berührungspunkten bei Customer und Product.
+
+![Bounded Context](./images/bounded_context.png)
 
 _Bounded Context_, Abbildung entnommen aus <a>[[FOWL14]](#ref_FOWL14)</a>
 
@@ -115,34 +117,38 @@ _Dezentralisierte Datenbanken_, Abbildung entnommen aus <a>[[LEWI14]](#ref_Lewi1
 
 ### Infrastructure Automation
 
-Testautomatisierung und Ansätze wie Continuous Integration und Continuous Delivery helfen bei der Entwicklung von stabiler und hochwertiger Software. <a>[[LEWI14]](#ref_Lewi14)</a>
+Testautomatisierung und Ansätze wie Continuous Integration und Continuous Delivery helfen bei der Entwicklung von stabiler und hochwertiger Software. Das illustriert das nächste Bild. <a>[[LEWI14]](#ref_Lewi14)</a>
+
+![Basic Pipeline](./images/basic_pipeline.png)
+
+_Basic Pipeline_, Abbildung entnommen aus <a>[[LEWI14]](#ref_Lewi14)</a>
 
 ### Design for failure
 
-Ein Service ist nicht gegen Ausfälle und Fehler geschützt, deshalb sollte er immer gegen mögliche Fehlerfälle ausgiebig getestet werden. Da allerdings nicht alle möglichen Probleme abgedeckt und vorhergesehen werden können, kommt Monitoring zum Einsatz. Relevanten Metriken und weitere wichtige Information über den Softwarestatus erlauben es rechtzeitig Fehler zu beheben. <a>[[LEWI14]](#ref_Lewi14)</a>
+Ein Service ist nicht gegen Ausfälle und Fehler geschützt, deshalb sollte er immer gegen mögliche Fehlerfälle ausgiebig getestet werden. Verglichen mit einem monolithischen Design, fällt das bei Microservices komplexer aus, wodurch die Entwickler ständig beachten müssen wie es auf die Benutzbarkeit beim Nutzer auswirkt. Da allerdings nicht alle möglichen Probleme abgedeckt und vorhergesehen werden können, kommt Echtzeit-Monitoring zum Einsatz. So kann bei einem Ausfall direkt eingegriffen und ein Service wieder zum laufen gebracht werden. Relevanten Metriken und weitere wichtige Informationen über den Softwarestatus erlauben es rechtzeitig Fehler zu erkennen. <a>[[LEWI14]](#ref_Lewi14)</a>
 
 ### Evolutionäres Design
 
-Eine Software sollte so designt werden, dass statt es bei größeren Änderungen zu verwerfen, sie weiterentwickelt werden kann. Die wichtigsten Eigenschaften eines Komponenten sind Austauschbarkeit und Erweiterungsfähigkeit - wie kann eine Komponente überarbeitet werden, ohne dass andere Komponenten davon betroffen sind. Oftmals wird ein Service verworfen anstatt auf lange Sicht überarbeitet zu werden. Manchmal macht es Sinn mehrere Dienste zu gruppieren, falls diese immer wieder Abhängigkeiten während Änderungen zeigen. <a>[[LEWI14]](#ref_Lewi14)</a>
+Eine Software sollte so entworfen werden, dass statt es bei größeren Änderungen zu verwerfen, diese weiterentwickelt werden kann. Die wichtigsten Eigenschaften eines Komponenten sind Austauschbarkeit und Erweiterungsfähigkeit - wie kann eine Komponente überarbeitet werden, ohne dass andere Komponenten davon betroffen sind. Oftmals wird ein Service verworfen anstatt auf lange Sicht überarbeitet zu werden. Manchmal macht es Sinn mehrere Dienste zu gruppieren, falls diese immer wieder Abhängigkeiten während Änderungen zeigen. <a>[[LEWI14]](#ref_Lewi14)</a>
 
-Zusammengefasst sind die Vorraussetzungen für Microservices: <a>[[NAMI14]](#ref_Nami14)</a>
+In dieser Liste sind die Vorraussetzungen für Microservices zusammengefasst: <a>[[NAMI14]](#ref_Nami14)</a>
 1. Request/Response calls mit willkürlich strukturierten Daten
 2. Asynchrone Events in Echtzeit
 3. Bidirektionale Requests und Responses
 4. Requests und Responses können willkürlich geschachtelt sein
 5. Nachrichtenformat: wie JSON, XML
 
-Wenn es um Microservices geht müssen die Remote Calls näher betrachtet werden.
+Wenn es um Microservices geht müssen die Remote Procedure Calls näher betrachtet werden.
 
-### Kommunikation mit Microservice
+### Kommunikation mit Microservices
 
-Einige häufig anzutreffende Entwürfen von Remote Calls sind Direct Call, Gateway und Message Bus.
+Einige häufig anzutreffende Entwürfen von Remote Procedure Calls (RPC) sind Direct Call, Gateway und Message Bus.
 
 - TODO: mehr beschreiben
 
 __Direct Call__
 
-Der erste Kommunikationsentwurf ist ein Direct Call. Wie die Bezeichnung impliziert, werden Microservices direkt von der Applikation aufgerufen. Obwohl sehr flexibel kann es zu potentiellen Verzögerungen kommen wenn die Anzahl der Remote Calls zu groß wird. 
+Der erste Kommunikationsentwurf ist ein Direct Call. Wie die Bezeichnung impliziert, werden Microservices direkt von der Applikation aufgerufen. Obwohl sehr flexibel, kann es zu potentiellen Verzögerungen kommen wenn die Anzahl der RPCs zu groß wird. 
 
 ![Direct Call](./images/direct_call_pattern.png)
 
@@ -172,6 +178,20 @@ Humane Registry ist eine automatisierte Dokumentation für Microservices, design
 - _Einfachheit_: eine Erweiterung der Informationen sollte unkompliziert sein
 
 Solch ein Dokumentationswerkzeug durchsucht den Quellcode des Systems und stellt detaillierte Informationen darüber bereit, welcher entwickler wann und wieviel zum Microservices beigetragen hat. So können Mitarbeiter sehen an wem sie sich in bestimmten Fällen wenden können. Mithilfe von Daten aus verschiedensten Systemen, wie Continuous-Integration-Servern, von Versionsverwaltungsprogrammen und Issue-Tracking-Systemen, wird eine übergreifende Dokumentation erschaffen. <a>[[FOWL08]](#ref_Fowl08)</a>
+
+### Serverless
+
+Serverless steht für Serverless computing und wird in zwei Bereichen eingesetzt:
+1. Es wird komplett auf die serverseitige Logik verzichtet und stattdessen werden Cloud-Services von Drittanbietern integriert. Übliche Anwender sind sogenannte "Rich Clients" - Single-Page-Webanwendungen und mobile Apps. Zu solchen Cloud-Services zählen Datenbanken, Authentifizierungsmechanismen und so weiter. Weshalb dieser Typ von Microservices auch "Backend as a Service" genannt wird.
+2. Ein anderer Bereich von Serverless ist "Function as a Service" (FaaS). In diesem Szenario wird serverseitige Logik immer noch vom Entwickler geschrieben, jedoch verpackt in Container und von einer Cloud gemanagt. Diese Container sind zustandslos, ereignisgesteuert und kurzlebig. Der bekannteste Beispiel ist AWS Lambda von Amazon.
+
+Die folgende Abbildung zeigt die Unterschiede zwischen der üblichen Architektur und Serverless. Die Authentifizierung erfolgt über den Cloud-Service. Der Client hat Zugriff auf die Produkt-Datenbank, welche von Drittanbietern gehostet wird. Ein Teil der früheren Serverlogik der alten Architektur kann in den Client implementiert werden, siehe Single-Page-Webanwendung. Mit HTTP-Anfragen kann über die API eine Suche in der Datenbank getriggert werden - es ist nicht nötig, dass ständig ein Server am laufen sein muss. Es ist möglich Teile von eigenem Quellcode in Plattformen wie AWS Lambda zu verwenden, falls die Programmiersprache unterstützt wird. Die Funktionalität "Kaufen" kann ebenfalls durch "Function as a Service" ersetzt werden. Zum einen, um den Client leichtgewichtiger zu halten, zum anderen aus Sicherheit. <a>[[ROBE18]](#ref_Robe18)</a>
+
+![Serverless](./images/serverless.png)
+
+_Serverless_, Abbildung angepasst aus <a>[[ROBE18]](#ref_Robe18)</a>
+
+Vereinfacht ausgedrückt - FaaS ist eine Ausführung von Backend-Quellcode ohne dabei einen eigenen Server oder dauerhaft arbeitende Serverprogramme laufen zu haben. FaaS ist darauf ausgelegt innerhalb kürzester Zeit (Millisekunden) je nach Anfrage benötigte Anwendungen zu starten und zu beenden. Die Vorteile sind eine Vereinfachung der Architektur durch den Wegfall einer Schicht und Übergabe der serverseitigen Logik an die Cloud-Services. Die Einsparung von Entwicklungs-, Installations- und Instandhaltungsaufwänden zählt ebenfalls zu den Vorteilen gegenüber der üblichen Drei-Schichten-Architektur. <a>[[ROBE18]](#ref_Robe18)</a>
 
 ## Unterschiede zu monolithischen Anwendungen
 
@@ -228,20 +248,6 @@ Sie sind den Microservices sehr ähnlich und teilen mit ihnen viele Merkmale. Zu
 
 Es ist möglich Self-contained Systems weiter in die Microservices aufzuteilen. SCS fokussiert sich auf großen Projekten und Aufteilungen in mehrere Teams. Bei Microservices sind eher kleine Teams oder einzelne Entwickler im Einsatz, was erlaubt Continuous Delivery einfacher anzuwenden, robustere Systeme zu entwerfen oder einzelne Services zu skalieren. Microservices sind vielseitiger, aber Self-contained Systems lösen Probleme mit der Architektur und Organisation großer Projekte.
 <a>[[SCSVSM]](#ref_Scsvsm)</a>
-
-## Serverless
-
-Serverless steht für Serverless computing und wird in zwei Bereichen eingesetzt:
-1. Es wird komplett auf die serverseitige Logik verzichtet und stattdessen werden Cloud-Services von Drittanbietern integriert. Übliche Anwender sind sogenannte "Rich Clients" - Single-Page-Webanwendungen und mobile Apps. Zu solchen Cloud-Services zählen Datenbanken, Authentifizierungsmechanismen und so weiter. Weshalb dieser Typ von Microservices auch "Backend as a Service" genannt wird.
-2. Ein anderer Bereich von Serverless ist "Function as a Service" (FaaS). In diesem Szenario wird serverseitige Logik immer noch vom Entwickler geschrieben, jedoch verpackt in Container und von einer Cloud gemanagt. Diese Container sind zustandslos, ereignisgesteuert und kurzlebig. Der bekannteste Beispiel ist AWS Lambda von Amazon.
-
-Die folgende Abbildung zeigt die Unterschiede zwischen der üblichen Architektur und Serverless. Die Authentifizierung erfolgt über den Cloud-Service. Der Client hat Zugriff auf die Produkt-Datenbank, welche von Drittanbietern gehostet wird. Ein Teil der früheren Serverlogik der alten Architektur kann in den Client implementiert werden, siehe Single-Page-Webanwendung. Mit HTTP-Anfragen kann über die API eine Suche in der Datenbank getriggert werden - es ist nicht nötig, dass ständig ein Server am laufen sein muss. Es ist möglich Teile von eigenem Quellcode in Plattformen wie AWS Lambda zu verwenden, falls die Programmiersprache unterstützt wird. Die Funktionalität "Kaufen" kann ebenfalls durch "Function as a Service" ersetzt werden. Zum einen, um den Client leichtgewichtiger zu halten, zum anderen aus Sicherheit. <a>[[ROBE18]](#ref_Robe18)</a>
-
-![Serverless](./images/serverless.png)
-
-_Serverless_, Abbildung angepasst aus <a>[[ROBE18]](#ref_Robe18)</a>
-
-Vereinfacht ausgedrückt - FaaS ist eine Ausführung von Backend-Quellcode ohne dabei einen eigenen Server oder dauerhaft arbeitende Serverprogramme laufen zu haben. FaaS ist darauf ausgelegt innerhalb kürzester Zeit (Millisekunden) je nach Anfrage benötigte Anwendungen zu starten und zu beenden. Die Vorteile sind eine Vereinfachung der Architektur durch den Wegfall einer Schicht und Übergabe der serverseitigen Logik an die Cloud-Services. Die Einsparung von Entwicklungs-, Installations- und Instandhaltungsaufwänden zählt ebenfalls zu den Vorteilen gegenüber der üblichen Drei-Schichten-Architektur. <a>[[ROBE18]](#ref_Robe18)</a>
 
 ## Microservices als Front-Ends
 
