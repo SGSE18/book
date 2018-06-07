@@ -26,9 +26,21 @@
 
 Ein Microservice ist ein leichtgewichtiger autonomer Dienst, der eine einzige Aufgabe erfüllt und mit anderen ähnlichen Diensten über eine gut definierte Schnittstelle kollaboriert. Eine der Hauptaufgaben von Microservices ist eine Minimierung von Einflüssen im Falle einer möglichen Schnittstellenänderung. <a>[[NAMI14]](#ref_Nami14)</a>
 
-- TODO: Beschreibung von Monolith
+Monolithischen Anwendungen werden als ein Ganzes entwickelt. Die sogenannte Drei-Schichten-Architektur beinhaltet:
+- Clientseitige Applikation
+- Serverseitige Applikation
+- Datenbank
 
-Eine der weit verbreitenden Illustration der verschiedenen Ansätze der Partitionierung von Monolithen ist der Skalierungswürfel. Auf der horizontalen Ebene geht es um Skalierbarkeiteines Systems durch mehrere Instanzen einer Applikation. Diese können unter anderem hinter einem Load-Balancer laufen. Auf diese Weise wird versucht die Last umzuverteilen und konstante Antwortzeiten zu erzielen. Die Z-Achse der Skalierung würden mehrere Server eine identische Kopie an Code unterhalten. Hier unterhält jeder Server nur eine Untermenge der Daten. Auftretende Probleme wären Datenkonsistenz, Datenverteilung und Datenverfügbarkeit. Die X-Achse und die Z-Achse verbessern die Skalierbarkeit und Verfügbarkeit, jedoch auch die Komplexität des Systems. Um die Komplexität zu verringern wird auf der Y-Achse skaliert. Die Skalierung nach der Y-Achse setzt voraus, dass ein System logisch und physisch in funktionale Bereich zerlegt werden kann. Dies kann zum höheren Kommunikationsaufwand führen, bringt aber mehr Flexibilität mit sich. <a>[[PIEN16]](#ref_Pien16)</a>, <a>[[NAMI14]](#ref_Nami14)</a>
+Eine serverseitige Applikation ist ein solches Monolith, weil sie für HTTP-Anfragen zuständig ist, Zugriffe auf die Datenbank steuert und mit dem Browser interagiert. Eine Änderung im System führt zu einer neuen Version der ganzen Software. Die ganze Logik konzentriert sich in einer ausführbaren Datei. Es ist ein natürlich Weg zu entwickeln. Optimierung kan mithilfe eines Load Balancer erfolgen, damit mehrere Instanzen der Applikation nebenbei laufen können.
+Allerdings kann schwierig werden eine solche Anwendung auf Dauer zu entwickeln. Es erfordert viel Aufwand ständige Änderungen und Korrekturen zu implementieren, denn bei einem Monolith muss jedes Mal das ganze System neu erstellt werden. Desweiteren ist es aufwändig die Modularität der Software aufrecht zu erhalten, ohne das intern ungewollte Abhängigkeiten zwischen den Modulen entstehen. Auch eine Skalierung des ganzen Systems erfordert viel mehr Ressourcen, als eines einzelnen Moduls. <a>[[LEWI14]](#ref_Lewi14)</a>
+
+Ein Vergleich einer monolithischen Anwendung in Microservices kann in der nächsten Abbildung betrachtet werden.
+
+![Microservices vs Monolith](./images/microservices_vs_monolith.png)
+
+_Microservices vs Monolith_, Abbildung entnommen aus <a>[[TATV16]](#ref_Tatv16)</a>
+
+Um die Nachteile von monolithischen Anwendungen zu umgehen, werden diese aufgeteilt in einzelne Dienste oder Services. Eine der weit verbreitenden Illustration der verschiedenen Ansätze der Partitionierung von Monolithen ist der Skalierungswürfel. Auf der horizontalen Ebene geht es um Skalierbarkeiteines Systems durch mehrere Instanzen einer Applikation. Diese können unter anderem hinter einem Load-Balancer laufen. Auf diese Weise wird versucht die Last umzuverteilen und konstante Antwortzeiten zu erzielen. Die Z-Achse der Skalierung würden mehrere Server eine identische Kopie an Code unterhalten. Hier unterhält jeder Server nur eine Untermenge der Daten. Auftretende Probleme wären Datenkonsistenz, Datenverteilung und Datenverfügbarkeit. Die X-Achse und die Z-Achse verbessern die Skalierbarkeit und Verfügbarkeit, jedoch auch die Komplexität des Systems. Um die Komplexität zu verringern wird auf der Y-Achse skaliert. Die Skalierung nach der Y-Achse setzt voraus, dass ein System logisch und physisch in funktionale Bereich zerlegt werden kann. Dies kann zum höheren Kommunikationsaufwand führen, bringt aber mehr Flexibilität mit sich. <a>[[PIEN16]](#ref_Pien16)</a>, <a>[[NAMI14]](#ref_Nami14)</a>
 
 ![Skalierungswürfel](./images/scale_cube.png)
 
@@ -138,17 +150,13 @@ In dieser Liste sind die Vorraussetzungen für Microservices zusammengefasst: <a
 4. Requests und Responses können willkürlich geschachtelt sein
 5. Nachrichtenformat: wie JSON, XML
 
-Wenn es um Microservices geht müssen die Remote Procedure Calls näher betrachtet werden.
-
 ### Kommunikation mit Microservices
 
-Einige häufig anzutreffende Entwürfen von Remote Procedure Calls (RPC) sind Direct Call, Gateway und Message Bus.
-
-- TODO: mehr beschreiben
+Wenn es um Microservices geht müssen die Remote Procedure Calls (RPCs) näher betrachtet werden, da Microservices out-of-process Komponenten sind. Einige häufig anzutreffende Entwürfen von RPCs sind Direct Call, Gateway und Message Bus. <a>[[NAMI14]](#ref_Nami14)</a>
 
 __Direct Call__
 
-Der erste Kommunikationsentwurf ist ein Direct Call. Wie die Bezeichnung impliziert, werden Microservices direkt von der Applikation aufgerufen. Obwohl sehr flexibel, kann es zu potentiellen Verzögerungen kommen wenn die Anzahl der RPCs zu groß wird. 
+Der erste Kommunikationsentwurf ist ein Direct Call. Wie die Bezeichnung impliziert, kommunizieren Microservices direkt mit der Applikation. Obwohl sehr flexibel, kann es zu potentiellen Verzögerungen kommen wenn die Anzahl der RPCs zu groß wird. <a>[[NAMI14]](#ref_Nami14)</a>
 
 ![Direct Call](./images/direct_call_pattern.png)
 
@@ -195,19 +203,7 @@ Vereinfacht ausgedrückt - FaaS ist eine Ausführung von Backend-Quellcode ohne 
 
 ## Unterschiede zu monolithischen Anwendungen
 
-Monolithischen Anwendungen werden als ein Ganzes entwickelt. Die sogenannte Drei-Schichten-Architektur:
-- Clientseitige Applikation
-- Serverseitige Applikation
-- Datenbank
-
-Eine serverseitige Applikation ist ein solches Monolith, weil sie für HTTP-Anfragen zuständig ist, Zugriffe auf die Datenbank steuert und mit dem Browser interagiert. Eine Änderung im System führt zu einer neuen Version der ganzen Software. Die ganze Logik konzentriert sich in einer ausführbaren Datei. Es ist ein natürlich Weg zu entwickeln. Optimierung kan mithilfe eines Load Balancer erfolgen, damit mehrere Instanzen der Applikation nebenbei laufen können.
-Allerdings kann schwierig werden eine solche Anwendung auf Dauer zu entwickeln. Es erfordert viel Aufwand ständige Änderungen und Korrekturen zu implementieren, denn bei einem Monolith muss jedes Mal das ganze System neu erstellt werden. Desweiteren ist es aufwändig die Modularität der Software aufrecht zu erhalten, ohne das intern ungewollte Abhängigkeiten zwischen den Modulen entstehen. Auch eine Skalierung des ganzen Systems erfordert viel mehr Ressourcen, als eines einzelnen Moduls. <a>[[LEWI14]](#ref_Lewi14)</a>
-
-Ein Vergleich einer monolithischen Anwendung in Microservices kann in der nächsten Abbildung betrachtet werden.
-
-![Microservices vs Monolith](./images/microservices_vs_monolith.png)
-
-_Microservices vs Monolith_, Abbildung entnommen aus <a>[[TATV16]](#ref_Tatv16)</a>
+Die folgenden Kapiteln gehen auf die Vor- und Nachteile von Microservices gegenüber einer monolithischen Architektur. Die Nachteile eines Monoliths wurden in der Einführung beschrieben.
 
 ### Vorteile
 
