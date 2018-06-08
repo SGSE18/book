@@ -1,6 +1,6 @@
 # Digitalisierung
 
-## Einleitung
+## Einleitung und Definition
 
 „Digitalisierung“ - Das aktuelle Hype-Thema in der Politik und Wirtschaft. Sie reicht dabei von digitalen Sprachassistenten für Zuhause über Wearables und Satellitentechnik zu vollautomatisieren Fertigungsstraßen in der Industrie. In so gut wie allen Bereichen des Lebens lässt sie sich finden. Inzwischen existieren vollständige digitale Währungen wie z.B. „Bitcoin“ und man kann während einem Ausflug per Smartphone-App und einem internetfähigen Futterspender die Katze in der Heimat füttern und sie dabei sogar noch über eine Kamera im Livestream beobachten. 
 
@@ -57,8 +57,6 @@ Es wird also von einer Analog-Digital-Wandlung (A/D-Wandlung) und Digital-Analog
 
 Als ein weiteres Beispiel für die Digitalisierung wird häufig die Fotografie verwendet. Vor der Erfindung von Digitalkameras war die Fotografie ein photochemischer Prozess. Mit einer Digitalkamera wird ein digitales Abbild der im Sucher zu sehenden Wirklichkeit aufgenommen. An dem digitalen Abbild können vor dem Druck leichter Änderungen vorgenommen werden als an der analogen Aufnahme. Ein vollständiger Zyklus von A/D-Wandlung und wieder D/A-Wandlung kann in Verbindung mit andere Zyklen dazu verwendet werden um Begriffe wie Big Data und Data Analytics zu definieren bzw. abzuleiten. Aus der Verlauf von gekauften Produkten auf Plattformen wie Amazon lassen sich Kunden in Gruppe einteilen und typisieren. Die Benutzer Erfahrung wird mit gezielter Werbung und Angeboten gezielt gesteuert. Bei einer Fertigungsstraße werden Sammlungen von Sensordaten genutzt um einen Ausfall frühzeitig zu erkennen, dann wird von „predictive Maintenance“ gesprochen und eine entsprechende Wartung wird durchgeführt um den Schaden zu minimieren. [Informatik Spektrum]
 
-
-## Definition
 
 # Digitalisierung - Anwendungsfelder und Forschungsziele
 
