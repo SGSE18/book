@@ -161,6 +161,8 @@ __Direct Call__
 
 Der erste Kommunikationsentwurf ist ein Direct Call. Wie die Bezeichnung impliziert, kommunizieren Microservices direkt mit der Applikation. Obwohl sehr flexibel, kann es zu potentiellen Verzögerungen kommen wenn die Anzahl der RPCs zu groß wird. <a>[[NAMI14]](#ref_Nami14)</a>
 
+__TODO: Text erweitern__
+
 ![Direct Call](./images/direct_call_pattern.png)
 
 _Direct Call_, Abbildung angepasst aus <a>[[NAMI14]](#ref_Nami14)</a>
@@ -273,12 +275,22 @@ Für Webanwendungen gewinnt Front-End immer mehr an Bedeutung, während Back-End
 
 Tabelle angepasst aus <a>[[LECH17]](#ref_Lech17)</a>
 
-__TODO: Bild beschreiben__
-In dieser Abbildung ist eine mögliche Aufteilung des Front-End in Micro Front-Ends. Wie auch im Back-End Bereich ist hier jedes Team für einen Dienst zuständig: Product, Checkout, etc. Links in der Abbildung sind die drei Schichten Front-End, Back-End und Datenbank zu sehen. Jedes Entwicklerteam behandelt alle drei Bereiche seines Services. Das korreliert mit Microservices im Back-End in dem Sinne, dass Polyglot Persistence eingesetzt wird - eine Datenbank pro Service.
+Diese Abbildung stellt Front-Ends in verschiedenen Architekturen dar. In jeder bildet das Front-End ein ganzes System; entweder für sich alleine oder als ein Monolith mit Back-End und Datenbank. 
 
-![Micro Front-End](./images/micro_frontend.png)
+![Monolithische Front-End](./images/monolith_frontback_microservices.png)
 
-_Micro frontend_, Abbildung entnommen aus <a>[[GEER17]](#ref_Geer17)</a>
+_Monolithische Front-Ends_, Abbildung entnommen aus <a>[[GEER17]](#ref_Geer17)</a>
+
+In dieser Abbildung ist eine mögliche Aufteilung eines monolithischen Front-End in Micro Front-Ends in vertikaler Ebene dargeboten. Wie auch im Microservices Back-End Bereich ist hier jedes Team für einen Dienst zuständig: Product, Checkout, etc. Links in der Abbildung sind die drei Schichten zu sehen:
+- Front-End
+- Back-End
+- Datenbank
+
+Jedes Entwicklerteam behandelt alle drei Bereiche seines Services. Das korreliert auch mit "klassischen" Microservices in dem Sinne, dass __Polyglot Persistence__ eingesetzt wird - eine Datenbank pro Service.
+
+![Micro Front-Ends](./images/micro_frontend.png)
+
+_Micro Front-Ends_, Abbildung entnommen aus <a>[[GEER17]](#ref_Geer17)</a>
 
 ## Einsatz von Microservices
 
