@@ -155,6 +155,14 @@ In dieser Liste sind die Vorraussetzungen für Microservices zusammengefasst: <a
 
 ### Kommunikation mit Microservices
 
+__Direct Client-to-Microservice Communication__
+
+Jeder Microservice hat einen öffentliches Endpunkt. Um Information zu bekommen schickt ein Client Anfragen an jedes einzelne Service. Nachteile sind die vielen Anfragen, welche ein Client ausführen muss. Bei hunderten Diensten wäre es zu ineffizient 
+
+__API Gateway__
+
+
+
 Wenn es um Microservices geht müssen die Remote Procedure Calls (RPCs) näher betrachtet werden, da Microservices out-of-process Komponenten sind. Einige häufig anzutreffende Entwürfen von RPCs sind Direct Call, Gateway und Message Bus. <a>[[NAMI14]](#ref_Nami14)</a>
 
 __Direct Call__
