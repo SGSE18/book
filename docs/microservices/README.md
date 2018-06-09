@@ -11,7 +11,7 @@
     - [Infrastructure Automation](#infrastructure-automation)
     - [Design for failure](#design-for-failure)
     - [Evolutionäres Design](#evolutionäres-design)
-    - [Kommunikation mit Microservice](#kommunikation-mit-microservice)
+    - [Client-Kommunikation mit Microservices](#client-kommunikation-mit-microservices)
     - [Humane Registries](#humane-registries)
     - [Serverless](#serverless)
 - [Unterschiede zu monolithischen Anwendungen](#unterschiede-zu-monolithischen-anwendungen)
@@ -153,46 +153,32 @@ In dieser Liste sind die Vorraussetzungen für Microservices zusammengefasst: <a
 4. Requests und Responses können willkürlich geschachtelt sein
 5. Nachrichtenformat: wie JSON, XML
 
-### Kommunikation mit Microservices
+### Client-Kommunikation mit Microservices
 
 __Direct Client-to-Microservice Communication__
 
-Jeder Microservice hat einen öffentliches Endpunkt. Um Information zu bekommen schickt ein Client Anfragen an jedes einzelne Service. Nachteile sind die vielen Anfragen, welche ein Client ausführen muss. Bei hunderten Diensten wäre es zu ineffizient 
-
-__API Gateway__
-
-
-
-Wenn es um Microservices geht müssen die Remote Procedure Calls (RPCs) näher betrachtet werden, da Microservices out-of-process Komponenten sind. Einige häufig anzutreffende Entwürfen von RPCs sind Direct Call, Gateway und Message Bus. <a>[[NAMI14]](#ref_Nami14)</a>
-
-__Direct Call__
-
-Der erste Kommunikationsentwurf ist ein Direct Call. Wie die Bezeichnung impliziert, kommunizieren Microservices direkt mit der Applikation. Obwohl sehr flexibel, kann es zu potentiellen Verzögerungen kommen wenn die Anzahl der RPCs zu groß wird. <a>[[NAMI14]](#ref_Nami14)</a>
-
-__TODO: Text erweitern__
+Jeder Microservice hat einen öffentliches Endpunkt. Um Information zu bekommen schickt ein Client Anfragen an jedes einzelne Service. Nachteile sind die vielen Anfragen, welche ein Client ausführen muss. Bei hunderten Diensten wäre es zu ineffizient die Anfragen über das öffentliche Internet zu verschicken. Mit einigen Protokollen ist es nicht performant über das Internet zu kommunizieren und außerhalb der Firewall sollte HTTP zum Einsatz kommen. Direct Calls machen es schwer die Microservices im Nachhinein zu restrukturieren, denn es kann vorkommen, dass zwei Dienste zusammengeführt werden sollen, aber der Client sie beide einzeln anspricht. Diese Ansatz wird aus diesen Gründen eher selten verwendet. <a>[[RICH15]](#ref_Rich15)</a>
 
 ![Direct Call](./images/direct_call_pattern.png)
 
 _Direct Call_, Abbildung angepasst aus <a>[[NAMI14]](#ref_Nami14)</a>
 
-__Gateway__
+__API Gateway__
 
-Um den Verzögerunden entgegenzuwirken kommt der Gateway-Entwurf zum Einsatz. Um den Andrang zu verringern kommen diverse Caches und Middleware, wie ein Transaktionsmonitor, hinzu.
+Ein API Gateway ist ein Server mit einem Endpunkt für alle Anfragen des Clients. Je nach Client werden verschiedene APIs zur Verfügung gestellt. Zu den Aufgaben zählen unter anderem:
+- Authentifizierung
+- Monitoring
+- Load Balancing
+- Caching
+- Anfragen-Management
+- Protokoll-Umwandlung
+- Anfragen-Routing
 
-![Gateway](./images/gateway_pattern.png)
+Ein API-Gateway leitet alle Anfragen zu den Microservices; es kann mehrere Dienste aufrufen und deren Ergebnisse sammeln; es führt Umwandlungen durch zwischen Webprotokollen und internen Dienst-Protokollen. <a>[[RICH15]](#ref_Rich15)</a>
 
-_Gateway_, Abbildung angepasst aus <a>[[NAMI14]](#ref_Nami14)</a>
+![API Gateway](./images/gateway_pattern.png)
 
-__Message-bus__
-
-Message Bus erlaubt asynchrone Requests und Responses. Das kommt gerade den Applikationen aus dem IoT-Bereich zugute.
-
-![Message Bus](./images/message_bus_pattern.png)
-
-_Message Bus_, Abbildung angepasst aus <a>[[NAMI14]](#ref_Nami14)</a>
-
-https://www.nginx.com/blog/building-microservices-using-an-api-gateway/
-https://www.nginx.com/blog/building-microservices-inter-process-communication/
+_API Gateway_, Abbildung angepasst aus <a>[[NAMI14]](#ref_Nami14)</a>
 
 ### Humane Registries
 
@@ -308,8 +294,6 @@ Den Weg von Monolith zu Microservices gingen unter anderem Netflix, Amazon und E
 
 ## Quellen
 
-<a name="ref_Chen18">[CHEN18]</a>: Chen, Lianping: Microservices: Architecting for Continuous Delivery and DevOps, IEEE International Conference on Software Architecture, 2018, URL: https://www.researchgate.net/publication/323944215_Microservices_Architecting_for_Continuous_Delivery_and_DevOps
-
 <a name="ref_Evan15">[EVAN15]</a>: Evans, Eric: Domain­‐Driven Design Reference, Domain
 Language Inc. pp vi-2, 2015, URL: http://domainlanguage.com/wp-content/uploads/2016/05/DDD_Reference_2015-03.pdf (letzter Zugriff: 06.06.2018)
 
@@ -331,6 +315,8 @@ URL: https://cyberleninka.ru/article/v/on-micro-services-architecture (letzter Z
 <a name="ref_Peck17">[PECK17]</a>: Peck, Nathan: Microservice Principles: Decentralized Governance, 05.09.2017, URL: https://medium.com/@nathankpeck/microservice-principles-decentralized-governance-4cdbde2ff6ca (letzter Zugriff: 24.05.2018)
 
 <a name="ref_Pien16">[PIEN16]</a>: Pientka, Frank: Wie lassen sich Microservice-Muster effizient umsetzen?, 09.02.2016, URL: https://www.informatik-aktuell.de/entwicklung/methoden/wie-lassen-sich-microservice-muster-effizient-umsetzen.html, (letzter Zugriff: 01.06.2018)
+
+<a name="ref_Rich15">[RICH15]</a>: Richardson, Chris: Pattern: Building Microservices: Using an API Gateway, 15.06.2015, URL: https://www.nginx.com/blog/building-microservices-using-an-api-gateway/ (letzter Zugriff: 9.06.2018)
 
 <a name="ref_Rich17">[RICH17]</a>: Richardson, Chris: Pattern: Microservice Architecture, 2017, URL: http://microservices.io/patterns/microservices.html (letzter Zugriff: 31.05.2018)
 
