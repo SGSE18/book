@@ -11,7 +11,7 @@
     - [Infrastructure Automation](#infrastructure-automation)
     - [Design for failure](#design-for-failure)
     - [Evolutionäres Design](#evolutionäres-design)
-    - [Kommunikation mit Microservice](#kommunikation-mit-microservice)
+    - [Client-Kommunikation mit Microservices](#client-kommunikation-mit-microservices)
     - [Humane Registries](#humane-registries)
     - [Serverless](#serverless)
 - [Unterschiede zu monolithischen Anwendungen](#unterschiede-zu-monolithischen-anwendungen)
@@ -23,6 +23,9 @@
 - [Quellen](#quellen)
 
 ## Einführung
+
+Diese Mindmap soll einen Überblick darüber erschaffen, welche Themen in der Ausarbeitung angesprochen werden und wie sie anzuordnen sind.
+![Übersicht](./images/overview.png)
 
 Ein Microservice ist ein leichtgewichtiger autonomer Dienst, der eine einzige Aufgabe erfüllt und mit anderen ähnlichen Diensten über eine gut definierte Schnittstelle kollaboriert. Eine der Hauptaufgaben von Microservices ist eine Minimierung von Einflüssen im Falle einer möglichen Schnittstellenänderung. <a>[[NAMI14]](#ref_Nami14)</a>
 
@@ -65,7 +68,7 @@ Auf alle Entwurfsmuster einzugehen würde den zeitlichen Rahmen um vielfaches sp
 
 _Verwandte Entwurfsmuster_, Abbildung entnommen aus <a>[[RICH17]](#ref_Rich17)</a>
 
-Um einen gemeinsamen Datenbestand für alle Services und damit einen Engpass zu vermeiden, sollte "Database-per-service"-Muster zum Einsatz kommen - jeder Service verwaltet seine eigenen Daten. Hes wird bewusst eine Datenredundanz in Kauf genommen. Dies erlaubt jedem Dienst eine eigene, für ihn geeignete Technologie zu wählen. <a>[[PIEN16]](#ref_Pien16)</a> 
+Um einen gemeinsamen Datenbestand für alle Services und damit einen Engpass zu vermeiden, sollte "Database-per-service"-Muster zum Einsatz kommen - jeder Service verwaltet seine eigenen Daten. Es wird bewusst eine Datenredundanz in Kauf genommen. Dies erlaubt jedem Dienst eine eigene, für ihn geeignete Technologie zu wählen. <a>[[PIEN16]](#ref_Pien16)</a> 
 Die Abbildung _Microservices Architektur_ zeigt einen möglichen Aufbau von Microservices. Jedem Dienst entspricht eine Funktionalität. Einige Dienste haben eigene Datenbanken, andere greifen auf eine gemeinsame Datenbank zu.
 
 ![Architektur](./images/architecture.png)
@@ -106,14 +109,14 @@ Eine andere populäre Möglichkeit ist es den Lightweight Message Bus zu nutzen,
 
 ### Dezentralisierte Führung
 
-Dezentralisierte Führung ist ein Konzept welches aus mehreren Ansätzen besteht. Eines davon erlaubt den einzelnen Entwicklerteams ihre Stärken in verschiedenen Technologien anzuwenden und zusammen ein leistungsfähiges Produkt zu entwickeln, anstatt ihnen einen technologischen Standard aufzuzwingen. Das heißt, dass unter anderem jeder einzelner Service in der dafür am besten passenden Programmiersprache geschrieben werden kann, aber nicht unbedingt muss. Die Entscheidung liegt auf der Ebene der Entwickler, was nicht bedeutet, dass es überhaupt keine Richtlinien gibt.
+Dezentralisierte Führung ist ein Konzept welches aus mehreren Ansätzen besteht. Eines davon erlaubt den einzelnen Entwicklerteams ihre Stärken in verschiedenen Technologien anzuwenden und zusammen ein leistungsfähiges Produkt zu entwickeln, anstatt ihnen einen technologischen Standard aufzuzwingen. Das heißt, dass unter anderem jeder einzelner Service in der dafür am besten passenden Programmiersprache geschrieben werden kann, aber nicht unbedingt muss. Diese Eigenschaft heißt __Polyglot Programming__. Die Entscheidung liegt auf der Ebene der Entwickler, was nicht bedeutet, dass es überhaupt keine Richtlinien gibt.
 Einen weiterer Ansatz der dezentralisierten Führung bringt die Amazons Herangehensweise zur Geltung: "You build it, you run it!". Damit ist gemeint, dass ein Entwicklungsteam nicht nur die eigentliche Entwicklung übernimmt, sondern auch die Installation, die Überwachung und die Steuerung dieses Produktes im Einsatz. Das geht weg von dem üblichen Konzept "Entwickeln und vergessen", wo nach der Entwicklung andere Bereiche sich um das Produkt kümmern. <a>[[LEWI14]](#ref_Lewi14)</a>, <a>[[PECK17]](#ref_Peck17)</a>
 
 ### Dezentralisiertes Datenmanagement
 
-Bounded Context ist ein Entwurfsmuster aus dem Domain-driven Design. Es beschreibt eine Abgrenzung in der ein bestimmtes Model definiert und verwendet wird. Es teilt komplexe Domänen in mehrere Kontextgrenzen und beschreibt die Beziehungen zwischen ihnen. Das ist sowohl für Monolithen, als auch für Microservices nutzbar, wobei die letzteren eine natürliche Korrelation zu Bounded Context besitzen. Bounded Context verdeutlicht und verstärkt eine Trennung in verschiedene Bereiche. <a>[[EVAN15]](#ref_Evan15)</a>, <a>[[LEWI14]](#ref_Lewi14)</a>
+Domain-driven Design (DDD) modelliert komplexe Systeme basierend auf Domänen; eine Domäne ist wiederum ein Einsatzbereich einer Software. Bounded Context ist ein Entwurfsmuster aus dem DDD. Es beschreibt eine Abgrenzung in der ein bestimmtes Modell definiert und verwendet wird. Es teilt komplexe Domänen in mehrere Kontextgrenzen und beschreibt die Beziehungen zwischen ihnen. Je nach Kontext variieren sich die Sichtweisen auf bestimmte Modelle: Modell _Customer_ kann im Kontext von _Sales_ vorkommen, aber nicht unbedingt bei _Support_. Das ist sowohl für Monolithen, als auch für Microservices nutzbar, wobei die letzteren eine natürliche Korrelation zu Bounded Context besitzen. Bounded Context verdeutlicht und verstärkt eine Trennung in verschiedene Kontextbereiche. <a>[[EVAN15]](#ref_Evan15)</a>, <a>[[FOWL14]](#ref_FOWL14)</a>, <a>[[LEWI14]](#ref_Lewi14)</a>
 
-Hier sind klar erkennbare Grenzen der Bereiche Sales und Support mit Berührungspunkten bei Customer und Product.
+Hier sind klar erkennbare Grenzen der Bereiche Sales und Support mit Berührungspunkten bei Customer und Product definiert.
 
 ![Bounded Context](./images/bounded_context.png)
 
@@ -150,33 +153,32 @@ In dieser Liste sind die Vorraussetzungen für Microservices zusammengefasst: <a
 4. Requests und Responses können willkürlich geschachtelt sein
 5. Nachrichtenformat: wie JSON, XML
 
-### Kommunikation mit Microservices
+### Client-Kommunikation mit Microservices
 
-Wenn es um Microservices geht müssen die Remote Procedure Calls (RPCs) näher betrachtet werden, da Microservices out-of-process Komponenten sind. Einige häufig anzutreffende Entwürfen von RPCs sind Direct Call, Gateway und Message Bus. <a>[[NAMI14]](#ref_Nami14)</a>
+__Direct Client-to-Microservice Communication__
 
-__Direct Call__
-
-Der erste Kommunikationsentwurf ist ein Direct Call. Wie die Bezeichnung impliziert, kommunizieren Microservices direkt mit der Applikation. Obwohl sehr flexibel, kann es zu potentiellen Verzögerungen kommen wenn die Anzahl der RPCs zu groß wird. <a>[[NAMI14]](#ref_Nami14)</a>
+Jeder Microservice hat einen öffentliches Endpunkt. Um Information zu bekommen schickt ein Client Anfragen an jedes einzelne Service. Nachteile sind die vielen Anfragen, welche ein Client ausführen muss. Bei hunderten Diensten wäre es zu ineffizient die Anfragen über das öffentliche Internet zu verschicken. Mit einigen Protokollen ist es nicht performant über das Internet zu kommunizieren und außerhalb der Firewall sollte HTTP zum Einsatz kommen. Direct Calls machen es schwer die Microservices im Nachhinein zu restrukturieren, denn es kann vorkommen, dass zwei Dienste zusammengeführt werden sollen, aber der Client sie beide einzeln anspricht. Diese Ansatz wird aus diesen Gründen eher selten verwendet. <a>[[RICH15]](#ref_Rich15)</a>
 
 ![Direct Call](./images/direct_call_pattern.png)
 
 _Direct Call_, Abbildung angepasst aus <a>[[NAMI14]](#ref_Nami14)</a>
 
-__Gateway__
+__API Gateway__
 
-Um den Verzögerunden entgegenzuwirken kommt der Gateway-Entwurf zum Einsatz. Um den Andrang zu verringern kommen diverse Caches und Middleware, wie ein Transaktionsmonitor, hinzu.
+Ein API Gateway ist ein Server mit einem Endpunkt für alle Anfragen des Clients. Je nach Client werden verschiedene APIs zur Verfügung gestellt. Zu den Aufgaben zählen unter anderem:
+- Authentifizierung
+- Monitoring
+- Load Balancing
+- Caching
+- Anfragen-Management
+- Protokoll-Umwandlung
+- Anfragen-Routing
 
-![Gateway](./images/gateway_pattern.png)
+Ein API-Gateway leitet alle Anfragen zu den Microservices; es kann mehrere Dienste aufrufen und deren Ergebnisse sammeln; es führt Umwandlungen durch zwischen Webprotokollen und internen Dienst-Protokollen. <a>[[RICH15]](#ref_Rich15)</a>
 
-_Gateway_, Abbildung angepasst aus <a>[[NAMI14]](#ref_Nami14)</a>
+![API Gateway](./images/gateway_pattern.png)
 
-__Message-bus__
-
-Message Bus erlaubt asynchrone Requests und Responses. Das kommt gerade den Applikationen aus dem IoT-Bereich zugute.
-
-![Message Bus](./images/message_bus_pattern.png)
-
-_Message Bus_, Abbildung angepasst aus <a>[[NAMI14]](#ref_Nami14)</a>
+_API Gateway_, Abbildung angepasst aus <a>[[NAMI14]](#ref_Nami14)</a>
 
 ### Humane Registries
 
@@ -267,11 +269,22 @@ Für Webanwendungen gewinnt Front-End immer mehr an Bedeutung, während Back-End
 
 Tabelle angepasst aus <a>[[LECH17]](#ref_Lech17)</a>
 
-Eine mögliche Aufteilung des Front-End in Micro Front-Ends. Wie auch im Back-End Bereich ist hier jedes Team für einen Dienst zuständig. Links in der Abbildung sind die drei Schichten Front-End, Back-End und Datenbank zu sehen. Sie haben hier keine Relevanz.
+Diese Abbildung stellt Front-Ends in verschiedenen Architekturen dar. In jeder bildet das Front-End ein ganzes System; entweder für sich alleine oder als ein Monolith mit Back-End und Datenbank. 
 
-![Micro Front-End](./images/micro_frontend.png)
+![Monolithische Front-End](./images/monolith_frontback_microservices.png)
 
-_Micro frontend_, Abbildung entnommen aus <a>[[GEER17]](#ref_Geer17)</a>
+_Monolithische Front-Ends_, Abbildung entnommen aus <a>[[GEER17]](#ref_Geer17)</a>
+
+In dieser Abbildung ist eine mögliche Aufteilung eines monolithischen Front-End in Micro Front-Ends in vertikaler Ebene dargeboten. Wie auch im Microservices Back-End Bereich ist hier jedes Team für einen Dienst zuständig: Product, Checkout, etc. Links in der Abbildung sind die drei Schichten zu sehen:
+- Front-End
+- Back-End
+- Datenbank
+
+Jedes Entwicklerteam behandelt alle drei Bereiche seines Services. Das korreliert auch mit "klassischen" Microservices in dem Sinne, dass __Polyglot Persistence__ eingesetzt wird - eine Datenbank pro Service.
+
+![Micro Front-Ends](./images/micro_frontend.png)
+
+_Micro Front-Ends_, Abbildung entnommen aus <a>[[GEER17]](#ref_Geer17)</a>
 
 ## Einsatz von Microservices
 
@@ -281,8 +294,6 @@ Den Weg von Monolith zu Microservices gingen unter anderem Netflix, Amazon und E
 
 ## Quellen
 
-<a name="ref_Chen18">[CHEN18]</a>: Chen, Lianping: Microservices: Architecting for Continuous Delivery and DevOps, IEEE International Conference on Software Architecture, 2018, URL: https://www.researchgate.net/publication/323944215_Microservices_Architecting_for_Continuous_Delivery_and_DevOps
-
 <a name="ref_Evan15">[EVAN15]</a>: Evans, Eric: Domain­‐Driven Design Reference, Domain
 Language Inc. pp vi-2, 2015, URL: http://domainlanguage.com/wp-content/uploads/2016/05/DDD_Reference_2015-03.pdf (letzter Zugriff: 06.06.2018)
 
@@ -290,7 +301,7 @@ Language Inc. pp vi-2, 2015, URL: http://domainlanguage.com/wp-content/uploads/2
 
 <a name="ref_Fowl14">[FOWL14]</a>: Fowler, Martin: BoundedContext, 15.01.2014, URL: https://martinfowler.com/bliki/BoundedContext.html (letzter Zugriff: 06.06.2018)
 
-<a name="ref_Geer17">[Geer17]</a>: Geers, Michael: What are Micro Frontends?, 2017, URL: https://micro-frontends.org/ (letzter Zugriff: 03.06.2018)
+<a name="ref_Geer17">[GEER17]</a>: Geers, Michael: What are Micro Frontends?, 2017, URL: https://micro-frontends.org/ (letzter Zugriff: 03.06.2018)
 
 <a name="ref_Miri17">[MIRI17]</a>: Miri, Ima: Microservices vs. SOA, 04.01.2017, URL: https://dzone.com/articles/microservices-vs-soa-2
 
@@ -304,6 +315,8 @@ URL: https://cyberleninka.ru/article/v/on-micro-services-architecture (letzter Z
 <a name="ref_Peck17">[PECK17]</a>: Peck, Nathan: Microservice Principles: Decentralized Governance, 05.09.2017, URL: https://medium.com/@nathankpeck/microservice-principles-decentralized-governance-4cdbde2ff6ca (letzter Zugriff: 24.05.2018)
 
 <a name="ref_Pien16">[PIEN16]</a>: Pientka, Frank: Wie lassen sich Microservice-Muster effizient umsetzen?, 09.02.2016, URL: https://www.informatik-aktuell.de/entwicklung/methoden/wie-lassen-sich-microservice-muster-effizient-umsetzen.html, (letzter Zugriff: 01.06.2018)
+
+<a name="ref_Rich15">[RICH15]</a>: Richardson, Chris: Pattern: Building Microservices: Using an API Gateway, 15.06.2015, URL: https://www.nginx.com/blog/building-microservices-using-an-api-gateway/ (letzter Zugriff: 9.06.2018)
 
 <a name="ref_Rich17">[RICH17]</a>: Richardson, Chris: Pattern: Microservice Architecture, 2017, URL: http://microservices.io/patterns/microservices.html (letzter Zugriff: 31.05.2018)
 
