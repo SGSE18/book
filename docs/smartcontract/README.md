@@ -8,7 +8,7 @@ Möglichkeiten für neue und bestehende Anwendungsbereiche
 jeder neuen Technologie, aus denen sich neue Möglichkeiten ergeben, gehen diese
 auch bei Smart Contracts mit neuen Risiken einher. Neben rechtlicher und
 finanzieller Risiken, nehmen Fehler im Design bzw. der Implementierung von
-Smart Contracts einen weitaus größeren Stellenwert ein. Im Gegensatz zu
+Smart Contracts, einen weitaus größeren Stellenwert ein. Im Gegensatz zu
 klassischen Applikationen, lassen sich einmal veröffentlichte Smart Contracts
 nicht mehr updaten und auch durch die Fehler verursachte Änderungen am
 Distributed Ledger nicht mehr rückgängig machen. In diesem Zusammenhang wirkt
@@ -20,20 +20,22 @@ kontraproduktiv auf die Entwicklung von Smart Contracts.
 Da Smart Contracts in der Regel ebenfalls Vermögenswerte verwalten, ist es
 essenziell mögliche Schwachstellen bereits im voraus zu erkennen. Dabei liegen
 die meisten Schwachstellen nicht direkt in dem implementierten Codeblock,
-sondern ergeben sich erst durch die unberücksichtigte Wechselwirkung mit der
+sondern ergeben sich erst durch die unberücksichtigte Wechselwirkung, mit der
 zugrunde liegenden Smart Contract Plattform.
 
 ### Typische Schwachstellen
 Da Smart Contracts erst in den vergangen Jahren an Bedeutung gewonnen haben,
-entstehen derartige Schwachstellen durch den Mangel an Erfahrungen um diese
+entstehen derartige Schwachstellen durch den Mangel an Erfahrungen, um diese
 zu erkennen und zu vermeiden. In diesem Abschnitt werden daher zunächst die
-häufigsten Fallstricke betrachtet.
+häufigsten Fallstricke betrachtet und anschließend mögliche Vorgehensweisen
+präsentiert.
 
 #### Call Depth Attack
 Die Ethereum Virtual Machine (EVM) begrenzt die Call Stack Tiefe einer
-Transaktion auf 1024 Aufrufe. Somit kann ein Angreifer die Transaktion mit 1023
-rekursiven Aufrufen zunächst an die Grenze der Limitierung bringen, um
-schliesslich die folgende anfällige Funktion aufzurufen.
+Transaktion auf 1024 Aufrufe. Somit kann ein Angreifer die Call Stack Tiefe
+einer Transaktion, mittels rekrusiven Aufrufen, künstlich vor die Limitierung
+positionieren, um anschliessend Fehler in der darauf folgenden zu Verarbeitung
+der Transaktion zu provozieren.
 
 ```javascript
 contract auction {
@@ -61,11 +63,12 @@ mit `throw` zu terminieren.
 if (!recipient.send(refund)) { throw; }
 ```
 
-Durch die Terminierung mit `throw`, werden keine State Änderungen durch die
-Transaktion in den Distributed Ledger übernommen. Damit bleibt das Guthaben
-des Empfängers erhalten, wenn der darauf folgende Transfer fehlschlägt. Durch
-diesen Angriff kann der Angreifer sich zwar keinen finanziellen Vorteil
-verschaffen, aber einen Schaden bei den Guthabenbesitzern verursachen.
+Durch die Terminierung mit `throw`, werden durch die Transaktion, keine State-
+Änderungen in den Distributed Ledger übernommen. Damit bleibt das Guthaben
+des Empfängers auch dann erhalten, wenn der darauf folgende Transfer
+fehlschlägt. Durch diesen Angriff kann sich der Angreifer zwar keinen
+finanziellen Vorteil verschaffen, aber einen Schaden bei den Guthabenbesitzern
+verursachen.
 
 #### Re-Entrency und Cross-function Race Conditions
 Auf den ersten Blick erfüllen beiden Funktionen im folgenden Smart Contract die
@@ -94,19 +97,19 @@ contract auction {
 
 Mit der sogenannten Re-Entrency Attacke, kann sich ein Angreifer das gesamte
 Guthaben in dem Smart Contract (Guthaben aller Benutzer) auszahlen lassen,
-in dem er einen eigenen Smart Contract mit der Default-Funktion implementiert,
-in der wiederum erneut die `withdrawBalance()`-Funktion aufgerufen wird. Die
-Default-Funktion in einem Smart Contract wird aufgerufen, sobald eine
-Transaktion auf der Smart Contract Adresse eingeht. Da in der
-`withdrawBalance()`-Funktion das Guthaben des Angreifers an die böswillige Smart
-Contract Adresse überwiesen wird, ergibt sich somit eine rekursive Schleife
-zwischen den beiden Smart Contracts und die Zeile `userBalances[msg.sender] = 0`
-wird erst erreicht, wenn das gesamte Guthaben im Smart Contract aufgebraucht
-ist.
+in dem er einen eigenen Smart Contract mit der Default-Funktion implementiert.
+Die Default-Funktion in einem Smart Contract wird aufgerufen, sobald eine
+Transaktion an die Smart Contract Adresse eingeht. Die Default-Funktion ruft
+wiederum erneut die `withdrawBalance()`-Funktion auf. Da in der
+`withdrawBalance()`-Funktion das Guthaben des Angreifers an die böswillige
+Smart Contract Adresse überwiesen wird, ergibt sich somit eine rekursive
+Schleife zwischen den beiden Smart Contracts. Damit wird die Zeile
+`userBalances[msg.sender] = 0` erst erreicht, wenn das gesamte Guthaben im
+Smart Contract aufgebraucht ist, wodurch die `send(...)`-Funktion fehlschlägt.
 
 Statt dem erneuten Aufruf der `withdrawBalance()`-Funktion, kann der Angreifer
-auch eine Cross-function Race Condition erzeugen. Dazu wird erneut ein
-böswilliger Smart Contract implementiert und diesmal die
+auch eine Cross-function Race Condition provozieren. Dazu wird erneut ein
+böswilliger Smart Contract implementiert und stattdessen diesmal die
 `transfer(...)`-Funktion in der Default-Funktion aufgerufen. Somit wird das
 Guthaben einer anderen Adresse zugeordnet, bevor das seiner Adresse zugeordnete
 Guthaben auf 0 gesetzt wird.
@@ -115,17 +118,18 @@ Beide Schwachstellen lassen sich beheben, in dem das Guthaben der aufrufenden
 Adresse vor der Ausführung der Überweisung auf 0 gesetzt wird. Um im Fehlerfall
 das Guthaben wiederherzustellen, empfiehlt es sich zusätzlich den Rückgabewert
 der `send()`-Funktion zu prüfen, die Ausführung mit `throw` zu terminieren und
-damit alle durch die Transaktion entstanden Änderungen am State rückgängig zu
+damit alle durch die Transaktion entstanden Änderungen am State, Rückgängig zu
 machen.
 
 #### DoS with unexpected throws
-Im folgenden Smart Contract sollen die Teilnehmer mit der `bid()`-Funktion
-an einer Auktion teilnehmen können. Dazu muss der Teilnehmer einen Betrag
-größer als das aktuelle Höchstgebot überweisen. Wird ein Höchstgebot überboten
-erhält der alte Höchstbietende seinen zuvor überwiesenen Betrag zurück.
-Bei der Implementierung werden alle alle zuvor genannten Vorgehensweisen, wie
-die Prüfung des Rückgabewerts der `send(...)`-Funktion und die Terminierung mit
-`throw` im Fehlerfall, berücksichtigt.
+Im folgenden Smart Contract sollen die Teilnehmer einer Auktion, mit dem Aufruf
+der `bid()`-Funktion an der Auktion teilnehmen können. Dazu muss der Teilnehmer
+einen Betrag größer als das aktuelle Höchstgebot überweisen. Wird das aktuelle
+Höchstgebot überboten, erhält der alte Höchstbietende seinen zuvor überwiesenen
+Betrag zurück. Bei der Implementierung werden alle zuvor genannten
+Vorgehensweisen, wie die Prüfung des Rückgabewerts der `send(...)`-Funktion
+und die Terminierung mit `throw` im Fehlerfall, entsprechend in der
+`bid()`-Funktion implementiert.
 
 ```javascript
 contract auction {
@@ -158,7 +162,6 @@ alten Höchstbietenden und deren Gebote geführt und ganz auf die automatische
 Auszahlung verzichtet werden. Über eine zusätzliche Funktion können sich
 anschließend die in dieser Liste geführten Höchstbieter ihr Gebot erstatten
 lassen.
-
 
 ### Honey Pots
 
