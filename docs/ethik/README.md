@@ -11,6 +11,10 @@ Die starke Verbreitung von KI zum Erreichen unterschiedlichster Ziele hat dazu b
 
 ### Kritiker
 
+Elon Musk:
+Der Tesla und SpaceX Chef Elon Musk gehört zu den prominentesten Kritikern der schnellen Entwicklung der künstlichen Intelligenz und hat in der Vergangenheit immer wieder auf die Gefahren hingewiesen, die seiner Meinung nach von der Technologie ausgehen. Daher sind die Szenarien, die Musk in der Zukunft für möglich hält, durchaus düster:
+Er sieht in einer unkontrollierten Entwicklung der KI eine große Gefahr für die gesamte Menschheit, die noch größer ist, als die von Atomwaffen ausgehende Bedrohung.[[HEIS18]](#ref_heis18) Daher ist seiner Meinung nach zur Zeit das nationale Streben von Staaten nach der Vorherschaft im Bereich der künstlichen Intelligenz der wahrscheinlichste Auslöser für einen dritten Weltkrieg.[[FAZ17]](#ref_faz17)
+
 ## Gedankenexperimente
 
 ### Trolley-Problem
@@ -20,3 +24,9 @@ Die starke Verbreitung von KI zum Erreichen unterschiedlichster Ziele hat dazu b
 ## Ansätze für Sicherheit in KI
 
 ## Fazit
+
+
+
+<a name="ref_faz17">[FAZ17]</a>: Frankfurter Allgemeine Zeitung ; 04.09.2017: Elon Musk warnt vor 3. Weltkrieg durch Künstliche Intelligenz ; URL: <a>http://www.faz.net/aktuell/wirtschaft/kuenstliche-intelligenz/elon-musk-tesla-chef-warnt-vor-kuenstlicher-intelligenz-15182958.html</a> (abgerufen am 09.06.2018)
+<a name="ref_heis18">[HEIS18]</a>: Heise online ; 12.03.2018: "Viel gefährlicher als Atomwaffen": Elon Musk erneuert seine Warnung vor KI ; URL: <a>https://www.heise.de/newsticker/meldung/Viel-gefaehrlicher-als-Atomwaffen-Elon-Musk-erneuert-seine-Warnung-vor-KI-3990782.html</a> (abgerufen am 09.06.2018)
+
