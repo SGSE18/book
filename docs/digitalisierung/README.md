@@ -76,47 +76,43 @@ Durch die gemeinsamen Eigenschaften können beide Systeme vorhandenes Anpassen u
 
 
 
-# Digitalisierung - Anwendungsfelder und Forschungsziele
+## Digitalisierung - Anwendungsfelder und Forschungsziele
 
-# Virtuelle Realität in Medien und Technik
+## Virtuelle Realität in Medien und Technik
 
-# Verarbeitung von Videodaten
+## Verarbeitung von Videodaten
 
-# Audiocodecs
+## Audiocodecs
 
-# Digitaler Rundfunk
+## Digitaler Rundfunk
 
-# (5G-Datentransport mit Höchstgeschwindigkeit)
+## (5G-Datentransport mit Höchstgeschwindigkeit)
 
-# Industrial Data Space
+## Industrial Data Space
 
-# (Forschungsprojekt EMOIO)
+## Future Work Lab
 
-# Fraunhofer-Allianz Generative Fertigung
+## Cyber-Physische Systeme
 
-# Future Work Lab
+## (Leitprojekt "Go Beyond 4.0")
 
-# Cyber-Physische Systeme
+## Kognitive Systeme und Robotik
 
-# (Leitprojekt "Go Beyond 4.0")
+## (Fraunhofer-Allianz Big Data)
 
-# Kognitive Systeme und Robotik
+## Safety und Security
 
-# (Fraunhofer-Allianz Big Data)
+## Ausfallsichere Systeme
 
-# Safety und Security
+## (Blockchain)
 
-# Ausfallsichere Systeme
+## E-Health
 
-# (Blockchain)
+## Smart Energy
 
-# E-Health
+## Advanced Software Engineering
 
-# Smart Energy
-
-# Advanced Software Engineering
-
-# Automatisiertes Fahren
+## Automatisiertes Fahren
 
 <!-- COMMENT!
 
