@@ -1,6 +1,6 @@
 # Digitalisierung
 
-Einleitung und Definition
+## Einleitung und Definition
 
 „Digitalisierung“ - Das aktuelle Hype-Thema in der Politik und Wirtschaft. Sie reicht dabei von digitalen Sprachassistenten für Zuhause über Wearables und Satellitentechnik zu vollautomatisieren Fertigungsstraßen in der Industrie. In so gut wie allen Bereichen des Lebens lässt sie sich finden. Inzwischen existieren vollständige digitale Währungen wie z.B. „Bitcoin“ und man kann während einem Ausflug per Smartphone-App und einem internetfähigen Futterspender die Katze in der Heimat füttern und sie dabei sogar noch über eine Kamera im Livestream beobachten. 
 
