@@ -9,9 +9,9 @@
   - [Progressive Web Apps](#progressive-web-apps)
 - [Konzepte, Technologien und Architekturen im Frontend](#konzepte-technologien-architekturen-im-frontend)
   - [App Shell Model](#app-shell-model)
-  - [JSX](#jsx)
-  - [Flux](#flux)
   - [State Management](#state-management)
+  - [Flux](#flux)
+  - [JSX](#jsx)
   - [Code-Splitting](#code-splitting)
   - [Serverseitiges Rendern](#serverseitiges-rendern)
 - [React Technologien und Konzepte](#react-technologien-und-konzepte)
@@ -47,9 +47,7 @@
 
 ### Grundlagen
 
-TODO an neue Struktur anpassen
-
-Im Folgenden soll ein Überblick über einige Grundlagen der Entwicklung von React-Applikationen geschaffen werden. Hierzu werden zunächst die Begriffe "Single Page Application" und "Progressive Web App" erläutert. Anschließend wird eine Einführung in das Programmieren von UIs mithilfe von "JSX" geboten sowie die Grundlagen der Komponentenentwicklung mit React erklärt.
+Im Folgenden soll ein Überblick über einige Grundlagen der Entwicklung von modernen Frontend-Applikationen geschaffen werden. Hierzu werden die Begriffe "Single Page Application" und "Progressive Web App" erläutert.
 
 #### Single Page Applications
 
@@ -109,9 +107,9 @@ Eine Architekturart, die das Erstellen von PWAs erleichtern soll, wird im Kapite
 
 <a name="konzepte-technologien-architekturen-im-frontend"></a>
 ### Konzepte, Technologien und Architekturen im Frontend
-TODO an neue Struktur anpassen
 
-Dieses Kapitel soll einen Überblick über einige Themen der Bereiche Patterns und Architekturen in Bezug auf React-relevante Themen schaffen. Hierzu wird zunächst das Architektur Pattern "Flux" vorgestellt. Danach werden verschiedene Methoden des State Managements sowie die Pattern "Higher Order Component" und das "App Shell Model" vorgestellt.
+Dieses Kapitel soll einen Überblick über einige Konzepte, Technologien sowie Architekturen in Bezug auf die Entwicklung von Frontend-Anwendungen schaffen. Hierzu werden zunächst die App Shell Architektur für PWAs sowie die Motivation für durchdachte State Management Ansätze in Frontend-Anwendungen vorgestellt. Anschließend wir das unidirektionale Frontend-Architekturmuster Flux und die Themengebiete JSX, Code-Splitting und serverseitiges Rendern erläutert.   
+
 #### App Shell Model
 
 App Shell (oder Application Shell) ist eine Architektur, die das Erstellen von zuverlässigen und sofort ladenden Progressive Web Apps ermöglicht (ähnlich wie bei nativen Apps). 
@@ -124,6 +122,59 @@ Die "Shell" besteht aus wenigen HTML, CSS und JavaScript Bestandteilen, die die 
 Single Page Applications können dieses Verfahren z.B. mithilfe von sogenannten "Service Workern" durchführen. Hierbei handelt es sich um Skripte, die vom Browser im Hintergrund ausgeführt werden, um beispielsweise Antworten auf Anfragen offline zu cachen [[GRUN18]](#ref_grun18), [[OSMA18]](#ref_osma18).
 
 Besondern viel Sinn macht diese Art der Architektur, wenn eine Webanwendung entwickelt wird, bei der die Navigationelemente gleich bleiben, sich der Inhalt jedoch ändert.  
+
+#### State Management
+
+Je komplexer eine Anwendung wird, desto mehr Zustände kann sie einnehmen und desto schwieriger wird dementsprechend das Verwalten ihrer Zustände sowie der entsprechenden Zustandsübergänge. Die meisten Interaktionen des Benutzers mit der Applikation können den Zustand beeinflussen. Angefangen mit dem Betätigen von Schaltflächen, dem Aus- bzw. Abwählen von Checkboxfeldern bis hin zum Ändern des Wertes einer Combobox. All diese GUI-Änderungen ändern potentiell auch den Zustand von beteiligten Komponenten der Anwendung. Um diese Komplexität meistern zu können, bedarf es eines strukturierten und durchdachten Konzepts zum Verwalten der Zustände. Dieser Vorgang ist das State Management. Da dieser Themenbereich die meisten Frontend Anwendungen betrifft, verfügen aktuelle Bibliotheken und Frameworks in der Regel über Pakete, die dem Entwickler beim State Management unterstützen. 
+
+Im Kapitel [State Management in React](#state-management-in-react) werden einige Möglichkeiten des State Managements im React-Kontext vorgestellt.
+
+#### Flux
+
+Flux ist ein Architektur Pattern, das beim Erstellen von User Interfaces verwendet werden kann. Es wurde erstmal 2014 von Facebook vorgestellt. Facebook nutzt Flux intern für ihre React Projekte, da ihnen die bidirektionalen Verbindungen bei Verwendung eines MVC Patterns aufgrund des großen Umfangs ihrer Projekte Probleme bereiteten [[FACE14]](#ref_face14). 
+Im Gegensatz zu MVC handelt es sich bei Flux um ein unidirektionales Pattern.
+
+Die prinzipielle Architektur von Flux wird in der folgenden Abbildung dargestellt:
+
+<a name="ref_flux_achitecture"></a>![ref_flux_achitecture](./images/basic_flux_architecture.jpg "Flux Architektur")
+
+Abbildung entnommen aus [[TSON18]](#ref_tson18)
+
+Das Pattern besteht aus 4 Bestandteilen [[TSON18]](#ref_tson18):
+
+**Action**
+
+Ereignisse/Benachrichtigungen, die Informationen/Daten an den Dispatcher weiterleiten. Sie werden von der View oder sonstigen Services (z.B. HTTP Anfragen) ausgelöst. 
+
+Typischerweise handelt es sich bei einer Action um ein Objekt, das über zwei Attribute verfügt.
+* *type*: um welche Action handelt es sich  (eine Art ID)?
+* *payload*: Objekt, das die Nutzdaten enthält
+
+Eine Action, bei der eine Person zu einer Liste hinzugefügt werden soll, könnte folgendermaßen aussehen:
+
+```javascript
+{
+  type: 'ADD_PERSON',
+  payload: {
+    forename: 'Max'
+    surname: 'Mustermann'
+  }
+}
+```
+
+Um eine bessere Tool-Unterstützung erhalten zu können, kann statt des Strings 'ADD_PERSON' für den Typ (type) aus dem obigen Beispiel auch z.B. ein Enum-Wert verwendet werden. Wichtig ist hierbei nur, dass der Aktionstyp eindeutig ist und der Wert somit noch nicht für eine andere Aktion vorgesehen ist.
+
+**Dispatcher**
+
+Der Dispatcher ist der hauptsächliche Akteur. Alle eingehenden Ereignisse des Systems (bzw. *Actions*) werden im Dispatcher gesammelt und von dort aus an die entsprechenden *Stores* verteilt.
+
+**Store**
+
+Die Stores empfangen die Benachrichtigungen vom Dispatcher und ändern auf Basis der neuen Informationen ggf. ihren Zustand, um Änderungen in der entsprechenden View auszulösen. Verglichen mit dem MVC Pattern handelt es sich bei den Stores also im Prinzip um das Model.
+
+**View**
+
+Die Views dienen der Anzeige der Daten. Sie abonnieren Stores und können Actions auslösen. Bei React sind die Views die entsprechenden React Komponenten.
 
 #### JSX
 JSX erweitert die Programmiersprache JavaScript, indem es eine XML/HTML-artige Struktur zur Programmierung der GUI-Elemente innerhalb des JavaScript Codes erlaubt. Damit aus einem JSX-Code standardmäßiges JavaScript wird, muss der Code übersetzt werden. Dieser Vorgang wird i.d.R. mithilfe des JavaScript-Compilers "Babel" durchgeführt. Streng genommen ist JSX kein zwingendes Muss bei der Verwendung von React, jedoch ist zu vermuten, dass die meisten Entwickler die JSX-Version den kompilierten JavaScript Äquivalent aufgrund der Übersichtlichkeit bevorzugen. Außerdem können so hilfreichere Tool-Unterstützungen (Warnungen, Fehler etc.) angezeigt werden [[FACE18a]](#ref_face18a). Die Verwendung von JSX ist nicht auf React beschränkt.
@@ -180,54 +231,6 @@ const itemCounter = <div>Anzahl an Items: {items.length}</div>;
 //     Anzahl an Items: 2
 // ===============================================================
 ```
-
-#### Flux
-
-Flux ist ein Architektur Pattern, das beim Erstellen von User Interfaces verwendet werden kann. Es wurde erstmal 2014 von Facebook vorgestellt. Facebook nutzt Flux intern für ihre React Projekte, da ihnen die bidirektionalen Verbindungen bei Verwendung eines MVC Patterns aufgrund des großen Umfangs ihrer Projekte Probleme bereiteten [[FACE14]](#ref_face14). 
-Im Gegensatz zu MVC handelt es sich bei Flux um ein unidirektionales Pattern.
-
-Die prinzipielle Architektur von Flux wird in der folgenden Abbildung dargestellt:
-
-<a name="ref_flux_achitecture"></a>![ref_flux_achitecture](./images/basic_flux_architecture.jpg "Flux Architektur")
-
-Abbildung entnommen aus [[TSON18]](#ref_tson18)
-
-Das Pattern besteht aus 4 Bestandteilen [[TSON18]](#ref_tson18):
-
-**Action**
-
-Ereignisse/Benachrichtigungen, die Informationen/Daten an den Dispatcher weiterleiten. Sie werden von der View oder sonstigen Services (z.B. HTTP Anfragen) ausgelöst. 
-
-Typischerweise handelt es sich bei einer Action um ein Objekt, das über zwei Attribute verfügt.
-* *type*: um welche Action handelt es sich  (eine Art ID)?
-* *payload*: Objekt, das die Nutzdaten enthält
-
-Eine Action, bei der eine Person zu einer Liste hinzugefügt werden soll, könnte folgendermaßen aussehen:
-
-```javascript
-{
-  type: 'ADD_PERSON',
-  payload: {
-    forename: 'Max'
-    surname: 'Mustermann'
-  }
-}
-```
-
-**Dispatcher**
-
-Der Dispatcher ist der hauptsächliche Akteur. Alle eingehenden Ereignisse des Systems (bzw. *Actions*) werden im Dispatcher gesammelt und von dort aus an die entsprechenden *Stores* verteilt.
-
-**Store**
-
-Die Stores empfangen die Benachrichtigungen vom Dispatcher und ändern auf Basis der neuen Informationen ggf. ihren Zustand, um Änderungen in der entsprechenden View auszulösen. Verglichen mit dem MVC Pattern handelt es sich bei den Stores also im Prinzip um das Model.
-
-**View**
-
-Die Views dienen der Anzeige der Daten. Sie abonnieren Stores und können Actions auslösen. Bei React sind die Views die entsprechenden React Komponenten.
-
-#### State Management
-TODO Motivation...
 
 #### Code-Splitting
 
@@ -345,10 +348,10 @@ Alternativ zu SSR kann auch [prerender](https://prerender.io/) verwendet werden.
 Hierbei handelt es sich um eine Middleware, die Crawlern eine vorgerenderte Version der Webseite für eine bessere SEO zurückliefert [[LASN18]](#ref_lasn18). 
 
 ### React Technologien und Konzepte
-TODO an neue Struktur anpassen
 
+Den Abschluss des React Kapitels sollen React spezifische Technologien und Konzepte darstellen. Angefangen mit einer Einführung in die Entwicklung von Komponenten, sollen grundlegende React-Kenntnisse aufgebaut werden. Bestandteil dieses Abschnittes sind unter anderem die verschiedenen Arten von Komponenten - inklusive des Patterns "Higher Order Component" sowie dem bedingten Rendern und der interne Lifecycle der React-Komponenten. Im Anschluss werden einige Möglichkeiten des State Managements und Type Checkings innerhalb von React Anwendungen vorgestellt. 
+Abschließend folgen weiterführende React-Themen in Form der Reconciliation (des virtuell aufgebauten DOMs), der Error Boundaries, der Routing Möglichkeiten mit React sowie des Strict Modes.  
 
-Den Abschluss des React Kapitels sollen fortgeschrittene Themen der Webentwicklung bilden. Angefangen wird mit der Thematik des virtuellen DOMs von React. Darauf folgt ein Überblick über Möglichkeiten des Type Checkings / Static Types in JavaScript. Die React-spezifischen Themen "Error Boundaries", "React Router" und "Strict Mode" sollen zudem einige fortgeschrittene React-Techniken vermitteln. Außerdem werden die Bereiche "Code-Splitting" und "serverseitiges Rendern" vorgestellt.
 #### Komponenten
 
 Bei der Entwicklung von Webanwendungen mit React spielen Komponenten eine zentrale Rolle. Im Folgenden werden deshalb einige Grundlagen der Komponentenentwicklung mit React vorgestellt.
