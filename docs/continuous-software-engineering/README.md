@@ -105,3 +105,10 @@ Die Docker-Laufzeitumgebung läuft mit *root*-Rechten, um Zugriff auf sämtliche
 ### JIRA
 
 ### Jenkins
+
+#Quellen
+
+[VERO16]
+
+[WOLF14]
+
