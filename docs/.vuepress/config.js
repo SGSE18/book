@@ -54,10 +54,10 @@ module.exports = {
       {
         title: 'AI - machine learning',
         children: [
-          '/ai-ml/overview/',
           '/ai-ml/ai/',
           '/ai-ml/ml/',
           '/ai-ml/nn/',
+          '/ai-ml/dl/',
           '/ai-ml/gan/',
           '/ethik/'
         ]

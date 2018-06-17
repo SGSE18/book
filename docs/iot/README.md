@@ -1,7 +1,7 @@
 Author: Lukas S.
 # Internet of Things (IOT)
 ---
-## Einleutung
+## Einleitung
 - Begriffserklärung
 - kurz: Beweggründe IoT
 - kurz: IoT in der Gesellschaft (Digitalisierung)
@@ -41,6 +41,9 @@ Multi-layer Frameworks (ex: Alljoyn, IoTivity, Weave, Homekit)
     - stores sensor data
     - analyzes data
     - reacts to events, propagates events
+
+## Literaturverzeichnis
+- ~
 ---
 #### Quellen
 - Security
