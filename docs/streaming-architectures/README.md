@@ -182,7 +182,7 @@ Der Konsument der Nachricht kann nun nach folgendem Prinzip die Nachricht rekons
 
 Der Vorgang ist in folgender Grafik visualisiert:
 
-<img src="./images/sregistry.png">
+<img src="./images/sr.png">
 
 Eigene Grafik.
 
