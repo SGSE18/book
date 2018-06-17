@@ -10,27 +10,38 @@ auch bei Smart Contracts mit neuen Risiken einher. Neben rechtlicher und
 finanzieller Risiken, nehmen Fehler im Design bzw. der Implementierung von
 Smart Contracts, einen weitaus größeren Stellenwert ein. Im Gegensatz zu
 klassischen Applikationen, lassen sich einmal veröffentlichte Smart Contracts
-nicht mehr updaten und auch durch die Fehler verursachte Änderungen am
+nicht mehr updaten und auch durch die Fehler verursachten Änderungen am
 Distributed Ledger nicht mehr rückgängig machen. In diesem Zusammenhang wirkt
-die positive [Eigenschaft](blockchain/technologie/#eigenschaften-einer-blockchain)
+die positive [Eigenschaft](/blockchain/technologie/#eigenschaften-einer-blockchain)
 von Distributed Leders, der Unveränderlichkeit von Transaktionsblöcken,
 kontraproduktiv auf die Entwicklung von Smart Contracts.
 
 ## Vulnerabilities
 Da Smart Contracts in der Regel ebenfalls Vermögenswerte verwalten, ist es
-essenziell mögliche Schwachstellen bereits im voraus zu erkennen. Dabei liegen
+essenziell, mögliche Schwachstellen bereits im voraus zu erkennen. Dabei liegen
 die meisten Schwachstellen nicht direkt in dem implementierten Codeblock,
 sondern ergeben sich erst durch die unberücksichtigte Wechselwirkung, mit der
 zugrunde liegenden Smart Contract Plattform.
 
-### Typische Schwachstellen
+Wie fatal die Folgen dieser Schwachstellen sind, zeigen die jüngsten Ereignisse.
+So konnten Angreifer, Ethereum Tokens im Wert von rund 60 Millionen Dollar,
+durch die Ausnutzung einer Schwachstelle im DAO (Dezentrale Autonome
+Organisation) Smart Contract, entwenden [[CAST16](ref_cast16)]. In einem
+anderen Fall sorgte eine Schwachstelle im Smart Contract dafür, dass Tokens im
+Wert von rund einer halben Millionen Dollar nicht mehr ausgezahlt werden
+konnten [[GOVE16](ref_gove16)].
+
+<!--
+https://vessenes.com/more-ethereum-attacks-race-to-empty-is-the-real-deal/s
+-->
+
 Da Smart Contracts erst in den vergangen Jahren an Bedeutung gewonnen haben,
-entstehen derartige Schwachstellen durch den Mangel an Erfahrungen, um diese
+entstehen derartige Schwachstellen, durch den Mangel an Erfahrungen um diese
 zu erkennen und zu vermeiden. In diesem Abschnitt werden daher zunächst die
 häufigsten Fallstricke betrachtet und anschließend mögliche Vorgehensweisen
 präsentiert.
 
-#### Call Depth Attack
+### Call Depth Attack
 Die Ethereum Virtual Machine (EVM) begrenzt die Call Stack Tiefe einer
 Transaktion auf 1024 Aufrufe. Somit kann ein Angreifer die Call Stack Tiefe
 einer Transaktion, mittels rekrusiven Aufrufen, künstlich vor die Limitierung
@@ -70,7 +81,7 @@ fehlschlägt. Durch diesen Angriff kann sich der Angreifer zwar keinen
 finanziellen Vorteil verschaffen, aber einen Schaden bei den Guthabenbesitzern
 verursachen.
 
-#### Re-Entrency und Cross-function Race Conditions
+### Re-Entrency und Cross-function Race Conditions
 Auf den ersten Blick erfüllen beiden Funktionen im folgenden Smart Contract die
 an die jeweilige Funktion gestellten Anforderungen. Der Benutzer darf mit der
 Funktion `transfer(...)` einen Betrag, der sein eigenes Guthaben nicht
@@ -121,7 +132,7 @@ der `send()`-Funktion zu prüfen, die Ausführung mit `throw` zu terminieren und
 damit alle durch die Transaktion entstanden Änderungen am State, Rückgängig zu
 machen.
 
-#### DoS with unexpected throws
+### DoS with unexpected throws
 Im folgenden Smart Contract sollen die Teilnehmer einer Auktion, mit dem Aufruf
 der `bid()`-Funktion an der Auktion teilnehmen können. Dazu muss der Teilnehmer
 einen Betrag größer als das aktuelle Höchstgebot überweisen. Wird das aktuelle
@@ -163,89 +174,14 @@ Auszahlung verzichtet werden. Über eine zusätzliche Funktion können sich
 anschließend die in dieser Liste geführten Höchstbieter ihr Gebot erstatten
 lassen.
 
-### Honey Pots
+## Sicherheitsmaßnahmen
+Aus den bisherigen Erfahrungen mit Smart Contracts, im speziellen mit der
+Ethereum Virtual Machine, haben sich bestimme Vorgehensweisen und -muster
+ergeben.
 
-#### MultiplicatorX3
-https://etherscan.io/address/0x5aa88d2901c68fda244f1d0584400368d2c8e739#code
+### Checks-Effects-Interactions Pattern
 
-```javascript
-pragma solidity ^0.4.18;
-
-contract MultiplicatorX3
-{
-    address public Owner = msg.sender;
-
-    function() public payable{}
-
-    function withdraw() payable public {
-        require(msg.sender == Owner);
-        Owner.transfer(this.balance);
-    }
-    function Command(address adr,bytes data) payable public {
-        require(msg.sender == Owner);
-        adr.call.value(msg.value)(data);
-    }
-    function multiplicate(address adr) public payable {
-        if(msg.value >= this.balance)
-            adr.transfer(this.balance + msg.value);
-    }
-}
-```
-
-#### TransferLog
-https://etherscan.io/address/0xb5e1b1ee15c6fa0e48fce100125569d430f1bd12#code
-
-```javascript
-pragma solidity ^0.4.19;
-contract Private_Bank {
-    mapping (address => uint) public balances;
-    uint public MinDeposit = 1 ether;
-    Log TransferLog;
-
-    function Private_Bank(address _log) {
-        TransferLog = Log(_log);
-    }
-    function Deposit() public payable {
-        if(msg.value > MinDeposit) {
-            balances[msg.sender]+=msg.value;
-            TransferLog.AddMessage(msg.sender,msg.value,"Deposit");
-        }
-    }
-    function CashOut(uint _am) public payable {
-        if(_am<=balances[msg.sender]) {    
-            if(msg.sender.call.value(_am)()) {
-                balances[msg.sender]-=_am;
-                TransferLog.AddMessage(msg.sender,_am,"CashOut");
-            }
-        }
-    }
-    function() public payable{}    
-
-}
-contract Log {
-    struct Message {
-        address Sender;
-        string  Data;
-        uint Val;
-        uint  Time;
-    }
-    Message[] public History;
-    Message LastMsg;
-    function AddMessage(address _adr,uint _val,string _data) public {
-        LastMsg.Sender = _adr;
-        LastMsg.Time = now;
-        LastMsg.Val = _val;
-        LastMsg.Data = _data;
-        History.push(LastMsg);
-    }
-}
-```
-
-### Empfehlungen
-
-#### Checks-Effects-Interactions Pattern
-
-#### Formal verification methods
+### Formal verification methods
 
 https://arxiv.org/pdf/1802.06038.pdf
 
@@ -256,24 +192,11 @@ http://antoine.delignat-lavaud.fr/doc/plas16.pdf
 https://github.com/pirapira/ethereum-formal-verification-overview
 
 
-## Oracle Data Service Marketplace
-einleiten mit grundlegendem zu oracles und das ziel des marketplaces
-
-### Existierende Lösungen
-
-#### Oraclize
-
-#### Chainlink
-
-### Vorgeschlagene Lösung
-
-#### Anforderungen
-
-#### Architektur
-
-#### Oracle Definition Language (ODL)
-
 ## Referenzen
+
+<a name="ref_cast16">[CAST16]</a>: Michael del Castillo: The DAO Attacked: Code Issue Leads to $60 Million Ether Theft
+
+<a name="ref_gove16">[GOVE16]</a>: “Governmental’s 1100eth jackpot payout is stuck because it uses too much gas.” [Online]. Available: https://www.reddit.com/r/ethereum/comments/4ghzhv/
 
 <a name="ref_kim18">[KIM18]</a>: Henry M., Kim Marek Laskowski: Toward an ontology‐driven blockchain design for supply‐chain provenance.
 

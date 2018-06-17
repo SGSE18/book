@@ -18,6 +18,10 @@ Bleibt erstmal temporär hier, ansonsten reicht die Sidebar Navigation
  * [Cloud Computing](/cloud/)
  * [Dezentrale Anwendungen](/dezentralisierung/)
 
+### Distributed Ledger
+ * [Smart Contracts](/smartcontract/)
+ * [Hyperledger](/hyperledger/)
+
 ### [Continuous Software Engineering](/continuous-software-engineering/)
 
 ### Architekturen
