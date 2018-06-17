@@ -27,7 +27,26 @@ Wenn die Software externe Ressourcen, beispielsweise Dateien, verwendet, müssen
 
 #### Artefakte
 
-Am Ende des Build-Prozesses muss die Anwendung in wiederverwendbare Artefakte, beispielsweise executables oder Container, verpackt werden
+Am Ende des Build-Prozesses muss die Anwendung in wiederverwendbare Artefakte, beispielsweise executables oder Container, verpackt werden.
+
+### Build-Tools
+
+Viele der Aufgaben in einem Build werdem dem Software-Entwickler von der verwendeten Entwicklungsumgebung abgenommen. Um den Build jedoch von der Entwicklungsumgebung unabhängig zu machen, wird ein Build-Tool verwendet.
+In der einfachsten Form ist ein Build-Tool ein einfaches Script, welches die oben genannten zu einem Build gehörigen Aufgaben nacheinander ausführt. Viele Build-Tools nehmen dem Entwickler allerdings einen Großteil der Konfiguration ab.
+Viele Build-Tools sind Programmiersprachen-spezifisch. Für Java gibt es unter anderem folgende Build-Tools:
+
+* Ant
+
+Bei Ant muss sich der Entwickler selbst um alle Aspekte des Builds kümmern und beispielsweise Ablageorte für kompilierten Sourcecode selbst festlegen. Dadurch kann Ant aber auch auf fast jede Build-Umgebung angepasst werden.
+Ant orientiert sich stark an dem Unix-Build-Tool make.
+
+* Maven
+
+Maven verfolgt einen anderen Ansatz und definiert 'Konventionen' für beispielsweise den Ablageort von Sourcecode und die Phasen eines Builds. Wenn Projekt und Build-Prozess diesen Konventionen folgen, wird der Build-Prozess sehr einfach und erfordert nur sehr wenig Konfiguration durch den Entwickler. Dadurch muss aber im Zweifelsfall sehr viel an der Build-Umgebung an das verwendete Tool angepasst werden.
+
+* Gradle
+
+Gradle versucht, einen Mittelweg zu finden. Ähnlich wie bei Maven wird vieles über Konventionen abgebildet. Weicht das Projekt von den Konventionen ab, müssen die Abweichungen mit einer Gradle-spezifischen Scriptsprache definiert werden.
 
 ## Continuous Delivery
 
