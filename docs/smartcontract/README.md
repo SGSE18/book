@@ -41,9 +41,9 @@ zu erkennen und zu vermeiden. In diesem Abschnitt werden daher zunächst die
 häufigsten Fallstricke betrachtet und anschließend mögliche Vorgehensweisen
 präsentiert.
 
-### Call Depth Attack
-Die Ethereum Virtual Machine (EVM) begrenzt die Call Stack Tiefe einer
-Transaktion auf 1024 Aufrufe. Somit kann ein Angreifer die Call Stack Tiefe
+### Call-Stack Tiefe
+Die Ethereum Virtual Machine (EVM) begrenzt die Call-Stack Tiefe einer
+Transaktion auf 1024 Aufrufe. Somit kann ein Angreifer die Call.Stack Tiefe
 einer Transaktion, mittels rekrusiven Aufrufen, künstlich vor die Limitierung
 positionieren, um anschliessend Fehler in der darauf folgenden zu Verarbeitung
 der Transaktion zu provozieren.
@@ -129,10 +129,10 @@ Beide Schwachstellen lassen sich beheben, in dem das Guthaben der aufrufenden
 Adresse vor der Ausführung der Überweisung auf 0 gesetzt wird. Um im Fehlerfall
 das Guthaben wiederherzustellen, empfiehlt es sich zusätzlich den Rückgabewert
 der `send()`-Funktion zu prüfen, die Ausführung mit `throw` zu terminieren und
-damit alle durch die Transaktion entstanden Änderungen am State, Rückgängig zu
+damit alle durch die Transaktion entstanden Änderungen am State, rückgängig zu
 machen.
 
-### DoS with unexpected throws
+### Denial of Service
 Im folgenden Smart Contract sollen die Teilnehmer einer Auktion, mit dem Aufruf
 der `bid()`-Funktion an der Auktion teilnehmen können. Dazu muss der Teilnehmer
 einen Betrag größer als das aktuelle Höchstgebot überweisen. Wird das aktuelle
@@ -177,13 +177,64 @@ lassen.
 ## Sicherheitsmaßnahmen
 Aus den bisherigen Erfahrungen mit Smart Contracts, im speziellen mit der
 Ethereum Virtual Machine, haben sich bestimme Vorgehensweisen und -muster
-ergeben.
+ergeben. Einige wurden bereits in dem vorangegangen Abschnitten vorgestellt und
+sollen in diesem Abschnitt weiter generalisiert werden.
 
-### Checks-Effects-Interactions Pattern
+### Checks-Effects-Interactions-Pattern
+Smart Contracts können direkt oder indirekt mit anderen Smart Contracts im
+Distributed Ledger interagieren. Unabhängig davon, ob diese Interaktion
+beabsichtigt ist oder durch die Default-Funktion eines Zahlungsempfänger
+herbei geführt wird, sollte in jedem Fall bedacht werden dass durch den Aufruf
+einer externen Funktion, auch der Kontrollfluss an diese übergeben wird. Um die
+Risiken die damit einhergehen zu minimieren, kann das
+Checks-Effects-Interactions-Muster angewandt werden [[VOLL18](#ref_voll18)].
 
-### Formal verification methods
+Diese ähneln den Coding Standards der *klassischen* Softwareentwicklung
+[[SEAC18](#ref_seac18)] mit der Ausnahme, dass die Änderungen am State schon
+vorgenommen werden, bevor die damit verbundene Aktion erfolgreich durchgeführt
+wurde. Das Muster wird in folgende Teilschritte unterteilt.
 
-https://arxiv.org/pdf/1802.06038.pdf
+1. **Eingabe Parameter und State prüfen**
+
+   Alle Eingabe Parameter der Funktion werden zunächst validiert und ggf. mit
+   dem State abgeglichen. Dazu zählt die Prüfung ob der Aufrufer überhaupt
+   diese Funktion aufrufen darf oder z.B. über genug Guthaben verfügt die er in
+   den Eingabe Parametern anfordert.
+2. **State Änderungen vornehmen**
+
+   Nach erfolgreicher Validierung der Parameter, werden anschließend die
+   Änderungen am State vorgenommen, wie z.B. die
+3. **Smart Contract Interaktionen durchführen**
+
+   Erst zum Schluss werden alle Aktionen durchgeführt, die zu einer direkten
+   oder indirekten Interaktion mit anderen Smart Contracts führen können. Im
+   Fehlerfall wird die Ausführung mit einem `throw` beendet, sodass Änderungen
+   am State aus Schritt 2 rückgängig gemacht werden.
+   Wie in Beispiel [DoS](#denial-of-service) demonstriert, hängt die
+   Terminierung mit `throw` jedoch stark vom Anwendungsfall ab.
+
+### Update- und andere Schutzmechanismen
+Um auf neu entdeckte Sicherheitsrisiken reagieren zu können, bieten sich diverse
+Maßnahmen an. Zum einen lassen sich Schutzmechanismen implementieren, die im
+Ernstfall die Ausführung bestimmter Funktionen im Smart Contracts pausieren und
+zum anderen können z.B. Auszahlungen in der Höhe oder Häufigkeit gedrosselt
+werden, um im Ernstfall genug Zeit für Reaktionen zu haben. Zusätzlich kann ein
+externer Dienst ausserhalb des Distributed Ledgers implementiert werden, der in
+regelmäßigen Abständen die State-Integrität des Smart Contracts prüft und bei
+unschlüßigen Zuständen die Verantwortlichen benachrichtigt.
+
+Zwar helfen diese Mechanismen dabei verdächtige Aktivität im Smart Contract zu
+erkennen, um die Sicherheitslücke jedoch zu schliessen ist es notwendig den
+Smart Contract updaten zu können. Da dies, wie einleitend erwähnt, nicht von der
+Ethereum Plattform vorgesehen ist, muss entsprechende Funktionalität im Smart
+Contract implementiert werden. Hierzu kann eine Funktion implementiert werden,
+die nur von bestimmten Personen (z.B. dem Besitzer) aufgerufen werden darf und
+das aktuelle Guthaben und den State des Smart Contracts, an einen neuen Smart
+Contract transferiert.
+
+### Formale Verifikationen
+
+[[NIKO18](#ref_niko18)]
 
 https://media.consensys.net/how-formal-verification-can-ensure-flawless-smart-contracts-cbda8ad99bd1
 
@@ -191,15 +242,20 @@ http://antoine.delignat-lavaud.fr/doc/plas16.pdf
 
 https://github.com/pirapira/ethereum-formal-verification-overview
 
-
 ## Referenzen
 
 <a name="ref_cast16">[CAST16]</a>: Michael del Castillo: The DAO Attacked: Code Issue Leads to $60 Million Ether Theft
 
-<a name="ref_gove16">[GOVE16]</a>: “Governmental’s 1100eth jackpot payout is stuck because it uses too much gas.” [Online]. Available: https://www.reddit.com/r/ethereum/comments/4ghzhv/
+<a name="ref_gove16">[GOVE16]</a>: Governmental’s 1100eth jackpot payout is stuck because it uses too much gas. [Online](https://www.reddit.com/r/ethereum/comments/4ghzhv/)
 
 <a name="ref_kim18">[KIM18]</a>: Henry M., Kim Marek Laskowski: Toward an ontology‐driven blockchain design for supply‐chain provenance.
 
+<a name="ref_niko18">[NIKO18]</a>: Ivica Nikolic, Aashish Kolluri, Ilya Sergey: Finding The Greedy, Prodigal, and Suicidal Contracts at Scale
+
 <a name="ref_reyn18">[REYN18]</a>: Ana Reyna, Cristian Martín, Jaime Chen, Enrique Soler, Manuel Díaz: On blockchain and its integration with IoT. Challenges and opportunities.
 
+<a name="ref_seac18">[SEAC18]</a>: Robert Seacord: Top 10 Secure Coding Practices. [Onlne](https://wiki.sei.cmu.edu/confluence/display/seccode/Top+10+Secure+Coding+Practices)
+
 <a name="ref_stru18">[STRU18]</a>: Strugar,  D., Hussain, R., Mazzara, M., Rivera, V.: M2M billing for electric autonomous vehicles.
+
+<a name="ref_voll18">[VOLL18]</a>: Franz Volland: Checks Effects Interactions. [Online](https://fravoll.github.io/solidity-patterns/checks_effects_interactions.html)
