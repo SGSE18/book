@@ -4,6 +4,31 @@
 
 "Continuous Software Engineering" beschreibt eine Möglichkeit der iterativen Softwareentwicklung und fokussiert sich auf den Prozess der Auslieferung an den Benutzer. DAbei wird der agile Softwareentwicklungsprozess unterstützt. Continuous Software Engineering ist interdisziplinär und bezieht im Gegensatz zu reinen agilen Softwareentwicklungsmodellen mehr als die reine Softwareentwicklung mit ein.
 
+## Continuous Integration
+
+"Continuous Integration" beschreibt den automatisierten Prozess, mit dem automatisiert von einer Software ein lauffähiger Build erzeugt werden kann. Einfache Tests, wie beispielsweise Unit-Tests, gehören ebenfalls zur "Continuous Integration".
+"Continuous Integration" ist Grundlage und erster Schritt von "Continuous Delivery".
+
+### Was gehört zu einem Build?
+
+Aufgabe von Continuous Integration ist die Automatisierung des Build-Prozesses. Welche Schritte dabei ausgeführt werden, hängt natürlich stark von verwendeter Programmiersprache und angestrebter Zielumgebung ab. Im folgenden wird der Build-Prozess in einige typische Schritte zerlegt.
+
+#### Kompilieren
+
+Beim kompilieren wird der Sourcecode einer Anwendung in ein Format übersetzt, welches effizient vom Computer ausgeführt werden kann. Das Zielformat ist typischerweise nicht "menschenlesbar".
+
+#### Unit-Tests
+
+Zu einem Build gehört auch das Ausführen und Auswerten von Unit-Tests. Unit-Tests testen einzelne in sich geschlossene Einheiten des Software-Systems, beispielsweise einzelne Klassen oder Dateien. Einfache Fehler können somit sehr schnell erkannt werden.
+
+#### Ressourcen
+
+Wenn die Software externe Ressourcen, beispielsweise Dateien, verwendet, müssen diese möglicherweise in ein Format umgewandelt werden, welches der Anwendung ermöglicht, diese Ressourcen effizienter zu verwenden.
+
+#### Artefakte
+
+Am Ende des Build-Prozesses muss die Anwendung in wiederverwendbare Artefakte, beispielsweise executables oder Container, verpackt werden
+
 ## Continuous Delivery
 
 "Continuous Delivery" beschreibt ein Vorgehen aus dem Umfeld der agilen Softwareentwicklung, welches es ermöglicht, Software schneller und vor allem zuverlässiger in Produktion zu bringen. Grundlage dafür ist die sogenannte "Continuous Delivery Pipeline", die viele der nötigen Prozesse automatisiert und den Gesamtprozess der Auslieferung somit reproduzierbar macht.
@@ -34,6 +59,29 @@ Die bei Continuous Delivery angestrebte hohe Frequenz minimiert zudem das Risiko
 ![Continuous Delivery Pipeline](./media/cdp.png "Continuous Delivery Pipeline")
 
 Abbildung 1 - Continuous Delivery Pipeline (Quelle: <a>[[WOLF14]](#ref_wolf14)</a>)
+
+Abbildung 1 zeigt die Continuous Delivery Pipeline. Die Phasen werden sequentiell durchlaufen, wenn also beispielsweise die Akzeptanztests fehlschlagen, werden die Kapazitätstest gar nicht erst ausgeführt. Die Pipeline wird abgebrochen, und sobald der Fehler, welcher zum Abbruch geführt hat, behoben wurde, wird die Pipeline vom Anfang erneut durchlaufen.
+
+#### Commit
+
+Diese Phase deckt alles ab, was typischerweise Continuous Integration macht: Build, Unit-Test und statische Analysen.
+
+#### Akzeptanztests
+
+In dieser Phase werden, soweit möglich, automatisiert die Anforderungen des Kunden an die Anwendung getestet. Zusätzlich können die Anforderungen mithilfe automatisierter GUI-Tests getestet werden.
+
+#### Kapazitätstests
+
+Kapazitätstest testen das Verhalten der Anwendung unter erwartbaren Lastbedingungen. Dabei geht es nicht unbedingt um die Leistungsfähigkeit einer Anwendung, sondern um Skalierbarkeit. Dadurch können auch in einer Umgebung, die nicht der Produktionsumgebung entspricht, Rückschlüsse auf das Verhalten der Anwendung geschlossen werden.
+Auch nichtfunktionale Anforderungen können von den Kapazitätstests abgedeckt werden.
+
+#### Explorativer Test
+
+Beim explorativen Test wird die Anwendung mit Fokus auf neue Features und unvorhergesehenes Verhalten getestet. Diese Tests müssen nicht automatisiert erfolgen. Dadurch, dass viele der sonstigen Tests aber automatisiert sind, bleibt für diesen Testschritt mehr Zeit.
+
+#### Produktion
+
+Bei der Einführung in die Produktion geht es darum, die Anwendung in einer neuen Umgebung zu installieren. Durch die hohe Zahl an vorher ausgeführten Tests, die teilweise in einer der Produktionsumgebung ähnlichen Umgebung erfolgt sind, ist dieser Schritt häufig recht risikoarm.
 
 ## Agile Softwareentwicklung
 
