@@ -32,7 +32,11 @@ Wert von rund einer halben Millionen Dollar nicht mehr ausgezahlt werden
 konnten [[GOVE16](ref_gove16)].
 
 <!--
+Für Präsi:
+
 https://vessenes.com/more-ethereum-attacks-race-to-empty-is-the-real-deal/s
+
+https://medium.com/aikon/automated-smart-contract-security-de2daebfbef4
 -->
 
 Da Smart Contracts erst in den vergangen Jahren an Bedeutung gewonnen haben,
@@ -232,15 +236,40 @@ die nur von bestimmten Personen (z.B. dem Besitzer) aufgerufen werden darf und
 das aktuelle Guthaben und den State des Smart Contracts, an einen neuen Smart
 Contract transferiert.
 
-### Formale Verifikationen
+### Formale Verifikation
+Im Spektrum der qualitätssichernden Maßnahmen im Software-Entwurf gehören
+formale Spezifikations- und Verifikationsmethoden heute zweifellos zu den
+stärksten Waffen in puncto Fehlererkennung und Nachweis von
+Korrektheitseigenschaften [[REIF99](#ref_reif99)]. Dazu wird die zu überprüfende
+Software und die Spezifikation in einem mathematisch Theorem formalisiert um
+mittels Theorembeweisern automatisiert eventuelle Abweichungen des
+Softwaremodells von der Spezifikation nachzuweisen. Zu den bekanntesten
+Theorembeweisern, gemessen an der bereits formalisierten
+[Top 100 mathematischer Sätze](http://www.cs.ru.nl/~freek/100/), gehören
+[HOL Light](http://www.cl.cam.ac.uk/~jrh13/hol-light/) und
+[Isabelle/HOL](https://isabelle.in.tum.de/).
 
-[[NIKO18](#ref_niko18)]
+Um für die Formalisierung eines Smart Contracts, nicht die gesamte Ethereum
+Virtual Machine formalisieren zu müssen, existiert bereits ein Model der EVM für
+diverse Theorembeweiser [[HIRA17](#ref_hira17)] zu denen auch der Isabelle/HOL
+zählt. Basierend auf diesem Modell der EVM, kann nun vielmehr nur der Smart
+Contract formalisiert und gegen eine gegeben Spezifikation geprüft werden.
+Darüber hinaus gibt es noch weitere Ansätze die EVM zu formalisieren
+[[HILD17](#ref_hild17)] und folgende Werkzeuge um Schwachstellen im Smart
+Contract zu lokalisieren.
 
+#### Mythril
 https://media.consensys.net/how-formal-verification-can-ensure-flawless-smart-contracts-cbda8ad99bd1
 
-http://antoine.delignat-lavaud.fr/doc/plas16.pdf
+https://github.com/b-mueller/smashing-smart-contracts/blob/master/smashing-smart-contracts-1of1.pdf
 
-https://github.com/pirapira/ethereum-formal-verification-overview
+#### MAIAN
+[[NIKO18](#ref_niko18)]
+
+
+
+
+
 
 ## Referenzen
 
@@ -248,9 +277,15 @@ https://github.com/pirapira/ethereum-formal-verification-overview
 
 <a name="ref_gove16">[GOVE16]</a>: Governmental’s 1100eth jackpot payout is stuck because it uses too much gas. [Online](https://www.reddit.com/r/ethereum/comments/4ghzhv/)
 
+<a name="ref_hild17">[HILD17]</a>: Everett Hildenbrandt, et al.: KEVM: A Complete Semantics of the Ethereum Virtual Machine
+
+<a name="ref_hira17">[HIRA17]</a>: Yoichi Hirai: Defining the Ethereum Virtual Machine for Interactive Theorem Provers
+
 <a name="ref_kim18">[KIM18]</a>: Henry M., Kim Marek Laskowski: Toward an ontology‐driven blockchain design for supply‐chain provenance.
 
 <a name="ref_niko18">[NIKO18]</a>: Ivica Nikolic, Aashish Kolluri, Ilya Sergey: Finding The Greedy, Prodigal, and Suicidal Contracts at Scale
+
+<a name="ref_reif99">[REIF99]</a>: Wolfgang Reif: Formale Methoden für sicherheitskritische Software – Der KIV-Ansatz
 
 <a name="ref_reyn18">[REYN18]</a>: Ana Reyna, Cristian Martín, Jaime Chen, Enrique Soler, Manuel Díaz: On blockchain and its integration with IoT. Challenges and opportunities.
 
