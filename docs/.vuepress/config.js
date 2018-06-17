@@ -26,8 +26,14 @@ module.exports = {
         children: [
 		  '/digitalisierung/',
           '/cloud/',
-          '/dezentralisierung/',
-          '/smartcontract/'
+          '/dezentralisierung/'
+        ]
+      },
+      {
+        title: 'Distributed Ledger',
+        children: [
+          '/smartcontract/',
+		      '/hyperledger/'
         ]
       },
       {
