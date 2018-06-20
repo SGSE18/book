@@ -1,4 +1,8 @@
 # Smart Contracts
+<!-- load css for math symbols -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/github-markdown-css/2.2.1/github-markdown.css"/>
+
 Autor: Cem Basoglu
 
 Mit der Erweiterung der Blockchain und Distributed Ledger Technologien um [Smart
@@ -32,7 +36,11 @@ Wert von rund einer halben Millionen Dollar nicht mehr ausgezahlt werden
 konnten [[GOVE16](ref_gove16)].
 
 <!--
+Für Präsi:
+
 https://vessenes.com/more-ethereum-attacks-race-to-empty-is-the-real-deal/s
+
+https://medium.com/aikon/automated-smart-contract-security-de2daebfbef4
 -->
 
 Da Smart Contracts erst in den vergangen Jahren an Bedeutung gewonnen haben,
@@ -100,7 +108,7 @@ contract auction {
   }
   function withdrawBalance() public {
       uint amountToWithdraw = userBalances[msg.sender];
-      msg.sender.send(amountToWithdraw);
+      msg.sender.call.value(amountToWithdraw)();
       userBalances[msg.sender] = 0;
   }
 }
@@ -116,7 +124,7 @@ wiederum erneut die `withdrawBalance()`-Funktion auf. Da in der
 Smart Contract Adresse überwiesen wird, ergibt sich somit eine rekursive
 Schleife zwischen den beiden Smart Contracts. Damit wird die Zeile
 `userBalances[msg.sender] = 0` erst erreicht, wenn das gesamte Guthaben im
-Smart Contract aufgebraucht ist, wodurch die `send(...)`-Funktion fehlschlägt.
+Smart Contract aufgebraucht ist, wodurch die `call(...)`-Funktion fehlschlägt.
 
 Statt dem erneuten Aufruf der `withdrawBalance()`-Funktion, kann der Angreifer
 auch eine Cross-function Race Condition provozieren. Dazu wird erneut ein
@@ -232,25 +240,181 @@ die nur von bestimmten Personen (z.B. dem Besitzer) aufgerufen werden darf und
 das aktuelle Guthaben und den State des Smart Contracts, an einen neuen Smart
 Contract transferiert.
 
-### Formale Verifikationen
+## Formale Verifikation
+Im Spektrum der qualitätssichernden Maßnahmen im Software-Entwurf gehören
+formale Spezifikations- und Verifikationsmethoden heute zweifellos zu den
+stärksten Waffen in puncto Fehlererkennung und Nachweis von
+Korrektheitseigenschaften [[REIF99](#ref_reif99)]. Dazu wird die zu überprüfende
+Software und die Spezifikation in einem mathematisch Theorem formalisiert, um
+automatisiert, mittels Theorembeweisern, eventuelle Abweichungen des
+Softwaremodells von der Spezifikation nachzuweisen. Zu den bekanntesten
+Theorembeweisern, gemessen an der bereits formalisierten
+[Top 100 mathematischer Sätze](http://www.cs.ru.nl/~freek/100/), gehören
+[HOL Light](http://www.cl.cam.ac.uk/~jrh13/hol-light/) und
+[Isabelle/HOL](https://isabelle.in.tum.de/).
 
+Um für die Formalisierung eines Smart Contracts, nicht die gesamte Ethereum
+Virtual Machine formalisieren zu müssen, existiert bereits ein Model der EVM für
+diverse Theorembeweiser [[HIRA17](#ref_hira17)] zu denen auch der Isabelle/HOL
+zählt. Basierend auf diesem Modell der EVM, kann nun vielmehr nur der Smart
+Contract formalisiert und gegen eine gegeben Spezifikation geprüft werden.
+Darüber hinaus gibt es noch weitere Ansätze die EVM zu formalisieren
+[[HILD17](#ref_hild17)] und folgende Werkzeuge um Schwachstellen im Smart
+Contract zu lokalisieren.
+
+### Mythril
+Diese Tool ist spezialisiert auf die formale Verifikation von Smart Contracts
+und bietet dazu sowohl eine API um eigene Spezifikationen zu definieren, als
+auch ein CLI (Command Line Interface) um typische Fehler im Smart Contract
+nachzuweisen. Angewandt auf das [Re-Entrency Beispiel](#re-entrency-und-cross-function-race-conditions)
+aus dem vorherigen Abschnitt, wird unteranderem folgender Hinweis generiert.
+
+```bash
+$ myth -x /tmp/test.sol
+
+....
+==== State change after external call ====
+Type: Warning
+Contract: Unknown
+Function name: withdrawBalance()
+PC address: 360
+The contract account state is changed after an external call. Consider that the called contract could re-enter the function before this state change takes place. This can lead to business logic vulnerabilities.
+--------------------
+In file: /tmp/test.sol:12
+userBalances[msg.sender] = 0
+--------------------
+....
+
+```
+
+Neben einer Reihe weiterer Warnungen und Informationen, wird die Re-Entrancy
+Schwachstelle korrekt erkannt und die entsprechende Zeile im Solidity Code
+ausgegeben. Neben der Schwachstelle wird ebenfalls ein Hinweis auf die
+Sicherheitsmaßnahme, in diesem Fall das [Checks-Effects-Interactions-Pattern](#checks-effects-interactions-pattern),
+ausgegeben.
+
+#### Smart Contract Graph
+Ein weitere nützliche Funktion ist dass generieren von Kontrollfluss-Graphen
+zu einem Smart Contract. Dazu kann entweder der Solidity Code oder Bytecode
+verwendet werden und der Parameter `-g` der CLI übergeben werden.
+
+![Control Flow Graph](./control_flow.png "Control Flow Graph")
+
+Abbildung 2.1.3.1 - Kontrollfluss Graph
+
+Die Darstellung zeigt einen Ausschnitt aus dem Graphen, zu dem [Re-Entrancy](#re-entrency-und-cross-function-race-conditions)
+Beispiel aus dem vorherigen Abschnitt. Die Knoten stellen dabei Codeblöcke dar
+und enthalten die EVM-Befehle [[EVMO18](#ref_evm18)] die beim erreichen diesem
+Knotens ausgeführt werden. Die Kanten repräsentieren den Pfad, die je nach
+Erfüllung der an der Kante ausgewiesene Bedingung genommen wird. Die Bedingungen
+in der Darstellung entsprechen der `if (userBalances[msg.sender] >= amount)` in
+der `transfer(...)`-Funktion.
+
+
+#### Spezifikationen definieren
+Neben den bereits verfügbaren Spezifikationen, die per CLI gegen eigene Smart
+Contract ausgeführt werden können, ist es ebenfalls möglich eigene
+Spezifikationen zu implementieren. Angenommen es soll laut Spezifikation
+sichergestellt werden, dass eine bestimmte State-Variable nur von dem Smart
+Contract Besitzer geändert werden kann. Unter Verwendung der im Ethereum Yellow
+Paper [[WOOD18](#ref_wood18)] eingeführten Notation, kann dies wie folgt als
+Theorem ausgedrückt werden.
+
+$$\begin{array}{c}
+P(\sigma) \wedge (I_b[\mu_{pc}] == SSTORE) \wedge (\mu_s[0] == 1) \wedge (I_s != \sigma[I_a]_s[0])
+\end{array}$$
+<!-- fix atom syntax highlighting error --><span style="font-size:2px">_</span>
+Ein verstoß gegen die Spezifikation kann nachgewiesen werden, wenn zu einem
+beliebigen Zeitpunkt diese logische Bedingung erfüllt werden kann. Dabei prüft
+$P(\sigma)$ ob es einen [Pfad](#smart-contract-graph), unter Verwendung des
+Globalen-Zustand ($\sigma$), zu der instruction ($I_b[\mu_{pc}]$) am aktuellen
+Programmcounter gibt und ob dieser dem `SSTORE` EVM-Befehl entspricht. Diese
+Instruction ist laut dem EVM-*Instruction-Set* der einzige Maschinenbefehl, der
+den Speicher und damit die State-Variablen des Smart Contracts ändern kann. Die
+Teilbedingung $\mu_s[0] == 1$ erfordert, dass die obersten Position im Stack
+($\mu_s[0]$) mit dem Wert 1 befüllt ist. Da der `SSTORE`-Befehl, die Smart
+Contract Speicheradresse von der obersten Position im Stack liesst, wird somit
+geprüft ob die gewünschte State-Variable geändert werden soll. An welcher
+Speicheradresse eine Variable persistiert wird, hängt von der Reihenfolge der
+im Solidity-Code definierten Variablen ab. Sind alle bisherigen Teilbedingungen
+erfüllt, kann somit nachgewiesen werden dass die aktuell auszuführende
+Instruction die State-Variable an der Speicheradresse 1 beschreibt. Da
+zusätzlich nachgewiesen werden soll, ob die State-Variable von jemand anderem
+als dem Smart Contract Besitzer geändert wird, prüft die letzte Teilbedingung
+ob der aktuelle Aufrufer ($I_s$) vom Besitzer abweicht. Da Smart Contracts das
+Konzept eines Besitzer nicht nativ unterstützen, wird der Besitzer in der Regel
+im Konstruktor des Smart Contracts in einer State-Variable gespeichert. In
+diesem Beispiel wird mit $\sigma[I_a]_s[0]$ angenommen, dass der Besitzer in der
+Speicheradresse 0 des Smart Contracts $I_a$ des Globalen-States $\sigma[x]_s$
+gehalten wird.
+<!-- fix atom syntax highlighting error --><span style="font-size:2px">_</span>
+
+Die Spezifikation wird in Pyhton implementiert und nachgewiesen. Dazu kann das
+Mythril Framework im Python-Script geladen und anschließend der
+[Graph](#smart-contract-graph) und die jeweiligen Instructionen wie folgt
+untersucht werden.
+
+```python
+from mythril.ether.util import compile_solidity
+from mythril.ether.ethcontract import ETHContract
+from mythril.analysis.symbolic import StateSpace
+from mythril.analysis import solver
+from mythril.exceptions import UnsatError
+from z3 import *
+
+name, bytecode = compile_solidity("test.sol")
+contract = ETHContract(bytecode, name)
+statespace = StateSpace([contract])
+for node_id, node in statespace.nodes.items():
+  for instr in node.instruction_list:
+    if (instr['opcode'] == 'SSTORE'):                     # (Ib[μpc] == SSTORE)
+        adr = instr['address']
+        sstore_target = node.states[adr].stack[-1]        # μs​​[0]
+        caller = BitVec("caller", 256)                    # Is
+        storage_0 = BitVec("storage_0", 256)              # σ[I​a​]​s​​[0]
+        constr = node.constraints
+        constr.append(sstore_target == 1)                 # (μ​s​​[0] == 1)
+        constr.append((UDiv(storage_0, 256)) != caller)   # (I​s​​ != σ[I​a​]​s​​[0])
+        try:
+            model = solver.get_model(constr)              # P(σ)
+            print("Abweichung von der Spezifikation in " + node.function_name);
+        except UnsatError:
+            pass
+```
+
+Auf diese Weise lassen sich Smart Contracts relativ flexible und automatisiert
+formal verifizieren. Über die hier dargestellten Möglichkeiten hinaus, bietet
+das Mythril Framework noch viele weitere nützliche Funktionen, wie das Testen
+von bereits  in der Blockchain veröffentlichten Smart Contracts, als auch das
+Durchsuchen aller veröffentlichten Smart Contracts nach bestimmten EVM-Befehlen.
+
+### MAIAN
 [[NIKO18](#ref_niko18)]
 
-https://media.consensys.net/how-formal-verification-can-ensure-flawless-smart-contracts-cbda8ad99bd1
 
-http://antoine.delignat-lavaud.fr/doc/plas16.pdf
 
-https://github.com/pirapira/ethereum-formal-verification-overview
+
+
 
 ## Referenzen
 
+
+
 <a name="ref_cast16">[CAST16]</a>: Michael del Castillo: The DAO Attacked: Code Issue Leads to $60 Million Ether Theft
 
+<a name="ref_evm18">[EVMO18]</a>: Ethereum VM (EVM) Opcodes and Instruction Reference [Online](https://github.com/trailofbits/evm-opcodes)
+
 <a name="ref_gove16">[GOVE16]</a>: Governmental’s 1100eth jackpot payout is stuck because it uses too much gas. [Online](https://www.reddit.com/r/ethereum/comments/4ghzhv/)
+
+<a name="ref_hild17">[HILD17]</a>: Everett Hildenbrandt, et al.: KEVM: A Complete Semantics of the Ethereum Virtual Machine
+
+<a name="ref_hira17">[HIRA17]</a>: Yoichi Hirai: Defining the Ethereum Virtual Machine for Interactive Theorem Provers
 
 <a name="ref_kim18">[KIM18]</a>: Henry M., Kim Marek Laskowski: Toward an ontology‐driven blockchain design for supply‐chain provenance.
 
 <a name="ref_niko18">[NIKO18]</a>: Ivica Nikolic, Aashish Kolluri, Ilya Sergey: Finding The Greedy, Prodigal, and Suicidal Contracts at Scale
+
+<a name="ref_reif99">[REIF99]</a>: Wolfgang Reif: Formale Methoden für sicherheitskritische Software – Der KIV-Ansatz
 
 <a name="ref_reyn18">[REYN18]</a>: Ana Reyna, Cristian Martín, Jaime Chen, Enrique Soler, Manuel Díaz: On blockchain and its integration with IoT. Challenges and opportunities.
 
@@ -259,3 +423,6 @@ https://github.com/pirapira/ethereum-formal-verification-overview
 <a name="ref_stru18">[STRU18]</a>: Strugar,  D., Hussain, R., Mazzara, M., Rivera, V.: M2M billing for electric autonomous vehicles.
 
 <a name="ref_voll18">[VOLL18]</a>: Franz Volland: Checks Effects Interactions. [Online](https://fravoll.github.io/solidity-patterns/checks_effects_interactions.html)
+
+<a name="ref_wood18">[WOOD18]</a>: Gavin Wood: ETHEREUM: A SECURE DECENTRALISED GENERALISED TRANSACTION LEDGER BYZANTIUM VERSION [Online](
+https://ethereum.github.io/yellowpaper/paper.pdf)

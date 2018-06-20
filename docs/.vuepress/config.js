@@ -8,6 +8,11 @@ module.exports = {
   head: [
     ['link', { rel: 'icon', href: `/logo.png` }]
   ],
+  markdown: {
+    config: md => {
+      md.use(require("markdown-it-katex"));
+    }
+  },
   serviceWorker: false,
   themeConfig: {
     repo: 'SGSE18/book',
