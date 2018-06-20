@@ -8,7 +8,7 @@ Autor: Cem Basoglu
 Mit der Erweiterung der Blockchain und Distributed Ledger Technologien um [Smart
 Contracts](/blockchain/usecases/#smart-contracts), ergeben sich vielseitige
 Möglichkeiten für neue und bestehende Anwendungsbereiche
-[[REYN18](#ref_reyn18), [KIM18](#ref_kim18), [STRU18](#ref_stru18)]. Wie mit
+[[REYN18](#ref_reyn18), [LASK18](#ref_lask18), [STRU18](#ref_stru18)]. Wie mit
 jeder neuen Technologie, aus denen sich neue Möglichkeiten ergeben, gehen diese
 auch bei Smart Contracts mit neuen Risiken einher. Neben rechtlicher und
 finanzieller Risiken, nehmen Fehler im Design bzw. der Implementierung von
@@ -365,44 +365,105 @@ from z3 import *
 name, bytecode = compile_solidity("test.sol")
 contract = ETHContract(bytecode, name)
 statespace = StateSpace([contract])
-for node_id, node in statespace.nodes.items():
-  for instr in node.instruction_list:
+for node_id, node in statespace.nodes.items():            # Knoten iterieren
+  for instr in node.instruction_list:                     # EVM-Befehle iterieren
     if (instr['opcode'] == 'SSTORE'):                     # (Ib[μpc] == SSTORE)
-        adr = instr['address']
-        sstore_target = node.states[adr].stack[-1]        # μs​​[0]
-        caller = BitVec("caller", 256)                    # Is
-        storage_0 = BitVec("storage_0", 256)              # σ[I​a​]​s​​[0]
-        constr = node.constraints
-        constr.append(sstore_target == 1)                 # (μ​s​​[0] == 1)
-        constr.append((UDiv(storage_0, 256)) != caller)   # (I​s​​ != σ[I​a​]​s​​[0])
-        try:
-            model = solver.get_model(constr)              # P(σ)
-            print("Abweichung von der Spezifikation in " + node.function_name);
-        except UnsatError:
-            pass
+      adr = instr['address']
+      sstore_target = node.states[adr].stack[-1]          # μs​​[0]
+      caller = BitVec("caller", 256)                      # Is
+      storage_0 = BitVec("storage_0", 256)                # σ[I​a​]​s​​[0]
+      constr = node.constraints
+      constr.append(sstore_target == 1)                   # (μ​s​​[0] == 1)
+      constr.append((UDiv(storage_0, 256)) != caller)     # (I​s​​ != σ[I​a​]​s​​[0])
+      try:
+          model = solver.get_model(constr)                # P(σ)
+          print("Abweichung von der Spezifikation in " + node.function_name);
+      except UnsatError:
+          pass
 ```
 
-Auf diese Weise lassen sich Smart Contracts relativ flexible und automatisiert
-formal verifizieren. Über die hier dargestellten Möglichkeiten hinaus, bietet
-das Mythril Framework noch viele weitere nützliche Funktionen, wie das Testen
-von bereits  in der Blockchain veröffentlichten Smart Contracts, als auch das
+Auf diese Weise lassen sich Smart Contracts flexible und automatisiert formal
+verifizieren. Über die hier dargestellten Möglichkeiten hinaus, bietet das
+Mythril Framework auch noch  weitere nützliche Funktionen, wie das Testen von
+bereits in der Blockchain veröffentlichten Smart Contracts, als auch das
 Durchsuchen aller veröffentlichten Smart Contracts nach bestimmten EVM-Befehlen.
 
 ### MAIAN
-[[NIKO18](#ref_niko18)]
+Wie [Mythril](#mythril) ist auch dieses Tool spezialisiert auf die formale
+Verifikation von Ethereum Smart Contracts. Während Mythril jedoch eine
+Transaktion isoliert betrachtet, verwendet MAIAN eine Kette von systematisch
+angelegten State und Stack Kombinationen um Schwachstellen im Smart Contract
+aufzuspüren [[NIKO18](#ref_niko18)]. Dabei ordnet Mythril die Schwachstellen
+in die folgenden Kategorien ein.
 
+* **Prodigal Contracts**
 
+  In diese Klasse werden Smart Contracts eingeordnet, die Zahlungen an Empfänger
+  schicken die keine Besitzer sind, jemals eine Einzahlung getätigt haben oder
+  Funktions-Parameter erwarten die nicht auch von einem beliebigen User stammen
+  können.
+* **Suicidal Contracts**
 
+  Sind Smart Contracts die von einem beliebigen User zerstört werden können, in
+  dem eine Funktion aufgerufen wird, die den `SELFDESTRUCT` EVM-Befehl ausführt.
+* **Greedy Contracts**
 
+  In die Kategorie fallen alle Smart Contracts, die einmal getätigte
+  Einzahlungen, unter keinen Umständen mehr ausgezahlt werden können.
 
+Um einen Smart Contract in eine oder mehrere Kategorien einzuordnen, arbeitet
+sich MAIAN durch die EVM-Befehle im Smart Contract, beginnend mit dem ersten
+EVM-Befehl, und spannt dabei rekursiv einen Suchbaum auf mit den nötigen State
+Variablen Stack Zuständen um diese Verzweigung im Bytecode zu repräsentieren.
+Wird ein terminierender EVM-Befehl wie z.B RETURN oder REVERT erreicht oder die
+Suche in einem Pfad kann nicht in einem vorgegeben Zeitrahmen abgeschlossen
+werden, so wird die Suche in dem aktuellen Pfad beendet und per Backtracking
+der nächste Pfad untersucht. Wird nun in einem Pfad der gesucht EVM-Befehl, wie
+z.B. `SELFDESTRUCT` für Suicidal Contracts oder `CALL` für Prodigal Contracts,
+gefunden, wird die Ausführung beendet und die entsprechende Schwachstelle
+inkl. der Parameter um den Pfad zu erreichen ausgegeben.
+
+### Zusammenfassung
+
+Beim Vergleich der beiden Tools lässt sich zusammenfassend sagen, dass sich
+Mythril Bottom-Up durch die EVM-Befehle in einem Smart Contract arbeitet,
+während MAIAN Top-Down durch alle Befehle arbeitet und diese dabei auch
+ausführt, um den Suchbaum, Stack und State entsprechend aufzubauen. Dies führt
+dazu, dass die Ausführung einer Spezifikation längere Zeit beansprucht. Mythril
+hingegen sucht zunächst den entsprechenden EVM-Befehl (`SELFDESTRUCT`, `CALL`,
+etc..) in einer flachen Liste und arbeitet sich dann Rückwärts den Pfad hoch,
+um die Bedingungen für alle möglichen Pfade zu analysieren.
+
+Beide Tools sind kaum dokumentiert und nur Mythril besitzt eine Github-Wiki
+Seite mit den grundlegenden Informationen zur Installation und Nutzung. Die
+Verifikation-API von Mythril ist auch ohne Dokumentation noch gut verständlich,
+während MAIAN undokumentierte globale Variablen für die Kommunikation zwischen
+den einzelnen Komponenten nutzt, dessen Verantwortlichkeiten sich erst nach dem
+einlesen in den Quellcode der einzelnen Komponenten offenbaren.
+
+In der Benutzung sind beide Tools gleich einfach aufgebaut. Bei der Installation
+dagegen ist Mythril, aufgrund des Docker-Images, zügiger Einsatzbereit und
+vereinfacht durch das APT/Brew Package-Repository die native Installation auf
+dem System. MAIAN beschränkt sich hierbei auf das Clonen des GIT-Repositories
+und die manuelle Installation der benötigten Abhängigkeiten in den
+entsprechenden Versionen.
+
+| Tool | Mythril | MAIAN |
+| ---- | ------- | ----- |
+| Kosten | $\mathcal{O}(n)$ | $\mathcal{O}(\log n)$ |
+| Untersuchte Schwachstellen | 19 | 3 |
+| Dokumentation\* | + | |
+| Verifikation API\* | ++ | + |
+| Usability\* | +++ | +++ |
+| Installation\* | +++ | |
+
+\*max. Bewertung: +++
 
 ## Referenzen
 
-
-
 <a name="ref_cast16">[CAST16]</a>: Michael del Castillo: The DAO Attacked: Code Issue Leads to $60 Million Ether Theft
 
-<a name="ref_evm18">[EVMO18]</a>: Ethereum VM (EVM) Opcodes and Instruction Reference [Online](https://github.com/trailofbits/evm-opcodes)
+<a name="ref_evm18">[EVMO18]</a>: Ethereum VM (EVM) Opcodes and Instruction Reference. [Online](https://github.com/trailofbits/evm-opcodes)
 
 <a name="ref_gove16">[GOVE16]</a>: Governmental’s 1100eth jackpot payout is stuck because it uses too much gas. [Online](https://www.reddit.com/r/ethereum/comments/4ghzhv/)
 
@@ -410,7 +471,7 @@ Durchsuchen aller veröffentlichten Smart Contracts nach bestimmten EVM-Befehlen
 
 <a name="ref_hira17">[HIRA17]</a>: Yoichi Hirai: Defining the Ethereum Virtual Machine for Interactive Theorem Provers
 
-<a name="ref_kim18">[KIM18]</a>: Henry M., Kim Marek Laskowski: Toward an ontology‐driven blockchain design for supply‐chain provenance.
+<a name="ref_lask18">[LASK18]</a>: Henry M., Kim Marek Laskowski: Toward an ontology‐driven blockchain design for supply‐chain provenance.
 
 <a name="ref_niko18">[NIKO18]</a>: Ivica Nikolic, Aashish Kolluri, Ilya Sergey: Finding The Greedy, Prodigal, and Suicidal Contracts at Scale
 
@@ -418,7 +479,7 @@ Durchsuchen aller veröffentlichten Smart Contracts nach bestimmten EVM-Befehlen
 
 <a name="ref_reyn18">[REYN18]</a>: Ana Reyna, Cristian Martín, Jaime Chen, Enrique Soler, Manuel Díaz: On blockchain and its integration with IoT. Challenges and opportunities.
 
-<a name="ref_seac18">[SEAC18]</a>: Robert Seacord: Top 10 Secure Coding Practices. [Onlne](https://wiki.sei.cmu.edu/confluence/display/seccode/Top+10+Secure+Coding+Practices)
+<a name="ref_seac18">[SEAC18]</a>: Robert Seacord: Top 10 Secure Coding Practices. [Online](https://wiki.sei.cmu.edu/confluence/display/seccode/Top+10+Secure+Coding+Practices)
 
 <a name="ref_stru18">[STRU18]</a>: Strugar,  D., Hussain, R., Mazzara, M., Rivera, V.: M2M billing for electric autonomous vehicles.
 
