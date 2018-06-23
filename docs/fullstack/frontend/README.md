@@ -5,7 +5,7 @@
 
 *Stand: Version 16.4.1*
 
-React ist eine komponentenbasierte JavaScript Bibliothek zur Erstellung von User-Interfaces. Die Bibliothek wurde 2013 von Facebook veröffentlicht. Sie ist Plattformunabhängig und unter der MIT-Lizenz kostenfrei verfügbar.
+React ist eine komponentenbasierte JavaScript Bibliothek zur Erstellung von User-Interfaces. Die Bibliothek wurde 2013 von Facebook veröffentlicht. Sie ist plattformunabhängig und unter der MIT-Lizenz kostenfrei verfügbar.
 
 
 - [Grundlagen](#grundlagen)
