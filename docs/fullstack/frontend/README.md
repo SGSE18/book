@@ -3,7 +3,11 @@
 ## React.js
 *Autor: Patrick Vogt*
 
-*Stand: Version 16.3.2*
+*Stand: Version 16.4.1*
+
+React ist eine komponentenbasierte JavaScript Bibliothek zur Erstellung von User-Interfaces. Die Bibliothek wurde 2013 von Facebook veröffentlicht. Sie ist Plattformunabhängig und unter der MIT-Lizenz kostenfrei verfügbar.
+
+
 - [Grundlagen](#grundlagen)
   - [Single Page Applications](#single-page-applications)
   - [Progressive Web Apps](#progressive-web-apps)
@@ -47,12 +51,12 @@
 
 ### Grundlagen
 
-Im Folgenden soll ein Überblick über einige Grundlagen der Entwicklung von modernen Frontend-Applikationen geschaffen werden. Hierzu werden die Begriffe "Single Page Application" und "Progressive Web App" erläutert.
+Im Folgenden soll ein Überblick über einige Grundlagen der Entwicklung von modernen Frontend-Applikationen geschaffen werden. Hierzu werden die Begriffe "Single Page Application" und "Progressive Web App" vorgestellt.
 
 #### Single Page Applications
 
 Webseiten bzw. Webanwendungen können auf unterschiedliche Arten umgesetzt werden. Eine Möglichkeit der Unterscheidung besteht darin, zwischen "traditionellen" Webseiten und Single Page Applications (SPAs) zu differenzieren.
-Eine Gegenüberstellung des traditionellen Lifecycles einer Webseite im Vergleich zu dem Lifycycle einer Single Page Application ist in folgender Abbildung zu erkennen:
+Eine Gegenüberstellung des traditionellen Lifecycles einer Webseite im Vergleich zu dem Lifycycle einer Single Page Application wird in der folgenden Abbildung dargestellt:
 
 ![ref_traditional_vs_spa](./images/traditional_vs_spa.png "Lifecycles: Traditionelle Webseite vs. SPA")
 
@@ -60,20 +64,20 @@ Abbildung entnommen aus [[WASS13]](#ref_wass13)
 
 In der Abbildung wird der grundsätzliche Unterschied beider Typen deutlich.
 
-Traditionell sendet der Client (Browser) eine initiale Anfrage an den Server, der wiederum mit einer HTML-Datei antwortet, die im Browser angezeigt wird. Wechselt der Benutzer die Seite (z.B. durch das Klicken eines Links), wird eine weitere Anfrage an den Server geschickt. Dieser sendet erneut den HTML-Inhalt der Webseite, woraufhin beim Client ein erneutes Laden der Seite durchgeführt wird.
+Traditionell sendet der Client (Browser) eine initiale Anfrage an den Server, der wiederum mit einer HTML-Datei antwortet. Die Datei wird dann im Browser angezeigt. Wechselt der Benutzer die Seite (z.B. durch das Klicken eines Links), wird eine weitere Anfrage an den Server geschickt. Dieser sendet erneut den HTML-Inhalt der Webseite, woraufhin beim Client ein erneutes Laden der Seite durchgeführt wird.
 
-Bei Single Page Applications wird initial ebenfalls eine "normale" Anfrage an den Server versendet und von diesem ein (meist sehr kleiner) HTML-Inhalt zurückgeliefert. Von hier an unterscheidet sich der Lifecycle jedoch gegenüber dem herkömmlichen Ansatz. Es werden AJAX- (Asynchronous JavaScript and XML) statt HTML-Anfragen an den Server gesendet, woraufhin dieser typischerweise mit JSON Strings antwortet. Hierbei wird kein erneutes Laden der Webseite durchgeführt.
+Bei Single Page Applications wird initial ebenfalls eine "normale" Anfrage an den Server versendet und von diesem ein (meist sehr kleiner) HTML-Inhalt zurückgeliefert. Von hier an unterscheidet sich die Lifecycles jedoch voneinander. Es werden AJAX- (Asynchronous JavaScript and XML) statt HTML-Anfragen an den Server gesendet, woraufhin dieser typischerweise mit JSON Strings antwortet. Hierbei wird kein erneutes Laden der Webseite durchgeführt.
 
-Da die Webseiten nicht neu geladen werden müssen, bieten diese den Benutzern meist ein "flüssigeres" Erlebnis. Zudem wird durch das Separieren der Daten (JSON) und der Anzeige (HTML) das Entwerfen von gut strukturierten Webanwendungen vereinfacht.
+Da die Webseiten nicht neu geladen werden müssen, bieten sie den Benutzern i.d.R. ein "flüssigeres" Erlebnis. Zudem wird durch das Separieren der Daten (JSON) und der Anzeige (HTML) das Entwerfen von gut strukturierten Webanwendungen vereinfacht.
 Idealerweise kann das HTML-Markup ohne das Ändern der Logik angepasst werden.
 
 Bei einer reinen Single Page Application wird jegliche UI-Interaktion beim Client durch JavaScript und CSS durchgeführt, sodass der Server nach der anfänglichen Anfrage nur noch als eine Art "Service-Schicht" fungiert. 
-Somit können sowohl Server als auch Client einfach ausgetauscht werden, sofern die neuen Module die entsprechende Schnittstelle bedienen 
+Somit kann sowohl der Server als auch der Client einfach ausgetauscht werden, sofern die neuen Module die entsprechende Schnittstelle bedienen 
 [[WASS13]](#ref_wass13).
 
 #### Progressive Web Apps
 
-Eine Progressive Web App (PWA) ist eine Webseite, die den Nutzern als herkömmliche (native) Anwendung erscheint. Die Webseiten zeichnen sich anhand folgender Merkmale aus:
+Eine Progressive Web App (PWA) ist eine Webseite, die den Nutzern als herkömmliche (native) Anwendung erscheint. Die Webseiten zeichnen sich durch folgende Merkmale aus:
 
 *Reliable*
 
@@ -93,7 +97,7 @@ Zu den Vorteile von PWAs zählen unter anderem [[GOOG18a]](#ref_goog18a):
 * Schnelleres initiales Laden (weniger Datenverkehr)
 * Nutzer verbringen meist längere Zeit auf Webseiten, die Web Push Notifications verwenden
 
-Zur Unterstützung beim Test von Progressive Web Apps, stellt Google eine [Checkliste und ein Tool](https://developers.google.com/web/progressive-web-apps/checklist) zur Verfügung, anhand derer eine Anwendung dahingehen geprüft werden kann, ob sie die Kriterien an eine PWA erfüllt [[GOOG18b]](#ref_goog18b).
+Zur Unterstützung beim Testen von Progressive Web Apps, stellt Google eine [Checkliste und ein Tool](https://developers.google.com/web/progressive-web-apps/checklist) zur Verfügung, anhand derer eine Anwendung dahingehen geprüft werden kann, ob sie die Kriterien an eine PWA erfüllt [[GOOG18b]](#ref_goog18b).
 
 Zu den Kriterien gehören beispielsweise:
 
@@ -108,16 +112,17 @@ Eine Architekturart, die das Erstellen von PWAs erleichtern soll, wird im Kapite
 <a name="konzepte-technologien-architekturen-im-frontend"></a>
 ### Konzepte, Technologien und Architekturen im Frontend
 
-Dieses Kapitel soll einen Überblick über einige Konzepte, Technologien sowie Architekturen in Bezug auf die Entwicklung von Frontend-Anwendungen schaffen. Hierzu werden zunächst die App Shell Architektur für PWAs sowie die Motivation für durchdachte State Management Ansätze in Frontend-Anwendungen vorgestellt. Anschließend wir das unidirektionale Frontend-Architekturmuster Flux und die Themengebiete JSX, Code-Splitting und serverseitiges Rendern erläutert.   
+Dieses Kapitel soll einen Überblick über einige Konzepte, Technologien sowie Architekturen in Bezug auf die Entwicklung von Frontend-Anwendungen schaffen. Hierzu werden zunächst die App Shell Architektur für PWAs sowie die Motivation für durchdachte State Management Ansätze in Frontend-Anwendungen vorgestellt. Anschließend wir das unidirektionale Frontend-Architekturmuster Flux und die Themengebiete JSX, Code-Splitting sowie serverseitiges Rendern erläutert.   
 
 #### App Shell Model
 
-App Shell (oder Application Shell) ist eine Architektur, die das Erstellen von zuverlässigen und sofort ladenden Progressive Web Apps ermöglicht (ähnlich wie bei nativen Apps). 
+App Shell Model (oder Application Shell Model) ist eine Architektur, die das Erstellen von zuverlässigen und sofort ladenden Progressive Web Apps ermöglicht (ähnlich wie bei nativen Apps). 
 Die folgende Abbildung zeigt den grundsätzlichen App-Aufbau.
+
 ![ref_app_shell_model](./images/appshell_model.png "App Shell Model Architektur")
 Abbildung entnommen aus <a>[[OSMA18]](#ref_osma13)</a>
 
-Die "Shell" besteht aus wenigen HTML, CSS und JavaScript Bestandteilen, die die grobe App-Struktur definieren. Dieses Grundgerüst kann im Offline-Cache gespeichert werden, wodurch ein erneutes Laden der Anwendung schnell und ohne eine Netzwerkverbindung durchgeführt werden kann. Der benötigte Seiteninhalt wird anschließend aus dem Netzwerk geladen und dann in die Shell eingefügt.
+Die "Shell" besteht aus wenigen HTML, CSS und JavaScript Bestandteilen, die die grobe App-Struktur definieren. Dieses Grundgerüst kann im Offline-Cache gespeichert werden, wodurch ein erneutes Laden der Anwendung schnell und ohne eine Netzwerkverbindung durchgeführt werden kann. Der benötigte Seiteninhalt ("Content") wird anschließend aus dem Netzwerk geladen und dann in die Shell eingefügt.
 
 Single Page Applications können dieses Verfahren z.B. mithilfe von sogenannten "Service Workern" durchführen. Hierbei handelt es sich um Skripte, die vom Browser im Hintergrund ausgeführt werden, um beispielsweise Antworten auf Anfragen offline zu cachen [[GRUN18]](#ref_grun18), [[OSMA18]](#ref_osma18).
 
@@ -125,13 +130,13 @@ Besondern viel Sinn macht diese Art der Architektur, wenn eine Webanwendung entw
 
 #### State Management
 
-Je komplexer eine Anwendung wird, desto mehr Zustände kann sie einnehmen und desto schwieriger wird dementsprechend das Verwalten ihrer Zustände sowie der entsprechenden Zustandsübergänge. Die meisten Interaktionen des Benutzers mit der Applikation können den Zustand beeinflussen. Angefangen mit dem Betätigen von Schaltflächen, dem Aus- bzw. Abwählen von Checkboxfeldern bis hin zum Ändern des Wertes einer Combobox. All diese GUI-Änderungen ändern potentiell auch den Zustand von beteiligten Komponenten der Anwendung. Um diese Komplexität meistern zu können, bedarf es eines strukturierten und durchdachten Konzepts zum Verwalten der Zustände. Dieser Vorgang ist das State Management. Da dieser Themenbereich die meisten Frontend Anwendungen betrifft, verfügen aktuelle Bibliotheken und Frameworks in der Regel über Pakete, die dem Entwickler beim State Management unterstützen. 
+Je komplexer eine Anwendung wird, desto mehr Zustände kann sie einnehmen und desto schwieriger wird dementsprechend das Verwalten ihrer Zustände sowie der entsprechenden Zustandsübergänge. In der Regel verfügen solche Anwendungen über viele Komponenten, die auf bestimmte Zustände reagieren sollen. Die meisten Interaktionen des Benutzers mit der Applikation können den Zustand beeinflussen. Angefangen mit dem Betätigen von Schaltflächen, dem Aus- bzw. Abwählen von Checkboxfeldern bis hin zum Ändern des Wertes einer Combobox. All diese GUI-Änderungen ändern potentiell auch den Zustand von beteiligten Komponenten der Anwendung. Um diese Komplexität meistern zu können, bedarf es eines strukturierten und durchdachten Konzepts zum Verwalten der Zustände. Dieser Vorgang wird State Management genannt. Da dieser Themenbereich die meisten Frontend Anwendungen betrifft, verfügen aktuelle Bibliotheken und Frameworks in der Regel über Pakete, die dem Entwickler beim State Management unterstützen. 
 
 Im Kapitel [State Management in React](#state-management-in-react) werden einige Möglichkeiten des State Managements im React-Kontext vorgestellt.
 
 #### Flux
 
-Flux ist ein Architektur Pattern, das beim Erstellen von User Interfaces verwendet werden kann. Es wurde erstmal 2014 von Facebook vorgestellt. Facebook nutzt Flux intern für ihre React Projekte, da ihnen die bidirektionalen Verbindungen bei Verwendung eines MVC Patterns aufgrund des großen Umfangs ihrer Projekte Probleme bereiteten [[FACE14]](#ref_face14). 
+Flux ist ein Architektur Pattern, das beim Erstellen von User Interfaces verwendet werden kann. Es wurde erstmals 2014 von Facebook vorgestellt. Facebook nutzt Flux intern für ihre React Projekte, da ihnen die bidirektionalen Verbindungen bei Verwendung eines MVC Patterns aufgrund des großen Umfangs ihrer Projekte Probleme bereiteten [[FACE14]](#ref_face14). 
 Im Gegensatz zu MVC handelt es sich bei Flux um ein unidirektionales Pattern.
 
 Die prinzipielle Architektur von Flux wird in der folgenden Abbildung dargestellt:
@@ -147,7 +152,7 @@ Das Pattern besteht aus 4 Bestandteilen [[TSON18]](#ref_tson18):
 Ereignisse/Benachrichtigungen, die Informationen/Daten an den Dispatcher weiterleiten. Sie werden von der View oder sonstigen Services (z.B. HTTP Anfragen) ausgelöst. 
 
 Typischerweise handelt es sich bei einer Action um ein Objekt, das über zwei Attribute verfügt.
-* *type*: um welche Action handelt es sich  (eine Art ID)?
+* *type*: Um welche Action handelt es sich? (Eine Art ID)
 * *payload*: Objekt, das die Nutzdaten enthält
 
 Eine Action, bei der eine Person zu einer Liste hinzugefügt werden soll, könnte folgendermaßen aussehen:
@@ -164,20 +169,32 @@ Eine Action, bei der eine Person zu einer Liste hinzugefügt werden soll, könnt
 
 Um eine bessere Tool-Unterstützung erhalten zu können, kann statt des Strings 'ADD_PERSON' für den Typ (type) aus dem obigen Beispiel auch z.B. ein Enum-Wert verwendet werden. Wichtig ist hierbei nur, dass der Aktionstyp eindeutig ist und der Wert somit noch nicht für eine andere Aktion vorgesehen ist.
 
+Beispielhafte Implementierung:
+
+```javascript
+const PersonActions = Object.freeze({
+    ADD:   Symbol("ADD_PERSON"),
+    DELETE:  Symbol("DELETE_PERSON"),
+    MODIFY: Symbol("MODIFY_PERSON")
+});
+```
+
 **Dispatcher**
 
 Der Dispatcher ist der hauptsächliche Akteur. Alle eingehenden Ereignisse des Systems (bzw. *Actions*) werden im Dispatcher gesammelt und von dort aus an die entsprechenden *Stores* verteilt.
 
 **Store**
 
-Die Stores empfangen die Benachrichtigungen vom Dispatcher und ändern auf Basis der neuen Informationen ggf. ihren Zustand, um Änderungen in der entsprechenden View auszulösen. Verglichen mit dem MVC Pattern handelt es sich bei den Stores also im Prinzip um das Model.
+Die Stores empfangen die Benachrichtigungen vom Dispatcher und ändern auf Basis der neuen Informationen ggf. ihren Zustand, um Änderungen in der entsprechenden View auszulösen. Im Prinzip handelt es sich bei den Stores somit um das Model im MVC-Pattern.
 
 **View**
 
-Die Views dienen der Anzeige der Daten. Sie abonnieren Stores und können Actions auslösen. Bei React sind die Views die entsprechenden React Komponenten.
+Die Views dienen der Anzeige der Daten. Sie abonnieren Stores und können Actions auslösen. Bei React sind die Views beispielsweise die entsprechenden React Anzeige-Komponenten.
 
 #### JSX
-JSX erweitert die Programmiersprache JavaScript, indem es eine XML/HTML-artige Struktur zur Programmierung der GUI-Elemente innerhalb des JavaScript Codes erlaubt. Damit aus einem JSX-Code standardmäßiges JavaScript wird, muss der Code übersetzt werden. Dieser Vorgang wird i.d.R. mithilfe des JavaScript-Compilers "Babel" durchgeführt. Streng genommen ist JSX kein zwingendes Muss bei der Verwendung von React, jedoch ist zu vermuten, dass die meisten Entwickler die JSX-Version den kompilierten JavaScript Äquivalent aufgrund der Übersichtlichkeit bevorzugen. Außerdem können so hilfreichere Tool-Unterstützungen (Warnungen, Fehler etc.) angezeigt werden [[FACE18a]](#ref_face18a). Die Verwendung von JSX ist nicht auf React beschränkt.
+Viele moderne Frontend-Frameworks und -Bibliotheken verwenden JavaScript nicht nur für die reine Logik der Webanwendungen, sondern auch für das Strukturieren der GUI. Dies ermöglicht z.B. ein dynamisches Befüllen der Webseite auf Basis der Werte von JavaScript Variablen. Eine Möglichkeit die syntaktischen Unterschiede zur gewohnten HTML-Schreibweise zu reduzieren, ist der Einsatz von JSX.
+
+JSX erweitert die Programmiersprache JavaScript, indem es eine XML/HTML-artige Struktur zur Programmierung der GUI-Elemente innerhalb des JavaScript Codes erlaubt. Damit aus einem JSX-Code standardmäßiges JavaScript wird, muss der Code übersetzt werden. Dieser Vorgang wird i.d.R. mithilfe des JavaScript-Compilers "Babel" durchgeführt. Sehr populär ist JSX in Verbindung mit React. Streng genommen ist JSX zwar kein zwingendes Muss bei der Verwendung von React, jedoch ist zu vermuten, dass die meisten Entwickler die JSX-Version dem kompilierten JavaScript Äquivalent aufgrund der Übersichtlichkeit bevorzugen. Außerdem können so hilfreichere Tool-Unterstützungen (Warnungen, Fehler etc.) angezeigt werden [[FACE18a]](#ref_face18a).
 
 Als Beispiel soll folgender JSX-Code dienen:
 
@@ -188,12 +205,12 @@ function render() {
           <h1>Master Informatik</h1>
           <h2>Campus Minden</h2>
           <h3>Modulname:</h3>
-          <input type="text" autofocus name="moduleName"/>
+          <input type="text" autoFocus name="moduleName"/>
     	</div>
     );
 };
 ```
-Mit HTML vertraute Personen sollten sich denken können, was der JSX-Code repräsentiert. Es wird ein div-Container erzeugt, der die Überschriften "Master Informatik" (h1-Element), "Campus Minden" (h2-Element), "Modulname:" (h3-Element) sowie ein Text-Eingabefeld enthält. Das Eingabefeld hat den Namen "moduleNameInput" und erhält beim Erzeugen der Komponente den Eingabefokus.
+Mit HTML vertraute Personen werden vermutlich erahnen können, welche Ausgabe dieser JSX-Code erzeugt. Es wird ein div-Container erstellt, der die Überschriften "Master Informatik" (h1-Element), "Campus Minden" (h2-Element), "Modulname:" (h3-Element) sowie ein Text-Eingabefeld enthält. Das Eingabefeld hat den Namen "moduleNameInput" und erhält beim Erzeugen der Komponente den Eingabefokus.
 
 Dieser Code wird von Babel für React Anwendungen folgendermaßen übersetzt:
 
@@ -205,14 +222,14 @@ function render() {
              React.createElement("h3", null, "Modulname:"),
              React.createElement("input", {
                  type: "text", 
-                 autofocus: true, 
+                 autoFocus: true, 
                  name: "moduleNameInput"
              })
     );
 };
 ```
 
-*Das Beispiel lässt sich [hier](https://babeljs.io/repl/#?babili=false&browsers=&build=&builtIns=false&code_lz=GYVwdgxgLglg9mABAJwKZgCauQCgJSIDeAUAJBpQjJI7GL0OkA8GMAbgHx0M_1MAWARg4BZAIYBnKNkQBJMMDjIAtmNgBrJgHohXXrwEAmDgGExygA4gJiETEzpt_Y9319-AZlFwMIADZg5qgAXE5erm5M9lZQiFAAnhaoALwARNIAHlCpiGIgUHCKENaIgcopqco-_qgAckE5WnqM2qycEXgA3MQAvt3EQA&debug=false&forceAllTransforms=false&shippedProposals=false&circleciRepo=&evaluate=false&fileSize=false&lineWrap=true&presets=es2015%2Creact%2Cstage-2&prettier=false&targets=&version=6.26.0&envVersion=) online ansehen und bearbeiten.*
+*Das Beispiel lässt sich [hier](https://babeljs.io/repl/#?babili=false&browsers=&build=&builtIns=false&spec=false&loose=false&code_lz=GYVwdgxgLglg9mABAJwKZgCauQCgJSIDeAUAJBpQjJI7GL0OkA8GMAbgHx0M_1MAWARg4BZAIYBnKNkQBJMMDjIAtmNgBrJgHohXXrwEAmDgGExygA4gJiETEzpt_Y9319-AZlFwMIADZg5qgAXE5erm5M9lZQiFAAnhaoALwARNIAHlCpiGIgUHAAYnAQ1oiByimpyj7-qAByQTlaeozarJwReADcxAC-vcRAA&debug=false&forceAllTransforms=false&shippedProposals=false&circleciRepo=&evaluate=false&fileSize=false&sourceType=module&lineWrap=true&presets=es2015%2Creact%2Cstage-2&prettier=false&targets=&version=6.26.0&envVersion=) online ansehen und bearbeiten.*
 
 Da es sich bei den JSX-Elementen um JavaScript-Objekte handelt, können diese auch Variablen zugewiesen werden:
 
@@ -220,7 +237,7 @@ Da es sich bei den JSX-Elementen um JavaScript-Objekte handelt, können diese au
 const header = <h1>Das ist eine Überschrift</h1>;  
 ```
 
-Des Weiteren lässt sich auch weiterer JavaScript Code direkt als sogenannte "Expressions" einfügen, indem dieser in geschweifte Klammern gesetzt wird:
+Des Weiteren lässt sich auch weiterer JavaScript Code direkt als sogenannte "Expression" einfügen, indem dieser in geschweifte Klammern gesetzt wird:
 
 ```jsx
 const items = ["book", "pen"];
@@ -349,7 +366,7 @@ Hierbei handelt es sich um eine Middleware, die Crawlern eine vorgerenderte Vers
 
 ### React Technologien und Konzepte
 
-Den Abschluss des React Kapitels sollen React spezifische Technologien und Konzepte darstellen. Angefangen mit einer Einführung in die Entwicklung von Komponenten, sollen grundlegende React-Kenntnisse aufgebaut werden. Bestandteil dieses Abschnittes sind unter anderem die verschiedenen Arten von Komponenten - inklusive des Patterns "Higher Order Component" sowie dem bedingten Rendern und der interne Lifecycle der React-Komponenten. Im Anschluss werden einige Möglichkeiten des State Managements und Type Checkings innerhalb von React Anwendungen vorgestellt. 
+Den Abschluss des React Kapitels sollen React spezifische Technologien und Konzepte darstellen. Angefangen mit einer Einführung in die Entwicklung von Komponenten, sollen grundlegende React-Kenntnisse aufgebaut werden. Bestandteil dieses Abschnittes sind unter anderem die verschiedenen Arten von Komponenten - inklusive des Patterns "Higher Order Component" sowie dem bedingten Rendern und des internen Lifecycles von React-Komponenten. Im Anschluss werden einige Möglichkeiten des State Managements und Type Checkings innerhalb von React Anwendungen vorgestellt. 
 Abschließend folgen weiterführende React-Themen in Form der Reconciliation (des virtuell aufgebauten DOMs), der Error Boundaries, der Routing Möglichkeiten mit React sowie des Strict Modes.  
 
 #### Komponenten
@@ -357,15 +374,15 @@ Abschließend folgen weiterführende React-Themen in Form der Reconciliation (de
 Bei der Entwicklung von Webanwendungen mit React spielen Komponenten eine zentrale Rolle. Im Folgenden werden deshalb einige Grundlagen der Komponentenentwicklung mit React vorgestellt.
 
 ##### Arten
-Grundsätzlich unterscheidet man zwischen zwei Arten von Komponenten. Die sogenannten "Dumb Components" und die "Smart Components". Zusätzlich werden in diesem Abschnitt noch die Higher Order Components vorgestellt, die genau genommen ein Entwurfsmuster für Komponenten darstellen.
+Grundsätzlich unterscheidet man zwei Arten von Komponenten. Die sogenannten "Dumb Components" und die "Smart Components". Zusätzlich werden in diesem Abschnitt noch die Higher Order Components vorgestellt, die genau genommen ein Entwurfsmuster für Komponenten darstellen.
 
 ###### Dumb Components
 
 Dumb Components verfügen über keinen Zustand (*state*). Das heißt, dass sie einmalig Eigenschaften zugewiesen bekommen (*properties*, im Folgenden auch *props* genannt) und auf Basis dieser Werte ihr Aussehen anpassen. 
 
-*Anmerkung:* Es ist darauf zu achten, dass JavaScript standardmäßig über keine Typprüfung verfügt und somit auch die Verwendung der Properties ein sorgsames Vorgehen verlangt. Möglichkeiten der statischen Typprüfung werden im Kapitel "Type checking/static types in JavaScript" vorgestellt.
+*Anmerkung:* Es ist darauf zu achten, dass JavaScript standardmäßig über keine Typprüfung verfügt und somit auch die Verwendung der Properties ein sorgsames Vorgehen verlangt. Möglichkeiten der statischen Typprüfung werden im Kapitel [Type Checking und Static Types](#type-checking-und-static-types) vorgestellt.
 
-Das nachfolgende Beispiel zeigt eine beispielhafte dumb component.
+Das nachfolgende Beispiel zeigt eine beispielhafte Dumb Component.
 
 ```jsx
 const Header = (props) => {
@@ -377,14 +394,14 @@ const Header = (props) => {
 }
 ```
 
- Die Komponente wird in der Variable "Header" als Arrow Function gespeichert. Die Funktion erhält die Properties in Form eines JavaScript Objekt als Parameter. Die übergebenen Eigenschaften werden dort als Key-Value Paare bereitgestellt. Im obigen Beispiel wird der Wert des Schlüssels "title" innerhalb eines div-Containers angezeigt.  
+ Die Komponente wird in der Variable "Header" als Arrow Function gespeichert. Die Funktion erhält die Properties in Form eines JavaScript Objekts als Parameter. Die übergebenen Eigenschaften werden dort als Key-Value Paare bereitgestellt. Im obigen Beispiel wird der Wert des Schlüssels "title" innerhalb eines div-Containers angezeigt.  
 
  Die Properties werden im JSX als Attribut angelegt: 
 
  ```jsx
 <Header title="Informatik Minden" />
 
- /// Das hierzu gehörige Objekt sieht folgendermaßen aus:
+ /// Das hierzu gehörige Property-Objekt sieht folgendermaßen aus:
  /// const props = {
  ///   title: "Informatik Minden"
  /// }
@@ -392,7 +409,7 @@ const Header = (props) => {
 
 ###### Smart Components
 
-Im Gegensatz zu Dumb Components verfügen Sart Components über einen Status (*state*). Hierbei handelt es sich wie bei den Properties um ein Objekt, das aus Key-Value Paaren besteht. Besonders ist hierbei jedoch, dass sich der Status innerhalb des Lebenszyklus der Komponente ändern kann. 
+Im Gegensatz zu Dumb Components verfügen Smart Components über einen Status (*state*). Hierbei handelt es sich wie bei den Properties um ein Objekt, das aus Key-Value Paaren besteht. Besonders ist hierbei jedoch, dass sich der Status innerhalb des Lebenszyklus der Komponente ändern kann. 
 
 Smart Components werden in Form von Klassen realisiert. Ihre Properties erhalten sie dabei als Parameter ihres Konstruktors. Die folgende Komponente stellt einen Zähler dar, der als Property einen Startwert (*startValue*) erhält und bei Betätigung des Buttons den Zähler um eins erhöht. Dieser Zähler wird als Statusvariable (*this.state.count*) realisiert und mithilfe der Rendermethode angezeigt (die Rendermethode wird im Kapitel [Rendern](#rendern) genauer betrachtet). 
 
@@ -402,7 +419,7 @@ class Counter extends React.Component {
     // Aufruf des Konstructors von React.Component
     super(props);
     // der Startwert des Zählers muss als Property übergeben werden
-    this.state = {count: props.startValue};
+    this.state = { count: props.startValue };
     // diese Bindung wird später erklärt; bitte erst einmal ignorieren
     this.increment = this.increment.bind(this);
   }
@@ -424,12 +441,10 @@ class Counter extends React.Component {
 }
 ```
 
-Bei der Verwendung des Status ist zu beachten, dass Werte von Statusvariablen mit der asynchronen Methode *setState()* geändert werden müssen. Die Methode erhält ein Objekt mit den Key-Value Paaren, die geändert werden sollen. Auf diese Art und Weise wird die Anzeige direkt nach dem Ändern eines Statuswerts aktualisiert. Weitere Details zur Verwendung von setState() und alternative Möglichkeiten zum Verwalten des Zustands der Komponenten werden im Kapitel [State Management](#state-management) beschrieben. Informationen zum Lifecycle von Smart Components finden sich im gleichnamigen [Kapitel](#lifecycle).
-
+Bei der Verwendung des Status ist zu beachten, dass Werte von Statusvariablen mit der asynchronen Methode *setState()* geändert werden müssen. Die Methode erhält ein Objekt mit den Key-Value Paaren, die geändert werden sollen. Auf diese Art und Weise wird die Anzeige direkt nach dem Ändern eines Statuswerts aktualisiert. Das Kapitel [State Management](#state-management) beschreibt weitere Details zur Verwendung von setState() und alternative Möglichkeiten zum Verwalten des Zustands von React-Komponenten. Informationen zum Lifecycle von Smart Components finden sich im Kapitel [Lifecycle](#lifecycle).
 
 ###### Higher Order Components (HOCs)
-Higher Order Components erweitern Komponenten, indem sie ihnen zusätzliche Funktionalitäten oder Properties zur Verfügung stellen (ähnlich wie beim Decorator Pattern) [[TSON18]](#ref_tson18). Möchte man beispielsweise bei jedem Mounting- und Rendervorgang von Komponenten ein Log-Nachricht ausgeben, so müsste man den gleichen Code an vielen Stellen des Projekts einbauen (in der componentDidMount- und der render-Methode der jeweiligen Komponente).
-Eine HOC kann hier Abhilfe schaffen:
+Higher Order Components erweitern Komponenten, indem sie ihnen zusätzliche Funktionalitäten oder Properties zur Verfügung stellen (ähnlich wie beim Decorator Pattern) [[TSON18]](#ref_tson18). Möchte man beispielsweise bei jedem Mounting- und Rendervorgang von Komponenten eine Log-Nachricht ausgeben, so müsste man den gleichen Code an vielen Stellen des Projekts einbauen (in der componentDidMount- und der render-Methode der jeweiligen Komponente). Eine HOC kann hier Abhilfe schaffen:
 
 ```jsx
 // Beispielhafte Komponente, die später erweitert wird
@@ -444,7 +459,7 @@ function withLogger(WrappedComponent) {
 
     render() {
       console.log(this.props.prefix + ' render')
-      // mit "{...this.props}" werden alle Properties des HOCs kopiert,
+      // Mit "{...this.props}" werden alle Properties des HOCs kopiert,
       // sodass die erweiterte Komponente diese erhält.
       // Es können auch weitere Properties hinzugefügt werden.
       // Weitere Infos: Nach "Spread-Operator" suchen
@@ -455,6 +470,7 @@ function withLogger(WrappedComponent) {
   }
 };
 ```
+
 Bei der HOC handelt es sich um eine Art Factory-Methode, die als Parameter die zu erweiternde Komponente erhält und auf Basis dieser die high-order Komponente erstellt.
 
 Dementsprechend muss die Funktion wie folgt aufgerufen werden:
@@ -466,11 +482,11 @@ Die so erstellte Komponente kann anschließend wie üblich verwendet werden:
 ```jsx
 <LoggedComponent 
     prefix="LoggedComponent:" // Property für den Logger
-    title="test"              // Property für die Komponente
+    title="HOC Test"          // Property für die Komponente
 />           
 ```
 
-In diesem recht simplen Beispiel wird deutlich, dass so Logik und Anzeige besser getrennt werden können, wodurch die Wiederverwendbarkeit der einzelnen Teile verbessert wird. Die Anzeige kann so oftmals durch Dumb Components realisiert werden. Es ist z.B. denkbar, dass eine HOC Daten aus dem Netz abruft und sie diese dann einer statuslosen "Anzeigekomponente" zur Verfügung stellt [[CHAN17]](#ref_chan17). Ebenso könnte eine HOC die Konfiguration einer anderen Komponente übernehmen. All das erleichtert zudem das Testen der Komponenten, da die Aufgaben strikter getrennt werden und so einfacher Mock-Komponenten erstellt werden können [[TSON18]](#ref_tson18).
+In diesem recht simplen Beispiel wird deutlich, dass hierdurch die Logik und die Anzeige besser voneinander getrennt werden können, wodurch die Wiederverwendbarkeit der einzelnen Teile verbessert wird. Die eigentliche Anzeige kann hierdurch oftmals durch Dumb Components realisiert werden. Es ist z.B. denkbar, dass eine HOC Daten aus dem Netz abruft und sie diese dann einer statuslosen "Anzeigekomponente" zur Verfügung stellt [[CHAN17]](#ref_chan17). Ebenso könnte eine HOC die Konfiguration einer anderen Komponente übernehmen. All das erleichtert zudem das Testen der Komponenten, da die Aufgaben strikter getrennt werden und so einfacher Mock-Komponenten erstellt werden können [[TSON18]](#ref_tson18).
 
 ##### Children
 
@@ -524,7 +540,7 @@ render() {
 ```
 
 Hieraus resultiert ein weiteres Element im DOM (ein div Element). 
-Diesen Umstand kann man durch Verwendung von React *Fragments* umgehen. Sie gruppieren die Elemente, ohne selber im DOM eingefügt zu werden [[FACE18d]](#ref_face18d).
+Diesen Umstand kann man durch Verwendung von *Fragments* umgehen. Sie gruppieren die Elemente, ohne selber im DOM eingefügt zu werden [[FACE18d]](#ref_face18d).
 
 ```jsx
 render() {
@@ -567,7 +583,8 @@ class StartStopButton extends React.Component {
   constructor(props) {
     super(props);
     this.state = { isRunning: false };
-
+    
+    // kann erst mal ignoriert werden
     this.start = this.start.bind(this);
     this.stop = this.stop.bind(this);
   }
@@ -737,7 +754,7 @@ const someValue = 1;
 In beiden Fällen wird das React Event als zweiter Parameter an die Methode *start* übergeben. Werden bei der *bind*-Methode mehrere Parameter übergeben, wird der Eventparameter entsprechend nach hinten verschoben. Die Parameterübergabe geschieht dort implizit und muss somit nicht angegeben werden. 
 
 ##### Styling
-Das Styling von React Komponenten kann prinzipiell auf unterschiedliche Arten geschehen. Im Folgenden werden drei häufige Verfahren vorgestellt.
+Das Styling von React Komponenten kann prinzipiell auf unterschiedliche Arten geschehen. Im Folgenden werden drei häufig verwendete Verfahren vorgestellt.
 
 ***style*-Attribut**
 
@@ -746,7 +763,7 @@ Das Aussehen von Elementen kann z.B. direkt über ihr **style**-Attribut angepas
 Beispiel:
 
 ```jsx
-const divStyle = {
+const redTextStyle = {
   color: 'red',
   fontSize: '12px',
 };
@@ -754,7 +771,7 @@ const divStyle = {
 // ...
 
 function someComponent() {
-  return <div style={divStyle}>Roter Text</div>;
+  return <div style={redTextStyle}>Roter Text</div>;
 }
 ```
 
@@ -762,7 +779,7 @@ function someComponent() {
 
 Eine weitere Möglichkeit ist das Verwenden von herkömmlichen CSS-Dateien.
 Es ist darauf zu achten, dass das *class*-Attribut in JSX *className* lautet.
-Das *id*-Attribut kann wie in HTML gewohnt verwendet werden.
+Das *id*-Attribut kann wie von HTML gewohnt verwendet werden.
 
 Beispiel:
 
@@ -771,6 +788,7 @@ Beispiel:
 .red-text {
   color: red;
 }
+
 #some-id {
   font-size: 12px;
 }
@@ -813,7 +831,7 @@ Abbildung bearbeitet; entnommen aus <a>[[MAJ18]](#ref_maj18)</a> (dort als inter
 
 **Mounting**
 
-Noch bevor die Komponente zum DOM hinzugefügt wurde (man spricht hierbei von "mounted"), wird ihr Konstruktor (**constructor(props)**) aufgerufen. Hierbei sollte darauf geachtet werden, dass als erstes der Konstruktor der Basisklasse aufgerufen wird (*super(props)*), da andernfalls das Klassenattribut *this.props* noch nicht definiert ist und es somit zu Bugs kommen kann. Der Konstruktor sollte zur Initialisierung des Objektstatus (mit *this.state*) verwendet werden.
+Noch bevor die Komponente zum DOM hinzugefügt wurde (man spricht hierbei von "mounted"), wird ihr Konstruktor (**constructor(props)**) aufgerufen. Hierbei sollte darauf geachtet werden, dass als erstes der Konstruktor der Basisklasse aufgerufen wird (*super(props)*), da andernfalls das Klassenattribut *this.props* noch nicht definiert ist und es somit zu Bugs kommen kann. Der Konstruktor sollte zur Initialisierung des Objektzustands (mit *this.state*) verwendet werden.
 
 Nachdem das Objekt initialisiert wurde, wird die Methode **getDerivedStateFromProps(nextProps, prevState)** aufgerufen.  Als Rückgabewert wird ein Objekt erwartet, das den Status auf Basis der angepassten Properties enthält oder *null*, um zu signalisieren, dass sich der Status auf Basis der Props nicht geändert hat. Um zu prüfen, welche Props sich geändert haben (bzw. ändern werden), kann der Parameter *nextProps* mit den aktuellen Properties des Objekts verglichen werden.
 
@@ -827,7 +845,7 @@ React Komponenten können in ihrem Lebenszyklus auf 3 verschiedene Arten aktuali
 
 *New props*
 
-Zum einen können sie von ihrem hierarchischen Vater (bezogen auf die ReactDOM-Hierarchie) neue Props erhalten. In diesem Fall wird die Methode **getDerivedStateFromProps** (s.o.) erneut aufgerufen. Der Unterschied zum Aufruf während des Mounting-Vorgangs ist, dass nun vor **render** eine weitere Methode aufgerufen wird, mithilfe der entschieden werden kann, ob ein erneutes Rendern wirklich erforderlich ist. Es handelt sich um die Methode **shouldComponentUpdate(nextProps, nextState)**. Standardmäßig liefert sie *true* zurück, sodass der Rendervorgang durchgeführt wird. Implementiert man diese Methode und gibt *false* zurück (z.B., weil die neu erhaltenen Props keine Relevanz für die Anzeige haben), wird der Update-Vorgang ohne Rendern abgeschlossen. 
+Sie können von ihrem hierarchischen Vater (bezogen auf die ReactDOM-Hierarchie) neue Props erhalten. In diesem Fall wird die Methode **getDerivedStateFromProps** (s.o.) erneut aufgerufen. Der Unterschied zum Aufruf während des Mounting-Vorgangs ist, dass nun vor **render** eine weitere Methode aufgerufen wird, mithilfe der entschieden werden kann, ob ein erneutes Rendern wirklich erforderlich ist. Es handelt sich um die Methode **shouldComponentUpdate(nextProps, nextState)**. Standardmäßig liefert sie *true* zurück, sodass der Rendervorgang durchgeführt wird. Implementiert man diese Methode und gibt *false* zurück (z.B., weil die neu erhaltenen Props keine Relevanz für die Anzeige haben), wird der Update-Vorgang ohne Rendern abgeschlossen. 
 
 *setState()*
 
@@ -841,7 +859,7 @@ Bevor die Änderungen in den nativen DOM übertragen werden, wird die Methode **
 
 **Unmounting**
 
-Unmittelbar bevor eine Methode unmountet und zerstört wird, wird die Methode **componentWillUnmount()** aufgerufen. Sie dient zum Aufräumen von Timern, Netzwerkverbindungen etc.
+Unmittelbar bevor eine Komponente unmountet und zerstört wird, wird die Methode **componentWillUnmount()** aufgerufen. Sie dient zum Aufräumen von Timern, Netzwerkverbindungen etc.
 
 
 **Abschlussbemerkung**
@@ -859,7 +877,7 @@ Eine einsteigerfreundliche Variante des State Managements ist das Verwenden der 
 ##### Context
 Um ein umständliches Weiterreichen der Statusinformationen in Form von Properties aus dem Weg zu gehen, verfügen die neusten React Versionen über das kontextbasierte Verfahren *Context*. Es sollte dort genutzt werden, wo bestimmte Daten als global angesehen werden können (z.B. Benutzerdaten und GUI-Themes).
 
-Das Verfahren verwendet einen "Provider & Consumer" Ansatz (Anbieter & Verbraucher).
+Das Verfahren verwendet einen "Provider & Consumer" Ansatz (Anbieter und Verbraucher).
 Die Provider verfügen über Daten, die von Consumern abonniert werden können. Letztere werden über Änderungen der abonnierten Daten informiert.
 
 Die Verwendung von Context ist recht simpel [[FACE18f]](#ref_face18f):
@@ -1045,8 +1063,8 @@ Standardmäßig ist JavaScript eine dynamisch typisierte Programmiersprache. Mö
 ##### PropTypes
 Durch das Importieren des Packets "prop-types" erhält man Zugriff auf das in React eingebaute Type Checking Werkzeug *PropTypes*. Mithilfe von PropTypes kann überwacht werden, ob alle benötigten Properties einer Komponente übergeben wurden und ob der Typ des Übergabewertes korrekt ist.
 
-Im folgenden Beispiel werden zwei Strings als Props festgelegt. Hierzu wird der Komponenten eine Variable mit dem Namen *propTypes* zugewiesen.
-Innerhalb dieser Variable werden die Properties und deren Typen definiert. Das Anfügen von *isRequired* führt dazu, dass die Property zwingend einem Wert des angegebenen Typs zugewiesen werden muss.
+Im folgenden Beispiel wird ein zwingend notwender String (*title*) sowie optionale Kindelemente (*children*) als Properties festgelegt. Hierzu wird der Komponenten eine Variable mit dem Namen *propTypes* zugewiesen.
+Innerhalb dieser Variable werden die Properties und deren Typen definiert. Das Anfügen von *isRequired* führt dazu, dass der Property zwingend ein Wert des angegebenen Typs zugewiesen werden muss.
 Ist dies nicht der Fall, erscheint eine entsprechende Fehlermeldung in der Konsole des verwendeten Browsers.
 
 ```jsx
@@ -1079,12 +1097,12 @@ Es können viele Typen überprüft werden, z.B.:
 * PropTypes.instanceOf(*Klasse*)
 * PropTypes.oneOf(['EnumA', 'EnumB']) -> wie eine Enumeration
 
-PropTypes überprüft die Typen aus Gründen der Performance nur im Entwicklermodus [[FACE18e]](#ref_face18e).
+PropTypes überprüft die Typen aus Gründen der Performance nur im "development mode" [[FACE18e]](#ref_face18e).
 
 
 ##### Flow
 
-Flow ist ein Static Type Checker für JavaScript Applikationen. Er zum Ersetzen von PropTypes genutzt werden. Darüber hinaus können mit Flow jedoch nicht nur die Properties, sondern auch z.B. die Typen von Parametern und Rückgabewerten überprüft werden [[CLAR17]](#ref_clar17). 
+Flow ist ein Static Type Checker für JavaScript Applikationen. Er kann zum Ersetzen von PropTypes genutzt werden. Darüber hinaus können mit Flow jedoch nicht nur die Properties, sondern auch z.B. die Typen von Parametern und Rückgabewerten überprüft werden [[CLAR17]](#ref_clar17). 
 
 Damit eine Datei von Flow überprüft wird, muss sie folgendermaßen markiert werden:
 
@@ -1176,10 +1194,10 @@ Eine weitere wichtige Erweiterung sind die Zugriffsmodifizierer (access modifier
 * protected: nur innerhalb der Klasse und über Vererbung erreichbar
 
 Das Typensystem kann jedoch auch bei Verwendung von TypeScript umgangen werden. Wird als Typ **any** angegeben, findet keine Überprüfung des Typs statt.
-Um solche unsauberen Lösungen zu umgehen, kann z.B. das statische Code-Analyse Tool "TSLint" verwendet werden. Wird hier die Regel *no-any* gesetzt, wird eine entsprechende Warnung bzw. Fehler ausgegeben. Dieses Tool kann außerdem dabei helfen, Coderichtlinien einzuhalten.
+Um solche unsauberen Lösungen zu umgehen, kann z.B. das statische Code-Analyse Tool "TSLint" verwendet werden. Wird hier die Regel *no-any* gesetzt, wird eine entsprechende Warnung bzw. ein Fehler ausgegeben. Dieses Tool kann außerdem dabei helfen, Coderichtlinien einzuhalten.
 
 Einen schnellen Einstieg in die Entwicklung von React Anwendungen mit TypeScript und TSLint 
-erhält man [hier](https://github.com/Microsoft/TypeScript-React-Starter#typescript-react-starter).
+findet sich [hier](https://github.com/Microsoft/TypeScript-React-Starter#typescript-react-starter).
 
 #### Reconciliation
 
@@ -1189,7 +1207,7 @@ Der Objektbaum wird durch das Aufrufen von **setState()** jeweils komplett neu e
 
 **Annahme 1:**
 
-Zwei Elemente unterschiedlicher Typen erzeugen unterschiedliche DOM-Bäume. 
+Zwei Elemente unterschiedlichen Typs erzeugen unterschiedliche DOM-Bäume. 
 Es wird eine Breitensuche (ebenenweises Durchlaufen des Baums) durchgeführt, wobei jeweils die Typen der Elemente beider Bäume verglichen werden. 
 Unterscheiden sich diese, werden die Elemente samt aller Kinder als *dirty* markiert. Komponenten, die als dirty markiert wurden, werden anschließend neu gerendert.
 
@@ -1209,12 +1227,12 @@ Vergleiche die alte Liste mit der neuen Liste:
 
 *Anmerkung:*
 
-Seit ca. 2 Jahren arbeitet das React Team zudem an einer neuen Datenstruktur (React Fiber), die den aktuellen Algorithmus verbessern und ersetzen soll, siehe [Link](https://gist.github.com/duivvv/2ba00d413b8ff7bc1fa5a2e51c61ba43).
+Seit ca. 2 Jahren arbeitet das React Team zudem an einer neuen Datenstruktur (React Fiber), die den aktuellen Algorithmus verbessern und ersetzen soll. Informationen hierzu finden sich [hier](https://gist.github.com/duivvv/2ba00d413b8ff7bc1fa5a2e51c61ba43).
 
 
 #### Error Boundaries
 
-Error Boundaries (dt. Fehlergrenzen) dienen dem Einfangen von JavaScript Fehlern innerhalb der Kindelemente. Diese Fehler können anschließend protokolliert werden oder alternative GUI-Element angezeigt werden, wenn Kind-Komponenten abstürzen. Die Fehler werden während des Renderns, in anderen Lifecycle Methoden und auch innerhalb von Konstruktoren aufgefangen.
+Error Boundaries (dt. Fehlergrenzen) dienen dem Einfangen von JavaScript Fehlern innerhalb der Kindelemente. Wenn Kind-Komponenten abstürzen, können diese Fehler protokolliert oder alternative GUI-Element angezeigt werden. Die Fehler werden während des Renderns, in anderen Lifecycle Methoden und auch innerhalb von Konstruktoren aufgefangen.
 
 Um aus einer Komponente eine Error Boundary Klasse zu machen, muss lediglich die folgende Lifecycle Methode implementiert werden:
 
@@ -1232,7 +1250,7 @@ Die Methode erhält zwei Parameter:
 
 * Folgt der deklarativen Natur von React (*was* soll passieren, statt *wie*)
 * Error Boundary Klassen können einfach wiederverwendet werden
-* Verhält sich wie zu erwarten: Fehler werden zur nächst höheren Error Boundary Klasse weitergeleitet
+* Verhält sich wie zu erwarten: Fehler werden zur nächsthöheren Error Boundary Klasse weitergeleitet
 
 **Contra:**
 
