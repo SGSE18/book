@@ -206,7 +206,7 @@ Die Docker-Laufzeitumgebung läuft mit *root*-Rechten, um Zugriff auf sämtliche
 
 #Quellen
 
-[VERO16]
+<a name="ref_vero16">[VERO16]</a>: Practical DevOps, 2016, Joakim Verona
 
-<a name="ref_wolf14">[WOLF14]</a>
+<a name="ref_wolf14">[WOLF14]</a>:
 
