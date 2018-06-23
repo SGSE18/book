@@ -280,20 +280,103 @@ Dieses Beispiel zeigt zusätzlich das für jeden Operator nicht jedesmal ein neu
 beliebig lang auf einem Observable verkettet werden. Im oberen Fall wird das Oberservable mit dem `map()` Operator und dem `fold()`
 Operator verknüpft. 
 
+### Gebräuchliche Operatoren
+
 ### Hot und Cold Observables
 
+In RxJS gibt es bei Observables zusätzlich eine Unterscheidung zwischen Hot und Cold Observables. Als Beispiel für ein Hot
+Observable kann ein Stream genommen werden, welcher von dem `interval()` Operator erzeugt wurde:
+
+```
+let liveStream = Rx.Observableinterval(1000);
 
 
+setTimeout(() => {
+   liveStream.subscribe( 
+        data => console.log('Stream: ' + data);
+    )
+},3000)
+```
 
+Der liveStream Stream wurde so erzeugt, dass jede Sekunde ein hochzählender Wert emitted wird.
 
+liveStream ---1---2---3---4---5---6--->
 
+Allerdings gibt es für die ersten 3 Sekunden noch keinen abonnenten, welcher die Werte aus dem Stream entgegen nehmen könnte.
+Der Timeout für den ersten Abonnenten wird erst 3 Sekunden nach Erstellung des Streams getriggert. Folgende Ausgabe wird auf 
+der Konsole ausgegeben:
 
+```
+Stream: 4
+Stream: 5
+Stream: 6
+```
+
+Der Stream emittet also schon Werte noch bevor ein Observer ihn abonniert hat. Würde zu einem späteren Zeit ein weiterer Observer
+den Stream abonnieren, würde dieser Observer erst beim nächsten Emit des Streams benachrichtig werden, alle vorhergehenden Werte
+die vor dem Abonieren des neuen Observers liegen, bekommt der neue Observer nicht mit.
+
+Anders verhält es sich mit Cold Observables. Hier wird für jeden Observer ein neuer Stream aufgemacht und nach einem abonieren
+des Streams bekommt der Observer alle Werte, welche von dem Stream emitted worden sind.
+
+Als Beispiel eines Cold Observables kann man die Erzeugung eines Stream aus einem Array von Zahlen nehmen:
+
+```
+var numbers = [1,2,3];
+var arrayStream. = Rx.Observable.form(numbers);
+
+setTimeout(() => {
+   arrayStream.subscribe(number =>{
+    console.log("First Sub " + number); 
+});
+},1000)
+
+setTimeout(() => {
+   arrayStream.subscribe(number =>{
+    console.log("Second Sub " + number); 
+});
+},3000)
+```
+
+Ausgabe:
+```
+First Sub: 1
+First Sub: 2
+First Sub: 3
+
+Second Sub: 1
+Second Sub: 2
+Second Sub: 3
+```
+
+In diesem Fall teilen sich die beiden Observer nicht einen Stream, sondern jeder für jeden Observer wird ein gesonderter Stream
+erzeugt. Der Stream emittet keinen Wert solange nicht mindestens ein Observer den Stream abonniert hat. Ob ein Stream Hot oder Cold
+ist hängt davon hab mit welchem Konstruktor das Observable erzeugt wurde.
 
 
 
 ## CycleJS
+CycleJS ist ein funktionale reaktives Javascript Framework, geschrieben von André Staltz. 
 
 ### Konzept
+Das Kernkonzept von CycleJS lautet: "Was wäre wenn der Nutzer eine Funktion wäre?". Es ist einfach sich eine moderne graphische 
+Anwendung als eine große Funktion vorzustellen: Sie nimmt die Nutzereingaben des Nutzer über Eingabegeräte wie Maus und
+Tastatur auf, verarbeitet diese, und gibt anschließend ein Resultat über den Bildschirm aus. Der Nutzer wiederrum nimmt die 
+Ausgabe der Oberfläche als Eingabe, verarbeitet diese, und gibt die Ausgabe der Nutzerfunktion über seine "Ausgabegeräte" wie
+Hände oder auch Sprache an die Oberfläche zurück. 
+
+![Cycle Konzept](./images/UserAsFunction.png "Konzept von CycleJS")
+
+Das obere Bild veranschaulicht dieses Konzept und zeigt gleichzeitig, woher CycleJS seinen Namen hat: Die Eingaben und Ausgaben
+bilden einen Kreis, wo die Ausgaben der einen Funktion die Eingaben der anderen Funktion ist. Funktional sieht das Konzept 
+folgendermaßen aus:
+
+```
+var DisplayOutout = UserFunction(UserInput);
+var UserInput = DisplayFunction(DisplayOutput);
+```
+
+
 
 ### Driver und Sinks
 
