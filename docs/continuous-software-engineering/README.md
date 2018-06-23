@@ -102,41 +102,55 @@ Beim explorativen Test wird die Anwendung mit Fokus auf neue Features und unvorh
 
 Bei der Einführung in die Produktion geht es darum, die Anwendung in einer neuen Umgebung zu installieren. Durch die hohe Zahl an vorher ausgeführten Tests, die teilweise in einer der Produktionsumgebung ähnlichen Umgebung erfolgt sind, ist dieser Schritt häufig recht risikoarm.
 
-## Agile Softwareentwicklung
-
-Agile Softwareentwicklungsprozesse haben zum Ziel, den Prozess der Softwareentwicklung zu beschleunigen und die Zeit bis zum Einsatz beim Benutzer zu verkürzen.
-
-### Frühe Phase mit Scrum
-
-Scrum ist eine agile Softwareentwicklungmethode für kleinere Softwareentwicklungsteams. Scrum beschreibt den Softwareentwicklungsprozess, nicht aber den Prozess der Auslieferung an den Nutzer.
-
 ### DevOps
 
 ##### Definition
 
-Anders als  z.b. Scrum beschreibt DevOps nicht den Prozess der Softwareentwicklung, sondern den Prozess der Auslieferung an den Nutzer.
+DevOps ist ein agiler Prozess beziehungsweise eine Arbeitsweise mit dem Ziel, die Zusammenarbeit aller am Prozess beteiligten möglichst einfach und effizient zu gestalten.
 
 ##### Entwicklung/IT-Operations
 
-Der Begriff DevOps setzt sich zusammen aus den Begriffen Development (Entwicklung) und Operations. Der Bereich Entwicklung ist für die Softwareentwicklung zuständig, der Bereich Operations für die notwendige IT-Infrastruktur (z.b. Bereitstellung notwendiger Tools). Wenn zusätzlich der Bereich Sicherheit involviert ist, spricht man auch von DevSecOps. Ziel ist es, dass diese Bereiche enger zusammenarbeiten.
+Der Begriff DevOps setzt sich zusammen aus den Begriffen Development (Entwicklung) und Operations. Der Bereich Entwicklung ist für die Softwareentwicklung zuständig, der Bereich Operations für die notwendige IT-Infrastruktur (z.b. Bereitstellung notwendiger Tools). Wenn zusätzlich der Bereich Sicherheit involviert ist, spricht man auch von DevSecOps. Ziel ist es, dass diese Bereiche enger zusammenarbeiten und gemeinsam effizienter sind.
 
 ##### DevOps als agiler Prozess
 
+2001 wurde das "Agile Mainfest" geschrieben. In einem Ausschnitt heißt es
+
+"Individuals and interactions over processes and tools
+
+Working software over comprehensive documentation
+
+Customer collaboration over contract negotiation
+
+Responding to change over following a plan
+
+That is, while there is value in the items on the right, we value the items on the left
+more."
+
+Der erste Punkt, "Individuals and interactions over processes and tools", also frei übersetzt "Der individuelle Mitarbeiter ist wichtiger als Prozesse und Werkzeuge", wird von DevOps sehr ernst genommen. Interaktionen zwischen Mitarbeitern sind wichtiger als die verwendeten Werkzeuge. Die verwendeten Werkzeuge sollen Interaktionen unterstützen, nicht bestimmen, wie diese ablaufen.
+Trotzdem ist die verwendung geeigneter Werkzeuge bei DevOps wichtig, mit Betonung auf geeignet. Wenn ein Werkzeug für Unruhe oder Streit innerhalb eines Teams führt, ist es eventuell nicht geeignet.
+
+
 ##### Automatisierung
 
-Ein Ziel von DevOps ist die größtmögliche Automatisierung des Auslieferungsprozesses durch den Einsatz geeigneter Tools. Einfache, repititive Aufgaben werden automatisiert.
+Bestandteil von DevOps ist die größtmögliche Automatisierung des Auslieferungsprozesses durch den Einsatz geeigneter Tools und Continuous Delivery. Einfache, repititive Aufgaben werden automatisiert, und mehr Wert auf menschliche Interaktionen gelegt. 
 
-##### Schneller Releases/Deployment Cycle
+##### Time to Market
+
+DevOps hat zum Ziel, die "Time to market", also die Zeit, die es braucht, um ein (Software-)produkt auf den Markt zu bringen, zu veröffentlichen und im besten Fall damit Geld zu verdienen, zu verkürzen. Dabei ist es auch wichtig, zu messen, ob Prozessänderungen wirklich die erwartet Verbesserung bringen. Die Nutzung von mehr Technologie zur Automatisierung ist oft vorteilhaft, wenn dies allerdings am Ende durch mehr Administrationsaufwand zu keiner Verbesserung oder sogar einer Verschlechterung führt, ist auch keinem geholfen. 
 
 ##### Feedback (Bugtracker)
 
 Um Feedback möglichst schnell zum Entwickler zu bekommen, wird bei DevOps ein Bugtracker verwendet. Der Bugtracker dient dazu, Feedback von Testern zu sammeln, sodass der Entwickler die Möglichkeit hat, zeitnah auf Feedback einzugehen und eventuell gefundene Probleme zu beheben.
-
-##### Microservices
+DevOps ist interdisziplinär, das heißt, am DevOps-Prozess sind mehre Teams beteiligt, und möglicherweise nutzt jedes Team einen Bugtracker. Warum nicht einn und derselbe Bugtracker für alle am Prozess beteiligten? Das ist oft effizienter und führt zu weniger Reibereien zwischen den Teams.
 
 ##### Automatisiertes Testen
 
-Soweit möglich, wird bei DevOps automatisiert, bspw. mithilfe von Unit-Tsts, getestet. Jedesmal wenn aus dem Quellccode ein neuer Build erstellt wird, werden automatisierten Tests ausgeführt und deren Ergebnisse an den Entwickler weitergeleitet.
+Soweit möglich, wird bei DevOps automatisiert, bspw. mithilfe von Unit-Tests, getestet. Jedesmal wenn aus dem Quellccode ein neuer Build erstellt wird, werden automatisierten Tests ausgeführt und deren Ergebnisse an den Entwickler weitergeleitet.
+
+##### ITIL
+
+ITIL (Information Technology Infrastructure Library) ist ein umfangreiches Frameowrk, welches von vielen großen Unternehmen erfolgreich eingesetzt wird.
 
 
 ## Workflows
@@ -205,6 +219,8 @@ Die Docker-Laufzeitumgebung läuft mit *root*-Rechten, um Zugriff auf sämtliche
 ### Jenkins
 
 #Quellen
+
+<a name="ref_ravi16">[RAVI16]</a>: Practical DevOps, 2016, A. Ravichandran et. al.
 
 <a name="ref_vero16">[VERO16]</a>: Practical DevOps, 2016, Joakim Verona
 
