@@ -49,7 +49,8 @@ Auf Basis von Cloud Computing Technologien sind in den vergangenen Jahren eine V
 
 Das folgende Bild zeigt den Zusammenhang der drei verbreitetsten Service Modelle _"Infrastructure as a Service" (IaaS)_, _"Plattform as a Service" (PaaS)_ und _"Software as a Service" (SaaS)_ in Form eines Mengendiagramms. In den nächsten Abschnitten sollen diese drei Modelle und weitere vorgestellt und deren Anwendungsfälle betrachtet werden.
 
-<span style="display:block;text-align:center"/>![alt text](./images/Iaas_Paas_Saas.jpg "IaaS vs PaaS vs SaaS")
+TODO
+<span style="display:block;text-align:center"/>![alt text] ./images/Iaas_Paas_Saas.jpg "IaaS vs PaaS vs SaaS"
 <span style="display:block;text-align:center"/>Quelle: [[GASS16]](#ref_gass16)
 
 #### Infrastructure as a Service (IaaS)
