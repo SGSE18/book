@@ -372,13 +372,108 @@ bilden einen Kreis, wo die Ausgaben der einen Funktion die Eingaben der anderen 
 folgendermaßen aus:
 
 ```
-var DisplayOutout = UserFunction(UserInput);
-var UserInput = DisplayFunction(DisplayOutput);
+var UserOutput = UserFunction(DisplayInput);
+var DisplayInput = DisplayFunction(UserOutput);
 ```
 
+Hier erkennt man auch direkt, welche Lösung das CycleJS Framework bereitstellen muss. Es gibt eine zirkuläre Abhängigkeit zwischen
+der Benutzerfunktion und der Oberflächenfunktion. Um diese Abhängigkeit deutlicher zu machen kann die Eingabe einer Funktion mit
+der produzierenden Funktion subsituiert werden:
+
+```
+var UserOutPut = UserFunction(DisplayFunction(UserOutput));
+```
+
+Zu beginn des Programmes ist der `UserOutPut` nicht definiert, weshalb er nicht genutzt werden kann um einen neuen Wert für die Display
+Funktion zu generieren, was wiederum dazu führt das kein neuer `UserOutPut` generiert werden kann.  
+CycleJS löst dieses Problem, indem 
+es, anstatt beide Funktionen direkt miteinander zu verknüpfen, eine eigene `run()` Methode bereitstellt, welche als Argumente die 
+`UserFunction()` und die `DisplayFunction()` erhält und so als Bindeglied zwischen den beiden Funktion dient.  
+In CycleJS wird die `UserFunction()` mit `main()` bezeichnet. Sie enthält die Logik, die es dem Nutzer ermöglicht Eingaben zu machen und
+transformiert diese Eingaben dahingehend, dass sie von der `DisplayFunction()` genutzt werden kann.  
+Eine Oberfläche auf dem Display auszugeben
+ist natürlich nur eine Weise, wie ein Computer mit der externen Welt interagieren kann. Ein Computer könnte auch Sound über die Boxen ausgeben,
+einen HTTP-Request zu einem Server schicken oder über einen WebSocket mit einer anderen Anwendung kommunizieren. All diese Anwendungsfällen 
+werden bei CycleJS unter dem Oberbegriff `Driver` zusammengefasst. Ein `Driver` ist also eine Funktion, welche wie die `DisplayFunktion()`, mit
+dem Nutzer, beziehungsweise der externen Welt, agiert.  
+
+### Sources and Sinks
+
+Eine Beispielapplikation in CycleJS kann folgendermaßen aussehen:
+```javascript
+01 import xs from 'xstream';
+02 import {run} from '@cycle/run';
+03 import {div, input, p, makeDOMDriver} from '@cycle/dom';
+04
+05 function main(sources) {
+06   const sinks$ = {
+07    DOM: sources.DOM.select('input').events('change')
+08       .map(ev => ev.target.checked)
+09       .startWith(false)
+10       .map(toggled =>
+11         div([
+12           input({attrs: {type: 'checkbox'}}), 'Toggle me',
+13           p(toggled ? 'ON' : 'off')
+14         ])
+15       )
+16   };
+17   return sinks$;
+18 }
+19
+20 run(main, {
+21   DOM: makeDOMDriver('#app')
+22 });
+ ```
+
+Was zunächst auffällt, ist, dass dieses Beispiel nicht die RxJS Bibliothek zum bereitstellen von Streams importiert. Stattdessen wird
+die xStream Bibliothek benutzt, welche eigens für die Benutzung von CycleJS entwickelt wurde. Allerdings kann CycleJS ebensogut mit RxJS oder
+Most.js benutzt werden. Dabei unterscheiden sich diese Bibliotheken im Grund nur darin, welche Operatoren zur Verfügung gestellt werden und wie
+die Operatoren und Funktionen benannt werden. So ist die 'subscribe()` Methode unter RxJS nun die 'addListner()' Methode in xStreams.   
+Zudem macht die xStream Bibliothek keine Unterscheidung zwischen Hot and Cold Streams, da jeder mit xStream erzeugte Stream ein Hot Stream ist.  
+
+Das der Beispielcode soll folgende Ausgabe produzieren:
+
+![Ausgabe](./images/exampleOutput.png "Ausgabe")
+Dazu wird im Programm zunächst mit der `makeDOMDriver()` ein neuer Driver für den DOM erstellt. Dieser DOM Driver kann in der HTML Datei
+unter dem Tag `#app` den DOM manipulieren und bootstraped so das Framework. Die `run()` Methode stellt der `main()` Methode den instanziierten
+Driver über den Übergabeparameter `sources` zur Verfügung. Das `source` Objekt enthält alle Driver, welcher in der `run()` Methode angelegt
+worden sind.  
+Nun kann in der `main()` Methode ein neuer Stream erzeugt werden. In diesem Beispiel wird über den DOM Driver ein Stream von einem Event erzeugt,
+welches einen Wert jedesmal einen Wert emitten soll, fall sich der der Wert des Eingabefeldes ändert. Ein Marble-Diagram für Zeile 07 sieht wie folgt
+aus:
+
+Nutzer:  ---Click------Click----Click------Click---->  
+
+sink$:   -----x----------x--------x----------x------>  
+
+Der Nutzer klickt auf die CheckBox, was bei jedem Klick ein `Change` Event hervorruft. Der sink$ Stream emittet mit jedem Klick auf die
+Checkbox nun ein komplettes Event. Da für die Anwendung nur der mit dem Event assoziierte Wert von bedeutung ist, muss der Stream mit dem
+`map()` Operator manipuliert werden. 
+
+sink$: -----x--------x-------x------x---------x---->    
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;map()  
+sink$:----true----false-----true---false-----true-->
+
+In der `map()` Methode wird das Event auf sein eigentlichen Wert gemapped. Da das Event von einer Checkbox kommt, ist der assoziierte Wert
+abwechselnd `true` oder `false`.  
+Nachdem das Event auf den Wert gemapped worden ist, wird der Stream mit dem `startWith()` Operator initialisiert.  
+
+sink$:---------true----false-----true---false-----true-->  
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;startWith(false)    
+sink$:false----true----false-----true---false-----true-->
+
+Da der Stream am Ende auf einen virtuellen DOM gemapped wird, muss er einen initialen Wert haben. Würde kein Wert mit `startWith()` gesetzt, so
+würde der DOM erst mit einer Aktion des Nutzers angezeigt werden, da erst durch eine Aktion ein Wert auf dem Stream emittet wird.  
+Da der Stream
+allerdings von dem DOM Driver genutzt wird um die Oberfläche darzustellen, würde auch hier eine Deadlock entstehen. Der Nutzer hätte keine 
+Möglichkeit einen initialen Wert zu emitten weil keine View gerendert wurde und es wird keine View gerendert da kein initialer Wert von dem
+Stream emitted wird.  
+Die `startWith()` Methode emitted auf dem Stream ein initialen Wert, welche als Startpunkt für die View genutzt werden kann.
 
 
-### Driver und Sinks
+
+
+
 
 ### Side effects
 
