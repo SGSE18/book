@@ -8,6 +8,11 @@ module.exports = {
   head: [
     ['link', { rel: 'icon', href: `/logo.png` }]
   ],
+  markdown: {
+    config: md => {
+      md.use(require("markdown-it-katex"));
+    }
+  },
   serviceWorker: false,
   themeConfig: {
     repo: 'SGSE18/book',
@@ -26,8 +31,14 @@ module.exports = {
         children: [
 		  '/digitalisierung/',
           '/cloud/',
-          '/dezentralisierung/',
-          '/smartcontract/'
+          '/dezentralisierung/'
+        ]
+      },
+      {
+        title: 'Distributed Ledger',
+        children: [
+          '/smartcontract/',
+		      '/hyperledger/'
         ]
       },
       {
@@ -54,10 +65,10 @@ module.exports = {
       {
         title: 'AI - machine learning',
         children: [
-          '/ai-ml/overview/',
           '/ai-ml/ai/',
           '/ai-ml/ml/',
           '/ai-ml/nn/',
+          '/ai-ml/dl/',
           '/ai-ml/gan/',
           '/ethik/'
         ]

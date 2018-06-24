@@ -1,45 +1,171 @@
 # Digitalisierung
+Autor: Björn E.-M.
 
-# Digitalisierung - Anwendungsfelder und Forschungsziele
+## Einleitung und Definition
 
-# Virtuelle Realität in Medien und Technik
+„Digitalisierung“ - Das aktuelle Hype-Thema in der Politik und Wirtschaft. Sie reicht dabei von digitalen Sprachassistenten für Zuhause über Wearables und Satellitentechnik zu vollautomatisieren Fertigungsstraßen in der Industrie. In so gut wie allen Bereichen des Lebens lässt sie sich finden. Inzwischen existieren vollständige digitale Währungen wie z.B. „Bitcoin“ und man kann während einem Ausflug per Smartphone-App und einem internetfähigen Futterspender die Katze in der Heimat füttern und sie dabei sogar noch über eine Kamera im Livestream beobachten. 
 
-# Verarbeitung von Videodaten
+Häufig unter anderen Begrifflichkeiten wie „Big-Data“, „Internet of Things“ und „Industrie 4.0“ die als Synonyme verwendet werden. Oftmals wird der Begriff und die Synonyme auch noch falsch verwendet und somit entsteht eine Verwässerung des Begriffs und eine falsche Zielsetzung bei der Umsetzung.
 
-# Audiocodecs
+Da der Begriff hat sich in den letzten Jahren gewandelt und steht für mehr als die ursprüngliche Bedeutung. Der Begriff kann aus vielen Blickwinkeln gesehen werden. Den volkswirtschaftlichen Blickwinkel wählt z.B. die Regierung. Das Bundesministerium für Wirtschaft (BMWi) hat den Begriff und die damit verbundene Zielsetzung wie folgt definiert:
 
-# Digitaler Rundfunk
+„Die Digitalisierung ist in vollem Gange. Sie betrifft uns alle – und sorgt für einen tiefgreifenden Wandel in jedem Lebensbereich. Die digitale Transformation eröffnet dabei große Chancen für mehr Lebensqualität, revolutionäre Geschäftsmodelle und effizienteres Wirtschaften. Das BMWi gestaltet diesen Wandel durch kluge Rahmenbedingungen und gezielte Förderung mit, um die digitalen Potentiale zu nutzen und neue Herausforderungen erfolgreich zu meistern.“
 
-# (5G-Datentransport mit Höchstgeschwindigkeit)
+Bei dieser Betrachtungsweise sollen die Chancen, die durch die Digitalisierung eröffnet werden in allen Wirtschaftsbereichen und in der Gesellschaft genutzt werden. Dafür werden Förderprogramme ins Leben gerufen und der Ausbau der digitalen Infrastruktur vorangetrieben. Auf Themen wie digitale Wirtschaft und digitales Arbeiten, digitale Gesundheit, Bildung, Forschung und Sicherheit wird dabei der Fokus gelegt. 
 
-# Industrial Data Space
+In der Wirtschaft selbst wird versucht die Digitalisierung in betriebswirtschaftlichen Berechnungen festzuhalten, da die Erfolge im Vordergrund stehen sollen. Wodurch in Unternehmen häufig andere Ziele als die des BMWi verfolgt werden. Die Ziele sollten jedoch gleichgerichtet sein.
 
-# (Forschungsprojekt EMOIO)
+Die ursprüngliche Bedeutung des Begriffs „Digitalisierung“ stammt aus der Informationstechnologie (IT) und steht für die Umwandlung von analogen Werten in digitale Werte und Formate. Bei dieser Betrachtung wird ein technologischer Blickwinkel eingesetzt um den Themenkomplex der Digitalisierung zu betrachten. Im technologischen Blickwinkel stehen Begriffe wie Netzwerke, Bandbreiten, Prozessortakt, Bus-Takt und der neuste Trend die „artificial intelligence“ (AI) bzw. „Künstliche Intelligenz“ (KI) im Fokus. 
 
-# Fraunhofer-Allianz Generative Fertigung
+Die bisher gezeigten Beispiele sollten darstellen wie breitgefächert der Begriff der Digitalisierung ist. Eine einheitliche anerkannte Definition zu erstellen ist daher schwierig. Die freie Enzyklopädie „Wikipedia“ z.B. führt die ursprüngliche Definition des Begriffs mit auf und definiert Digitalisierung wie folgt: „Digitalisierung steht für die Überführung analoger Größen in diskrete (abgestufte) Werte.“ Das Wirtschaftslexikon „Gabler“ definiert Digitalisierung hingegen wie folgt: „Der Begriff Digitalisierung kann die digitale Revolution, die auch als dritte Revolution bekannt ist, bzw. die digitale Wende meinen.“
 
-# Future Work Lab
+Häufig fallen in Verbunding mit solchen Definitionen zusätzliche Begriffe wie papierlose Organisation, Big Data, Analytics, Smart Data und Cloud. Diese Aspekte führen in kleineren und mittelständige Unternehmen zu Verunsicherung. Weil die Aspekte implizieren, dass als erstes das herkömmliche Geschäftsmodell umgebaut und vollständig überdacht werden muss. Dafür müssen wichtige Handlungsschwerpunkte identifiziert und priorisiert werden. Zusätzlich rücken durch das wechselnde Markumfeld folgende Herausforderungen in den Vordergrund:
+* Digitale Geschäftsplattformen werden immer beliebter werden Teil der Wertschöpfungskette. Unternehmen, die solche Systeme nicht verwenden um den Kundenzugang zu übernehmen können leicht von Wettbewerbern verdrängt werden.
+* Die Digitalisierung muss erst einmal in dem Unternehmen umgesetzt werden. Was dazu führt, dass die bisherige IT eventuell mit der neuen nicht kompatible ist und es somit nicht gelingt Trends und Entwicklungen zu analysieren. 
+* Der Umsatz bricht ein, weil die bisherige Produktpalette nicht attraktiv oder innovativ genug wirken.
+* Ein Customer-Relationship-Management System wird immer wichtiger. Vertriebswegen ändern sich, Digitale-Distribution und Direktvertrieb ersetzen den Fachhandel.
+* Das Unternehmen muss an Flexibilität gewinnen. Dafür ist die bisherige Unternehmensstruktur jedoch nicht ausgelegt und ein Mangel an Fachkräften kommt noch erschwert dazu. 
 
-# Cyber-Physische Systeme
+Wie klar zu erkennen ist geht das Verständnis was Digitalisierung darstellt stark auseinander und es sollte stets darauf geachtet werden, dass von einer einheitlichen Definition und Zielsetzung gesprochen wird.
+[Informatik Spektrum]
 
-# Leitprojekt "Go Beyond 4.0"
+Im Jahr 1941 wurde von Konrad Zuse und Helmut Schreyer der erste Computer entwickelt der Binärcode verwendet und programmierbar war. Der Zuse Z3 lautete das Digitale Zeitalter ein. Dreißig Jahre später wurde der erste Mikroprozessor mit 8.000 Transistoren patentier. Weitere zehn Jahre später 1981 waren es schon ca. 80.000 Transistoren. Der Chip-Entwickler AMD hat 2017 eine CPU mit 32-Kerne veröffentlich. Auf den 768 mm² des „AMD Epyc“ Chips befinden dank neuer 14 nm Fertigungstechnologie 19,2 Milliarden Transitoren. [https://en.wikipedia.org/wiki/Transistor_count]
 
-# Kognitive Systeme und Robotik
+Gorden Moore hat schon 1965 mit dem „Moore's law“ prognostiziert, dass die Anzahl der Transistoren ca. alle 18 Monate verdoppelt. In der folgenden Abbildung ist der Verlauf von 1971 bis 2016 visualisiert.
 
-# Fraunhofer-Allianz Big Data
+[https://en.wikipedia.org/wiki/Moore%27s_law#/media/File:Moore%27s_Law_Transistor_Count_1971-2016.png] [Wiki]
 
-# Safety und Security
+Ob und wie lange sich dieses Wachstum noch steigern lässt werden die nächsten Jahre zeigen. 
 
-# Ausfallsichere Systeme
+Ein weiterer interessanter Punkt ist wie eine derartige Beschleunigung des Fortschritts möglich war bzw. immer noch ist. Eine treibende Kraft ist die Digitalisierung die nicht nur die technischen und praktischen Anwendungsfelder verändert hat, sondern auch die Forschungs- und Entwicklungsarbeit. Ein Prozessor wir der AMD Epyc lässt sich nicht am Zeichenbrett planen. Es werden digitale Modellierungswerkzeuge benötigt und in der Produktion geht es ohne weitgehende Automatisierung und digitalisierten Verfahren zur Konstruktion nicht weiter. Dazu kommt das Optimierung und teils sogar Programmierung von Maschinen übernommen wird. Daher kann die Digitalisierung auch als hochdynamischer Prozess bezeichnet werden der sich sogar zum Teil selbst optimiert. Dazu kommen riesige Datensammlungen aus Fertigungsanlagen, Forschungsprojekten, Sozialen-Medien und dem alltäglichen Leben, die nur noch mit massiver bis vollständiger Unterstützung von Computern analysiert werden können. Auch wenn die Daten schwer zu analysieren sind kann dies zu ganz neuen Erkenntnissen führen, an die in manchen Fällen nicht einmal gedacht wurde oder sie waren vorher schlechtweg mit menschlicher Arbeitskraft nicht erreichbar. [Quelle Buch]
 
-# (Blockchain)
+Ganz neue Möglichkeiten bringt da das aktuelle Hype-Thema der KI. Das s.g. „machine learning“ also Maschinelles Lernen (ML). Kurz erklärt, sammelt eine KI in einer kontrollierten Umgebung Erfahrungen, sie wird trainiert bzw. lernt, dann folgt eine Generalisierung um Probleme mit ähnliche Strukturen lösen zu können. Die KI erzeugt im Grunde Wissen aus den Erfahrungen. Ähnlich wie bei der Digitalisierung könnte auch hier ein exponentielles Wachstum entstehen. Dann wird von der gefürchteten „technological singularity“ oder „AI singularity“ gesprochen. Der Begriff steht dafür, dass Maschinen besser Maschinen als sich selbst entwickeln und dies in einem Iterativen-Prozess fortführen. Der eventuelle Ablauf und die Folgen für die Gesellschaft dienen als Grundlage für die Science-Fiction.
 
-# E-Health
+Der starke Bedarf an digitalen System wachst immer weiter. Alles und jeder soll mit dem Internet verbunden werden was zu der starken Dynamik in der Entwicklung führt. Die Anwendungsfelder erscheinen grenzenlos. Die Menschen wollen alles Verbessern und Optimieren. Dabei steht mehr Leistung, höhere Effizienz, geringerer Ressourcenverbrauch im Vordergrund und somit wird der enorme Entwicklungsschub angetrieben. Dieser ist so stark das berechtigterweise von der „digitalen Revolution“ gesprochen wird.
 
-# Smart Energy
+Wie schon gezeigt ist es schwierige eine vollumfassende Definition zu finde. Bei einer Formaldefinition müssen zur erfolgreichen Umsetzung in der Praxis einige Eigenschaften erfüllt werden. Dazu gehören die folgenden:
+* Entscheidbarkeit: Bei einer Definition sollte es einfach erkennbar sein ob ein Phänomen als Digitalisierung beschrieben werden kann oder nicht.
+* Umfassend: Die Akzeptanz der Definition spielt eine tragende Rolle bei ihrer Verwendung bzw. Verbreitung. Daher ist es wichtig, dass die Phänomene die in der Regel als Digitalisierung bezeichnet werden es auch weiterhin sind. Die Auswirkungen und Konsequenzen sind dabei nicht teil der Definition aber sollten sich aus der Definition ableiten lassen.
+* Grundlage einer Skala: Für Unternehmen ist es wichtig das diese ihren Fortschritt bzw. Qualität im Bereich der Digitalisierung bewerten und vergleichen könne. Daher sollte es möglich sein eine Skala abzuleiten die zusätzlich die Best Practices einbezieht die sich wiederum aus der Definition ableiten lassen sollten. [Informatik Spektrum]
 
-# Advanced Software Engineering
+Mit diesen Anforderungen an die Definition lässt ich folgenden formulieren:
 
-# Automatisiertes Fahren
+„Es wird von Digitalisierung gesprochen, wenn analoge Leistungserbringung durch Leistungserbringung in einem digitalen, computerhandhabbaren Modell ganz oder teilweise ersetzt wird.“ [Informatik Spektrum]
+
+In [QUELLE] wird von Thomas Wolf und Jacqueline-Helena Strohschen [Quelle] zu der oben genannten Definition noch ein Reifegradmodell vorgestellt, welches dazu genutzt wird um Unternehmen hinsichtlich ihres Fortschritts im Bereich Digitalisierung zu bewerten. In dem Modell hat ein Unternehmen die maximale Reife erreicht, wenn alle potenziellen Möglichkeiten der Digitalisierung genutzt und im Zuge dessen die damit verbundenen Risiken vermieden werden. 
+
+Es wird also von einer Analog-Digital-Wandlung (A/D-Wandlung) und Digital-Analog-Wandlung (D/A-Wandlung) gesprochen. Diese Umwandlung können ganz unterschiedliche Eigenschaften haben. So werden z.B. Messwerte in der Digitaltechnik mit analogen Sensoren erfasst und mit einem A/D-Wandler in digitale Größen übersetzt. Die A/D-Wandlung kann aber auch durch den Menschen durchgeführt werden. Wenn dieser z.B. eine Formel von einem Blatt in sein Excel-Dokument überträgt. Für eine D/A-Wandlung können z.B. Motoren als Akteure eingesetzt werden um etwas in der realen Welt zu verändern und wenn der Banker seine Formel ausdruckt findet ebenfalls eine D/A-Wandlung statt. Der wie oben definiert Begriff Digitalisierung lässt sich auf die „Objekte“ Produkte, Geschäftsprozesse, Wertschöpfungsprozesse, Humanressourcen, Aufgaben und Unternehmen anwenden, wenn diese eine Leistung erbringen. Dies Vorgang ist in der folgenden Abbildung verdeutlicht.
+
+[Bild digitalisierungs_definition] [Informatik Spektrum]
+
+Als ein weiteres Beispiel für die Digitalisierung wird häufig die Fotografie verwendet. Vor der Erfindung von Digitalkameras war die Fotografie ein photochemischer Prozess. Mit einer Digitalkamera wird ein digitales Abbild der im Sucher zu sehenden Wirklichkeit aufgenommen. An dem digitalen Abbild können vor dem Druck leichter Änderungen vorgenommen werden als an der analogen Aufnahme. Ein vollständiger Zyklus von A/D-Wandlung und wieder D/A-Wandlung kann in Verbindung mit andere Zyklen dazu verwendet werden um Begriffe wie Big Data und Data Analytics zu definieren bzw. abzuleiten. Aus der Verlauf von gekauften Produkten auf Plattformen wie Amazon lassen sich Kunden in Gruppe einteilen und typisieren. Die Benutzer Erfahrung wird mit gezielter Werbung und Angeboten gezielt gesteuert. Bei einer Fertigungsstraße werden Sammlungen von Sensordaten genutzt um einen Ausfall frühzeitig zu erkennen, dann wird von „predictive Maintenance“ gesprochen und eine entsprechende Wartung wird durchgeführt um den Schaden zu minimieren. [Informatik Spektrum]
+
+## Die DNA der Maschinen
+
+Immer mehr Maschinen werden programmiert, nur für die wenigsten Anwendungsfälle ist eine rein manuelle Bedienung noch ausreichend. Das liegt zum Teil daran das z.B. in großen Fertigungsstraßen die Abläufe so schnell und eng getaktet sind das ein Mensch gar nicht mehr mithalten könnte. Zusätzlich wird eine Vielzahl von gesammelten Sensordaten genutzt um die Umwelt zu erfassen. Des Weiteren im Quelltext hinterlegten Direktiven genutzt um auf die Umwelt zu reagieren. In der Umwelt agieren kann eine Maschine durch einen sogenannten Aktor z.B. einem Elektromotor, der Förderband beschleunigt. Die gesammelten Daten werden entsprechend abgespeichert und dienen als Grundlage für die Entwicklung von zukünftigen Maschinen.
+
+In der Natur geschieht ähnliches. Organismen erfassen ebenfalls ihre Umgebung und reagieren entsprechend auf die gesammelten Daten indem sie diese interpretieren. Als Grundlage für einen Organismus dient der genetische Code (DNA), der in jeder Zelle des Wesens gespeichert ist. Die DNA enthält Wissen bzw. das Ergebnis der vorhergegangenen Evolution der Spezies. Im Idealfall können Organismus und Maschine durch die gesammelten Daten auch auf unbekannte Anforderungen reagieren. Bei Maschinen würde man dann von einer „artificial general intelligence“ (AGI) reden. Eine Künstliche Intelligenz, die also soweit Entwickelt ist, dass sie mit so gut wie allen Problemen umgehen kann und nicht auf wenige Anwendungsbereichen beschränkt ist. Der Mensch z.B. kann auf Grund seiner Erfahrungen und seinen erlernten Fähigkeiten auf unvorhergesehenes mit Intuition und Kreativität reagieren. Auch wenn auf den ersten Blick der Vergleich nicht ganz passend zu scheint zeigen sich viele Gemeinsamkeiten zwischen Maschinen und Organismen.
+* Maschinen und Organismen speichern Informationen über Aktionen, Reaktionen und Eigenschaften einer bzw. ihrer eigenen Organisationseinheit. 
+* Komplexe und Umfangreichen Informationen bzw. Daten werden mit wenigen unterschiedlichen Zeichen dargestellt. Bei der DNA reichen vier unterschiedliche Zeichen aus. Diese sind Nukleotiden-Adenin, Guanin, Thymin und Cytosin. Der heutige weitverbreitetste Binärcode von Maschinen besteht wie der Name schon sagt aus zwei Zeichen (0 und 1). (Exkurs: Modernste Quantencomputer verwenden sogenannte „Qubits“ die dem klassischen 0 und 1 schwer zu vergleichen sind. In der Vergangenheit wurde z.B. an Dezimalrechner geforscht die zehn unterschiedliche und nicht wie üblich nur zwei Signalstufen verwendeten.)
+* Wie KI und aufwachsende Kindern zeigen sind beide Systeme grundsätzlich flexible und lernfähig. Selbst wenn sich dies in beiden Systemen stark unterscheidet. Ein Teenager besitzt eine weitaus höhere generelle Intelligenz als jeder Großrechner aber kein Mensch wird jemals schneller komplexe Rechenaufgaben lösen als ein Computer.
+*  Nahezu verlustfreie Vervielfältigung von Informationen. Während der Zellteilung wird die DNA aufgespalten und mit einer komplementären Anlagerung wird eine neue DNA-Base erzeugt. Beim Menschen geht man davon aus das es eine Obergrenze von ca. 50 Spaltungen gibt, welche unsere Lebensdauer auf max. 130 Jahre einschränkt. Bei digitalen Informationen werden diese möglichst verlustfrei eingelesen und an anderer Stelle abgespeichert. Es werden Verfahren die der Hamming-Code verwendet um den Verlust von Daten bei der Übertragung bzw. Replikation zu vermeiden, wenn der Verlust jedoch zu groß ist eine Wiederherstellung nicht möglich.
+* Informationen lassen sich bei Bedarf in beiden Systemen während der Vervielfältigung anpassen. Die DNA kann z.B. durch eine Mutation verändert werden wodurch die Nachkommen besser an den Lebensraum angepasst sind. Dieser natürliche Vorgang wird z.B. bei den sogenannten „Evolutionären Algorithmen (EA) in Software simuliert um Optimierungsprobleme zu lösen. Aber auch digitale Systeme, die keine EA verwenden können simple Datenmanipulation durchführen. (Exkurs: Bei einem EA wird eine zufällige Population an Lösungskandidaten für ein Problem generiert und anschließend mit einer Fitness-Funktion bewertet. Die Fitness-Funktion stellt die Angepasstheit des Individuums an das Problem bzw. die Umgebung fest. Die Individuen mit der höchsten Fitness werden für die Generierung der nächsten Population herangezogen. Dabei werden zwei Individuen durch eine Rekombination zusammenführt und das daraus resultierende Individuum wird durch eine zufällige Mutation nochmals leicht angepasst. Wiederholt man diese Schritte mehrmals wird die durchschnittliche Fitness der gesamten Population angehoben und man kann den fittesten Lösungskandidaten für das Problem herauspicken.)
+
+Durch die gemeinsamen Eigenschaften können beide Systeme vorhandenes Anpassen und verbessern. Also es wird auf bereits Erreichtes als Basis verwendeten um darauf eine Veränderung durchzuführen. Durch dieses Vorgehen ist der enorme Innovationsschub der Digitalisierung zu erklären. Die Digitalisierung potenziert damit die Forschung und Entwicklung. Weiter verstärkt wird dieser Effekt dadurch, dass der Austausch von Daten so leicht ist. Die nächste Evolutionsstufe einer Technologie oder Software kann schnell und einfach umgesetzt werden und ist in Sekunden global verfügbar. Dieser Fortschritt wird allenfalls durch Patentstreitigkeiten und Politik eingeschränkt. [Quelle Buch]
+
+### Der digitale Alltag
+
+Im Jahr 2007 wurde vom Technologieunternehmen Apple das erste massentaugliche Smartphone auf den Markt gebracht. Das Konzept hat in den darauffolgenden Jahren das Leben der Menschen stark gewandelt. Auch Live-Streaming-Videoportal wie „Twitch“ und „YouTube“ und Instant-Messaging-Dienste wie „Discord“ und „TeamSpeak“ erlauben es uns von überall auf der Welt aus per Video oder Sprachkonferenzen Kontakte zu Mitmenschen aufzunehmen. Dies wirkt sich natürlich nicht nur auf das Privatleben, sondern auch auf das Berufsleben aus. Extra entwickelte Enterpreise Produkte wie „Skype for Business“ prägen die Berufswelt. Derartige Technologie hat sogar Auswirkungen auf das Mobilitätsverhalten der Menschen. Warum für ein Meeting treffen, wenn stattdessen eine „Web-Seminar“ gehalten werden kann. Dies spart Kosten und Zeit für alle Beteiligten. Selbst das Migrationsverhalten der Menschen beeinflusst die Digitalisierung. Wenn man immer und von überall aus all seine Verwandten und Bekannten kontaktieren kann fällt die Entscheidung ob man für ein lukratives Jobangebot umzieht oder nicht deutlich leichter. Eine solche Entscheidung muss sogar immer seltener getroffen werden. Viele Leute betreiben im „Home-Office“ und verlassen so zum Verdienen ihres Lebensunterhalts nicht einmal mehr ihr getrautes Heim. Informationen zu allem und jedem sind großenteils kostenlos im Internet verfügbar. Jeder kann selbst Fakten überprüfen und in Sekunden fehlendes Wissen nachschlagen. „Guides“ und „Tutorials“ helfen dabei ganz neue Fertigkeiten und Fähigkeiten für das Hobby oder Berufsleben zu erlangen. Zusätzlich werden durch die Digitalisierung sämtliche technischen Geräte so schneller weiterentwickelt und optimiert, dass man nur noch als Fachmann eine informierte Kaufentscheidung treffen kann. Somit kann gesagt werden, dass durch die Digitalisierung ist das gesamte Umfeld des Menschen im Umbruch. 
+
+In der Industrie werden 3D-Drucker verwendet um individuelles Produktdesign zu ermöglichen und auch im privaten Bereich erlaubt ein 3D-Drucker die Erzeugung von Produkten. Privatpersonen können sich im Internet die CAD-Dateien herunterladen, die es ihnen erlauben Schusswaffen aus Kunststoff zu drucken. Über das Internet können nicht nur Waren verbreitet werden, sondern auch Inhalte. In Sekundenschnelle lassen sich selbst erstellte Bilder, Bücher, Filme, Musik, Meinungen, Ideen, Gegenstände und Programme verbreiten. Dabei brauch man nicht einmal einen Verlag oder eine andere Instanz, die einen eventuell kontrolliert oder zensiert. Trotz der Verbote werden natürlich auch illegale oder urheberrechtlich geschützt Inhalte online gestellt. Häufig ist es schwer oder gar unmöglich derartige Inhalte wieder aus dem Netz zu bekommen. Gesetze und Urheberrecht sind nicht global gültig und selbst Inhalten, die in praktisch allen Staaten der Erde verboten sind alles sich nur schwer eindämmen oder entfernen. Es wird häufig davon geredet, dass das Internet ein rechtsfreier Raum sei was natürlich nicht stimmt. Was allerdings stimmt es, dass die Durchsetzung vieler Gesätze deutlich erschwert ist. Somit entstehen wirtschaftliche und soziale Gefahren mit denen wir nicht umzugehen wissen und dies noch lernen müssen. 
+
+Mit den immer weiterentwickelten Technologien steigen auch die Erwartungen und der Anspruch. Der Mensch gewöhnt sich unheimlich schnell an den zusätzlichen Komfort die eine Technologie mit sich bringt. Jedoch ist der Mensch auch genauso schnell davon gelangweilt und wünscht sich neue Inhalte und Weiterentwicklung. Dadurch wird die Wirtschaft in schneller Produktentwicklung und kürzere Produktlebenszyklen gezwungen.
+
+Vorteile bringt dies jedoch auch mit sich. Die Digitalisierung übt eine antreibende Wirkung auf den Arbeitsmarkt aus. Häufig wird behauptet das Digitaltechnik den Menschen ersetzen würde und somit die Arbeitsplätze zerstört. Jedoch wird die Funktionen der Menschen durch diesen Effekt verändert, die Tätigkeitsprofile der Mitarbeiter werden angepasst. Insgesamt betrachtet wächst das Erwerbsangebot sogar. Was stimmt ist das heute mehr Flexibilität und Lernbereitschaft verlangt wird. Um auf die dynamischen Marktveränderungen reagieren zu können muss das Unternehmen selbst flexible sein und mit neuen Produkten und disruptiven Geschäftsmodellen punkten. Der Bedarf der Märkte muss schnell erkannt und am besten sogar vorhergesagt werden um nicht nur mit passenden Produkten reagieren, sondern auch agieren zu können. 
+
+Dies setzt natürlich verschiedenste Eigenschaften bei den Mitarbeitern voraus. Dazu gehört das lebenslange Lernen, das in diesem Zusammenhang für alle am wirtschaften Prozess Beteiligen zur unvermeidlichen Realität geworden ist. Dies haben wir der Dynamisierung der Entwicklung durch die Digitalisierung zu verdanken. [Quelle Buch]
+
+### Anforderungen an Digitaltechnik (Verlässlichkeit und Effizienz)
+
+Die Anforderungen an Digitaltechnik sind hoch und dies ist auch gut so weil sie inzwischen in so gut wie allen Bereichen zu finden ist. Digitaltechnik wird genutzt um technisch die Wirtschaft, Wissenschaft, öffentliches und privates Leben zu steuern kontrollieren und überwachen. Essenzielle Bereiche wie Sicherheit, Gesundheit, Energieversorgung, Produktion, Mobilität, Kommunikation und Median werden so betrieben. Der breitgefächerte Einsatz sorgt für die hohen Anforderungen. Hinsichtlich der Effizienz von Systemen wurden in den letzten Jahren große Fortschritte gemacht. Dabei setzt sich die Effizienz aus unterschiedliche Aspekten zusammen.
+* Energieverbrauch: Elektroartikel werden immer sparsamer. Dieser Trend wird durch den Umweltschutz und Kostenreduktion vorangetrieben. Bei mobilen Geräten und Wearables ist natürlich eine möglichste lange Akkulaufzeit wünschenswert. Durch die schon angesprochenen neuen Fertigungstechniken bei der CPU Fertigung wurde nicht nur die Anzahl der Transistoren enorm angehoben, sondern auch der Energieverbrauch gesenkt bzw. trotz Leistungssteigerung im herkömmlichen Bereichen gehalten.
+* Codegröße und Speicherplatz: Der Source-Code von Programmen wird häufig in Richtung geringer Laufzeit optimiert jedoch auch auf die Größe wird geachtet. Niemand möchte eine Festplatte für sein Smartphone benötigen. Weil diese anfällig gegenüber Stößen und Erschütterungen ist. Des Weiteren ist allgemein die Datendichte auf unterschiedlichsten Datenträgern stark angestiegen während die Preise gefallen sind. Vor wenigen Jahren war eine herkömmliche SSD (Solid-State-Drive) ein Luxus für Privatpersonen und inzwischen gibt es Laptops die gar keine HDD (Hard-Disk-Drive) mehr verwenden. Durch diesen Fortschritt können tausende von Bilder, Musikstücken und Dateien z.B. auf einem simplen USB-Stick gespeichert werden.
+* Laufzeit: Niemand wartet gerne. Warten ist Zeitverschwendung und in der Wirtschaft ist wie allseits bekannt Zeit mit Geld aufzurechnen. Außerdem wird mit geringeren Laufzeit automatisch der Energieverbrauch gesenkt. Aber auch für den Aspekt der funktionalen Sicherheit ist dieser Punkt extrem wichtig. In Systemen in denen harte Echtzeitbedingungen eingehalten werden müssen hängen davon ggf. Menschenleben ab. Wenn eine harte Zeitbedingung verletzt wird ist dies als ein Fehler zu betrachten, z.B. Lenkung eines Automobiles. Bei weichen Echtzeitbedingung wie z.B. einem Videodecoder eines Streams ist es lediglich wichtig das die Zeitbedingung im statistischen Rahmen liegt. Kurzzeitiges ruckeln des Stream gefährden keine Menschenleben oder die Unversehrtheit von Maschinen in Produktionsstraßen.
+* Gewicht und Größe: Allgemein wird Elektronik immer kleiner und damit auch leichter. Früher waren Computer so groß wie ganze Räume und wogen Tonnen und nicht ein paar Gramm wie heutige Prozessoren. Dies führt auch dazu das Geräte leicht tragbar sind und somit auch leicht verbaubar. Besonders wichtig ist dieser Aspekt bei Alltagsgegenständen wie Smartphone, Smartwatch oder Wearables die ständig direkt am Körper mitgeführt werden. Wenn z.B. Satelliten von Rakete in den Orbit befördert werden zählt jedes Gramm um den erforderten Treibstoff zu reduzieren.
+* Preis: Der häufig wichtigste Punkt bei einem System. Er beeinflusst in der Regel alle anderen Aspekte. Generell kann gesagt werden, dass der Preis von Elektronikartikeln stark gesunken ist. Vor allem wurde das Preis-Leistungs-Verhältnis verbessert. Ein einzelnes Smartphone besitzt zehnmal so viel Leistung wie ein 25 Jahre alter Computer. [Quelle ES Buch]
+
+Es existieren noch weitere Anforderungen, die hinsichtlich der Verlässlichkeit von Systemen betrachtet werden.
+* Zuverlässigkeit: Viele Systeme im Umfeld des Menschen dürfen schlichtweg nicht ausfallen. Um dies zu realisieren gibt es drei generelle Möglichkeiten. Es werden Ersatzkomponenten bereitgestellt, die bei einem Ausfall die Funktion übernehmen. Beispielsweise ein Notstromgenerator für ein Rechenzentrum. Eine weitere Möglichkeit ist die Verwendung von parallelen arbeitende Komponenten, welche die zusätzliche Belastung im Fehlerfall übernehmen können. Beispielsweise Mehrstrahliges Flugzeug. Als dritte Möglichkeit können verschiedene Prinzipien genutzt werden um eine Funktionalität abzusichern. Dies könnte z.B. durch die Verwendung von elektronischen und mechanischen Messgeräten realisiert werden. Dazu kommt, dass z.B. in einem Flugzeug mehrere Systeme Werte wie Flughöhe etc. ermitteln und dort ein Mehrheitsentscheid durch die Systeme getroffen wird, wenn die Ergebnisse der Systeme sich unterscheiden.
+* Wartbarkeit: Falls es mal bei hoch kritischen Systemen zu einem Ausfall kommt sollten sich das Problem schnell ermitteln lassen und daraufhin auch schnell reparieren lassen. Wenn z.B. die Server-Systeme einer Bank nicht funktionstüchtig sind lähmt dies das gesamte Unternehmen was im schlimmsten Fall zur Insolvenz führen kann. Es sollte auch darauf geachtet werden, dass das System von Benutzern mit unterschiedlichem Wissenstand bedient bzw. gewartet wird. Für den Austausch einer Grafikkarte im Desktop-Computer sollte man also kein Elektrotechnikstudium benötigen. 
+* Verfügbarkeit: Eine hohe Verfügbarkeit setzt sich aus den Aspekten Wartbarkeit und Zuverlässigkeit zusammen. Je besser diese beiden Aspekte sind um so höher ist die Verfügbarkeit eines Systems.
+* Funktionale Sicherheit oder Betriebssicherheit (Safety): Wie schon bei dem Aspekt der Laufzeit angesprochen ist die funktionale Sicherheit ein wichtiger Punkt. Es sollten keine Schäden an Mensch oder Maschine entstehen, wenn ein System ausfällt oder ein Fehler auftritt. Leider hört man jedoch immer noch an Unfällen in den Menschen im Alltag durch Maschinen wie automatischen Drehtüren verletzt werden. Grade mit dem aktuellen Thema des automatisierten Fahrens steht dieser Punkt im Fokus. 
+* Integrität (Security): Die Gewährleistung von Daten- und Kommunikationssicherheit ist ein weiterer extrem wichtigerer Punkt. Eng verknüpft mit dem Datenschutz und der Privatsphäre. Niemand hört gerne das groß Konzerne die Chat-Nachrichten oder E-Mails, die man an seine Freunde und Familie schickt mitlesen, analysieren und kategorisieren. Damit anschließend, im harmlosesten Fall, maßgeschneiderte Werbung geschaltet werden kann. [Quelle ES Buch]
+
+Am Beispiel des automatisierten Fahrens lässt sich die Abhängigkeit von Digitaltechnik gut verdeutlichen. Damit bedenkenlos die Hände vom Lenkrad genommen werden können müssen riesige Datenmengen erfasst und ausgewertet. Eine Vielzahl von Steuerungsgeräten muss verlässlich miteinander kommunizieren und interagieren. Dazu kommen dann noch Daten die das Auto selbst nicht erfasst, sondern nur empfängt und nutzt. Beispielsweise GPS-Positionsdaten über Stellite und Informationen anderer autonom fahrender Fahrzeuge. Diese Abhängigkeit zieht sich durch sämtliche Bereiche. Beispielweise Informations- und Kommunikationstechnik, Gesundheitstechnik, Logistik und Sicherheitssysteme. Die Digitaltechnik dient somit als fundamentaler Bestandteil der technisch orientierten Zivilisationen.
+
+Grade die beiden oben beschrieben Aspekte Safety und Security stellen große Herausforderungen und Probleme dar und deshalb lassen sie sich als Kernthemen der Digitalisierung festgelegen. Dafür muss darauf geachtet werden, dass die Systeme so gestaltet werden, dass sie ausnahmslos im Interesse der Menschen funktionieren, agieren und reagieren. In der heutigen Welt werden praktisch alle Informationen digital gespeichert und transportiert. Dabei werden diese Daten nicht nur von den Menschen konsumiert, sondern auch erzeugt bzw. generiert. Auch Maschinen erzeugen Daten während sie im Einsatz sind und ermitteln ständig ihre Umgebung. In den letzten Jahren ist die Anzahl der Daten immer weitergewachsen und es scheint auch kein Ende in Sicht. Selbst wer aktiv versucht keine digitalen Spuren zu erzeugen kann sich kaum davor Schützen. Es ist praktisch unmöglich in der westlichen Welt zu leben ohne das Unternehmen und Staat Profile zu einem anlegen oder in der Lage dazu wären. Dies geschieht schon durch Kameras in der Öffentlichkeit und Überwachungssysteme. Auch besitzt praktisch jeder Bürger ein Bankkonto wo das Gehalt hin überwiesen wird oder ein Auto das eine Versicherung benötigt und ein Smartphone, mit dem im schlimmsten Fall die Privatsphäre regelrecht gläsern werden kann. Von großen Sozialen-Medien werden sogar angeblich Profile zu Personen erzeugt, die nicht einmal Benutzer der Plattform sind. Dies passiert z.B., wenn ein Foto hochgeladen wird das eine Person zeigt, die nicht Benutzer der Plattform ist. Solche Praktiken verstoßen jedoch zum Glück gegen geltendes Recht was sich aber schwer durchzusetzen ist. Der artigen personenbezogenen Daten bzw. Informationen besitzen wirtschaftlichen Wert und damit wird folglich auch gehandelt. Sie gehören wie auch die nicht personenbezogene Daten heute schon zu den wichtigsten Waren des 21. Jahrhunderts. Man spricht sogar vom s.g. „Informationszeitalter“. Angriffe auf die Security von IT-Systemen werden immer ausgefeilter und mit wachsender Komplexität von Systemen wird es auch immer schwieriger sich vor solchen zu schützen. Es besteht also im Punkto Sicherheit ein permanenter Forschungsbedarf. Grade bei Cyberangriffen und Maßnahmen gegen diese handelt sich um ein ständiges Wettrüsten. 
+
+Daraus folgt, dass Mitarbeiter und Fachleute in solchen Bereichen das schon angesprochene lebenslange Lernen in ihrem Berufsleben ausüben müssen. Auch muss bei den Beteiligten ein ausgeprägtes Sicherheitsbewusstsein entstehen. Grade im Bereich des Datenschutzes und der digitalen Sicherheit ist es wichtig auch in der Gesellschaft und Politik eine Sensibilisierung durchzuführen. In Zukunft sollte es genau so selbstverständlich sein, dass man seine Daten schützt wie das Abschließen des Autos oder der Haustür. Je stärker eine Technologie dezentralisiert wird umso mehr Verantwortlichkeit liegt bei den Anwendern. Dabei bezieht sich die Verantwortlichkeit nicht nur auf Sicherheit, sondern auch auf die ethischen Hintergründe. [Quelle Buch]
 
 
+
+## Digitalisierung - Anwendungsfelder und Forschungsziele
+
+## Virtuelle Realität in Medien und Technik
+
+## Verarbeitung von Videodaten
+
+## Audiocodecs
+
+## Digitaler Rundfunk
+
+## (5G-Datentransport mit Höchstgeschwindigkeit)
+
+## Industrial Data Space
+
+## Future Work Lab
+
+## Cyber-Physische Systeme
+
+## (Leitprojekt "Go Beyond 4.0")
+
+## Kognitive Systeme und Robotik
+
+## (Fraunhofer-Allianz Big Data)
+
+## Safety und Security
+
+## Ausfallsichere Systeme
+
+## (Blockchain)
+
+## E-Health
+
+## Smart Energy
+
+## Advanced Software Engineering
+
+## Automatisiertes Fahren
+
+<!-- COMMENT!
+
+Ein
+
+<img src="./images/merkle_tree.png" width="400">
+
+Aufbau eines einzelnen Blocks.
+Abbildung entnommen und angepasst aus
+<a>[[VUJI18]](#ref_VUJI18)</a>
+
+
+# Literaturverzeichnis
+<a name="ref_abey16">[ABEY16]</a>:Abeyratne, Saveen ; Monfared, Radmehr: Blockchain Ready Manufacturing Supply Chain Using Distributed Ledger. International Journal of Research in Engineering and Technology. 05. 2016
+
+<a name="ref_beck16">[BECK16]</a>:Beck, Roman ; Stenum Czepluch, Jacob; Lollike, Nikolaj; and Malone, Simon: BLOCKCHAIN – THE GATEWAY TO TRUST-FREE CRYPTOGRAPHIC TRANSACTIONS. Twenty-Fourth European Conference on Information Systems (ECIS), İstanbul,Turkey, 2016. Springer Publishing Company, 2016. p. 1-14.
+
+<a name="ref_Beck17">[BECK17]</a>: Beckel, Christoph: Skalieren Blockchains? Sorgen und Lösungsansätze, 2017, URL: http://site.blocklab.de/2017/Skalierung/ (letzter Zugriff: 12.05.2018)
+
+<a name="ref_bigg18">[BIGG18]</a>: Biggs, John (Techcrunch) : Exit scammers run off with $660 million in ICO earnings. Web-Quelle, 2018,
+[https://techcrunch.com/2018/04/13/exit-scammers-run-off-with-660-million-in-ico-earnings/](https://techcrunch.com/2018/04/13/exit-scammers-run-off-with-660-million-in-ico-earnings/) (letzter Zugriff: 13.05.2018)
+
+-->

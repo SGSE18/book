@@ -74,7 +74,7 @@ Smart Contract / Business Model | ja | ja | nein | nein | ja
 SDK | Go, Node.JS, Java | Python, Go, Javascript | gRPC API | - | Solidity
 
 #### Fabric
-Hyperledger Fabrik ist ein Distributed Ledger Framework für *permissioned*
+Hyperledger Fabric ist ein Distributed Ledger Framework für *permissioned*
 Blockchains, zum Ausführen von verteilten Applikationen unter der Verwendung
 von Standard Sprachen wie Go, Java oder Javascript <a>[[ANDR18]](#ref_andr18)</a>.
 
@@ -146,7 +146,7 @@ werden.
 ##### Client
 Wie bei klassischen Client-Server-Architekturen stellt der Client, auch im
 Hyperledger Fabric Kontext, die vom Nutzer lokal ausgeführte Applikation dar.
-Für diesen Zweck stellt das Hyperledger Fabric Framework, eine Client-Bibliothek
+Für diesen Zweck stellt das Hyperledger Fabric Framework eine Client-Bibliothek
 bereit, mit dem die Applikation mit den Peers und Ordering Services interagieren
 kann.
 
@@ -183,8 +183,8 @@ Smart Contract die Gelegenheit die eigenen State-Variablen im Distributed Ledger
 zu initialisieren.
 Jede Invoke-Transaktion eines Smart Contracts wird von der Methode *Invoke(...)*
 behandelt. Über die Eigenschaften in dem Parameter *stub* kann ermittelt werden,
-welche Funktionen des Smart Contracts mit welche Argumenten aufgerufen wurde, um
-die gewünschte Aktion vorzunehmen.
+welche Funktionen des Smart Contracts mit welchen Argumenten aufgerufen wurde,
+um die gewünschte Aktion vorzunehmen.
 
 ##### Transaktion-Workflow
 Abfragen vom Distributed Ledger werden umgehend vom Peer beantwortet. Für
@@ -203,7 +203,7 @@ Abbildung 8.4.2.3 - Chaincode Aufruf (Quelle: <a>[[FABR18]](#ref_fabr18)</a>)
 
 Der Client sammelt die Bestätigungen der einzelnen Peers und überträgt diese
 samt Antrag an den Ordering Service. Erst mit der Übertragung des Antrags an den
-Ordering Service, wird der Änderungsprozess eingeleitet. Der Ordering Service
+Ordering Service wird der Änderungsprozess eingeleitet. Der Ordering Service
 sammelt die Anträge von allen Applikationen, verpackt diese in einen Block und
 überträgt diese schliesslich an alle Peers. Die Peers hängen anschließend den
 Block an den jeweils lokalen Ledger und aktualisieren den State. Wenn alle Peers
@@ -240,7 +240,7 @@ Contracts, wird die implementierte Applikation nicht in das Blockchain-Netzwerk
 zur Ausführung auf den Peers ausgeliefert. Stattdessen wird der Transaction
 Processor eigenständig ausgeführt und registriert sich bei den Peers zur
 Verarbeitung von Transaktionen eines bestimmten Typs (*Transaction Family*).
-Dabei gibt die Client Applikation in der Transaktion an, um welche Typ von
+Dabei gibt die Client Applikation in der Transaktion an um welche Typ von
 Transaktion es sich handelt und serialisiert die Applikationsdaten in den
 Payload der Transaktion. Daher kann das Netzwerk an Validatoren als Tunnel
 zwischen dem Client und dem Transaction Processor betrachtet werden,

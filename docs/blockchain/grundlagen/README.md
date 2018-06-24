@@ -225,19 +225,19 @@ Schlüsseltransport (asymmetrische Verfahren):
 ### Zero knowledge Proofs
 Autor: Lukas Stuckstette
 
-Ein zero-knowledge proof (im Folgenden ZKP), teilweise auch als zero-knowledge protocol bezeichnet, stellt eine Methode der Kryptographie dar, welche es einem Individuum ermöglicht einer zweiten Partei zu beweisen, dass es ein Geheimnis kennt/ eine Behauptung wahr ist - ohne dabei Informationen über das Geheimnis/die Behauptung preis zu geben.
+Ein zero-knowledge proof (im Folgenden ZKP), teilweise auch als zero-knowledge protocol bezeichnet, stellt eine Methode der Kryptographie dar, welche es einem Individuum ermöglicht einer zweiten Partei zu Beweisen, dass es ein Geheimnis kennt/ eine Behauptung wahr ist - ohne dabei Informationen über das Geheimnis/die Behauptung preis zu geben.
 ZKPs wurden erstmals 1985 von Shafi Goldwasser, Silvio Micali und Charles Rackoff in dem wissenschaftlichen Papier "The Knowledge Complexity of Interactive Proof-Systems" beschrieben.
 <a>[[EWAN11]](#ref_ewan11)</a>
 
 
 #### Abstraktes Beispiel
 Anders als bei üblichen Beispielen in der Kryptographie wird bei ZKPs nicht von Alice und Bob gesprochen, sondern von Peggy (prover ~= Beweisender) und Victor (verifier = Verifizierer).
-Um zunächst ein grobes Verständnis für ZKPs zu erlangen, lohnt es sich einen Blick auf das wissenschaftliche Papier "How to Explain Zero-Knowledge Protocols to Your Children" von J.-J. Quisquater zu werfen.
+Um zunächst ein grobes Verständnis für ZKPs zu erlangen, lohnt es sich einen Blick auf das wissenschaftliche Papier "How to Explain Zero-Knowledge Protocols to Your Children" von J.J. Quisquater zu werfen.
 Das Paper enthält Beispiele von ZKPs in form von Geschichten - im folgenden wir die Geschichte von Ali Babas Höhle erläutert:
 
 The Strange Cave of Ali Baba:
 
-Peggy (in der Abbildung lila) möchte Victor (in der Abbildung grün) beweisen, dass sie das Kennwort für eine geheime Tür kennt, welche Abschnitte A und B verbindet. Sie möchte jedoch nicht beim öffnen der Tür gesehen werden, da niemand die Öffnungsmethode bzw. das Kennwort sehen/mithören soll. Zu beginn der Geschichte steht also Victor am Ausgang der Höhle und Peggy wählt zufällig ob sie Gang A oder B betritt.
+Peggy (in der Abbildung lila) möchte Victor (in der Abbildung grün) beweisen, dass sie das Kennwort für eine geheime Tür kennt, welche Abschnitte A und B verbindet. Sie möchte jedoch nicht beim öffnen der Tür gesehen werden, da niemand die Öffnungsmethode bzw. das Kennwort sehen/mithören soll. Zu Beginn der Geschichte steht also Victor am Ausgang der Höhle und Peggy wählt zufällig ob sie Gang A oder B betritt.
 
 <p align="center">
 <img src="https://upload.wikimedia.org/wikipedia/commons/d/dd/Zkip_alibaba1.png" width="60%" alt="Bild: Victor wartet vor der Höhle. Peggy wählt Gang A oder B." />
@@ -253,7 +253,7 @@ Nun geht Victor ebenfalls in die Höhle und  verlangt, dass Peggy aus einem von 
 
 Abbildung entnommen aus <a>[[WIKI18c]](#ref_wiki18c)</a>
 
-Im Falle, dass Peggy nach n Druchläufen jedes mal auf der gewünschten Seite erscheint, kann sich Victor mit einer Wahrscheinlichkeit von  $1-2^{-n}$ sicher sein, dass Peggy das Geheimnis der Höhle kennt.
+Im Falle, dass Peggy nach n Durchläufen jedes mal auf der gewünschten Seite erscheint, kann sich Victor mit einer Wahrscheinlichkeit von  1-2^(-n) sicher sein, dass Peggy das Geheimnis der Höhle kennt.
 
 <p align="center">
 <img src="https://upload.wikimedia.org/wikipedia/commons/a/a1/Zkip_alibaba3.png" width="60%" text="Bild: Peggy kommt aus dem gewünschten Gang." />
@@ -261,7 +261,7 @@ Im Falle, dass Peggy nach n Druchläufen jedes mal auf der gewünschten Seite er
 
 Abbildung entnommen aus <a>[[WIKI18c]](#ref_wiki18c)</a>
 
-Anderen Gegenüber würde der Beweis jedoch nicht standhalten, da sich Peggy und Victor abgesprochen haben könnten. Ebenfalls könnte Peggy Victor direkt Beweisen, dass sie das Geheimnis kennt, indem sie Victor an der Kreuzung zeigt in welchen Gang sie geht und anschließend eine Runde läuft. Jedoch kann sie Beobachtern gegenüber nicht mehr abstreiten das Geheimnis zu kennen.
+Anderen gegenüber würde der Beweis jedoch nicht standhalten, da sich Peggy und Victor abgesprochen haben könnten. Ebenfalls könnte Peggy Victor direkt Beweisen, dass sie das Geheimnis kennt, indem sie Victor an der Kreuzung zeigt in welchen Gang sie geht und anschließend eine Runde läuft. Jedoch kann sie Beobachtern gegenüber nicht mehr abstreiten das Geheimnis zu kennen.
 <a>[[QUIS90]](#ref_quis90)</a>
 
 #### Definition
@@ -281,10 +281,10 @@ Falls die Behauptung wahr ist, gewinnt kein Verifizierer irgendwelche Informatio
 #### Konkretes Protokoll-Beispiel am Beispiel vom diskreten Logarithmus
 Peggy möchte Victor Beweisen, dass sie den diskreten Logarithmus eines gegebenen Wertes kennt.
 In unserem Beispiel sei gegeben:
-- gegebener Wert y
-- große Primzahl p
+- Gegebener Wert y
+- Große Primzahl p
 - Generator g (group-theory)
-- diskreter Logarithmus x so dass gilt g^x mod p = y
+- Diskreter Logarithmus x so dass gilt g^x mod p = y
 
 In jeder Runde dieses runden-basierten Protokolls generiert Peggy eine Zufallszahl r, berechnet
 C = g^r mod p und sendet C an Victor. Nachdem Victor C erhalten hat, wählt er zufällig eine von
@@ -292,7 +292,7 @@ zwei Anfragen:
 1. Victor verlangt das Senden von r
 2. Victor verlangt das Senden von (x+r)mod(p-1)
 
-Nachdem Victor Peggys Antwort erhalten hat, kann er je nach Anfrage die korrektheit der Antwort bestimmen:
+Nachdem Victor Peggys Antwort erhalten hat, kann er je nach Anfrage die Korrektheit der Antwort bestimmen:
 
 1. Falls Anfrage r : Ist g^r mod p gleich C?
 2. Falls Anfrage (x+r)mod(p-1) : Ist g^{(x+r)mod(p-1)}mod p gleich C?
@@ -303,7 +303,7 @@ Falls Peggy den Wert von x kennt, kann sie in jedem Fall antworten. Falls sie de
 2. Bei Anfrage von (x+r)mod(p-1):  generiere neues r' und sende C' = g^{r'}(g^x)^{-1}
 
 Da Peggy jedoch die Reihenfolge nicht kennt, müsste sie bei einer unerwarteten Anfrage den diskreten Logarithmus errechnen, was ein NP-vollständiges Problem darstellt und nicht in trivialer Zeit gelöst werden kann.
-Aus dieser Tatsache ergibt sich pro Runde eine Wahrscheinlichkeit von 50%, dass Peggy den wert von x nicht kennt. Durch eine hohe anzahl an Runden lässt sich so faktisch ausschließen, dass Peggy den Wert von x nicht kennt.
+Aus dieser Tatsache ergibt sich pro Runde eine Wahrscheinlichkeit von 50%, dass Peggy den Wert von x nicht kennt. Durch eine hohe Anzahl an Runden lässt sich so faktisch ausschließen, dass Peggy den Wert von x nicht kennt.
 <a>[[CHAU88]](#ref_chau88)</a>
 
 #### Anwendung von  ZKPs in der Blockchain
@@ -488,7 +488,7 @@ In der Praxis zeigt sich allerdings ein anders Bild. Der Proof-of-Stake zeigte s
 Großinvestoren im Allgemeinfall einen ökonomischen Anreiz haben die Blockchain frei von forks zu halten, so gibt es keinen eingebauten
 mechanischen Mechanismus der Miner davon abhält jeden Block zu validieren um an die Blockreward zu gelangen. <a>[[SIIM17]](#ref_siim17)</a>
 
-###m Practical Byzantine Fault Tolerance
+#### Practical Byzantine Fault Tolerance
 Der Practical Byzabtibe Fault Tolerance (PBFT) ist der erste hier vorgestellte Konsens-Algorithmus welchem Nodes nicht frei beitreten können (permissioned).
 Während bei PoW und PoS jeder Computer im Netzwerk beim Finden eines neuen Blockes mithelfen kann, so gibt es beim PBFT ein zentrales Netzwerk an
 Nodes, welche die Entscheidung über einen neuen Block treffen. Diese Nodes wurden von einer zentralen Organisation oder Komitee bestimmt. Diese
