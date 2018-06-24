@@ -470,12 +470,20 @@ Möglichkeit einen initialen Wert zu emitten weil keine View gerendert wurde und
 Stream emitted wird.  
 Die `startWith()` Methode emitted auf dem Stream ein initialen Wert, welche als Startpunkt für die View genutzt werden kann.
 
-
-
-
+Zuletzt wird der Wert des Streams auf die DOM Elemente gemapped. Zusammengefasst sammelt der `sink$` Stream Events von einer Checkbox, wandelt
+die Events auf dem Stream in `true` oder `false` um, initialisiert den Stream mit einem `false` und mapped diese Werte auf ein div Element, welches
+die Checkbox besitzt von der die Events stammen und einen Paragraphen, der je nach dem welcher Wert auf dem Stream emitted wird auf "ON" oder "off"
+geschaltet werden kann.  
+Dieser `sink$` Stream wird von der `main()` Methode returned und dient als eingabe für den Driver, welcher wiederum das `source` Objekt der `main()`
+Methode bildet. 
 
 
 ### Side effects
+Aufgrund der Trennung von Nebeneffekten wie Lesen einer Datei, Manipulieren des DOMs oder Abschicken eines HTTP-Requests von der reinen Logik des
+Programmes, stellt CycleJS funktionales Framework dar. Die folgende Abbildung verdeutlicht den vorherigen Abschnitt und zeigt gut die Trennung von
+Logik zu Nebeneffekten:
+
+![Cycle Konzept](./images/cycleSideEffects.svg "Konzept von CycleJS")
 
 ### Sample Code
 
