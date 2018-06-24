@@ -1,4 +1,5 @@
 # Digitalisierung
+Autor: Björn E.-M.
 
 ## Einleitung und Definition
 
@@ -148,9 +149,7 @@ Daraus folgt, dass Mitarbeiter und Fachleute in solchen Bereichen das schon ange
 
 <!-- COMMENT!
 
-### Merkle Tree
-
-Ein Merkle Tree ist eine Datenstruktur, welche auf einem Binär-Baum basiert. Bei einem Merkle Tree wird in jeder Ebene eine One-Way-Hash-Funktion verwendet, um den Baum und die Blätter vor Manipulation oder Fehlern zu schützen. Häufig wird daher der Merkle Tree auch Hash-Baum genannt. Die Funktionsweise innerhalb einer Blockchain ist wie folgt: Jeder Block der Blockchain hält entweder einen Hash-Baum oder die Wurzel des Baums. Für eine Blockchain werden als Blätter die abzusichernden Transaktionen verwendet. Die Knoten direkt über den Transaktionen werden mit der Hash-Funktion erzeugt. In der darüberliegenden Ebene werden jeweils zwei Knoten zusammengeführt, indem für die Hash-Werte der beiden Knoten ein 3. Hash-Wert erzeugt wird. Dieser Prozess wird fortgesetzt, bis sich in der höchsten Ebene nur noch ein Knoten befindet (die s.g. Wurzel bzw. Root-Hash des Hash-Baums). In der folgenden Abbildung ist der Vorgang nochmal verdeutlicht:  
+Ein
 
 <img src="./images/merkle_tree.png" width="400">
 
@@ -161,22 +160,6 @@ Abbildung entnommen und angepasst aus
 
 # Literaturverzeichnis
 <a name="ref_abey16">[ABEY16]</a>:Abeyratne, Saveen ; Monfared, Radmehr: Blockchain Ready Manufacturing Supply Chain Using Distributed Ledger. International Journal of Research in Engineering and Technology. 05. 2016
-
-<a name="ref_Ande16">[ANDE16]</a>: Andersen, Nicolai: Vorstellung der
-Blockchain-Technologie
-„Hallo, Welt!”, Deloitte, 03.2016, URL: https://www2.deloitte.com/content/dam/Deloitte/de/Documents/Innovation/Vorstellung%20der%20Blockchain-Technologie.pdf (letzter Zugriff: 03.05.2018)
-
-<a name="ref_apte16">[APTE16]</a>:Apte, Shireesh: Will blockchain technology revolutionise excipient supply chain management?. Journal of Excipients and Food Chemicals, [S.l.], v. 7, n. 3, p. 76-78, 2016. ISSN 21502668.
-
-<a name="ref_arvi13">[ARVI13]</a>:Narayanan, Arvind: What Happened to the Crypto Dream?, Part 1. in IEEE Security & Privacy, Vol. 11, No. 2, pp.75-76, 2013., DOI: 10.1109/MSP.2013.45
-
-<a name="ref_bagc05">[BAGC05]</a>:Bagchi, Prabir K. ; Chun Ha , Byoung ; Skjoett‐Larsen, Tage ; Soerensen, Lars Boege:Supply chain integration: a European survey. The International Journal of Logistics Management, Vol. 16 Issue: 2, pp.275-294, 2005. DOI: 10.1108/09574090510634557
-
-<a name="ref_Bala12">[BALA12]</a>: Balachandran, Nitish; Sanyal, Sugata: A Review of Techniques to Mitigate Sybil Attacks, URL: https://arxiv.org/ftp/arxiv/papers/1207/1207.2617.pdf (letzter Zugriff: 10.05.2018)
-
-<a name="ref_Bast18">[BAST18]</a>: Bastiaan, Martijn: Preventing the 51%-Attack: a Stochastic Analysis of Two Phase Proof of Work in Bitcoin, URL: http://fmt.cs.utwente.nl/files/sprojects/268.pdf (letzter Zugriff: 13.05.2018)
-
-<a name="ref_BBVA17">[BBVA17]</a>: From Alan Turing to cyberpunk: the history of blockchain, BBVA, 05.12.2017, URL: [https://www.bbva.com/en/alan-turing-cyberpunk-history-blockchain/](https://www.bbva.com/en/alan-turing-cyberpunk-history-blockchain/) （letzter Zugriff: 13.05.2018）
 
 <a name="ref_beck16">[BECK16]</a>:Beck, Roman ; Stenum Czepluch, Jacob; Lollike, Nikolaj; and Malone, Simon: BLOCKCHAIN – THE GATEWAY TO TRUST-FREE CRYPTOGRAPHIC TRANSACTIONS. Twenty-Fourth European Conference on Information Systems (ECIS), İstanbul,Turkey, 2016. Springer Publishing Company, 2016. p. 1-14.
 
