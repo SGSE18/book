@@ -114,11 +114,6 @@ welche als Parameter eine Funktion übergeben bekommt. Die übergebene Funktion 
 oder aussortiert werden.
 
 
-### Vorteile
-
-
-### Nachteile
-
 
 ## Reactive Programming
 
@@ -450,7 +445,8 @@ Der Nutzer klickt auf die CheckBox, was bei jedem Klick ein `Change` Event hervo
 Checkbox nun ein komplettes Event. Da für die Anwendung nur der mit dem Event assoziierte Wert von bedeutung ist, muss der Stream mit dem
 `map()` Operator manipuliert werden. 
 
-sink$: -----x--------x-------x------x---------x---->    
+sink$: -----x--------x-------x------x---------x---->
+
 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;map()  
 sink$:----true----false-----true---false-----true-->
 
@@ -459,6 +455,7 @@ abwechselnd `true` oder `false`.
 Nachdem das Event auf den Wert gemapped worden ist, wird der Stream mit dem `startWith()` Operator initialisiert.  
 
 sink$:---------true----false-----true---false-----true-->  
+
 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;startWith(false)    
 sink$:false----true----false-----true---false-----true-->
 
@@ -484,7 +481,234 @@ Programmes, stellt CycleJS funktionales Framework dar. Die folgende Abbildung ve
 Logik zu Nebeneffekten:
 
 ![Cycle Konzept](./images/cycleSideEffects.svg "Konzept von CycleJS")
+Die Sources, welcher der Main Funktion zur Verfügung gestellt werden diesen als Eingabewert. Dieser Eingabewert wurde von den Drivern erstellt und
+kann das Lesen einer Datei, ein HTTP-Request oder ähnliche Operationen sein, welcher Nebeneffekte haben können. Dadurch, dass die `main()` Funktion
+keinerlei State oder Nebeneffekte abhandeln muss, wird es sehr leicht Tests für ein CycleJS Programm zu schreiben. Eingabestreams von Sourcen können
+leicht gemockt werden und die Ausgabe über den Sinkstream kann mit der Erwarten Ausgabe verglichen werden.  
+Es muss nicht wie im Objektorientierten Umfeld eine Funktion aus dem Kontext gerissen werden und ein State nachgebildet werden, unter welchem
+die Funktion richtige Ausgaben produziert.
 
-### Sample Code
+### Erstellung von Komponenten
+Wie in anderen Frameworks auch, erlaubt CycleJS die Erstellung von wiederverwertebaren Komponenten. Wie die `main()` Funktion in einer CycleJS
+Anwendung, besteht eine Komponente ebenfalls aus einer einzelnen Funktion. Diese Funktion erhält auch Eingabewerte über ein Sources Objekt und
+gibt mit dem Sink Objekt eine Ausgabe zurück. Dadurch entsteht eine Art fraktales Desgin bei der Erstellung einer CycleJS Applikation, wo
+die Komponenten selbst eine kleine CycleJS Applikation darstellen.  
+![Cycle Konzept](./images/nested-components.svg "Konzept von CycleJS")
+Komponenten erhalten über einen `props$` Stream alle Informationen, welche zur Erstellung der Komponente nötig sind. Dieser `props$` Stream wird
+zusätzlich zu dem Source Stream übergeben, welches die Komponenten von seiner Parentkomponente erhält. So erhält die Komponente zugriff auf die
+in der Parentkomponente definierten Driver und kann beispielsweise dazu dienen HTTP-Request zu rendern. Über den `props$` Stream würde die 
+Childkomponente mitgeteilt bekommen, auf welchen HTTP-Request es lauschen soll. So können verschiedene dieser Komponenten instanziiert und
+individuell konfiguriert werden.   
+Die Ausgabe einer solchen Komponente wäre ein Sink Stream, welcher einen viruellen DOM beinhaltet. Diese virtuellen DOM Streams können in der
+Parentfunktion gebündelt werden und anschließend an den DOM Driver weitergereicht werden, wo die Komponenten gerendert werden.
+
+### Beispiel Komponente
+```javascript
+function main(sources) {
+  const changeWeight$ = sources.DOM.select('#weight').events('input')
+    .map(ev => ev.target.value);
+  const changeHeight$ = sources.DOM.select('#height').events('input')
+    .map(ev => ev.target.value);
+
+  const state$ = Observable.combineLatest(
+    changeWeight$.startWith(70),
+    changeHeight$.startWith(170),
+    (weight, height) => {
+      let heightMeters = height * 0.01;
+      let bmi = Math.round(weight / (heightMeters * heightMeters));
+      return {weight, height, bmi};
+    }
+  );
+
+   const vdom$ = state$.map(({weight, height, bmi}) =>
+     div([
+       div([
+         'Weight ' + weight + 'kg',
+         input('#weight', {
+           attrs: {type: 'range', min: 40, max: 140, value: weight}
+         })
+       ]),
+       div([
+         'Height ' + height + 'cm',
+         input('#height', {
+           attrs: {type: 'range', min: 140, max: 210, value: height}
+         })
+       ]),
+       h2('BMI is ' + bmi)
+     ])
+  );
+
+  return {
+    DOM: vdom$,
+  };
+}
+
+run(main, {
+  DOM: makeDOMDriver('#main-container')
+});
+```
+
+Im oberen Codebeispiel ist eine BMI Applikation zu sehen, in welcher zwei Slider benötigt werden um den BMI einer Person zu berechnen. Von diesen beiden
+Slidern wird ein Stream von Eingaben erstellt und im `state$` Stream zunächst kombiniert. `combinedLatest()` nimmt dabei als Argumente eine beliebige 
+Anzahl an Streams an und emittet selbst einen Wert, wenn einer der beiden Argumentstreams einen neuen Wert emittet hat. Zusätzlich wird dabei der letzte
+emittete Wert der übrigen Streams ausgegeben. Der `state$` Stream enthält nun alle Werte, welche auf der Oberfläche Angezeigt werden sollen.  
+Das Problem ist, dass bei der Erstellung der Slider Elemente viel Code doppelt geschrieben werden muss. Hier würde sich anbieten eine Sliderkomponente
+zu erstellen, welche eine Codedublizierung verhindert.
+
+
+```javascript
+function LabeledSlider(sources, props$) {
+  const change$ = sources.DOM.select('.slider').events('input')
+    .map(ev => ev.target.value);
+  
+  const initialValue$ = props$.map(props => props.init).first();
+  const value$ = initialValue$.concat(change$);
+
+  const state$ = Observable.combineLatest(value$, props$, (value, props) => {
+    return {
+      label: props.label,
+      unit: props.unit,
+      min: props.min,
+      max: props.max,
+      value: value,
+    };
+  });
+
+  const vtree$ = state$.map(state =>
+      div('.labeled-slider', [
+        label('.label', `${state.label}: ${state.value}${state.unit}`),
+        input('.slider', {type: 'range', min: state.min, max: state.max, value: state.value})
+      ])
+    );
+
+  return {
+    DOM: vtree$,
+    value: state$.map(state => state.value),
+  };
+}
+```
+Die Funktion `LabeledSlider()` erhält über das das `sources` Objekte zugriff auf alle Driver, welche auch das Paraentobjekt hätte. Über die `props$` kann 
+nun der Anfangswert, Min und Max Werte und die Beschriftung des Sliders vergeben werden. Von der Sliderkomponente wird am Ende ein virtueller DOM sowie
+der aktuelle Wert der Komponente zurück an die Parentkomponente gegeben. Die neue Sliderkomponente kann nun in der `main()` Funktion verwendet werden.
+
+```javascript
+function main(sources) {
+  const weightProps$ = Observable.of({
+    label: 'Weight',
+    unit: 'kg',
+    min: 40,
+    max: 150,
+    init: 70
+  });
+
+  const weightSinks$ = LabeledSlider({sources, weightProps$});
+
+  const heightProps$ = Observable.of({
+    label: 'Height',
+    unit: 'cm',
+    min: 140,
+    max: 220,
+    init: 170
+  });
+
+  const heightSinks$ = LabeledSlider({sources, heightProps$});
+
+  const bmi$ = Observable.combineLatest(weightSinks$.value, heightSinks$.value,
+    (weight, height) => {
+      const heightMeters = height * 0.01;
+      const bmi = Math.round(weight / (heightMeters * heightMeters));
+      return bmi;
+    }
+  );
+
+  const vtree$ = Observable.combineLatest(
+    bmi$, weightSink$.DOM, heightSink$.DOM, (bmi, weightVTree, heightVTree) =>
+      div([
+        weightVTree,
+        heightVTree,
+        h2('BMI is ' + bmi)
+      ])
+  )
+
+  return {
+    DOM: vtree$
+  };
+}
+```
+Die `main()` Funktion wurde in diesem Beispiel refactored, um gebrauch von der neu erstellten Sliderkomponente zu machen. Die beiden
+Slider werden nun in `weightSink` und `heightSink` Streams gehalten. Über die `props$` erhalten die beiden Slider ihrer jeweiligen 
+Eigenschaften.  
+Um den BMI zu berechnen, können die beiden Sliderstreams zu einem neuen Stream kombiniert werden, welcher bei jeder Äderung eines Sliders direkt den neuen BMI Wert berechnet und emitted. Zur Darstellung des DOMs werden ebenfalls beide Sliderstreams kombiniert,
+nur wird anstelle des akutellen Wertes der DOM der Sliderkomponente mit dem DOM der Parentkomponente zusammengefügt. Diese Zusammenführung bildet den
+`vtree$` Stream, welcher an der DOM Driver zur Renderung weitergeleitet wird.
+
+### Model-View-Intent Pattern
+Wenn die Labelsliderkomponente betrachtet wird, fällt schnell auf das manche Streams nur der Darstellung dienen und wieder andere eine Art Zustand halten, welcher 
+durch den virtuellen DOM dargestellt wird.  
+Umgangsprachlich werden diese Bestandteile auch View und Model genannt. Die View soll dabei die Daten im Model anzeigen.
+Normalerweise wird bei dem allgemeinen MVC Pattern die View mit einem Controller gepaart, welcher die Aufgabe hat das Model mit der View zu verbinden und das Model durch 
+Eingaben vom Nutzer zu verändern. 
+
+![Cycle Konzept](./images/mvc-diagram.svg "Konzept von CycleJS")
+
+Was zum normalen MVC Pattern nun noch fehlt ist ein Controller, der jeweils die View als auch das Model kennt und bei miteinander vereint. Dies wäre der Objektorinierte
+Ansatz. In einem funktonalem Framkework wie CycleJS gibt es allerdings keine Objekte, die wiederum andere Objekte mit neuen Informationen updaten. Stattdessen
+eignet sich für ein solches Framework das Model-View-Intent Pattern.   
+Das eigentlich neue ist hier nur der Intent-Teil. Mit Intent ist gemeint, was der Nutzer mit einem Klick auf einen Knopf oder das Verschieben eines Reglers im Grundsatz
+erreichen möchte. Am beispiel der Sliderkomponente im BMI Rechner ist der Intent des Benutzers das Einstellen einer neuen Körpergröße oder Körpergewicht. 
+Mit diesem Ansatz kann die Sliederkomponente nocheinmal refactored werden.
+
+```javascript
+function intent(DOMSource) {
+  return DOMSource.select('.slider').events('input').map(ev => ev.target.value);
+}
+
+function model(newValue$, props$) {
+  const initialValue$ = props$.map(props => props.init).first();
+  const value$ = initialValue$.concat(newValue$);
+  return Rx.Observable.combineLatest(value$, props$, (value, props) => {
+    return {
+      label: props.label,
+      unit: props.unit,
+      min: props.min,
+      max: props.max,
+      value: value,
+    };
+  });
+}
+
+function view(state$) {
+  return state$.map(state =>
+      div('.labeled-slider', [
+        label('.label', `${state.label}: ${state.value}${state.unit}`),
+        input('.slider', {type: 'range', min: state.min, max: state.max, value: state.value})
+      ])
+    );
+}
+
+function LabeledSlider(sources) {
+  const action$ = intent(sources.DOM);
+  const state$ = model(action$, sources.props);
+  const vtree$ = view(state$);
+  return {
+    DOM: vtree$,
+    value: state$.map(state => state.value),
+  };
+}
+```
+
+Hier wird das MVI-Pattern gut ersichtlich: Der Nutzer hat die Absicht (Intent), den Slider zu verändern und damit eine neue Eingabe zu veranlassen. 
+Der daraus entstehende Eingaben Stream wird an das Model weitergereicht, welches sich aufgrund der Eingabe verändert. In diesem Fall würde der neue
+Wert vom Slider das `value` Feld aktualisieren. Aufgrund der Änderung im Model wird eine Änderung in der View angestoßen, welche letztendlich von der
+Childkomponete an die Parentkomponete und von dort an den DOM Driver weitergegeben wird.  
+
+![Cycle Konzept](./images/mvi.svg "Konzept von CycleJS")
+
+Dieses Diagram verdeutlicht die Strukur der Komponente sehr gut. Auch in der Sliderkomponente wird aus der Absicht eine vom Benutzer ausgeführte
+Aktion, welche an das Model weitergegeben wird und schlussendlich zur View wird, welche den virtual DOM an den Sink Stream der Komponente weitergibt.
+Zwischen diesen Schritten können Artefakte entstehen, welche ebenfalls für die Parentkomponente bestimmt sein kann und nicht der virtual DOM ist. Im
+Fall der Sliderkomponente wäre dies der momentane Wert der Sliderkomponente, welche ebenfalls über den Sink Stream an die Parentkomponente weitergegeben
+wird. Der aktuelle Wert wird in der Komponente vom `state$` Stream entnommen.
+
 
 
