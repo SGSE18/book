@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/SGSE18/book.svg?branch=master)](https://travis-ci.org/SGSE18/book)
 
+#### Please use lower-case filenames for images only!
 
 Fork this repo and clone your fork
 
