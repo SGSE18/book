@@ -241,10 +241,10 @@ das aktuelle Guthaben und den State des Smart Contracts, an einen neuen Smart
 Contract transferiert.
 
 ## Formale Verifikation
-Im Spektrum der qualitätssichernden Maßnahmen im Software-Entwurf gehören
+*"Im Spektrum der qualitätssichernden Maßnahmen im Software-Entwurf gehören
 formale Spezifikations- und Verifikationsmethoden heute zweifellos zu den
 stärksten Waffen in puncto Fehlererkennung und Nachweis von
-Korrektheitseigenschaften [[REIF99](#ref_reif99)]. Dazu wird die zu überprüfende
+Korrektheitseigenschaften"* [[REIF99](#ref_reif99)]. Dazu wird die zu überprüfende
 Software und die Spezifikation in einem mathematisch Theorem formalisiert, um
 automatisiert, mittels Theorembeweisern, eventuelle Abweichungen des
 Softwaremodells von der Spezifikation nachzuweisen. Zu den bekanntesten
