@@ -51,7 +51,8 @@ React ist eine komponentenbasierte JavaScript Bibliothek zur Erstellung von User
 
 ### Grundlagen
 
-Im Folgenden soll ein Überblick über einige Grundlagen der Entwicklung von modernen Frontend-Applikationen geschaffen werden. Hierzu werden die Begriffe "Single Page Application" und "Progressive Web App" vorgestellt.
+Als grundlegende Einführung soll im Folgenden zunächst ein Überblick über einige Basics bezüglich der Entwicklung von modernen Frontend-Applikationen geschaffen werden. Hierzu werden die Begriffe "Single Page Application" und "Progressive Web App" vorgestellt.
+Im Anschluss des Kapitels werden Konzepte, Technologien und Architekturen im Frontend Bereich vorgestellt sowie spezielle React Technologien und Konzepte erläutert.
 
 #### Single Page Applications
 
