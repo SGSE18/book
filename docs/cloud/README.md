@@ -2,9 +2,44 @@
 
 Autor: Björn Böing
 
+## Inhaltsverzeichnis
+
+- [Einleitung](#einleitung)
+    - [Definition](#definition)
+    - [Geschichtliches](#geschichtliches)
+- [Architektur](#architektur)
+    - [Charakteristika](#charakteristika)
+    - [Service Modelle](#service-modelle)
+        - [Infrastructure as a Service (IaaS)](#infrastructure-as-a-service)
+        - [Platform as a Service (PaaS)](#platform-as-a-service)
+        - [Software as a Service (SaaS)](#software-as-a-service)
+        - [Function as a Service (FaaS)](#function-as-a-service)
+        - [Everything as a Service (XaaS)](#everything-as-a-service)
+    - [Bereitstellungsmodelle](#bereitstellungsmodelle)
+        - [Public](#public)
+        - [Private](#private)
+        - [Community](#community)
+        - [Hybrid](#hybrid)
+    - [Vergleich zu anderen Modellen](#vergleich-zu-anderen-modellen)
+    - [Edge Computing](#edge-computing)
+    - [Fog Computing](#fog-computing)
+    - [Sicherheitsaspekte](#sicherheitsaspekte)
+    - [Nachteile & Begrenzungen](#nachteile-&-begrenzungen)
+- [Amazon Web Service (AWS)](#amazon-web-service)
+    - [Einführung & Grundlagen](#einführung-&-grundlagen)
+    - [Elastic Compute Cloud (EC2)](#elastic-compute-cloud)
+    - [Simple Storage Service (S3)](#simple-storage-service)
+    - [AWS Lambda](#aws-lambda)
+- [Cloud Design Pattern](#cloud-design-pattern)
+    - [Event Sourcing](#event-sourcing)
+    - ...
+- [Zusammenfassung](#zusammenfassung)
+    - [Aktuelle Trends](#aktuelle-trends)
+    
+
 ## Einleitung
 
-- Struktur des Kapitels erläutern
+- Ursprung in Semesterarbeit
 
 ### Definition
 
@@ -54,6 +89,7 @@ Die [Abbildung 1](#img_service_models) zeigt den Zusammenhang der drei verbreite
 <span style="display:block;text-align:center"/><a name="img_service_models"></a>![alt text](./images/iaas_paas_saas.jpg "IaaS vs PaaS vs SaaS")
 <span style="display:block;text-align:center"/>Abbildung entnommen aus: [[GASS16]](#ref_gass16)
 
+<a name="infrastructure-as-a-service"/>
 #### Infrastructure as a Service (IaaS)
 
 Mit IaaS wird das Bereitstellen von IT-Infrastrukturen mittels high-level APIs beschrieben, welche Details und Funktionen auf eine höhere Abstraktionsebene anheben, um deren Benutzung zu vereinfachen. Typische Infrastrukturen, die als Service bereitgestellt werden sind Rechenleistung und Speicherplatz.
@@ -69,6 +105,8 @@ Auch diese Definition beinhaltet, dass die grundlegende Infrastruktur vom Anbiet
 Im späteren Verlauf dieses Kapitels wird auf AWS EC2 eingegangen, was eine IaaS Lösung von Amazon darstellt.
 
 
+<a name="platform-as-a-service"></a>
+
 #### Platform as a Service (PaaS)
 
 Das PaaS Modell erweitert das vorhergehend beschriebene IaaS Modell mit vorinstallierter Software (häufig speziell Middleware), die für die Entwicklung und den Betrieb von Anwendungen notwendig sind und nimmt übernimmt weitere Aufgaben, wie das Konfigurieren des Betriebssystems, von Datenbanken und von technischen Bibliotheken. Das bedeutet, dass beispielsweise Server aufgesetzt werden können, die die JavaScript Laufzeitumgebung Node.JS schon installiert haben und der Server somit lediglich die auszuführende Software erhalten muss. [[GASS16]](#ref_gass16) [[WATT17]](#ref_watt17)
@@ -80,6 +118,7 @@ Vorrangiges Ziel von PaaS ist es die Entwicklung von Softwareanwendungen zu vere
 Fotango, eine Tochterfirma von Canon Europe, brachte 2006 als weltweit erster Anbieter einen Dienst online, der das umsetzte, was später als PaaS bekannt wurde. Mit _"Zimki"_ wurde damals eine Plattform angeboten, die alle Nebenaufgaben für die Entwicklung von JavaScript automatisiert umsetzte und dabei das _"Pay as you go"_ Prinzip für die finanzielle Abrechnungen nutze. Obwohl Zimki Profit einspielte und sich einer wachsenden Nutzerzahl erfreuen konnte, entschied sich Canon den Dienst am 24.12.07 einzustellen. [[FORR06]](#ref_forr06) [[MARK07]](#ref_mark07)
 
 
+<a name="software-as-a-service"></a>
 #### Software as a Service (SaaS)
 
 Mit SaaS stellt ein Anbieter das volle Paket, bestehend aus Infrastruktur, Plattform und auch Anwendungssoftware, für die direkte Nutzung bereit. Dabei steht die Anwendersoftware im Vordergrund und wird häufig über einen Thin-Client, wie einen Internetbrowser, bedient. Durch diesen Ansatz muss ein Anwender keinerlei produktspezifische Software installieren, sondern kann die volle Funktionalität jederzeit auf Abruf nutzen. Aus diesem Grund wird SaaS auch als _"On Demand Software"_ bezeichnet und gilt als das komplette Gegenteil zur klassischen _"On Premises Software"_, bei der ein Produkt auf dem Nutzerrechner vollständig installiert werden muss, bevor es genutzt werden kann. [[GASS16]](#ref_gass16) [[WATT17]](#ref_watt17)
@@ -95,6 +134,8 @@ Die Grundidee, dass einem Kunden die Aufgaben zur Wartung und Bezahlung von IT-I
 Im Vergleich zu ASPs stellen SaaS Anbieter in der Regel ihre eigene Software über die Cloud bereit, anstatt Software von Dritten anzubieten. Darüber hinaus wird für SaaS-Lösungen in den meisten Fällen einzig ein Browser benötigt und keine separat installierte Clientanwendung. Was den Unterschied in Wartung und Betrieb betrifft, so stellten ASPs für jeden ihrer Kunden eine eigene Instanz der gewünschten Anwendung zur Verfügung, während modere SaaS Lösungen, mit einem multimandantenfähiges System, mehrere Kunden über eine einzige Instanz versorgen können. Sowohl ASP als auch SaaS unterstützen, durch die Zentralisierung der laufenden Softwareanwendungen, das Prinzip von Continuous Delivery. Dies bedeutet, dass die Anwendungen, die über das Netzwerk bereitgestellt werden, in deutlich höherer Frequenz Updates erhalten können, ohne dabei den Endnutzer mit einbeziehen zu müssen. Anzumerken ist, dass SaaS Continuous Delivery stärker unterstützt, da dort die Client-Software in der Regel keine Updates benötigt. [[BIAN20]](#ref_bian20)
 
 
+<a name="function-as-a-service"></a>
+
 #### Function as a Service (FaaS)
 
 Der Begriff FaaS ist aus dem Bereich der _"serverless"_ Architekturen entstanden. Initial wurde mit serverless beschrieben, was heute mit PaaS gemeint ist. Also, dass eine Anwendung und die dazugehörigen Server, von Dritten bereitgestellt und gewartet werden, statt diese Aufgaben selbst zu erledigen.
@@ -105,6 +146,8 @@ Mit FaaS werden mittlerweise vor allem Microservices realisiert, die durch eine 
 
 [[AVRA16]](#ref_avra16) [[HAN17]](#ref_han17)
 
+
+<a name="everything-as-a-service"></a>
 
 #### Everything as a Service (XaaS)
 
@@ -120,13 +163,15 @@ Genau wie die vorhergehenden Modelle basieren auch diese darauf, dass der Endnut
 [[ROUS17b]](#ref_rous17b) [[WIKI18]](#ref_wiki18)
 
 
-### ?? Cloud-Formen
+### Bereitstellungsmodelle
+
+Durch die große Verbreitung und die verschiedensten Anwendungsgebiete sind auch die verschiedensten Formen der Bereitstellung von Cloud Computing entstanden.
 
 #### Public
 
 #### Private
 
-### Community
+#### Community
 
 #### Hybrid
 
@@ -196,6 +241,8 @@ Im Vergleich zu Edge Computing, wo die Endgeräte (z.B. IoT-Dinge) eine stärker
 - Geringere Individualisierungsmöglichkeiten
 
 
+<a name="amazon-web-service"></a>
+
 ## Amazon Web Service (AWS)
 
 - Static file deployment
@@ -206,9 +253,14 @@ Im Vergleich zu Edge Computing, wo die Endgeräte (z.B. IoT-Dinge) eine stärker
 
 ### Einführung & Grundlagen
 
+<a name="elastic-compute-cloud"></a>
+
 ### Elastic Compute Cloud (EC2)
 
 - IaaS
+
+
+<a name="simple-storage-service"></a>
 
 ### Simple Storage Service (S3)
 
