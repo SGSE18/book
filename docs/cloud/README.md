@@ -35,7 +35,7 @@ Autor: Björn Böing
     - ...
 - [Zusammenfassung](#zusammenfassung)
     - [Aktuelle Trends](#aktuelle-trends)
-    
+
 
 ## Einleitung
 
@@ -165,11 +165,18 @@ Genau wie die vorhergehenden Modelle basieren auch diese darauf, dass der Endnut
 
 ### Bereitstellungsmodelle
 
-Durch die große Verbreitung und die verschiedensten Anwendungsgebiete sind auch die verschiedensten Formen der Bereitstellung von Cloud Computing entstanden.
+Durch die große Verbreitung und die verschiedensten Anwendungsgebiete sind auch die verschiedensten Formen der Bereitstellung von Cloud Computing entstanden. Die vier verbreitesten werden im Folgenden vorgestellt.
+
 
 #### Public
 
+Eine _"Public Cloud"_ beschreibt eine öffentlich zugängliche Cloud-Infrastruktur, bei der die benötigten Ressourcen von einem Dritten bereitgestellt und gewartet werden. Die Nutzung von Public Clouds kann zwar kostenlos sein oder zumindest bis zu einem gewissen Grad, ist in der Regel allerdings mit direkten Kosten an den Anbieter verbunden. Dieses Bereitstellungsmodell ist mit Abstand am weitesten vertreten und wir sowohl von Privatleuten als auch von Unternehmen verwendet, um Arbeit auszulagern und die eigene Produktivität zu erhöhen. [[NIST11]](#ref_nist11) [[SOME15]](#ref_some15)
+
+
 #### Private
+
+Unternehmen, die die Cloud-Infrastruktur eines Dritten allein nutzen oder die die Bereitstellung Wartung selbstständig erledigen wollen, greifen häufig auf eine _"Private Cloud"_ zurück. Dies erlaubt es ihnen die vorhergehend beschriebenen [Service Modelle](#service-modelle) zentral zu warten und bereitzustellen und müssen so nicht zwingendauf einen Dritten vertrauen. Ein Unternehmen kann somit sowohl Betreiber als auch Nutzer einer Cloud sein und auch darüberhinaus aus Zweigstellen Zugriff auf die Private Cloud ermöglichen. [[NIST11]](#ref_nist11) [[SOME15]](#ref_some15)
+
 
 #### Community
 
@@ -234,7 +241,7 @@ Im Vergleich zu Edge Computing, wo die Endgeräte (z.B. IoT-Dinge) eine stärker
 ### Sicherheitsaspekte
 
 - Provider Zugriff
-- Datenschutzrechtlich in DE
+- Datenschutzrechtlich in DE (Kundendaten nicht auf Server im Ausland)
 
 ### Nachteile & Begrenzungen
 
@@ -326,6 +333,8 @@ Im Vergleich zu Edge Computing, wo die Endgeräte (z.B. IoT-Dinge) eine stärker
 <a name="ref_rous17b">[ROUS17b]</a>: Rouse, Margaret ; TechTarget, 11.2017: XaaS (Everything as a Service) ; URL: <a>https://searchcloudcomputing.techtarget.com/definition/XaaS-anything-as-a-service</a> (abgerufen am 27.06.2018)
 
 <a name="ref_shaw17">[SHAW17]</a>: Shaw, Keith ; NetworkWorld, 19.12.2017: What is a hypervisor? ; URL: <a>https://www.networkworld.com/article/3243262/virtualization/what-is-a-hypervisor.html</a> (abgerufen am 21.06.2018)
+
+<a name="ref_some15">[SOME15]</a>: Somepalle, Sankar ; Linkedin, 23.04.2015: 3 Service and 4 Deployment Models of Cloud Computing ; URL: <a>https://www.linkedin.com/pulse/3-service-4-deployment-models-cloud-computing-sankar-somepalle</a> (abgerufen am 27.06.2018)
 
 <a name="ref_stat16">[STAT16]</a>: Statt, Nick ; The Verge: How an army of vulnerable gadgets took down the web today ; URL: <a>https://www.theverge.com/2016/10/21/13362354/dyn-dns-ddos-attack-cause-outage-status-explained</a> (abgerufen am 27.05.2018)
 
