@@ -181,16 +181,33 @@ Die Kopplung einer Internetseite mit einem Hostinganbieter kann angebildet werde
 Solange ein Peer im Netzwerk Dateien zur Verfügung stellt, ist eine gezielte Zensur unmöglich. Ebenso wird ein Dateiaustausch und das gemeinsame bearbeitet von 
 Objekten ermöglicht.
 
+Zusammengefasst ist IPFS ein Protokoll, das die Verteilung von Inhalten verwaltet, diese Inhalte werden inhaltsgebunden adressiert. 
+Es ist Deteisystem, dass aus Ordnern und Dateien besteht. Ebenso ist IPFS ein Netz, dass das Betrachten von Dokumenten, ähnlich HTTP, unterstützt. Auf Dateien kann ebenso mittels HTTP mit https://ipfs.io/`<path>` zugegriffen werden. 
+Dabei garantieren Hashverfahren die Authentizität von Objekten, ermöglichen die Versionierung und Adressierung von Inhalten, ebenso werden Duplikate zuverlässig erkannt. Durch den modularen Aufbau sind Routingverfahren als auch die genutzten verteilten Hashtabellen individualisierbar.
+Darüber hinaus ist IPFS ein P2P-System ohne einen "Central-Point-of-Failure" und vollständig dezentral, Dateien die lokal gespeichert werden sind weltweit abrufbar und nutzen die geteilte Bandbreite der Peers. Auch ist ein Nameservice gegeben, dieser verknüpft .onion, .bit etc. mit IPNS [[IPFS18]](#ref_IPFS18).
+
+
 ### Aktuelles
 
 Aktuell ist jedoch das Ersetzen von HTTP ein weit entferntes Ziel, da sich IPFS aktuell (Stand 27.06.2018) im Zustand "Work in Progress" befindet.
-Momentan existieren Implementierungen in Go und weniger weit entwickelt in JavaScript und Python, alle genannten Distributionen befinden sich in der Alpha-Entwicklungsphase [[IPFS18]](#ref_IPFS18).
+Momentan existieren Implementierungen in Go und weniger weit entwickelt in JavaScript, Python und C, alle genannten Distributionen befinden sich in der Alpha-Entwicklungsphase [[IPFS18]](#ref_IPFS18).
 
 > The IPFS protocol and its implementations are still in heavy development. This means that there may be problems in our protocols, or there may be mistakes in our implementations.
  And -- though IPFS is not production-ready yet -- many people are already running nodes in their machines. So we take security vulnerabilities very seriously.
  If you discover a security issue, please bring it to our attention right away! [[IPFS18]](#ref_IPFS18)
  
+Trotz des frühen Entwicklungsstadiums ist das Arbeiten mit IPFS grundsätzlich möglich und es existieren bereits einige dezentrale Anwendungen in dem Kontext.
+Insbesondere die Verschmelzung mit der Blockchaintechnologie bietet eine Kombinationsmöglichkeit mit IPFS, so bietet die Kryptowährung Filecoin eine Verschmelzung der Blockchain mit dem IPFS-Protokoll.
+Diese Anwendung bietet einen Cloudservice an, bei denen Anbieter von Peers mit dem Filecoin entlohnt werden, während Nutzer diesen zur Verfügung gestellten Speicherplatz als Cloudspeicher nutzen können.
+Auch existieren Spiegelungen der Wikipediaplattform in <a href="https://ipfs.io/ipfs/QmXoypizjW3WknFiJnKLwHCnL72vedxjQkDDP1mXWo6uco/wiki/"> Englisch </a>,
+ <a href="https://ipfs.io/ipfs/QmWY4KZXKTuspGSwYVDNbNLLZcmSiQ63Mdmz7eRd4KzBbb"> Kurdisch </a> und <a href="https://ipfs.io/ipfs/QmT5NvUtoM5nWFfrQdVrFtvGfKFmG7AHE8P34isapyhCxX/wiki/Anasayfa.html"> Türkisch </a> im IPFS-Netzwerk,
+ diese sind motiviert durch die Zensur der HTTP-Version von Wikipedia. Eine weitere interessante Funktion in dem Zusammenhang ist, dass eine Offlineversion von Inhalten abrufbar ist, da Inhalte vollständig heruntergeladen werden können.
  
+### IPFS-CLI
+
+Die Nutzung von IPFS als Peer erfordert die Installation des IPFS-Command-Line-Interfaces (<a href="https://dist.ipfs.io/#go-ipfs">hier</a>).
+
+<!-- Beschreibung Deploymentprozess + nützliche IPFS-Befehle wenn Demo fertig -->
 
 ## DAT
 
