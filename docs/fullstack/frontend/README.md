@@ -39,7 +39,7 @@ React ist eine komponentenbasierte JavaScript Bibliothek zur Erstellung von User
   - [Type Checking und Static Types](#type-checking-und-static-types)
     - [PropTypes](#proptypes)
     - [Flow](#flow)
-    - [Typescript](#typescript)
+    - [TypeScript](#typescript)
   - [Reconciliation](#reconciliation)
   - [Error Boundaries](#error-boundaries)
   - [React Router](#react-router)
@@ -51,7 +51,8 @@ React ist eine komponentenbasierte JavaScript Bibliothek zur Erstellung von User
 
 ### Grundlagen
 
-Im Folgenden soll ein Überblick über einige Grundlagen der Entwicklung von modernen Frontend-Applikationen geschaffen werden. Hierzu werden die Begriffe "Single Page Application" und "Progressive Web App" vorgestellt.
+Als grundlegende Einführung soll im Folgenden zunächst ein Überblick über einige Basics bezüglich der Entwicklung von modernen Frontend-Applikationen geschaffen werden. Hierzu werden die Begriffe "Single Page Application" und "Progressive Web App" vorgestellt.
+Im Anschluss des Kapitels werden Konzepte, Technologien und Architekturen im Frontend Bereich vorgestellt sowie spezielle React Technologien und Konzepte erläutert.
 
 #### Single Page Applications
 
@@ -136,7 +137,7 @@ Im Kapitel [State Management in React](#state-management-in-react) werden einige
 
 #### Flux
 
-Flux ist ein Architektur Pattern, das beim Erstellen von User Interfaces verwendet werden kann. Es wurde erstmals 2014 von Facebook vorgestellt. Facebook nutzt Flux intern für ihre React Projekte, da ihnen die bidirektionalen Verbindungen bei Verwendung eines MVC Patterns aufgrund des großen Umfangs ihrer Projekte Probleme bereiteten [[FACE14]](#ref_face14). 
+Flux ist ein Architektur Pattern, das beim Erstellen von User Interfaces verwendet werden kann, um eine bessere Nachvollziehbarkeit der Zustandsänderungen zu erreichen. Es wurde erstmals 2014 von Facebook vorgestellt. Facebook nutzt Flux intern für ihre React Projekte, da ihnen die bidirektionalen Verbindungen bei Verwendung eines MVC Patterns aufgrund des großen Umfangs ihrer Projekte Probleme bereiteten [[FACE14]](#ref_face14). 
 Im Gegensatz zu MVC handelt es sich bei Flux um ein unidirektionales Pattern.
 
 Die prinzipielle Architektur von Flux wird in der folgenden Abbildung dargestellt:
@@ -523,7 +524,7 @@ Dieser Komponente können im Aufruf beliebig viele Kind-Elemente hinzugefügt we
 ```
 ##### Rendern
 
-Die Methode *render* ist - wie ihr Name bereits vermuten lässt - die Rendermethode eines React-Elements. Sie wird aufgerufen, wenn die Komponente im Browser dargestellt werden soll (siehe [Lifecycle](#lifecycle) Kapitel). Als Rückgabewert erhält sie genau **ein** React Element. 
+Die Methode *render* ist - wie ihr Name bereits vermuten lässt - die Rendermethode von Smart Components. Sie wird aufgerufen, wenn die Komponente im Browser dargestellt werden soll (siehe [Lifecycle](#lifecycle) Kapitel). Als Rückgabewert erhält sie genau **ein** React Element. 
 Ist es erforderlich, dass mehrere Elemente zurückgegeben werden, müssen diese in einem Container (z.B. *div*) gebündelt werden. 
 
 Beispiel:
@@ -1150,7 +1151,7 @@ function add(var1, var2) {
 const a = add("1", "100");
 ```
 
-##### Typescript
+##### TypeScript
 TypeScript ist eine von Microsoft entwickelte Open Source Programmiersprache. Die Sprache verfügt über vielerlei Bestandteile, die aus anderen Programmiersprachen bekannt sind. Hierzu gehören Generics, Vererbung, Klassen, Interfaces, Enumerationen und vieles mehr. Ein spezieller TypeScript-Compiler kompiliert den Softwarecode zu nativen JavaScript Code.
 Da die JavaScript-Sprache lediglich erweitert wird, ist herkömmlicher JavaScript Code zu TypeScript kompatibel, wodurch sich JavaScript Projekte i.d.R. recht einfach migrieren lassen. 
 
@@ -1315,9 +1316,6 @@ render() {
 
 <a name="ref_clar17">[CLAR17]</a>: Clark, Tyler: Quick Reference: React with Flow. URL: https://medium.com/@tylerwclark/quick-reference-react-with-flow-b404e5cd5d0e (abgerufen am 05.05.2018)
 
-<a name="ref_maj18">[MAJ18]</a>: Maj, Wojciech: Interactive React lifecycle methods diagram. URL: https://github.com/wojtekmaj/react-lifecycle-methods-diagram
-(abgerufen am 05.05.2018)
-
 <a name="ref_face14">[FACE14]</a>: 
 Facebook
 : Hacker Way: Rethinking Web App Development at Facebook. URL: https://www.youtube.com/watch?v=nYkdrAPrdcw&feature=youtu.be&t=568
@@ -1344,7 +1342,6 @@ Facebook
 <a name="ref_face18g">[FACE18g]</a>: Facebook Inc.: Code-Splitting. URL: https://reactjs.org/docs/code-splitting.html
 (abgerufen am 21.05.2018)
 
-
 <a name="ref_gaun18">[GAUN18]</a>: 
 Gaunt, Matt: Service Workers: an Introduction. URL: https://developers.google.com/web/fundamentals/primers/service-workers/
 (abgerufen am 22.05.2018)
@@ -1368,6 +1365,9 @@ Hopper, Grace: Tech Talk: What is the Virtual DOM?. URL: https://www.youtube.com
 
 <a name="ref_lasn18">[LASN18]</a>: Lasn, Indrek: Next.js — React Server Side Rendering Done Right. URL: https://hackernoon.com/next-js-react-server-side-rendering-done-right-f9700078a3b6
 (abgerufen am 21.05.2018)
+
+<a name="ref_maj18">[MAJ18]</a>: Maj, Wojciech: Interactive React lifecycle methods diagram. URL: https://github.com/wojtekmaj/react-lifecycle-methods-diagram
+(abgerufen am 05.05.2018)
 
 <a name="ref_mobx18">[MOBX18]</a>: MobX: The gist of MobX. URL: https://mobx.js.org/intro/overview.html
 (abgerufen am 12.05.2018)
