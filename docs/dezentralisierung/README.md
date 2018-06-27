@@ -71,6 +71,7 @@ Abbildung entnommen aus [[SHEA2017]](#ref_SHEA17)
 
 ## IPFS
 
+### Konzept
 Das interplanetare Fileystem, kurz IPFS, ist ein verteiltes Dateisystem. 
 Konzeptionell ist es vergleichbar mit dem Peer-to-Peer-Protokoll BitTorrent.
 Der wesentliche Unterschied zu klassischen Peer-to-Peer-Applikationen ist,
@@ -120,7 +121,7 @@ Letztendlich werden in Abhängigkeit von Größe und Region, hierarchische Hasht
 ##### S/Kademlia DHT
 Ist ebenfalls eine Erweiterung vom Kademlia Algorithmus, diese kennzeichnet sich zusätzliche Schutzmechanismen bzgl. Sybil-Attacken,
 Knoten generieren PKI (Public-Key-Infrastruktur) Schlüsselpaare mit denen Nachrichten, die durch das Netzwerk propagiert werden zu signieren.
-Der Lookupprozess wird über disjunkte Pfade durchgeführt, um gute Knoten mit einander zu verbinden [[BENE14]](#ref_BENE14).
+Der Lookupprozess wird über disjunkte Pfade durchgeführt, um gute Knoten miteinander zu verbinden [[BENE14]](#ref_BENE14).
 
 #### BitTorrent
 
@@ -163,13 +164,33 @@ IPFS ist ein P2P-System, ohne privilegierte Knoten. Jeder Knoten speichert Datei
 Außerdem ist ein Knoten mit weiteren Knoten verbunden, mit denen Objekte ausgetauscht werden. 
 Das Protokoll selbst ist in entsprechende Teilprotokolle, die jedoch nicht unabhängig voneinander sind, gegliedert [[BENE14]](#ref_BENE14):
 
-1.
-2.
-3.
-4.
-5.
-6.
-7.
+1. **Identities** - Verwaltung der Generierung und Validierung der Knoten und deren Identitäten
+2. **Network** - Verwaltung der Verbindung zwischen den Peers
+3. **Routing** - Informationsverwaltung zur Lokalisation von Peers und Objekten (siehe DHT)
+4. **Exchange** - Blockverteilungsprotokoll zum effizienten Austausch von Blöcken (siehe BitTorrent)
+5. **Objects** - Merkle DAG der inhaltsgebundenen, unveränderlichen Objekte und Links
+6. **Files** - Versionierung von Dateien, ähnlich der Git-Mechanik
+7. **Naming** - Selbst-Zertifizierung des Filesystems (SFS)
+
+#### Zusammenfassung
+
+Zusammengefasst wurde IPFS konzipiert unter Berücksichtigung bekannter und bewährter Technologien.
+Ziel vom interplanetaren Filesystem ist es eine Alternative zum aktuellem HTTP-Standard zu bieten.
+So kann durch die Dezentralisierung eine Ersparnis der Bandbreitenkosten um bis zu 60% erzielt werden.
+Die Kopplung einer Internetseite mit einem Hostinganbieter kann angebildet werden, wodurch die Lebensspanne von Internetseite theoretisch unbegrenzt ist. 
+Solange ein Peer im Netzwerk Dateien zur Verfügung stellt, ist eine gezielte Zensur unmöglich. Ebenso wird ein Dateiaustausch und das gemeinsame bearbeitet von 
+Objekten ermöglicht.
+
+### Aktuelles
+
+Aktuell ist jedoch das Ersetzen von HTTP ein weit entferntes Ziel, da sich IPFS aktuell (Stand 27.06.2018) im Zustand "Work in Progress" befindet.
+Momentan existieren Implementierungen in Go und weniger weit entwickelt in JavaScript und Python, alle genannten Distributionen befinden sich in der Alpha-Entwicklungsphase [[IPFS18]](#ref_IPFS18).
+
+> The IPFS protocol and its implementations are still in heavy development. This means that there may be problems in our protocols, or there may be mistakes in our implementations.
+ And -- though IPFS is not production-ready yet -- many people are already running nodes in their machines. So we take security vulnerabilities very seriously.
+ If you discover a security issue, please bring it to our attention right away! [[IPFS18]](#ref_IPFS18)
+ 
+ 
 
 ## DAT
 
@@ -187,6 +208,9 @@ Benet, Juan: IPFS - Content Addressed, Versioned, P2P File System, 2014
 
 <a name="ref_GART17">[GART17]</a>:
 Gartner, Inc., Gartner Says 8.4 Billion Connected "Things" Will Be in Use in 2017, Up 31 Percent From 2016, URL: https://www.gartner.com/newsroom/id/3598917 (abgerufen am 26.06.2018)
+
+<a name="ref_IPFS18">[IPFS18]</a>:
+Github-Repository IPFS, URL: https://github.com/ipfs/ipfs 2018 (abgerufen 27.06.2018)
 
 <a name="ref_MAYM02">[MAYM02]</a>:
 Maymounkov, Petar und Mazières, David, Kademlia: A Peer-to-peer information system based on the XOR Metric, 2002
