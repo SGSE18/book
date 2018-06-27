@@ -19,6 +19,7 @@ Das Ziel des Netzwerkes war es die Kommunikationskanäle im Falle
 eines Atomkriegs, für einen Vergeltungsschlag, aufrechterhalten zu können [[WHEE11]](#ref_WHEE11).
 
 Diese grundsätzliche Idee der Dezentralisierung wurde vom heutigen Internet übernommen. 
+
 So ist jedes Gerät, mit Zugang zum Internet, mit jedem anderen, dem Internet angeschlossenem, Gerät verbunden.
 Exemplarisch gesprochen: Um vom Computer A zu C zu gelangen, gehe zunächst zu Computer B.
 Wenn dieser nicht verfügbar ist, existiert ein Pfad von A nach D nach C.
@@ -123,27 +124,7 @@ Der Lookupprozess wird über disjunkte Pfade durchgeführt um gute Knoten mit ei
 
 #### SFS
 
- 
-
-
-
-
-
-
-Wie?
-
-Warum?
-
-
-
-
 ## DAT
-
-Was?
-
-Wie?
-
-Warum?
 
 ### Beakerbrowser
 
