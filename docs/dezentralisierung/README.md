@@ -1,4 +1,9 @@
 # Dezentrale Anwendungen
+
+<!-- load css for math symbols -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/github-markdown-css/2.2.1/github-markdown.css"/>
+
 *Autor: Patrick Lukas Starzynski*
 
 ## Allgemeines
@@ -33,7 +38,7 @@ Jedoch ist in Frage zu stellen, ob die heutige Struktur des Internets tatsächli
 Alphabet Inc., Facebook oder Amazon.com ihre angebotenen Dienstleistungen einstellen würde? Oder wenn Internetangebote wie Wikipedia weltweit teilweise oder vollständig zensiert werden würden? 
 Letzteres ist zumindest für viele der Internetnutzer tatsächlich Realität [[WIKI18f]](#ref_WIKI18f).
 
-Um die Problematik dieser Fragestellung zu betrachten ist ins Gedächtnis zu rufen, dass die konzeptionelle Idee eine Dezentralisierung der Kommunikation im Katastrophenfall war. 
+Um die Problematik dieser Fragestellung zu betrachten, ist ins Gedächtnis zu rufen, dass die konzeptionelle Idee eine Dezentralisierung der Kommunikation im Katastrophenfall war. 
 Dennoch bedarf die Abschaltung und Kontrolle diverser Angebot des Internets keine Katastrophe, sondern ist kontrollierbar.
 Ebenso werden Webhostingangebote oder Cloudlösungen häufig von den großen Internetdienstleistern angeboten, somit konzentriert sich der Datenverkehr an diversen zentralen Knotenpunkten. 
 So hat beispielsweise das soziale Netzwerk Facebook im ersten Quartal 2018 monatlich rund 2,2 Mrd. aktive Nutzer zu verzeichnen [[STAT18a]](#ref_STAT18a).
@@ -84,7 +89,7 @@ IPFS kombiniert Eigenschaften bekannter Systeme, wie z.B. DHTs, BitTorrent, Git 
 
 #### Distributed Hash Tables
 
-Verteilte Hashtabellen sind Datenstrukturen, die in Peer-to-Peer-Systemen genutzt werden um die Speicherorte von Dateien abzubilden. 
+Verteilte Hashtabellen sind Datenstrukturen, die in Peer-to-Peer-Systemen genutzt werden, um die Speicherorte von Dateien abzubilden. 
 So spiegelt jeder Speicherknoten einen Eintrag in der Hashtabelle wider. Diese vereinfachte Darstellung, dient als Vorlage für verschiedene Implementierungen und kann durch die generalisierte Schnittstelle
 *publish(key, content)* und *lookup(key)* angeboten werden. Im IPFS-Kontext werden die Implementierungen Coral DSHT, Kademlia DHT bzw. S/Kademlia DHT genutzt [[BENE14]](#ref_BENE14).
 ##### Kademlia DHT
@@ -96,7 +101,7 @@ Der genutzte Prefix wird durch eine XOR-Verknüpfung von zwei Knoten-IDs generie
 
 Für IPFS hevorzuhebende Eigenschaften sind [[BENE14]](#ref_BENE14):
 
-1. Lookupfunktion in großen Netzwerken in **O(log<sub>2</sub>(n))**
+1. Lookupfunktion in großen Netzwerken in $\mathcal{O}(\log_2 n)$
 
 2. Geringer Overhead, optimierte Nachrichten zur Kontrolle im Netzwerk
 
@@ -109,14 +114,13 @@ Für IPFS hevorzuhebende Eigenschaften sind [[BENE14]](#ref_BENE14):
 
 Coral ist eine Erweiterung des Kademlia Algorithmus, die die XOR-Verknüpfung zur Distanzermittlung verändert.
 Resultierend werden Adressen der Peers, die Datenblöcke zur Verfügung stellen gespeichert. 
-Außerdem wird die Funktion *get_value(key)* in *get_any_values(key)* geändert um das Bilden von Hot-Spots zu minimieren.
+Außerdem wird die Funktion *get_value(key)* in *get_any_values(key)* geändert, um das Bilden von Hot-Spots zu minimieren.
 Letztendlich werden in Abhängigkeit von Größe und Region, hierarchische Hashtabellen gebildet [[BENE14]](#ref_BENE14).
 
 ##### S/Kademlia DHT
-
-Erweitert ebenfalls Kademlia um Schutzmechanismen bzgl. Sybillattacken,
-Knoten generieren PKI (Public-Key-Infrastruktur) Schlüsselpaare mit denen Nachrichten die durch das Netzwerk propagiert werden zu signieren.
-Der Lookupprozess wird über disjunkte Pfade durchgeführt um gute Knoten mit einander zu verbinden [[BENE14]](#ref_BENE14).
+Ist ebenfalls eine Erweiterung vom Kademlia Algorithmus, diese kennzeichnet sich zusätzliche Schutzmechanismen bzgl. Sybil-Attacken,
+Knoten generieren PKI (Public-Key-Infrastruktur) Schlüsselpaare mit denen Nachrichten, die durch das Netzwerk propagiert werden zu signieren.
+Der Lookupprozess wird über disjunkte Pfade durchgeführt, um gute Knoten mit einander zu verbinden [[BENE14]](#ref_BENE14).
 
 #### BitTorrent
 
@@ -131,7 +135,41 @@ Als belastend zu verstehen sind Nutzer(-gruppen), die Dateien vom Netzwerk herun
 
 #### Git
 
+Das Versionsverwaltungssystem Git, dass häufig mit der Website github.com assoziiert wird, bietet ebenso wichtige Funktionalitäten für das IPFS-Protokoll.
+Als Randnotiz sei an dieser Stelle zu erwähnen, dass GitHub seit dem 04.06.2018 ebenfalls ein Bestandteil der Liste der Fusionen und Akquisitionen der Firma Microsoft geworden ist [[WIKI18c]](#ref_WIKI18c).
+Für IPFS hervorzuheben sind die folgenden Funktionalitäten [[BENE14]](#ref_BENE14):
+
+1. Unveränderbare Objekte die durch Dateien (blobs), Verzeichnisse (tree) und Veränderungen (commits) repräsentiert werden.
+
+2. An den Inhalt gebundene Adressierung durch kryptografischen Hash der Inhalte.
+
+3. Links zu Objekten bilden einen azyklischen gerichteten Graphen, bzw. Merkle DAG (siehe Buchkapitel Blockchain Technologien<a href="../blockchain/technologie/#merkle-tree"> Merkle Tree) </a>
+
+4. Metadaten, die z.B. Branches, Tags etc. darstellen sind durch Zeigerreferenzen realisierbar, wodurch diese leicht zu erstellen und modifizieren sind.
+
+5. Versionsänderungen modifizieren nur Referenzen oder fügen Objekte hinzu.
+
+6. Verteilen von Versionsänderungen werden durch einen Objekttransfer und durch Modifizierung der Remotereferenz realisiert.
+
 #### SFS
+
+Zuletzt wird das Konzept von Self-Certified Filesystems genutzt, dass das Schema
+<br/> **/sfs/`<Location>`:`<HostId>`** nutzt.
+Die Location wird durch die Servernetzwerkadresse generiert während die **HostID = hash(public_key || Location)** definiert ist [[BENE14]](#ref_BENE14).
+
+#### Design
+
+IPFS ist ein P2P-System, ohne privilegierte Knoten. Jeder Knoten speichert Dateien speichert Objekte in seinem lokalen Dateisystem.
+Außerdem ist ein Knoten mit weiteren Knoten verbunden, mit denen Objekte ausgetauscht werden. 
+Das Protokoll selbst ist in entsprechende Teilprotokolle, die jedoch nicht unabhängig voneinander sind, gegliedert [[BENE14]](#ref_BENE14):
+
+1.
+2.
+3.
+4.
+5.
+6.
+7.
 
 ## DAT
 
