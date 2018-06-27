@@ -62,9 +62,88 @@ Auf Basis von Peer-to-Peer-Konzepten hat sich die Vision tatsächlicher Dezentra
 
 Abbildung entnommen aus [[SHEA2017]](#ref_SHEA17)
 
+
 ## IPFS
 
+Das interplanetare Fileystem, kurz IPFS, ist ein verteiltes Dateisystem. 
+Konzeptionell ist es vergleichbar mit dem Peer-to-Peer-Protokoll BitTorrent.
+Der wesentliche Unterschied zu klassischen Peer-to-Peer-Applikationen ist,
+ dass IPFS für den Aufbau einer Netzinfrastruktur konzipiert wurde. 
+ Dabei wurden die folgenden Herausforderungen,
+ mit denen der aktuelle de facto Standard HTTP konfrontiert ist, identifiziert:
+ <ol type="a">
+  <li>Das Hosten und Verteilen von Datenmengen im Petabytebereich</li>
+  <li>Die Verarbeitung von großen Datenmengen innerhalb einer Organisation</li>
+  <li>On-Demand und/oder Echtzeitstreams</li>
+  <li>Versionierung und Verlinkung von großen Datenmengen</li>
+  <li>Dem versehentlichen Löschen von wichtigen Dokumenten</li>
+</ol>
+
+IPFS kombiniert Eigenschaften bekannter Systeme, wie z.B. DHTs, BitTorrent, Git und SFS [[BENE14]](#ref_BENE14).
+
+#### Distributed Hash Tables
+
+Verteilte Hashtabellen sind Datenstrukturen, die in Peer-to-Peer-Systemen genutzt werden um die Speicherorte von Dateien abzubilden. 
+So spiegelt jeder Speicherknoten einen Eintrag in der Hashtabelle wider. Diese vereinfachte Darstellung, dient als Vorlage für verschiedene Implementierungen und kann durch die generalisierte Schnittstelle
+*publish(key, content)* und *lookup(key)* angeboten werden. Im IPFS-Kontext werden die Implementierungen Coral DSHT, Kademlia DHT bzw. S/Kademlia DHT genutzt [[BENE14]](#ref_BENE14).
+##### Kademlia DHT
+
+Einem Knoten wird ein 160-Bit Key zugeordnet, partizipierende Computer erhalten ebenso eine 160-Bit Knoten-ID, letztere ist einmalig und vergleichbar mit einer UUID. 
+So werden Key-Value-Paare einer "nahen" ID zugeordnet. Zum Lokalisieren eines nahen Knotens wird ein Routingalgorithmus vom Start zum Ziel genutzt.
+Kademlia betrachtet dabei Knoten als Blätter eines binären Baums, die Position eines Knoten wird anhand des kürzesten, einmaligen Prefix bspw. 0011 bestimmt.
+Der genutzte Prefix wird durch eine XOR-Verknüpfung von zwei Knoten-IDs generiert [[MAYM02]](#ref_MAYM02).
+
+Für IPFS hevorzuhebende Eigenschaften sind [[BENE14]](#ref_BENE14):
+
+1. Lookupfunktion in großen Netzwerken in **O(log<sub>2</sub>(n))**
+
+2. Geringer Overhead, optimierte Nachrichten zur Kontrolle im Netzwerk
+
+3. Resistenz durch Präferierung von langlebigen Knoten
+
+4. Häufige Nutzung in bekannten P2P-Applikationen, wie z.B. in Gnutella oder BitTorrent,
+ die ein Netzwerk von 20 Millionen Knoten bilden.
+
+##### Coral DSHT
+
+Coral ist eine Erweiterung des Kademlia Algorithmus, die die XOR-Verknüpfung zur Distanzermittlung verändert.
+Resultierend werden Adressen der Peers, die Datenblöcke zur Verfügung stellen gespeichert. 
+Außerdem wird die Funktion *get_value(key)* in *get_any_values(key)* geändert um das Bilden von Hot-Spots zu minimieren.
+Letztendlich werden in Abhängigkeit von Größe und Region, hierarchische Hashtabellen gebildet [[BENE14]](#ref_BENE14).
+
+##### S/Kademlia DHT
+
+Erweitert ebenfalls Kademlia um Schutzmechanismen bzgl. Sybillattacken,
+Knoten generieren PKI (Public-Key-Infrastruktur) Schlüsselpaare mit denen Nachrichten die durch das Netzwerk propagiert werden zu signieren.
+Der Lookupprozess wird über disjunkte Pfade durchgeführt um gute Knoten mit einander zu verbinden [[BENE14]](#ref_BENE14).
+
+#### BitTorrent
+
+#### Git
+
+#### SFS
+
+ 
+
+
+
+
+
+
+Wie?
+
+Warum?
+
+
+
+
 ## DAT
+
+Was?
+
+Wie?
+
+Warum?
 
 ### Beakerbrowser
 
@@ -72,9 +151,20 @@ Abbildung entnommen aus [[SHEA2017]](#ref_SHEA17)
 
 ## Literaturverzeichnis
 
+<a name="ref_BENE14">[BENE14]</a>:
+Benet, Juan: IPFS - Content Addressed, Versioned, P2P File System, 2014
 
 <a name="ref_GART17">[GART17]</a>:
 Gartner, Inc., Gartner Says 8.4 Billion Connected "Things" Will Be in Use in 2017, Up 31 Percent From 2016, URL: https://www.gartner.com/newsroom/id/3598917 (abgerufen am 26.06.2018)
+
+<a name="ref_MAYM02">[MAYM02]</a>:
+Maymounkov, Petar und Mazières, David, Kademlia: A Peer-to-peer information system based on the XOR Metric, 2002
+
+<a name="ref_PROT18">[PROT18]</a>:
+Protocol Labs, URL: https://ipfs.io/ (abgerufen am 26.06.2018)
+
+<a name="ref_OGDE18">[OGDE18]</a>:
+Ogden et al., Dat - Distributed Dataset Synchronization And Versioning, 2018
 
 <a name="ref_SHEA17">[SHEA17]</a>: 
 Shea, Ryan: Centralized vs Decentralized - The Internet of the Past, Present and Future, URL: https://medium.com/@ryanshea/the-internet-of-the-past-present-and-future-51b10c765d8d (abgerufen am 20.06.2018)
