@@ -1,5 +1,7 @@
 # Cloud computing
 
+Autor: Björn Böing
+
 ## Einleitung
 
 - Struktur des Kapitels erläutern
@@ -47,10 +49,10 @@ Weitere Charakteristika:
 
 Auf Basis von Cloud Computing Technologien sind in den vergangenen Jahren eine Vielzahl verschiedener Projekte und Produkte entstanden, die vor allem darauf abzielen dem Nutzer Funktionalitäten flexibel und skalierbar zur Verfügung zu stellen. Da Nutzer in der Regel keine Funktionalitäten wirklich kaufen, sondern eher mieten, wird in diesem Zusammenhang von "Services" gesprochen. In diesem Zusammenhang ist auch die Begrifflichkeit "as a Service" entstanden, mit denen Cloud Computing Produkte häufig betitelt werden. Die finanzielle Abrechnung läuft bei Cloud Services in der Regel über das _"Pay as you go"_ Prinzip ab, welches in Verbindung mit genauen Messungen zur tatsächlichen Nutzung der Funktionalitäten und anbieterabhängigen Schwerpunkten die Kosten kalkuliert.
 
-Das folgende Bild zeigt den Zusammenhang der drei verbreitetsten Service Modelle _"Infrastructure as a Service" (IaaS)_, _"Plattform as a Service" (PaaS)_ und _"Software as a Service" (SaaS)_ in Form eines Mengendiagramms. In den nächsten Abschnitten sollen diese drei Modelle und weitere vorgestellt und deren Anwendungsfälle betrachtet werden.
+Die [Abbildung 1](#img_service_models) zeigt den Zusammenhang der drei verbreitetsten Service Modelle _"Infrastructure as a Service" (IaaS)_, _"Plattform as a Service" (PaaS)_ und _"Software as a Service" (SaaS)_ in Form eines Mengendiagramms. In den nächsten Abschnitten sollen diese drei Modelle und weitere vorgestellt und deren Anwendungsfälle betrachtet werden.
 
-<span style="display:block;text-align:center"/>![alt text](./images/iaas_paas_saas.jpg "IaaS vs PaaS vs SaaS")
-<span style="display:block;text-align:center"/>Quelle: [[GASS16]](#ref_gass16)
+<span style="display:block;text-align:center"/><a name="img_service_models"></a>![alt text](./images/iaas_paas_saas.jpg "IaaS vs PaaS vs SaaS")
+<span style="display:block;text-align:center"/>Abbildung entnommen aus: [[GASS16]](#ref_gass16)
 
 #### Infrastructure as a Service (IaaS)
 
@@ -60,33 +62,54 @@ Mit IaaS wird das Bereitstellen von IT-Infrastrukturen mittels high-level APIs b
 
 Die NIST hat bereits 2011 standardisierte Definitionen zu den weitverbreitesten Service Modellen veröffentlicht. Das IaaS Modell wird wie folgt definiert:
 
-<span style="display:block;text-align:center">_The capability provided to the consumer is to provision processing, storage, networks, and other fundamental computing resources where the consumer is able to deploy and run arbitrary software, which can include operating systems and applications. The consumer does not manage or control the underlying cloud infrastructure but has control over operating systems, storage, and deployed applications; and possibly limited control of select networking components (e.g., host firewalls)._ [[NIST11]](#ref_nist11)</span>
+<span style="display:block;text-align:center">_"The capability provided to the consumer is to provision processing, storage, networks, and other fundamental computing resources where the consumer is able to deploy and run arbitrary software, which can include operating systems and applications. The consumer does not manage or control the underlying cloud infrastructure but has control over operating systems, storage, and deployed applications; and possibly limited control of select networking components (e.g., host firewalls)."_ [[NIST11]](#ref_nist11)</span>
 
 Auch diese Definition beinhaltet, dass die grundlegende Infrastruktur vom Anbieter verwaltet und bereitgestellt wird und der Nutzer trotzdem die Kontrolle über das Betriebssystem, den Speicher und installierte Software hat. Die NIST merkt allerdings an, dass häufig die Kontrolle über Netzwerkkomponenten beschränkt sind und nennt dazu Einstellungen an der Firewall als Beispiel.
 
 Im späteren Verlauf dieses Kapitels wird auf AWS EC2 eingegangen, was eine IaaS Lösung von Amazon darstellt.
 
+
 #### Platform as a Service (PaaS)
 
-Das PaaS Modell erweitert, das vorhergehend beschriebene IaaS Modell mit vorinstallierter Software, die für die Entwicklung und den Betrieb von Anwendungen notwendig sind. Das bedeutet, dass beispielsweise Server aufgesetzt werden können, die die JavaScript Laufzeitumgebung Node.JS schon installiert haben und der Server somit lediglich die auszuführende Software erhalten muss.
+Das PaaS Modell erweitert das vorhergehend beschriebene IaaS Modell mit vorinstallierter Software (häufig speziell Middleware), die für die Entwicklung und den Betrieb von Anwendungen notwendig sind und nimmt übernimmt weitere Aufgaben, wie das Konfigurieren des Betriebssystems, von Datenbanken und von technischen Bibliotheken. Das bedeutet, dass beispielsweise Server aufgesetzt werden können, die die JavaScript Laufzeitumgebung Node.JS schon installiert haben und der Server somit lediglich die auszuführende Software erhalten muss. [[GASS16]](#ref_gass16) [[WATT17]](#ref_watt17)
 
-Vorrangiges Ziel von PaaS ist es die Entwicklung von Softwareanwendungen zu vereinfachen und zu beschleunigen, indem Entwickler sich nicht detailliert mit dem Erzeugen und Konfigurieren von Testumgebungen befassen müssen, sondern auf fertige Lösungen zurückgreifen können.
+Vorrangiges Ziel von PaaS ist es die Entwicklung von Softwareanwendungen zu vereinfachen und zu beschleunigen. Dies wird erreicht, indem Entwickler sich nicht detailliert mit dem Erzeugen und Konfigurieren von Testumgebungen befassen müssen, sondern auf fertige Lösungen zurückgreifen beziehungsweise auf einfache Weise diese Lösungen individuell anpassen können. Diese Kernpunkte sind auch von der NIST in ihrer Definition von PaaS zu finden:
 
-Fotango, eine Tochterfirma von Canon Europe, brachte 2006 als weltweit erster Anbieter einen Dienst online, der das umsetzte, was später als PaaS bekannt wurde. Mit _"Zimki"_ wurde damals eine Plattform angeboten, die alle Nebenaufgaben für die Entwicklung von JavaScript automatisiert umsetzte und dabei das _"Pay as you go"_ Prinzip für die finanzielle Abrechnungen nutze. 
+<span style="display:block;text-align:center">_"The capability provided to the consumer is to deploy onto the cloud infrastructure consumer-created or acquired applications created using programming languages, libraries, services, and tools supported by the provider. The consumer does not manage or control the underlying cloud infrastructure including network, servers, operating systems, or storage, but has control over the deployed applications and possibly configuration settings for the application-hosting environment."_ [[NIST11]](#ref_nist11)</span>
 
-- Aufbauend auf IaaS
-- Beispiel
-- NIST definition
+Fotango, eine Tochterfirma von Canon Europe, brachte 2006 als weltweit erster Anbieter einen Dienst online, der das umsetzte, was später als PaaS bekannt wurde. Mit _"Zimki"_ wurde damals eine Plattform angeboten, die alle Nebenaufgaben für die Entwicklung von JavaScript automatisiert umsetzte und dabei das _"Pay as you go"_ Prinzip für die finanzielle Abrechnungen nutze. Obwohl Zimki Profit einspielte und sich einer wachsenden Nutzerzahl erfreuen konnte, entschied sich Canon den Dienst am 24.12.07 einzustellen. [[FORR06]](#ref_forr06) [[MARK07]](#ref_mark07)
+
 
 #### Software as a Service (SaaS)
 
-- Beispiel
-- NIST definition
+Mit SaaS stellt ein Anbieter das volle Paket, bestehend aus Infrastruktur, Plattform und auch Anwendungssoftware, für die direkte Nutzung bereit. Dabei steht die Anwendersoftware im Vordergrund und wird häufig über einen Thin-Client, wie einen Internetbrowser, bedient. Durch diesen Ansatz muss ein Anwender keinerlei produktspezifische Software installieren, sondern kann die volle Funktionalität jederzeit auf Abruf nutzen. Aus diesem Grund wird SaaS auch als _"On Demand Software"_ bezeichnet und gilt als das komplette Gegenteil zur klassischen _"On Premises Software"_, bei der ein Produkt auf dem Nutzerrechner vollständig installiert werden muss, bevor es genutzt werden kann. [[GASS16]](#ref_gass16) [[WATT17]](#ref_watt17)
+
+Im Vergleich zu IaaS, was sich eher an IT-Administratoren richtet und zu PaaS, was vorrangig von Software-Entwicklern genutzt wird, findet bei SaaS die Interaktion direkt mit dem Nutzer statt. Als Beispiel sind die Google Apps wie Docs, Spreadsheets und Presentation zu nennen, deren Funktionalität vollständig über den Browser zu nutzen sind und keinerlei Zusatzinstallationen benötigen. [[GASS16]](#ref_gass16)
+
+Die NIST definierte 2011 SaaS wie folgt:
+
+<span style="display:block;text-align:center">_"The capability provided to the consumer is to use the provider’s applications running on a cloud infrastructure. The applications are accessible from various client devices through either a thin client interface, such as a web browser (e.g., web-based email), or a program interface.The consumer does not manage or control the underlying cloud infrastructure including network, servers, operating systems, storage, or even individual application capabilities, with the possible exception of limited user-specific application configuration settings."_ [[NIST11]](#ref_nist11)</span>
+
+Die Grundidee, dass einem Kunden die Aufgaben zur Wartung und Bezahlung von IT-Infrastrukturen und Plattformen abgenommen werden, ist nicht erst mit SaaS entstanden. Bereits in den 1990ern sind sogenannte _"Application Service Providers" (ASP)_ entstanden, die Softwareanwendungen über Netzwerke bereitstellten. Auch ASPs sahen ein Geschäftsmodell darin, dem Kunden die Arbeit abzunehmen, die abseits von der eigentliche Bedienung und Verwendung einer Softwarelösung notwendig ist. Stattdessen war es nur notwendig Client-Software zu installieren, was gerade für kleine und mittelständische Unternehmen eine enorme Kostenersparnis darstellte. [[BIAN20]](#ref_bian20)
+
+Im Vergleich zu ASPs stellen SaaS Anbieter in der Regel ihre eigene Software über die Cloud bereit, anstatt Software von Dritten anzubieten. Darüber hinaus wird für SaaS-Lösungen in den meisten Fällen einzig ein Browser benötigt und keine separat installierte Clientanwendung. Was den Unterschied in Wartung und Betrieb betrifft, so stellten ASPs für jeden ihrer Kunden eine eigene Instanz der gewünschten Anwendung zur Verfügung, während modere SaaS Lösungen, mit einem multimandantenfähiges System, mehrere Kunden über eine einzige Instanz versorgen können. Sowohl ASP als auch SaaS unterstützen, durch die Zentralisierung der laufenden Softwareanwendungen, das Prinzip von Continuous Delivery. Dies bedeutet, dass die Anwendungen, die über das Netzwerk bereitgestellt werden, in deutlich höherer Frequenz Updates erhalten können, ohne dabei den Endnutzer mit einbeziehen zu müssen. Anzumerken ist, dass SaaS Continuous Delivery stärker unterstützt, da dort die Client-Software in der Regel keine Updates benötigt. [[BIAN20]](#ref_bian20)
+
 
 #### Function as a Service (FaaS)
 
+Der Begriff FaaS ist aus dem Bereich der _"serverless"_ Architekturen entstanden. Initial wurde mit serverless beschrieben, was heute mit IaaS gemeint ist. Also, dass die Server, die für eine Anwendung benötigt werden, von Dritten bereitgestellt und gewartet werden.
+
+- Nur kurz AWS nennen, um nichts aus dem Kapitel unten vorweg zu nehmen
+
+Amazon prägte das serverless Paradigma allerdings mit der Veröffentlichung von [AWS Lamba](#aws-lambda) vollkommen neu und den Begriff FaaS
+
+- Anwendungs Funktionalitäten ohne typische Infrastruktur
+- Erlaubt eine Serverless Architektur
+- Microservices können so umgesetzt werden
+
 #### Everything as a Service (XaaS)
 
+- IoTaaS, Blockchain aaS, Database aaS (DbaaS)
 
 ### ?? Cloud-Formen
 
@@ -142,13 +165,17 @@ Der Begriff "Fog Computing" wurde 2013 erstmals von Cisco bei einer Pu­b­li­z
 
 Die Unterschiede zu Cloud und Edge Computing sind die Nähe zum Endverbraucher, die dichte geografische Verteilung und die mobile Einsatzmöglichkeit. Das standardmäßige Prinzip von Cloud Computing wird dahingehend verändert, dass durch sogenannte Fog-Nodes mehrere Endgeräte verknüpft werden und die Fog-Nodes die Kommunikation zur Cloud übernehmen, statt die Endgeräte direkt. Durch die erhöhte Leistung sind die Fog-Nodes in der Lage Aufgaben der Cloud (z.B. Filterung von gesammelten Daten) zu übernehmen und darüberhinaus auch als eine Art von "vorgelagerter Cloud" betrachtet werden kann.
 
-Im Vergleich zu Edge Computing, wo die Endgeräte (z.B. IoT-Dinge) eine stärkere Rechenleistung, Speicherkapazität und Intelligenz erhalten, bleiben die Endgeräte im Fog-Computing meist "leistungsschwach". Stattdessen sind Gateways oder Fog-Nodes mit starker Leistung ausgestattet, um die bereits genannten Vorteile auszuspielen.
+<span style="display:block;text-align:center"/><a name="img_fog_vs_edge"></a>![alt text](./images/fog_vs_edge.png "Fog vs Edge Computing")
+<span style="display:block;text-align:center"/>Abbildung entnommen aus: [[ELLE17]](#ref_elle17)
+
+Im Vergleich zu Edge Computing, wo die Endgeräte (z.B. IoT-Dinge) eine stärkere Rechenleistung, Speicherkapazität und Intelligenz erhalten, bleiben die Endgeräte im Fog-Computing meist "leistungsschwach". Stattdessen sind Gateways oder Fog-Nodes mit starker Leistung ausgestattet, um die bereits genannten Vorteile auszuspielen. Die [Abbildung 2](#img_fog_vs_edge) zeigt genau diesen Unterschied.
 
 - http://info.opto22.com/fog-vs-edge-computing
 - Besteht aus einem "control plane" und einem "data plane" https://en.wikipedia.org/wiki/Fog_computing
 - https://web.archive.org/web/20140922061044/http://www.cisco.com/web/about/ac50/ac207/crc_new/university/RFP/rfp13078.html
 - https://www.openfogconsortium.org/wp-content/uploads/OpenFog_Reference_Architecture_2_09_17-FINAL.pdf
 
+- https://forestgiant.com/articles/fog-vs-edge/
 
 ### Sicherheitsaspekte
 
@@ -172,10 +199,13 @@ Im Vergleich zu Edge Computing, wo die Endgeräte (z.B. IoT-Dinge) eine stärker
 
 ### Elastic Compute Cloud (EC2)
 
+- IaaS
+
 ### Simple Storage Service (S3)
 
 ### AWS Lambda
 
+- FaaS
 
 ## Cloud Design Pattern
 
@@ -195,19 +225,28 @@ Im Vergleich zu Edge Computing, wo die Endgeräte (z.B. IoT-Dinge) eine stärker
 
 ## Literaturverzeichnis
 
-<a name="ref_bsi18">[BSI18]</a>: Bundesamt für Sicherheit in der Informationstechnik (BSI) ; Cloud Computing Grundlagen ; URL: <a>https://www.bsi.bund.de/DE/Themen/DigitaleGesellschaft/CloudComputing/Grundlagen/Grundlagen_node.html</a> (abgerufen am 03.05.2018)
 
-<a name="ref_feld17">[FELD17]</a>: Felde, Christian ; Blog of Christian Felde, 20.12.2017 ; On edge architecture ; URL: <a>https://blog.cfelde.com/2017/12/on-edge-architecture/</a> (abgerufen am 27.05.2018)
+<a name="ref_bian20">[BIAN20]</a>: Bianchi, Alessandra ; Inc., 01.04.2000: Say good-bye to software as we know it and hello to ASP start-up ; URL: <a>https://www.inc.com/magazine/20000401/18093.html</a> (abgerufen am 26.06.2018)
+
+<a name="ref_bsi18">[BSI18]</a>: Bundesamt für Sicherheit in der Informationstechnik (BSI): Cloud Computing Grundlagen ; URL: <a>https://www.bsi.bund.de/DE/Themen/DigitaleGesellschaft/CloudComputing/Grundlagen/Grundlagen_node.html</a> (abgerufen am 03.05.2018)
+
+<a name="ref_elle17">[ELLE17]</a>: Elle, Jessica ; Forestgiant, 05.04.2017: Fog VS Edge Computing ; URL: <a>https://forestgiant.com/articles/fog-vs-edge/</a> (abgerufen am 26.06.2018)
+
+<a name="ref_feld17">[FELD17]</a>: Felde, Christian ; Blog of Christian Felde, 20.12.2017´: On edge architecture ; URL: <a>https://blog.cfelde.com/2017/12/on-edge-architecture/</a> (abgerufen am 27.05.2018)
 
 <a name="ref_foot17">[FOOT17]</a>: Foote, Keith D. ; Dataversity, 22.06.2017: A Brief History of Cloud Computing ; URL: <a>http://www.dataversity.net/brief-history-cloud-computing/</a> (abgerufen am 27.05.2018)
 
+<a name="ref_forr06">[FORR06]</a>: Forrest, Brady ; O'Reilly Radar, 25.09.2006: Zimki, hosted JavaScript environment ; URL: <a>http://radar.oreilly.com/2006/09/zimki-hosted-javascript-enviro.html</a> (abgerufen am 26.06.2018)
+
 <a name="ref_gass16">[GASS16]</a>: Gassner, Heinz ; Smart Industry Forum, 02.12.2016: What Do We Actually Mean By: IaaS, PaaS, SaaS? ; URL: <a>https://smartindustryforum.org/what-do-we-actually-mean-by-iaas-paas-saas/</a> (abgerufen am 21.06.2018)
 
-<a name="ref_gedi18">[GEDI18]</a>: GE Digital ; What is Edge Computing? ; URL: <a>https://www.ge.com/digital/blog/what-edge-computing#edge-computing-vs-cloud-computing-3</a> (abgerufen am 27.05.2018)
+<a name="ref_gedi18">[GEDI18]</a>: GE Digital: What is Edge Computing? ; URL: <a>https://www.ge.com/digital/blog/what-edge-computing#edge-computing-vs-cloud-computing-3</a> (abgerufen am 27.05.2018)
 
 <a name="ref_ibmj09">[IBMJ09]</a>: IBM Journal of Research and Development, 07.2009: The Reservoir model and architecture for open federated cloud computing ; URL: <a>https://ieeexplore.ieee.org/document/5429058/</a> (abgerufen am 19.06.2018)
 
-<a name="ref_lynl18">[LYNL18]</a>: Lynley, Matthew ; techcruch.com: Amazon my be developing AI chips for Alexa ; URL: <a>https://techcrunch.com/2018/02/12/amazon-may-be-developing-ai-chips-for-alexa/</a> (abgerufen am 27.05.2018)
+<a name="ref_lynl18">[LYNL18]</a>: Lynley, Matthew ; techcruch.com: Amazon may be developing AI chips for Alexa ; URL: <a>https://techcrunch.com/2018/02/12/amazon-may-be-developing-ai-chips-for-alexa/</a> (abgerufen am 27.05.2018)
+
+<a name="ref_mark07">[MARK07]</a>: Markham, Gervase ; Hacking for Christ, 25.09.2007: Zimki Shuts Down ; URL: <a>http://blog.gerv.net/2007/09/zimki_shuts_down/</a> (abgerufen am 26.06.2018)
 
 <a name="ref_mill18">[MILL18]</a>: Miller, Paul ; The Verge, 07.05.2018: What is edge computing? ; URL: <a>https://www.theverge.com/circuitbreaker/2018/5/7/17327584/edge-computing-cloud-google-microsoft-apple-amazon</a> (abgerufen am 27.05.2018)
 
@@ -222,3 +261,5 @@ Im Vergleich zu Edge Computing, wo die Endgeräte (z.B. IoT-Dinge) eine stärker
 <a name="ref_shaw17">[SHAW17]</a>: Shaw, Keith ; NetworkWorld, 19.12.2017: What is a hypervisor? ; URL: <a>https://www.networkworld.com/article/3243262/virtualization/what-is-a-hypervisor.html</a> (abgerufen am 21.06.2018)
 
 <a name="ref_stat16">[STAT16]</a>: Statt, Nick ; The Verge: How an army of vulnerable gadgets took down the web today ; URL: <a>https://www.theverge.com/2016/10/21/13362354/dyn-dns-ddos-attack-cause-outage-status-explained</a> (abgerufen am 27.05.2018)
+
+<a name="ref_watt17">[WATT17]</a>: Watts, Stephen ; BMC Blogs, 22.09.2017: SaaS vs PaaS vs IaaS: What's The Difference and How To Choose ; URL: <a>https://www.bmc.com/blogs/saas-vs-paas-vs-iaas-whats-the-difference-and-how-to-choose/</a> (abgerufen am 26.06.2018)
