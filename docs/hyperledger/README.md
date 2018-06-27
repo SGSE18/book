@@ -141,18 +141,55 @@ Ein weiteres nützliches Feature ist die Möglichkeit aus den Protocol Buffers
 entsprechende DTO und Service Klassen für Typescript zu generieren.
 
 ### Chrome Extension
+Für den Entwurf einer geeigneten Architektur und Wahl der zusätzlich benötigten
+Bibliotheken, muss der grundsätzliche Aufbau einer Chrome Extensions betrachtet
+werden. Die Kernfunktionen der Erweiterung, ist die verschlüsselte Persistierung
+der Zertifikate inkl. der privaten Schlüssel und die Kommunikation mit der
+Webapplikation.
+
+Dazu wird zunächst untersucht, wie die Kommunikation zwischen der im Browser
+ausgeführten Webapplikation und er Erweiterung realisiert werden
+kann. Anschliessend werden die Möglichkeiten zur Persistierung der Zertifikate
+und privaten Schlüssel betrachtet.
+
+#### Kommunikation
+Die Kommunikation zwischen den in [Abbildung 2.2.2.2](#img_2222) abgebildeten
+Komponenten einer Chrome Extension, kann mittels der Message API realisiert
+werden [[CHMA18](#ref_chma18)].
 
 ![Chrome Extension Messaging](./messagingarc.png)
 
 <a name="img_2222">Abbildung 2.2.2.2</a> - Chrome Extension Architektur *Quelle:* [[CHEX18](#ref_chex18)]
 
-#### Popup
+##### Background Script
+Das Background Script wird als Singleton initial beim Browserstart geladen und
+ist während der gesamten Laufzeit des Browsers verfügbar. Es ist der zentrale
+Event-Handler der Erweiterung und kann ebenfalls für Seitenübergreifende State
+Persistierung verwendet werden.
 
-#### Background Script
+##### Popup
+Diese Komponente einer Chrome Erweiterung enthält das als Popup angezeigt
+User Interface inkl. der dazugehörigen Applikationslogik. Die Anzeige des Popups
+kann nur vom Benutzer durch den Klick auf die Schaltfläche initiiert werden,
+wodurch die Komponente erst erzeugt und initialisiert wird. Beim schliessen des
+Popup werden auch die Komponenten wieder zerstört, sodass State-Informationen
+anderweitig persistiert werden müssen.
 
-#### Content Script
+##### Content Script
+Für jeden offenen Tab im Browser wird ein sogenanntes Content Script geladen,
+das in dem Context der aktuellen Webapplikation läuft. Obwohl dieser im Context
+der aktuellen Webapplikation läuft, ist die Laufzeitumgebung des Content
+Scripts und der Webapplikation von einander isoliert. Ein Content
+Script kann zwar auf den DOM der aktuellen Seite zugreifen und diesen
+manipulieren, aber keine Javascript Objekte oder Funktion der Seite benutzen.
+Ebenfalls kann die Seite keine Funktion aus dem Content Script verwenden.
 
-https://developer.chrome.com/extensions/content_scripts#host-page-communication
+Damit eine berichtigte Webapplikation dennoch auf die Zertifikate zugreifen und
+mittels der Extension Daten vom Distributed Ledger abrufen kann, müssen die
+Funktionen `window.postMessage(...)` und `window.addEventListener(...)` für das
+Marshalling der Funktionsaufrufe verwendet werden [[CHPC18](#ref_chpc18)].
+
+#### Persistierung
 
 
 ## Entwurf
@@ -177,15 +214,15 @@ eingesetzt.
 
 * Typescript Code Generator für Protocol Buffers
 * golang-Tool für Reverse-Proxy verfügbar
-* seit März 2017 verfügbar und 4077 wöchentlich NPM Installationen
+* NPM Paket verfügbar mit 4077 wöchentliche NPM Installationen
+* Erste Version im März 2017 veröffentlicht
 
-Damit ist zwar nach wie vor eine serverseitige Schnittstelle notwendig, jedoch
-kann nun die Authentifizierung der Benutzer gegenüber dem Distributed Ledger und
-die Signierung der Anfragen, in den Browser verlagert werden. Damit stellt die
-serverseitige Schnittstelle lediglich einen Reverse-Proxy zwischen dem
-gRPC-Web-Protokoll und dem nativen gRPC-Protokoll dar, wodurch der private
-Schlüssel zu keinem Zeitpunkt über Netzwerk übertragen oder auf dem Server
-vorgehalten werden muss.
+Mit der gRPC-Web-Client Bibliothek ist zwar nach wie vor eine serverseitige
+Schnittstelle notwendig, jedoch kann nun die Authentifizierung und die
+Signierung der Anfragen, in den Browser verlagert werden. Damit stellt die
+serverseitige Schnittstelle lediglich einen Reverse-Proxy dar, wodurch der
+private Schlüssel zu keinem Zeitpunkt über Netzwerk übertragen oder auf dem
+Server vorgehalten werden muss.
 
 ### Architektur
 
@@ -206,25 +243,29 @@ vorgehalten werden muss.
 ## Evaluation
 Zur Evaluation der Fabric Extension wird eine Webapplikation implementiert,
 die Information aus der digitalen Patientenakte vom [Health Ledger Projekt](https://github.com/SGSE18/health-ledger/)
-anzeigt. Dabei steht jedoch die Demonstration der Funktionalität, wie die
-Authentifizierung der Webapplikation gegenüber der Erweiterung, im Vordergrund.
+anzeigt. Dabei steht jedoch die Demonstration der Funktionalität der Erweiterung
+im Vordergrund.
 
 ## Referenzen
 
-<a name="ref_hype18">[HYPE18]</a> IBM Blockchain auf Basis von Hyperledger Fabric der Linux Foundation [Online](https://www.ibm.com/blockchain/de-de/hyperledger.html)
+<a name="ref_chex18">[CHEX18]</a> Google Chrome Extension Dokumentation - Content Scripts [Online](https://developer.chrome.com/extensions/overview#contentScripts)
 
-<a name="ref_sang18">[SANG18]</a> Siddesh Sangodkar: Browser compatible fabric-node-sdk [Online](https://jira.hyperledger.org/browse/FAB-8129)
+<a name="ref_chma18">[CHMA18]</a> Google Chrome Extension Dokumentation - Message Passing [Online](https://developer.chrome.com/extensions/messaging)
 
-<a name="ref_miny18">[MINY18]</a> Min Yu: 2018 Projects - Project 5: Hyperledger Fabric Chrome Extension [Online](https://wiki.hyperledger.org/internship/project_ideas)
+<a name="ref_chpc18">[CHPC18]</a> Google Chrome Extension Dokumentation - Host Page Communication [Online](https://developer.chrome.com/extensions/content_scripts#host-page-communication)
 
 <a name="ref_grwe18">[GRWE18]</a> Github: gRPC for Web Clients [Online](https://github.com/grpc/grpc-web)
 
 <a name="ref_grjs18">[GRJS18]</a> Github: Pure JavaScript gRPC Client [Online](https://github.com/grpc/grpc-node/tree/master/packages/grpc-js-core)
 
-<a name="ref_chex18">[CHEX18]</a> Google Chrome Extension Dokumentation - Content Scripts [Online](https://developer.chrome.com/extensions/overview#contentScripts)
+<a name="ref_grwp18">[GRWP18]</a> Github: gRPC Web Protocol [Online](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-WEB.md)
+
+<a name="ref_hype18">[HYPE18]</a> IBM Blockchain auf Basis von Hyperledger Fabric der Linux Foundation [Online](https://www.ibm.com/blockchain/de-de/hyperledger.html)
+
+<a name="ref_inwe18">[INWE18]</a> Github: gRPC Web implementation for Golang and TypeScript [Online](https://github.com/improbable-eng/grpc-web)
+
+<a name="ref_miny18">[MINY18]</a> Min Yu: 2018 Projects - Project 5: Hyperledger Fabric Chrome Extension [Online](https://wiki.hyperledger.org/internship/project_ideas)
 
 <a name="ref_ngin18">[NGIN18]</a> Github: nginx Gateway [Online](https://github.com/grpc/grpc-web/tree/master/net/grpc/gateway/nginx)
 
-<a name="ref_grwp18">[GRWP18]</a> Github: gRPC Web Protocol [Online](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-WEB.md)
-
-<a name="ref_inwe18">[INWE18]</a> Github: gRPC Web implementation for Golang and TypeScript [Online](https://github.com/improbable-eng/grpc-web)
+<a name="ref_sang18">[SANG18]</a> Siddesh Sangodkar: Browser compatible fabric-node-sdk [Online](https://jira.hyperledger.org/browse/FAB-8129)
