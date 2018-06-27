@@ -1,4 +1,4 @@
-# Dezentralisierung
+# Dezentrale Anwendungen
 *Autor: Patrick Lukas Starzynski*
 
 ## Allgemeines
@@ -120,6 +120,15 @@ Der Lookupprozess wird über disjunkte Pfade durchgeführt um gute Knoten mit ei
 
 #### BitTorrent
 
+Ebenso wird IPFS durch drei Schlüsselfeatures des Filesharing Systems BitTorrent geprägt [[BENE14]](#ref_BENE14):
+
+1. BitTorrent belohnt Knoten, die aktiv am Netzwerk teilnehmen und bestraft so genannte Leecher, die lediglich das Netzwerk belasten.
+Als belastend zu verstehen sind Nutzer(-gruppen), die Dateien vom Netzwerk herunterladen und es vermeiden Dateien im Netzwerk zu verbreiten.
+
+2. BitTorrent verwaltet seltene Datenchunks und versucht diese priorisiert zu verteilen.
+
+3. Die Belohnungs -und Bestrafungsstrategie ist anfällig gegenüber einem Exploit, in dem Angreifer ihre Bandbreite auf weitere Peers aufteilen [[ADAM15]](#ref_ADAM15).
+
 #### Git
 
 #### SFS
@@ -131,6 +140,9 @@ Der Lookupprozess wird über disjunkte Pfade durchgeführt um gute Knoten mit ei
 ## DAT vs. IPFS vs. HTTP
 
 ## Literaturverzeichnis
+<a name="ref_ADAM15">[ADAM15]</a>:
+Adamsky, Florian et al., P2P File-Sharing in Hell: Exploiting BitTorrent Vulnerabilities to Launch
+Distributed Reflective DoS Attacks, 2015
 
 <a name="ref_BENE14">[BENE14]</a>:
 Benet, Juan: IPFS - Content Addressed, Versioned, P2P File System, 2014
