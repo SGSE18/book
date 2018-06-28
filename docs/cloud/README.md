@@ -24,9 +24,9 @@ Autor: Björn Böing
     - [Edge Computing](#edge-computing)
     - [Fog Computing](#fog-computing)
     - [Sicherheitsaspekte](#sicherheitsaspekte)
-    - [Nachteile & Begrenzungen](#nachteile-&-begrenzungen)
+    - [Nachteile & Begrenzungen](#nachteile-begrenzungen)
 - [Amazon Web Service (AWS)](#amazon-web-service)
-    - [Einführung & Grundlagen](#einführung-&-grundlagen)
+    - [Einführung & Grundlagen](#einführung-grundlagen)
     - [Elastic Compute Cloud (EC2)](#elastic-compute-cloud)
     - [Simple Storage Service (S3)](#simple-storage-service)
     - [AWS Lambda](#aws-lambda)
@@ -53,7 +53,7 @@ Neben dem Kernpunkt aller Definitionen, dass Rechnerressourcen über ein Netzwer
 
 Die Bedeutung von "Cloud Computing" wie sie heute existiert und was damit verbunden wird, hat sich seit der ersten Verwendung nicht viel verändert. Die Compaq, Weltmarktführer für PC-Systeme der 1990er, verwendete den Begriff 1996 in einem internen Dokument. Schon davor wurde der Begriff "Cloud" und die dazugehörige Abbildung verwendet, um unter anderem das Internet, Telekommunikation und verteilte Anwendungen darzustellen. [[REGA11]](#ref_rega18)
 
-Populär wurde der Begriff "Cloud Computing", als Amazon 2006 ihre Elastic Compute Cloud (EC2) auf den Markt brachte. In den anschließenden Jahren brachten auch Unternehmen wie Google, Microsoft, IBM und auch Oracle vergleichbare Produkte auf den Markt, um den neu erzeugten Bedarf nach externer und mietbarer Rechenleistung zu bedienen. Das erste open-source Projekt, welches das Erstellen von privaten und hybrid Clouds ermöglichte, war das OpenNebula Projekt der NASA und wurde 2008 veröffentlicht. [[FOOT17]](#ref_foot17) [[IBMJ]](#ref_ibmj09)
+Populär wurde der Begriff "Cloud Computing", als Amazon 2006 ihre Elastic Compute Cloud (EC2) auf den Markt brachte. In den anschließenden Jahren brachten auch Unternehmen wie Google, Microsoft, IBM und auch Oracle vergleichbare Produkte auf den Markt, um den neu erzeugten Bedarf nach externer und mietbarer Rechenleistung zu bedienen. Das erste open-source Projekt, welches das Erstellen von [privaten](#private) und [hybrid](#hybrid) Clouds ermöglichte, war das OpenNebula Projekt der NASA und wurde 2008 veröffentlicht. [[FOOT17]](#ref_foot17) [[IBMJ]](#ref_ibmj09)
 
 
 ## ?? Architektur / Konzept
@@ -89,7 +89,9 @@ Die [Abbildung 1](#img_service_models) zeigt den Zusammenhang der drei verbreite
 <span style="display:block;text-align:center"/><a name="img_service_models"></a>![alt text](./images/iaas_paas_saas.jpg "IaaS vs PaaS vs SaaS")
 <span style="display:block;text-align:center"/>Abbildung entnommen aus: [[GASS16]](#ref_gass16)
 
-<a name="infrastructure-as-a-service"/>
+
+<a name="infrastructure-as-a-service"></a>
+
 #### Infrastructure as a Service (IaaS)
 
 Mit IaaS wird das Bereitstellen von IT-Infrastrukturen mittels high-level APIs beschrieben, welche Details und Funktionen auf eine höhere Abstraktionsebene anheben, um deren Benutzung zu vereinfachen. Typische Infrastrukturen, die als Service bereitgestellt werden sind Rechenleistung und Speicherplatz.
@@ -119,6 +121,7 @@ Fotango, eine Tochterfirma von Canon Europe, brachte 2006 als weltweit erster An
 
 
 <a name="software-as-a-service"></a>
+
 #### Software as a Service (SaaS)
 
 Mit SaaS stellt ein Anbieter das volle Paket, bestehend aus Infrastruktur, Plattform und auch Anwendungssoftware, für die direkte Nutzung bereit. Dabei steht die Anwendersoftware im Vordergrund und wird häufig über einen Thin-Client, wie einen Internetbrowser, bedient. Durch diesen Ansatz muss ein Anwender keinerlei produktspezifische Software installieren, sondern kann die volle Funktionalität jederzeit auf Abruf nutzen. Aus diesem Grund wird SaaS auch als _"On Demand Software"_ bezeichnet und gilt als das komplette Gegenteil zur klassischen _"On Premises Software"_, bei der ein Produkt auf dem Nutzerrechner vollständig installiert werden muss, bevor es genutzt werden kann. [[GASS16]](#ref_gass16) [[WATT17]](#ref_watt17)
@@ -170,20 +173,25 @@ Durch die große Verbreitung und die verschiedensten Anwendungsgebiete sind auch
 
 #### Public
 
-Eine _"Public Cloud"_ beschreibt eine öffentlich zugängliche Cloud-Infrastruktur, bei der die benötigten Ressourcen von einem Dritten bereitgestellt und gewartet werden. Die Nutzung von Public Clouds kann zwar kostenlos sein oder zumindest bis zu einem gewissen Grad, ist in der Regel allerdings mit direkten Kosten an den Anbieter verbunden. Dieses Bereitstellungsmodell ist mit Abstand am weitesten vertreten und wir sowohl von Privatleuten als auch von Unternehmen verwendet, um Arbeit auszulagern und die eigene Produktivität zu erhöhen. [[NIST11]](#ref_nist11) [[SOME15]](#ref_some15)
+Eine _"Public Cloud"_ beschreibt eine öffentlich zugängliche Cloud-Infrastruktur, bei der die benötigten Ressourcen von einem Dritten bereitgestellt und gewartet werden. Die Nutzung von Public Clouds kann zwar kostenlos sein oder zumindest bis zu einem gewissen Grad, ist in der Regel allerdings mit direkten Kosten an den Anbieter verbunden. Dieses Bereitstellungsmodell ist mit Abstand am weitesten vertreten und wir sowohl von Privatleuten als auch von Unternehmen verwendet, um Arbeit auszulagern und die eigene Produktivität zu erhöhen. [[INNO17]](#ref_inno17) [[NIST11]](#ref_nist11)
 
 
 #### Private
 
-Unternehmen, die die Cloud-Infrastruktur eines Dritten allein nutzen oder die die Bereitstellung Wartung selbstständig erledigen wollen, greifen häufig auf eine _"Private Cloud"_ zurück. Dies erlaubt es ihnen die vorhergehend beschriebenen [Service Modelle](#service-modelle) zentral zu warten und bereitzustellen und müssen so nicht zwingendauf einen Dritten vertrauen. Ein Unternehmen kann somit sowohl Betreiber als auch Nutzer einer Cloud sein und auch darüberhinaus aus Zweigstellen Zugriff auf die Private Cloud ermöglichen. [[NIST11]](#ref_nist11) [[SOME15]](#ref_some15)
+Unternehmen, die die Cloud-Infrastruktur eines Dritten allein nutzen oder die die Bereitstellung Wartung selbstständig erledigen wollen, greifen häufig auf eine _"Private Cloud"_ zurück. Dies erlaubt es ihnen die vorhergehend beschriebenen [Service Modelle](#service-modelle) zentral zu warten und bereitzustellen und müssen so nicht zwingendauf einen Dritten vertrauen. Ein Unternehmen kann somit sowohl Betreiber als auch Nutzer einer Cloud sein und auch darüberhinaus aus Zweigstellen Zugriff auf die Private Cloud ermöglichen. [[INNO17]](#ref_inno17) [[NIST11]](#ref_nist11)
 
 
 #### Community
 
+Eine _"Community Cloud"_ siedelt sich zwischen Public und Private Clouds an. Die genutzte Infrastruktur wird sich zwischen mehreren Unternehmen oder Teilnehmern geteilt, sind aber nicht öffentlich zugänglich. In der Regel schließen sich Unternehmen zusammen, die beispielsweise die gleichen Vorraussetzungen an Privatsphäre, Performanz und Sicherheit stellen und durch den Zusammenschluss die entstehenden Kosten aufteilen wollen. Community Clouds können innerhalb des Zusammenschlusses bereitgestellt, aber auch durch einen Dritten bezogen werden. Über ein multimandantenfähiges System können einzelne Unternehmen separat von einander agieren, es lassen sich aber trotzdem zentrale Datenquellen erzeugen, auf die mehrere Teilnehmer Zugriff haben. Ein Beispiel für einen Zusammenschluss sind Banken, bei denen mehrere Tochterfirmen eigenständig arbeiten, aber trotzdem zentrale Datenquellen mit einbeziehen. [[INNO17]](#ref_inno17) [[NIST11]](#ref_nist11)
+
+
 #### Hybrid
 
+Beim Einsatz von _"Hybrid Clouds"_ werden zwei oder mehr Clouds miteinander verbunden, die unterschiedliche Bereitstellungsmodelle besitzen können. Unternehmen können dadurch beispielsweise sensible Daten mit einer Private Cloud schützen und gleichzeit andere Daten durch eine Public Cloud öffentlich zugänglich machen. Außerdem ermöglichen Hybrid Clouds einen schritt- oder teilweisen Umstieg von on premise Anwendungen zur Cloud. Dies wird vor allem von Unternehmen genutzt, die einen Umstieg zur Cloud nicht in einem einzigen Schritt stemmen können. Das unter [Geschichtliches](#geschichtliches) erwähnte Projekt OpenNebula der NASA ist ein Beispiel für die gleichzeitige Nutzung von Private und Public Cloud. Ersteres nutzt die NASA, um Forschung und Entwicklung unter Verschluss zu halten, während letzteres dazu genutzt wird, um Datensätze mit anderen Unternehmen und der Öffentlichkeit auszutauschen. [[INNO17]](#ref_inno17) [[NIST11]](#ref_nist11)
 
-### Vergleich zu anderen Modellen
+
+### ??? Vergleich zu anderen Modellen
 
 ### Edge Computing
 
@@ -243,6 +251,9 @@ Im Vergleich zu Edge Computing, wo die Endgeräte (z.B. IoT-Dinge) eine stärker
 - Provider Zugriff
 - Datenschutzrechtlich in DE (Kundendaten nicht auf Server im Ausland)
 
+
+<a name="nachteile-begrenzungen"></a>
+
 ### Nachteile & Begrenzungen
 
 - Geringere Individualisierungsmöglichkeiten
@@ -257,6 +268,9 @@ Im Vergleich zu Edge Computing, wo die Endgeräte (z.B. IoT-Dinge) eine stärker
 - Eventverarbeitung
 - Generelle Erläuterung und kleinere Anleitungen
 - AWS API gateway (Skalierbare APIs) ?
+
+
+<a name="einführung-grundlagen"></a>
 
 ### Einführung & Grundlagen
 
@@ -291,6 +305,8 @@ Im Vergleich zu Edge Computing, wo die Endgeräte (z.B. IoT-Dinge) eine stärker
 - Hier evtl. Ausblicke auf derzeitige Trends der verbreitesten Cloud Anbieter
 - https://www.golem.de/news/hpe-greenlake-hybrid-cloud-software-automatisiert-die-ressourcen-in-der-cloud-1806-135051.html
 
+- Cloud native application (FaaS mit Microservices immer zentraler in Sachen Cloud) https://www.cncf.io/blog/2017/05/15/developing-cloud-native-applications/ 
+
 ## Literaturverzeichnis
 
 
@@ -316,6 +332,8 @@ Im Vergleich zu Edge Computing, wo die Endgeräte (z.B. IoT-Dinge) eine stärker
 
 <a name="ref_ibmj09">[IBMJ09]</a>: IBM Journal of Research and Development, 07.2009: The Reservoir model and architecture for open federated cloud computing ; URL: <a>https://ieeexplore.ieee.org/document/5429058/</a> (abgerufen am 19.06.2018)
 
+<a name="ref_inno17">[INNO17]</a>: Innocent, Johnson ; DZone / Cloud Zone, 09.03.2017: Cloud Computing Deployment Models ; URL: <a>https://dzone.com/articles/cloud-computing-deployment-models</a> (abgerufen am 28.06.2018)
+
 <a name="ref_lynl18">[LYNL18]</a>: Lynley, Matthew ; techcruch.com: Amazon may be developing AI chips for Alexa ; URL: <a>https://techcrunch.com/2018/02/12/amazon-may-be-developing-ai-chips-for-alexa/</a> (abgerufen am 27.05.2018)
 
 <a name="ref_mark07">[MARK07]</a>: Markham, Gervase ; Hacking for Christ, 25.09.2007: Zimki Shuts Down ; URL: <a>http://blog.gerv.net/2007/09/zimki_shuts_down/</a> (abgerufen am 26.06.2018)
@@ -333,8 +351,6 @@ Im Vergleich zu Edge Computing, wo die Endgeräte (z.B. IoT-Dinge) eine stärker
 <a name="ref_rous17b">[ROUS17b]</a>: Rouse, Margaret ; TechTarget, 11.2017: XaaS (Everything as a Service) ; URL: <a>https://searchcloudcomputing.techtarget.com/definition/XaaS-anything-as-a-service</a> (abgerufen am 27.06.2018)
 
 <a name="ref_shaw17">[SHAW17]</a>: Shaw, Keith ; NetworkWorld, 19.12.2017: What is a hypervisor? ; URL: <a>https://www.networkworld.com/article/3243262/virtualization/what-is-a-hypervisor.html</a> (abgerufen am 21.06.2018)
-
-<a name="ref_some15">[SOME15]</a>: Somepalle, Sankar ; Linkedin, 23.04.2015: 3 Service and 4 Deployment Models of Cloud Computing ; URL: <a>https://www.linkedin.com/pulse/3-service-4-deployment-models-cloud-computing-sankar-somepalle</a> (abgerufen am 27.06.2018)
 
 <a name="ref_stat16">[STAT16]</a>: Statt, Nick ; The Verge: How an army of vulnerable gadgets took down the web today ; URL: <a>https://www.theverge.com/2016/10/21/13362354/dyn-dns-ddos-attack-cause-outage-status-explained</a> (abgerufen am 27.05.2018)
 
