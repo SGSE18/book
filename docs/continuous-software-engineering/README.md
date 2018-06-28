@@ -1,8 +1,18 @@
 # Continuous Software Engineering
 
+Autor: Nils Dralle
+
 ## Definition
 
-"Continuous Software Engineering" beschreibt eine Möglichkeit der iterativen Softwareentwicklung und fokussiert sich auf den Prozess der Auslieferung an den Benutzer. DAbei wird der agile Softwareentwicklungsprozess unterstützt. Continuous Software Engineering ist interdisziplinär und bezieht im Gegensatz zu reinen agilen Softwareentwicklungsmodellen mehr als die reine Softwareentwicklung mit ein.
+"Continuous Software Engineering" beschreibt eine Möglichkeit der iterativen Softwareentwicklung und fokussiert sich auf den Prozess der Auslieferung an den Benutzer. Dabei wird der agile Softwareentwicklungsprozess unterstützt. Continuous Software Engineering ist interdisziplinär und bezieht im Gegensatz zu reinen agilen Softwareentwicklungsmodellen mehr als die reine Softwareentwicklung mit ein.
+Continuous Software Engineering lässt sich grob in folgende Teilbereiche einteilen:
+
+* Continuous Integration
+* Continuous Delivery
+* Continuous Testing
+* Continuous Deployment
+
+Diese Teilbereiche sind unscharf, d.h. sie können sich überschneiden oder zusammengefasst werden.
 
 ## Continuous Integration
 
@@ -31,7 +41,7 @@ Am Ende des Build-Prozesses muss die Anwendung in wiederverwendbare Artefakte, b
 
 ### Build-Tools
 
-Viele der Aufgaben in einem Build werdem dem Software-Entwickler von der verwendeten Entwicklungsumgebung abgenommen. Um den Build jedoch von der Entwicklungsumgebung unabhängig zu machen, wird ein Build-Tool verwendet.
+Viele der Aufgaben in einem Build werden dem Software-Entwickler von der verwendeten Entwicklungsumgebung abgenommen. Um den Build jedoch von der Entwicklungsumgebung unabhängig zu machen, wird ein Build-Tool verwendet.
 In der einfachsten Form ist ein Build-Tool ein einfaches Script, welches die oben genannten zu einem Build gehörigen Aufgaben nacheinander ausführt. Viele Build-Tools nehmen dem Entwickler allerdings einen Großteil der Konfiguration ab.
 Viele Build-Tools sind Programmiersprachen-spezifisch. Für Java gibt es unter anderem folgende Build-Tools:
 
@@ -46,7 +56,7 @@ Maven verfolgt einen anderen Ansatz und definiert 'Konventionen' für beispielsw
 
 * Gradle
 
-Gradle versucht, einen Mittelweg zu finden. Ähnlich wie bei Maven wird vieles über Konventionen abgebildet. Weicht das Projekt von den Konventionen ab, müssen die Abweichungen mit einer Gradle-spezifischen Scriptsprache definiert werden.
+Gradle versucht, einen Mittelweg zu finden. Ähnlich wie bei Maven wird vieles über Konventionen abgebildet. Weicht das Projekt von den Konventionen ab, müssen die Abweichungen mit einer Gradle-spezifischen Skriptsprache definiert werden.
 
 ## Continuous Delivery
 
@@ -70,7 +80,7 @@ Soweit möglich, werden die bei der Auslieferung nötigen Tests der Software aut
 
 ### Risikominimierung
 
-Menschen machen Fehler. Und so unwahrscheinlich es auch klingt, auch Software-Entwickler machen Fehler. Repititive Aufgaben können die Wahrscheinlichkeit von Fehlern erhöhen. Deshalb automatisiert Continuous Delivery solche Aufgaben, um die Wahrscheinlichkeit von Fehlern zu minimieren.
+Menschen machen Fehler. Und so unwahrscheinlich es auch klingt, auch Software-Entwickler machen Fehler. Repetitive Aufgaben können die Wahrscheinlichkeit von Fehlern erhöhen. Deshalb automatisiert Continuous Delivery solche Aufgaben, um die Wahrscheinlichkeit von Fehlern zu minimieren.
 Die bei Continuous Delivery angestrebte hohe Frequenz minimiert zudem das Risiko jedes einzelnen Release, da jedes Release weniger potentiell fehleranfällige Änderungen enthält.
 
 ### Continuous Delivery Pipeline
@@ -92,7 +102,7 @@ In dieser Phase werden, soweit möglich, automatisiert die Anforderungen des Kun
 #### Kapazitätstests
 
 Kapazitätstest testen das Verhalten der Anwendung unter erwartbaren Lastbedingungen. Dabei geht es nicht unbedingt um die Leistungsfähigkeit einer Anwendung, sondern um Skalierbarkeit. Dadurch können auch in einer Umgebung, die nicht der Produktionsumgebung entspricht, Rückschlüsse auf das Verhalten der Anwendung geschlossen werden.
-Auch nichtfunktionale Anforderungen können von den Kapazitätstests abgedeckt werden.
+Auch nicht funktionale Anforderungen können von den Kapazitätstests abgedeckt werden.
 
 #### Explorativer Test
 
@@ -102,15 +112,35 @@ Beim explorativen Test wird die Anwendung mit Fokus auf neue Features und unvorh
 
 Bei der Einführung in die Produktion geht es darum, die Anwendung in einer neuen Umgebung zu installieren. Durch die hohe Zahl an vorher ausgeführten Tests, die teilweise in einer der Produktionsumgebung ähnlichen Umgebung erfolgt sind, ist dieser Schritt häufig recht risikoarm.
 
+## Continuous Testing
+
+Continuous Testing baut auf der Continuous Delivery auf und wird häufig als deren Teil betrachtet. Teil vom Continuous Testing sind manuelle Tests, wie beispielsweise explorative Tests und manuelle Akzeptanztests, aber auch all anderen Test, die entweder nicht automatisiert werden können oder effizienter von einem dedizierten Testteam durchgeführt werden können.
+Beim Continuous Testing testet das Testteam kontinuierlich den neuesten lauffähigen Stand der Software und gibt gefundene Fehler und sonstiges Feedback zeitnah an das Entwicklungsteam weiter. Anders als bei traditionellen manuellen Testmethoden wird davon ausgegangen, dass die getestete Software sich mit der Zeit verändert.
+
+## Continuous Deployment
+
+Continuous Deployment ist eine Alternative zur Continuous Delivery, die zwar schneller, aber auch risikoreicher sein kann. Beim Continuous Deployment wird die Continuous Delivery Pipeline nicht sequentiell durchlaufen, sondern die Software nach minimalen Tests beim Endkunden deployt.
+Bei diesem Vorgehen bekommt der Kunde sehr schnell die neueste Version und der Entwickler bekommt sehr schnell Feedback zur neuen Version vom Kunden, aber das Risiko, dass Fehler in der Produktion landen, ist sehr hoch.
+  
+
 ### DevOps
+
+![DevOps](./media/738x415_f5f5f5.jpg "DevOps")
+
+Abbildung 2 - DevOps cycle(Quelle: <a>[[PIEN18]](#ref_pien18)</a>)
 
 ##### Definition
 
-DevOps ist ein agiler Prozess beziehungsweise eine Arbeitsweise mit dem Ziel, die Zusammenarbeit aller am Prozess beteiligten möglichst einfach und effizient zu gestalten.
+DevOps ist ein Ansatz zur Prozessverbesserung in Unternehmen. Das heißt, Prozesse, insbesondere diejenigen, die IT  und IT-Operations betreffen, sollen schneller und effizienter werden. Als Teil von DevOps kann Continuous Software Engineering verwendet werden, dies ist jedoch nicht zwingend. Es geht darum, die am besten funktionierenden Prozesse für das Unternehmen zu finden. Anders als Continuous Software Engineering konzentriert sich DevOps dabei eher auf dies Buisness Architektur des Unternehmens.
+DevOps ist Unternehmenskultur, keine Werkzeug zum lösen eines konkreten Problems.
 
 ##### Entwicklung/IT-Operations
 
-Der Begriff DevOps setzt sich zusammen aus den Begriffen Development (Entwicklung) und Operations. Der Bereich Entwicklung ist für die Softwareentwicklung zuständig, der Bereich Operations für die notwendige IT-Infrastruktur (z.b. Bereitstellung notwendiger Tools). Wenn zusätzlich der Bereich Sicherheit involviert ist, spricht man auch von DevSecOps. Ziel ist es, dass diese Bereiche enger zusammenarbeiten und gemeinsam effizienter sind.
+Der Begriff DevOps setzt sich zusammen aus den Begriffen Development (Entwicklung) und Operations. Der Bereich Entwicklung ist für die Softwareentwicklung zuständig, der Bereich Operations für die notwendige IT-Infrastruktur (z.b. Bereitstellung notwendiger Tools). Wenn zusätzlich der Bereich Sicherheit involviert ist, spricht man auch von DevSecOps. Ziel ist es, dass diese Bereiche enger zusammenarbeiten und gemeinsam effizienter sind. 
+
+#### DevSecOps
+
+Der Bereich Sicherheit, insbesondere die IT-Sicherheit, spielt bei DevOps eine große Rolle. Viele Softwarelösungen werden heutzutage in der Cloud verwendet, stehen also im Internet. Sicherheitslücken müssen dann schnell erkannt und behoben werden. Dev(Sec-)Ops-Prozesse können dabei helfen.
 
 ##### DevOps als agiler Prozess
 
@@ -128,39 +158,35 @@ That is, while there is value in the items on the right, we value the items on t
 more."
 
 Der erste Punkt, "Individuals and interactions over processes and tools", also frei übersetzt "Der individuelle Mitarbeiter ist wichtiger als Prozesse und Werkzeuge", wird von DevOps sehr ernst genommen. Interaktionen zwischen Mitarbeitern sind wichtiger als die verwendeten Werkzeuge. Die verwendeten Werkzeuge sollen Interaktionen unterstützen, nicht bestimmen, wie diese ablaufen.
-Trotzdem ist die verwendung geeigneter Werkzeuge bei DevOps wichtig, mit Betonung auf geeignet. Wenn ein Werkzeug für Unruhe oder Streit innerhalb eines Teams führt, ist es eventuell nicht geeignet.
+Trotzdem ist die Verwendung geeigneter Werkzeuge bei DevOps wichtig, mit Betonung auf geeignet. Wenn ein Werkzeug für Unruhe oder Streit innerhalb eines Teams führt, ist es eventuell nicht geeignet.
 
 
 ##### Automatisierung
 
-Bestandteil von DevOps ist die größtmögliche Automatisierung des Auslieferungsprozesses durch den Einsatz geeigneter Tools und Continuous Delivery. Einfache, repititive Aufgaben werden automatisiert, und mehr Wert auf menschliche Interaktionen gelegt. 
+Bestandteil von DevOps ist die größtmögliche Automatisierung des (Software-)Auslieferungsprozesses durch den Einsatz geeigneter Tools und Continuous Delivery. Einfache, repetitive Aufgaben werden automatisiert, und mehr Wert auf menschliche Interaktionen gelegt. Am Ende muss aber immer ein Mehrwert für das Unternehmen entstehen.
 
 ##### Time to Market
 
 DevOps hat zum Ziel, die "Time to market", also die Zeit, die es braucht, um ein (Software-)produkt auf den Markt zu bringen, zu veröffentlichen und im besten Fall damit Geld zu verdienen, zu verkürzen. Dabei ist es auch wichtig, zu messen, ob Prozessänderungen wirklich die erwartet Verbesserung bringen. Die Nutzung von mehr Technologie zur Automatisierung ist oft vorteilhaft, wenn dies allerdings am Ende durch mehr Administrationsaufwand zu keiner Verbesserung oder sogar einer Verschlechterung führt, ist auch keinem geholfen. 
 
-##### Feedback (Bugtracker)
+##### Feedback
 
 Um Feedback möglichst schnell zum Entwickler zu bekommen, wird bei DevOps ein Bugtracker verwendet. Der Bugtracker dient dazu, Feedback von Testern zu sammeln, sodass der Entwickler die Möglichkeit hat, zeitnah auf Feedback einzugehen und eventuell gefundene Probleme zu beheben.
-DevOps ist interdisziplinär, das heißt, am DevOps-Prozess sind mehre Teams beteiligt, und möglicherweise nutzt jedes Team einen Bugtracker. Warum nicht einn und derselbe Bugtracker für alle am Prozess beteiligten? Das ist oft effizienter und führt zu weniger Reibereien zwischen den Teams.
+DevOps ist interdisziplinär, das heißt, am DevOps-Prozess sind mehre Teams beteiligt, und möglicherweise nutzt jedes Team einen Bugtracker. Warum nicht ein und derselbe Bugtracker für alle am Prozess beteiligten Teams? Das ist oft effizienter und führt zu weniger Reibereien zwischen den Teams.
 
 ##### Automatisiertes Testen
 
-Soweit möglich, wird bei DevOps automatisiert, bspw. mithilfe von Unit-Tests, getestet. Jedesmal wenn aus dem Quellccode ein neuer Build erstellt wird, werden automatisierten Tests ausgeführt und deren Ergebnisse an den Entwickler weitergeleitet.
+Soweit möglich, wird bei DevOps automatisiert, bspw. mithilfe von Unit-Tests, getestet. Jedesmal wenn aus dem Quellcode ein neuer Build erstellt wird, werden automatisierten Tests ausgeführt und deren Ergebnisse an den Entwickler weitergeleitet. Nicht alle Test können tzeautomatisiert ausgeführt werden. Hier helfen dann Ansätze wie Continuous Testing. 
 
 ##### ITIL
 
-ITIL (Information Technology Infrastructure Library) ist ein umfangreiches Frameowrk, welches von vielen großen Unternehmen erfolgreich eingesetzt wird.
+ITIL (Information Technology Infrastructure Library) ist ein umfangreiches Framework, welches von vielen großen Unternehmen erfolgreich eingesetzt wird. ITIL bietet viele Werkzeuge, die den Softwareentwicklungsprozess (und dessen Supportprozesse) abbilden können. Besonders bei großen, monolithischen Systemen ist ein Prozess wie ITIL zum managen aller Komponenten und Prozesse sehr nützlich.
+ITIL ist nicht das selbe wie DevOps, allerdings gibt es für viele Prozesse in ITIL direkte Entsprechungen in DevOps. ITIL ist kein typisches agiles Framework, sondern dient eher zur Organisation von Prozessen in einem Unternehmen und hat damit einen ähnlichen Grundgedanken wie DevOps.
 
 
 ## Workflows
 
-	Continuous Delivery
-		Continuous Integration
-		schnellerer Release
-		Deployment-Pipeline
-		jede Version (auch intern) muss lauffähig sein
-		automatisierte und manuelle Tests
+	
 	Continuous Improvment
 		kontinuirliche Verbesserung
 		Möglichkeiten zur Verbesserung werden identifiziert und umgesetzt
@@ -171,13 +197,19 @@ ITIL (Information Technology Infrastructure Library) ist ein umfangreiches Frame
 
 ## Tools
 
+### Container
+
+Ein bei DevOps sehr häufig genutztes Tool sind Container. (Software-)Container kann man sich vorstellen als ein Image einer Laufzeitumgebung (wie z.b. eines Betriebssystems), welches speziell auf die Software zugeschnitten ist. Für Container kann Virtualisierung eingesetzt werden. Virtualisierung ist allerdings recht ressourcenintensiv, deshalb werden häufig Tools wie der containerd von Linux verwendet, um die vom Container genutzten Ressourcen und die vom Host-Betriebssystem genutzten auf Kernel-Ebene zu trennen. Ein Beispiel für ein solches Tool ist Docker von der Firma Docker Inc.
+Ein großer Vorteil von Container- (und teilweise auch Virtualisierungs-)umgebungen ist, sie ohne oder ohne größere Änderungen von z.b. einer Testumgebung in eine Produktionsumgebung Umzuziehen. Dies reduziert den Administrationsaufwand erheblich und macht es sehr einfach, die Software zu deployen.
+Damit alle Plattformen, die Container unterstützen, kompatibel sind und ein Container ohne Anpassungen auf allen Plattformen lauffähig ist, wird Containerisierung von der Cloud Native Computing Foundation unter der Linux Foundation standardisiert. An der Cloud Native Computing Foundation sind viele große IT-Firmen beteiligt, beispielsweise Amazon, Microsoft und Google. Diese Firmen bieten mit AWS, Azure und Google Cloud ähnliche Cloud-Produkte, und über den Standard ist garantiert, dass Container, die bei einem Anbieter lauffähig sind, auch bei einem anderen Anbieter funktionieren.
+
 ### Docker
 
 #### Definition
 
 Docker ist ein Tool zur Containerisierung von Software. Dabei wird die Software mit allen ihren Abhängigkeiten (z.b. Bibliotheken) in ein Image gepackt. Dieses Image kann dann von einem standardisierten Container ausgeführt werden.
 
-Die Docker-Laufzeitumgebung ist an Linux angelehnt. Es stehen dem Entwickler somit alle die Funktionen von Linux zur Verfügung. Docker selbst ist ebenfalls Linux-Software und damit standardmäßig nur unter Linux lauffähig. Soll Docker unter Windows oder Mac OS ausgeführt werden, muss ein Linux-System in einer virtuellen Maschine genutzt werden. Docker selbst ist keine Virtualisierunganwendung.
+Die Docker-Laufzeitumgebung ist an Linux angelehnt. Es stehen dem Entwickler somit alle die Funktionen von Linux zur Verfügung. Docker selbst ist ebenfalls Linux-Software und damit standardmäßig nur unter Linux lauffähig. Soll Docker unter Windows oder Mac OS ausgeführt werden, muss ein Linux-System in einer virtuellen Maschine genutzt werden. Docker selbst nutzt jedoch keine Virtualisierung, sondern das Linux-Tool containerd zur Trennung von Betriebssystem- und Containerressourcen.
 
 #### Begriffe
 
@@ -197,13 +229,13 @@ Ein Container ist die laufende Instanz eines Images. Container bieten eine stand
 
 Ähnlich wie bei der Virtualisierung wird auch bei der Containerisierung eine Gast-Betriebssystem innerhalb des Host-Systems emuliert, Containerisierung hat gegenüber der Virtualisierung aber den Unterschied, dass das Container-System sich Ressourcen mit dem Host-System teilt. Dies soll bei der Virtualisierung vermieden werden.
 
-Im Falle der Containerisierung hat das zum Vorteil, das Ressourcen besser genutzt werden und der "Overhead" einer containerisierten Anwendung sehr viel geringer ist als der einer virtualisierten Anweundung. Dies erlaubt dem Entwickler, problems mehrere containerisierte Anwendungen gleichzeitig laufen zu lassen, was bei der Virtualisierung oft nicht ohne weiteres möglich ist. Docker ist kein System zur Virtualisierung, sondern zur Containerisierung.
+Im Falle der Containerisierung hat das zum Vorteil, das Ressourcen besser genutzt werden und der "Overhead" einer containerisierten Anwendung sehr viel geringer ist als der einer virtualisierten Anwendung. Dies erlaubt dem Entwickler, problemlos mehrere containerisierte Anwendungen gleichzeitig laufen zu lassen, was bei der Virtualisierung oft nicht ohne weiteres möglich ist. Docker ist kein System zur Virtualisierung, sondern zur Containerisierung.
 
 #### Tools für Docker
 
 ##### Docker-Hub
 
-Docker-Hub ist ein zentrales Repository für vorkonfigurierte Docker-Container.
+Docker-Hub ist ein zentrales Repository, welches vorkonfigurierte Dockercontainer bereitstellt und durch die Integration mit Docker selbst das Management und die Verteilung von Docker-Images vereinfacht. Docker-Hub ermöglicht es dem Nutzer, jeden Layer des Images, also jeden Versionsstand, als vollwertiges Image zu verwenden. Das macht es sehr einfach, zwischen Versionen zu wechseln beziehungsweise auf dem neuesten Stand zu bleiben.
 	
 #### Versionsverwaltung
 
@@ -216,13 +248,22 @@ Die Docker-Laufzeitumgebung läuft mit *root*-Rechten, um Zugriff auf sämtliche
 
 ### JIRA
 
+JIRA ist eine webbasierte  Plattform für Projektmanagement in Softwareteams. Vor allem agile Workflows werden unterstützt, aber eine Anpassung an andere Workflows ist möglich.
+JIRA als Plattform ist recht umfangreich. Zu den Schritten, die von JIRA unterstützt werden, gehören das Anforderungsmanagement, das Statusmanagement und das Fehlermanagement.
+Im Anforderungsmanagement werden die Anforderungen an das Softwareprojekt in das System übertragen. Im Statusmanagement wird der aktuelle Fortschritt des Projekts mithilfe der Plattform im Team kommuniziert. JIRA unterstützt agile Workflows wie beispielsweise Scrum, und viele der in Scrum verwendeten Organisations- und Dokumentationsformen werden dabei unterstützt.
+Schließlich gibt es noch ein Fehlermanagement. Dies ist eigentlich ein klassischer Bugtracker, bei dem Tester gefundene Fehler (Bugs) in Form von Tickets eintragen können. Die Tickets können von weiteren Testern, und auch von den Entwicklern, um Informationen erweitert werden, sodass irgendwann ausreichend Informationen zur Verfügung stehen, um den Fehler zu beheben.
+Alle Informationen werden in JIRA in Tickets organisiert, die jeder am Projekt beteiligte kommentieren kann.
+
 ### Jenkins
 
+Jenkins ist ein CI (Continuous Integration) und Continuous Delivery System
+
 #Quellen
+
+<a name=‘ref_pien18‘>[PIEN18]</a>: Wie DevOps die IT beschleunigen, 2018, Frank Pientka, https://www.computerwoche.de/a/wie-devops-die-it-beschleunigen,3071433 (abgerufen am 28.06.2018)
 
 <a name="ref_ravi16">[RAVI16]</a>: Practical DevOps, 2016, A. Ravichandran et. al.
 
 <a name="ref_vero16">[VERO16]</a>: Practical DevOps, 2016, Joakim Verona
 
 <a name="ref_wolf14">[WOLF14]</a>:
-
