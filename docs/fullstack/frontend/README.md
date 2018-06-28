@@ -911,9 +911,15 @@ const MyContext = React.createContext(defaultValue);
 ```
 
 ##### MobX 
-Eine weitere Möglichkeit des State Managements bietet die JavaScript Bibliothek *MobX*. Sie basiert auf Observer und Observables, die auch aus dem Observer Pattern bekannt sind.
+Eine weitere Möglichkeit des State Managements bietet die JavaScript Bibliothek *MobX*. Sie basiert auf Observer und Observables, die auch aus dem Observer Pattern bekannt sind. MobX verfügt über einen unidirektionalen Datenfluss, der in etwa wie Flux abläuft:
 
-Das Verwenden dieser Bibliothek gestaltet sich ebenfalls recht einfach [[MOBX18]](#ref_mobx18):
+![ref_redux_achitecture](./images/mobx.png "MobX Datenfluss")
+
+Abbildung angepasst; entnommen aus [[PURN16]](#ref_purn16)
+
+Actions modifizieren den State. Auf Basis dessen werden wiederum Computed Values automatisch berechnet und die Änderungen der View entsprechend bekanntgemacht. Es ist jedoch auch möglich die View direkt mit dem State zu verknüpfen.
+
+Das Verwenden dieser Bibliothek ist recht einfach [[MOBX18]](#ref_mobx18):
 
 *Schritt 1: Status definieren und als observable kennzeichnen*
 
@@ -970,13 +976,13 @@ ReactDOM.render(<Counter counterState={this.props.counterState} />, document.bod
 ```
 
 ##### Redux
-Redux ist eine weitere JavaScript Bibliothek, die einen "Zustands-Container" (*state-container*) zur Hilfe bei der Verwaltung des Datenflusses einer Applikation bereitstellt. Die Architektur erinnert stark an die Flux Architektur, siehe nachfolgende Abbildung. Für die Verwendung von Redux mit React kann man die Bibliothek [react-redux](https://github.com/reactjs/react-redux) verwenden.
+Redux ist eine weitere JavaScript Bibliothek, die (i.d.R. genau) einen "Zustands-Container" (*state-container*) - zur Hilfe bei der Verwaltung des Datenflusses einer Applikation - bereitstellt. Die Architektur erinnert ebenfalls an die Flux Architektur, siehe nachfolgende Abbildung. Für die Verwendung von Redux mit React kann man die Bibliothek [react-redux](https://github.com/reactjs/react-redux) verwenden.
 
 ![ref_redux_achitecture](./images/redux-architecture.jpg "Redux Architektur")
 
 Abbildung entnommen aus [[TSON18]](#ref_tson18)
 
-Sie besteht aus vier Bestandteilen:
+Redux besteht aus vier Bestandteilen:
 
 **Action**
 
@@ -996,7 +1002,8 @@ Es wird empfohlen möglichst wenig Nutzdaten in eine Aktion einzubinden. Statt d
 
 **Reducer**
 
-Reducer sind Funktionen, die den aktuellen Zustand eines Stores sowie eine Action erhalten und auf Basis dieser Informationen den neuen Zustand zurückgeben. Reducer müssen zwingend die folgenden beiden Eigenschaften erfüllen, damit das zugrundeliegende Pattern von Redux nicht verletzt wird:
+Da Redux i.A. nur über einen State-Container verfügt, wird kein Dispatcher benötigt. Stattdessen verwendet Redux Reducer.
+Dies sind Funktionen, die den aktuellen Zustand eines Stores sowie eine Action erhalten und auf Basis dieser Informationen den neuen Zustand zurückgeben. Reducer müssen zwingend die folgenden beiden Eigenschaften erfüllen, damit das zugrundeliegende Pattern von Redux nicht verletzt wird:
 
 * Es muss sich um eine sogenannte *Pure Function* handeln, d.h. der Ausgabewert der Funktion ist bei gleicher Eingabe immer gleich
 
@@ -1034,7 +1041,7 @@ Die Anzeige; analog zu Flux.
 
 **Store** 
 
-Das Model; analog zu Flux.
+Das Model; prinzipiell analog zu Flux, jedoch als "Single-Store". Verwendet Reducer für seine Zustandsübergänge.
 
 
 [[TSON18]](#ref_tson18)
@@ -1377,6 +1384,9 @@ Hopper, Grace: Tech Talk: What is the Virtual DOM?. URL: https://www.youtube.com
 
 <a name="ref_osma18">[OSMA18]</a>: Osmani, Addy: The App Shell Model. URL: https://developers.google.com/web/fundamentals/architecture/app-shell
 (abgerufen am 22.05.2018)
+
+<a name="ref_purn16">[PURN16]</a>: Purnelle, Kevin: Handling React Forms with Mobx Observables. URL: https://blog.risingstack.com/handling-react-forms-with-mobx-observables/
+(abgerufen am 28.06.2018)
 
 <a name="ref_redu18">[REDU18]</a>: Redux: Actions. URL: https://redux.js.org/basics/actions
 (abgerufen am 11.05.2018)
