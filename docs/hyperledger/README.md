@@ -168,8 +168,8 @@ Event-Handler der Erweiterung und kann ebenfalls für Seitenübergreifende State
 Persistierung verwendet werden.
 
 ##### Popup
-Diese Komponente einer Chrome Erweiterung enthält das als Popup angezeigt
-User Interface inkl. der dazugehörigen Applikationslogik. Die Anzeige des Popups
+Diese Komponente einer Chrome Erweiterung enthält dass als Popup angezeigte
+User Interface und die dazugehörigen Applikationslogik. Die Anzeige des Popups
 kann nur vom Benutzer durch den Klick auf die Schaltfläche initiiert werden,
 wodurch die Komponente erst erzeugt und initialisiert wird. Beim schliessen des
 Popup werden auch die Komponenten wieder zerstört, sodass State-Informationen
@@ -177,45 +177,50 @@ anderweitig persistiert werden müssen.
 
 ##### Content Script
 Für jeden offenen Tab im Browser wird ein sogenanntes Content Script geladen,
-das in dem Context der aktuellen Webapplikation läuft. Obwohl dieser im Context
-der aktuellen Webapplikation läuft, ist die Laufzeitumgebung des Content
-Scripts und der Webapplikation von einander isoliert. Ein Content
-Script kann zwar auf den DOM der aktuellen Seite zugreifen und diesen
-manipulieren, aber keine Javascript Objekte oder Funktion der Seite benutzen.
-Ebenfalls kann die Seite keine Funktion aus dem Content Script verwenden.
+das in Kontext der aktuellen Webapplikation läuft. Obwohl das Content Script und
+die Webapplikation einen Kontext teilen, sind die Laufzeitumgebungen strikt
+voneinander isoliert. Ein Content Script kann daher zwar auf den DOM der
+aktuellen Seite zugreifen und diesen manipulieren, aber keine Javascript Objekte
+oder Funktion der Seite benutzen. Im Umkehrschluss kann daher auch die Seite
+keine Funktion aus dem Content Script verwenden.
 
 Damit eine berichtigte Webapplikation dennoch auf die Zertifikate zugreifen und
-mittels der Extension Daten vom Distributed Ledger abrufen kann, müssen die
-Funktionen `window.postMessage(...)` und `window.addEventListener(...)` für das
-Marshalling der Funktionsaufrufe verwendet werden [[CHPC18](#ref_chpc18)].
+mittels der Extension Daten vom Distributed Ledger abrufen kann, kann die
+`window.postMessage` für das Marshalling und das Dispatchen der Funktionsaufrufe
+verwendet werden [[CHPC18](#ref_chpc18)]. Um diesen Vorgang zu vereinfachen kann
+ebenfalls die [post-message-stream](https://github.com/kumavis/post-message-stream)-Bibliothek
+verwendet werden.
+
 
 #### Persistierung
-
+Ähnlich wie in der Browser Umgebung, kann auch in einer Chrome Extension die
+LocalStorage-API verwendet werden, um die Zertifikate und privaten Schlüssel zu
+persistieren. Für die Verschlüsselung der Daten kann die
+[CryptoJS](https://www.npmjs.com/package/crypto-js)-Bibliothek genutzt werden.
 
 ## Entwurf
-Für die sichere Persistierung der Zertifikate werden diese verschlüsselt im
-Browser Storage abgelegt. Der Schlüssel für den Zugriff auf die Zertifikate ist
-vom Benutzer einzugeben und dient gleichzeitig als Passwort für die Fabric
-Extension. Für den Zugriff aus einer berechtigten Webapplikation muss die Fabric
-Extension einmalig entsperrt werden. Anschliessend kann aus der Webapplikation,
-mittels einer Javascript Bibliothek, auf die Zertifikate zugegriffen werden.
-In den Attributen der Zertifikate ist eine URL in Form eines regulären Ausdrucks
-hinterlegt, mittels der eine Webapplikation autorisiert wird auf das Zertifikat
-zuzugreifen.
+Für die Verschlüsselung der im Browser Storage abgelegten Zertifikate wird die
+vom Benutzer eingegebene Passwort verwendet, dass gleichzeitig die Fabric
+Extension vor fremden Zugriff schützt. Für den Zugriff aus einer berechtigten
+Webapplikation muss die Fabric Extension einmalig entsperrt werden.
+Anschliessend kann aus der Webapplikation, mittels einer Javascript Bibliothek,
+auf die Zertifikate zugegriffen werden. In den Attributen der Zertifikate ist
+eine URL in Form eines regulären Ausdrucks hinterlegt, mittels der eine
+Webapplikation autorisiert wird auf das Zertifikat zuzugreifen.
 
 Wie bereits in der [Analyse](#fabric-client) erläutert, ist für die
 Kommunikation mit einem gRPC Dienst zwangsläufig eine serverseitige
 Schnittstelle zwischen der clientseitigen Webapplikation und dem
 Hyperledger Fabric Netzwerk notwendig. Da aus den vorgestellten Bibliotheken
 nur [gRPC-Web](#grpc-web) und [gRPC-Web-Client](#grpc-web-client) tatsächlich
-für die Verwendung im Browser konzipiert wurden wird aus folgenden Gründen die
+für die Verwendung im Browser konzipiert wurden, wird aus folgenden Gründen die
 gRPC-Web-Client Bibliothek für die Implementierung der Fabric Extension
 eingesetzt.
 
 * Typescript Code Generator für Protocol Buffers
 * golang-Tool für Reverse-Proxy verfügbar
 * NPM Paket verfügbar mit 4077 wöchentliche NPM Installationen
-* Erste Version im März 2017 veröffentlicht
+* Erste Version seit März 2017 öffentlich verfügbar
 
 Mit der gRPC-Web-Client Bibliothek ist zwar nach wie vor eine serverseitige
 Schnittstelle notwendig, jedoch kann nun die Authentifizierung und die
@@ -230,15 +235,38 @@ Server vorgehalten werden muss.
 
 <a name="img_2231">Abbildung 2.2.3.1</a> - Fabric Extension Architektur
 
-#### Background Script
+#### Fabric Client (reimplemented)
+Diese Komponente ersetzt die offiziele Fabric Node SDK Bibliothek und
+implementiert daher alle für die Signierung und Authentifizierung
+notwendigen Funktionalitäten. Zusätzlich nutzt es die gRPC-Web-Client Bibliothek
+für die Interaktion mit dem Hyperledger Fabric Framework.
 
-#### Content Script
+#### Background Script
+Für die Fabric Extension übernimmt das Background Script die Persistierung der
+Zertifikate und privaten Schlüssel und stellt diese, nach erstmaliger Eingabe
+des Passworts im Popup, über die Messaging API den restlichen
+Komponenten bereit.
 
 #### Popup / Certificate Service
+Die Benutzerschnittstelle wird unter der Nutzung des Angular Frameworks in
+dieser Komponente implementiert. Über diese kann der Benutzer, nach der Eingabe
+des Passworts, die Zertifikate einsehen und verwalten. Über das Certificate
+Service werden dabei die Zertifikate vom Background Script abgerufen bzw. neue
+Zertifikate persistiert.
 
 #### Fabric Extension Client
+Die Fabric Extension Client stellt die Funktionalitäten zum Zugriff auf die
+Zertifikate sowie die Interaktion mit dem Distributed Ledger bereit. Dazu
+kapselt es die Logik um mit dem Content Script zu kommunizieren und bietet der
+clientseitigen Webapplikation, eine Javascript API zur Interaktion mit der
+Erweiterung an.
 
-### Sequenzdiagramme
+#### Content Script
+Die Komponente hält den State der aktuellen Webapplikation und dient als
+Schnittstelle zwischen dem Fabric Client und dem Fabric Extension Client. Dazu
+wird die post-message-stream Bibliothek verwendet um die Funktionsaufrufe über
+das Fenster Objekt aus der Webapplikation an das Content Script weiterzuleiten
+und Ergebnisse zurückzuliefern. 
 
 ## Evaluation
 Zur Evaluation der Fabric Extension wird eine Webapplikation implementiert,
