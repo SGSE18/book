@@ -1,21 +1,20 @@
 # Functional Reactive Programming
 
 ## Functional Programming Konzept
-In den letzten Jahren ist das Thema funktionales Programmieren immer stärker aufgekommen. Die Ziele,
-welche beim funktionalen Programmieren sind dabei die selben wie sich auch beim objektorientierten Programmieren
-erreicht werden sollen:
+In den letzten Jahren ist das Thema funktionales Programmieren verstärkt aufgekommen. Die Ziele,
+welche beim funktionalen Programmieren erreicht werden sollen, sind dabei die selben wie auch im objektorientierten Programmieren:
 
 * Wartbarer Code
 * Wiederverwertbarer Code
 * Verständlicher Code
 
-Auch wenn die Ziel der beiden Ansätze gleich sein, so sind die unterliegenden Paradigmen doch völlig unterschiedliche:
+Auch wenn die Ziele der beiden Ansätze gleich sind, so sind die unterliegenden Paradigmen doch völlig unterschiedlich:
 Beim objektorientieren Ansatz wird versucht, die Daten und die damit verbundenen Verhalten miteinander zu vereinen. 
 Die daraus resultierende Vereinigung ist die Grundlage des OOP-Ansatzes: Das Objekt. 
 In einem Objekt werden über Instanzvariablen Daten gehalten, die den Zustand des Objektes beschreiben. Zusätzlich
 enthält das Objekt Verhalten in Form von Methoden, mit deren Hilfe der Zustand des Objektes manipuliert werden kann.
 
-Ein einfach Beispiel ist die Klasse Arbeiter:
+Ein einfaches Beispiel ist die Klasse Arbeiter:
 
 ```Java
 public class Arbeiter{
@@ -38,7 +37,7 @@ public class Arbeiter{
 }
 ```
 Nun könnten die Instanzen dieses Arbeiterobjektes in einer Liste gehalten werden, um sie so beispielsweise zu verwalten.
-Ein Anwendungsfall könnte es des weiteren sein, dass alle Arbeiter in dieser Liste eine Gehaltserhöhung bekommen sollen.
+Ein Anwendungsfall könnte es des Weiteren sein, dass alle Arbeiter in dieser Liste eine Gehaltserhöhung bekommen sollen.
 Um dies in einer objektorientierten Sprache wie in diesem Falle Java zu realisieren, müsste das zu schreibende Programm
 über die Liste der Arbeiter iterieren und für jeden Arbeiter die Methode zur Gehaltserhöhung aufrufen.
 
@@ -48,7 +47,7 @@ for (angestelltenListe Angestellter: tempAngestellter){
 }
 ```
 
-Der selbe Sachverhalt kann natürlich auch mit einem funktionalen Ansatz abgebildet werden:
+Derselbe Sachverhalt kann natürlich auch mit einem funktionalen Ansatz abgebildet werden:
 
 ```Javascript
 arbeiter = [
@@ -57,7 +56,7 @@ arbeiter = [
 ]
 ```
 Hier wird direkt der erste Unterschied zum objektorientieren Ansatz deutlich: Die Trennung von Daten und Verhalten.
-Wo im OOP-Ansatz bei der Erstellung der Daten auch gleichzeitig die Methoden zum manipulieren der Daten mitliefern
+Wo im OOP-Ansatz bei der Erstellung der Daten auch gleichzeitig die Methoden zum Manipulieren der Daten mitliefern
 werden musste, so bleiben im FP-Ansatz die Daten rein. Hier können die Daten durch den Einsatz von einfachen Arrays
 repräsentiert werden. 
 
@@ -80,7 +79,7 @@ Arbeiters zu erhöhen.
 Durch den Funktionsaufruf von gehalt_erhöhen() wird kein Wert des originalen Arrays verändert. Immutable bedeutet,
 dass es keine Funktion geben kann, welche die Daten auf irgendeine weise verändern kann. Im OOP-Ansatz ist es übelich den
 Zustand oder "state" eines Objektes beliebig zu verändern. Im FP-Ansatz hingegen werden nur Kopien der veränderten Daten 
-erzeugt, mit denen im Verlauf des Programmes weiter gearbeitet wird. Der originale "state" in einem funktionalen Programm
+erzeugt, mit denen im Verlauf des Programmes weitergearbeitet wird. Der originale "state" in einem funktionalen Programm
 bleibt somit erhalten. 
 Dies hat zum Vorteile das einerseits ein Funktionsaufruf auf den selben Daten in jedem Fall den selben Output besitzt,
 zum anderen kann der Zustand so, falls gewünscht, über den gesamten Programmablauf verfolgt werden. Auch dieses 
@@ -92,14 +91,13 @@ Funktionen verhalten sich im funktionalen Ansatz ähnlich wie mathemetische Funk
 wird ein oder mehrere Eingabewerte genau einem Ausgabewert zugeordnet. Egal wie oft diese Funktion mit den selben 
 Eingabewerten berechnet wird, sie führt immer zu dem selben Ergebnis. 
 Dies trifft auch auf die Funktionen im funktionalen Ansatz zu: Mit den selben Eingabeparametern erhält der Aufrufer 
-jedesmal den selben Rückgabewert. Dabei geht es vor allem darum, dass Funktionsaufrufe nicht von dem globalen State 
+jedes Mal den selben Rückgabewert. Dabei geht es vor allem darum, dass Funktionsaufrufe nicht von dem globalen State 
 der Applikation abhängen sollen, welcher sich zur Laufzeit ändern kann. Ein Funktionsaufruf muss unabhängig vom State 
 zu jeder Zeit vorhersagbar sein. 
-
 Ein weiterer Punkt der zum Aspekt der Reinheit einer Funktion gehört, ist das Auftreten von Seiteneffekten (Side effects). 
 Seiteneffekte können vielfältig sein: Das Ändern einer globalen Variable im Funktionsaufruf, das Lesen aus einer Datei oder
 das Werfen einer Exception. Beispielsweise kann das Lesen einer Datei in einer Funktion den Rückgabewert unabhängig  
-von den übergebenen Parametern verändern, was nicht mehr der Definition einer Reinen Funktion entsprechen würde. 
+von den übergebenen Parametern verändern, was nicht mehr der Definition einer reinen Funktion entsprechen würde. 
 
 <center><b>4. Funktionen sind erste Klasse (First-Class)</b></center>
 
@@ -107,22 +105,39 @@ Dieses Konzept wird nicht nur von rein funktionalen Programmiersprachen genutzt 
 unabdingbar für den funktionalen Ansatz. First-Class sind Funktionen, welcher einer Variable im Programm zugeordnet werden
 können. Dadurch können Funktionen wie ein normaler Datentyp behandelt werden und zugleich im Verlauf des Programmes ausgeführt 
 werden.
-
 Ebenfalls wird es dadurch möglich eine Funktion einer anderen Funktion als Übergabeparameter zu übergeben. Auch wird es
 dadurch möglich Funktionen als Rückgabewert zu verwenden. So ist es beispielsweise möglich eine Filterfunktion zu erstellen,
 welche als Parameter eine Funktion übergeben bekommt. Die übergebene Funktion entscheidet dann, ob Werte den Filter passieren
 oder aussortiert werden.
 
+Mit diesen vier Konzepten als Vorlage könnten die Funktionen zur Gehaltserhöhung folgendermaßen aussehen:
+
+```javascript
+var function gehaelter_erhoehen(arbeiterListe, erhoehung){
+  let neueArbeiterListe = arbeiterListe.map(arbeiter =>{
+    gehalt_erhoehen(erhoehung);
+  })
+  return neueArbeiterListe;
+}
+```
+
+```javascript
+var function gehalt_erhoehen(arbeiter, erhoehung){
+  let neuerArbeiter =  [arbeiter[0], arbeiter[1] += erhoehung];
+  return neuerArbeiter;
+}
+```
+
 
 
 ## Reactive Programming
 
-Beim reaktiven Programmieren geht es darum, die Veränderung eines Zustandes zu beobachten und gegebenfalls mit einer Veränderungen
+Beim reaktiven Programmieren geht es darum, die Veränderung eines Zustandes zu beobachten und gegeben falls mit einer Veränderung
 des eigenen Zustandes zu reagieren. Eine Zustandsänderung könnte zum Beispiel das Drücken eines Knopfes auf einer Benutzeroberfläche oder
 aber das Abholen von Daten über einen HTTP Aufruf. Bibliotheken wie RxJS, xStream oder Most.js erlauben es von fast jeder Variable oder Objekt
 ein Observable zu erstellen. So kann unter RxJS beispielsweise mit dem `just()` Operator ein Observable von der Zahl 1 erstellt werden:
 
-```
+```javascript
 var oneStream = Rx.Observable.just(1);
 
 oneStream.subscribe(number =>{
@@ -135,7 +150,7 @@ Werte ausgibt (emitted). Ein Observable ist somit zu stehen als ein Stream von D
 subscribed hat, fängt der Stream an, Werte auszugeben. Dabei wird der Callback innerhalb der Subscribe Methode 
 in jedes mal ausgeführt, sobald ein neuer Wert von dem Stream emitted wurde. 
 
-```
+```javascript
 var numbers = [1,2,3];
 var arrayStream. = Rx.Observable.form(numbers);
 
@@ -188,7 +203,7 @@ Methode ist die `subscribe()` Methode des Observables.
 Das Observable ist ein Konstrukt mit der Aufgabe, die abonnierten Observer über neu erzeugte Werte zu informieren. Die Werte
 selbst stammen dabei von einem Producer, welcher im inneren des Observables Werte generiert.
 
-```
+```javascript
 var buttonEvent = document.querySelector('.myButton');
 var clickStream = Rx.Observable.fromEvent('buttonEvent', click);
 ```
@@ -230,7 +245,7 @@ Nun, da die Klickevents auf eine Zahl gemapped worden sind, müssen die vom numb
 es State geben, in welchem das Ergebnis der vorheringen Addition gehalten wird. Ein Operator mit eingebautem State ist der `scan()`
 Operator. 
 
-```
+```javascript
 var buttonEvent = document.querySelector('.myButton');
 var clickStream = Rx.Observable.fromEvent('buttonEvent', click);
 
@@ -256,7 +271,7 @@ vom Stream emittete Wert entgegen genommen. Anschließend muss in der Funktion l
 In diesem Beispiel wurden nur Zahlen addiert, allerdings können auch komplexe Objekte oder sogar Streams selbst emitted werden. 
 Anstatt das Event auf eine '1' zu mappen, könnte das Event ebensogut auf ein JSON Objekt gemapped werden:
 
-```
+```javascript
 var buttonEvent = document.querySelector('.myButton');
 var clickStream = Rx.Observable.fromEvent('buttonEvent', click)
     .map(event => {
@@ -269,7 +284,7 @@ var clickStream = Rx.Observable.fromEvent('buttonEvent', click)
 
 Hier wird dem `fold()` Operator als ersten Wert eine leere Liste übergeben. Diese dient als Seed für den State innerhalb des Operators.
 Nachdem das erste Event den `fold()` Operator erreicht, wird das Event-JSON zu der Liste hinzugefügt. Würde man nun den clickStream 
-abonieren, so würde man bei jedem Klickevent eine Liste mit JSON Obejekten erhalten, deren länge davon anhängt, wie oft der Knopf 
+abonieren, so würde man bei jedem Klickevent eine Liste mit JSON Objekten erhalten, deren länge davon anhängt, wie oft der Knopf 
 gedrückt worden ist. 
 Dieses Beispiel zeigt zusätzlich das für jeden Operator nicht jedesmal ein neuer Stream erstellt werden muss. Operatoren können 
 beliebig lang auf einem Observable verkettet werden. Im oberen Fall wird das Oberservable mit dem `map()` Operator und dem `fold()`
@@ -277,14 +292,62 @@ Operator verknüpft.
 
 ### Gebräuchliche Operatoren
 
+Die hier vorgestellten Operatoren sind nur eine kleine Auswahl aus der RxJS Bibliothek, welche über 75 Operatoren enthält. Diese
+Operatoren kommen in fast jedem Projekt zum Einsatz, falls es einen Berührungspunkt mit der RxJS Bibliothek gibt. Beispielsweise
+verwendet Angular 2 in seinem HTTP-Modul Observables um REST-Aufrufe durchzuführen. Eine Anwendung muss also nicht komplett um die
+Bibliothek herumkonzipiert werden, um die Vorteile von rxJS nutzen zu können.
+
+#### Map
+Der `map()` Operator ist vermutlich der am häufigsten benutzte Operator. Er kann Werte auf dem Stream auf beliebige Weise transformieren.
+Wird ein Observable beispielsweise zum ausgeben von Klickevents genutzt, kann mit Hilfe `map()` diesem Klickevent direkt ein eigener Wert
+zugeordnet werden. Dadurch wird es im `subscribe()` einfacher, einen bestimmten Wert zu antizipieren.
+
+clickStream &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ---x----x-x----x-x-->   
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;map()  
+numberStream &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;---1----1-1----1-1-->  
+
+#### Merge
+Durch den `merge()` Operator können eine beliebige Anzahl von Streams zu einem einzigen Stream kombiniert werden. Um bei dem
+beispiel eines Klickevents zu bleiben, könnten über hier die Events von vielen Streams zu einem einzigen verbunden werden.
+
+clickStream1 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ---x------x------x-->   
+clickStream2 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ------x-------x----->   
+clickStream3 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --------x------x---->   
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;merge()  
+mergedStream &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;---x--x-x-x---xx-x-->  
+
+#### CombineLatest
+Auch `combineLatest()` kann als Parameter eine beliebige Anzahl an Streams aufnehmen. Dieser Operator wird beispielsweise 
+für Berechnungen benutzt, bei denen von mehreren Streams ein Eingabewert benötigt wird. `combineLatest()` merkt sich die
+letzte Ausgabe von allen Streams und gibt erst einen Wert aus, wenn alle Streams mindestens einen Wert auf ihrem jeweiligen
+Stream ausgegeben haben. Dannach wird immer dann ein Wert ausgegeben wenn einer der Eingabestreams einen Wert ausgibt, kombiniert
+mit der letzten Ausgabe der anderen Streams.
+
+inputStream1 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;----1---2------------3------->  
+inputStream2 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-----------A-----B--------C-->  
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;combineLatest()   
+outputStream &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-----------A2---B2--B3--C3->  
+
+
+#### Buffer
+Über den `buffer()` Operator können auf einem Stream ausgegebene Werte gebuffert werden, bis ein Event über einen anderen Stream
+ausgelöst wird. Der `buffer()` Operator könnte zum Beispiel genutzt werden, um Eingaben in eine Suchleiste zu buffern. So würde der
+gebufferte Stream erst einen Wert ausgeben, wenn der Benutzer die Entertaste drückt. Die Ausgabe erfolgt über den zu buffernden Stream
+in Form eines Arrays, welches alle Elemente, die zuvor auf dem Stream ausgegeben worden sind, enthält.
+
+keyStream   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;---H---A---L--L----O------------->  
+enterStream   &nbsp;&nbsp;&nbsp;---------------------x----------->  
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;buffer()  
+resultStream   &nbsp;&nbsp;&nbsp;----------------------[H,A,L,L,O]->
+
+
 ### Hot und Cold Observables
 
 In RxJS gibt es bei Observables zusätzlich eine Unterscheidung zwischen Hot und Cold Observables. Als Beispiel für ein Hot
 Observable kann ein Stream genommen werden, welcher von dem `interval()` Operator erzeugt wurde:
 
-```
-let liveStream = Rx.Observableinterval(1000);
-
+```javascript
+let liveStream = Rx.Observable.interval(1000);
 
 setTimeout(() => {
    liveStream.subscribe( 
@@ -316,7 +379,7 @@ des Streams bekommt der Observer alle Werte, welche von dem Stream emitted worde
 
 Als Beispiel eines Cold Observables kann man die Erzeugung eines Stream aus einem Array von Zahlen nehmen:
 
-```
+```javascript
 var numbers = [1,2,3];
 var arrayStream. = Rx.Observable.form(numbers);
 
@@ -704,7 +767,7 @@ Childkomponete an die Parentkomponete und von dort an den DOM Driver weitergegeb
 
 ![Cycle Konzept](./images/mvi.svg "Konzept von CycleJS")
 
-Dieses Diagram verdeutlicht die Strukur der Komponente sehr gut. Auch in der Sliderkomponente wird aus der Absicht eine vom Benutzer ausgeführte
+Dieses Diagram verdeutlicht die Struktur der Komponente sehr gut. Auch in der Sliderkomponente wird aus der Absicht eine vom Benutzer ausgeführte
 Aktion, welche an das Model weitergegeben wird und schlussendlich zur View wird, welche den virtual DOM an den Sink Stream der Komponente weitergibt.
 Zwischen diesen Schritten können Artefakte entstehen, welche ebenfalls für die Parentkomponente bestimmt sein kann und nicht der virtual DOM ist. Im
 Fall der Sliderkomponente wäre dies der momentane Wert der Sliderkomponente, welche ebenfalls über den Sink Stream an die Parentkomponente weitergegeben
