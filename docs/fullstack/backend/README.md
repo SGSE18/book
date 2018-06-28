@@ -6,44 +6,103 @@
 ### gRPC
 
 #### Allgemein
-gRPC ist ein von Google entwickeltes modernes, performantes Open Source RPC Framework, welches innerhalb vieler verschiedener Umgebungen laufen kann.
+gRPC ist ein von Google entwickeltes modernes, performantes Open Source RPC (Remote Procedure Call) Framework, welches innerhalb vieler verschiedener Umgebungen laufen kann. https://grpc.io/about/
 Mithilfe von gRPC kann eine Client-Anwendung direkt Methoden einer Server-Anwendung aufrufen, als wäre es ein lokales Objekt. Besonders hervorstechende Merkmale von gRPC sind die Nutzung von HTTP/2 und Protocol Buffers.
 
-Quellen:
-https://grpc.io/about/
+
 https://grpc.io/docs/guides/
 https://jaxenter.de/grpc-mobile-http-2-google-framework-65937
 
-##### HTTP/2
+#### HTTP/2
 HTTP/2 ist der Nachfolger von HTTP/1.1 und wurde 2015 veröffentlicht.
 Durch das neue Protokoll wird die Latenz bei der Kommunikation zwischen Browser und Webserver verringert, welches zu einem schnelleren Aufbau von Webseiten führt.
-Die größten Veränderungen gegenüber des Vorgängers können in vier Punkte aufgeteilt werden:
-- Kommunikation auf einem Kanal
-- Stream Dependency
-- Kompression der Kopfzeilen
-- Server Push
+Die größten Veränderungen gegenüber des Vorgängers können in die folgenden vier Punkte aufgeteilt werden.
 
-Quellen:
+##### Server Push
+"Server Push" ermöglicht dem Server von sich aus Daten an den Client zu senden. Dies steht gegenüber dem Prinzip von HTTP/1, bei dem die Kommunikation "Pull only" ablief und die Kommunikation nur vom Client gestartet werden konnte. Mithilfe dieser Funktionalität wird die Web-Kommunikation beschleunigt, indem unnötige Client-Anfragen und somit Paketumlaufzeit (Round Trip Time) eingespart werden kann. Sinnvoll ist dies vorallem, damit der Server bei dem initialen Seitenaufruf Dateien an den Browser mitsenden kann, die er sowieso zur Anzeige der Seite benötigt (siehe folgende Abbildung).  
 https://ieeexplore.ieee.org/document/8264830/
+
+Ein Nachteil kann durch den Server Push auftreten, wenn die Funktionalität falsch eingesetzt wird. Dies kann vorkommen, wenn ein Server Push vor dem Seitenrendering genutzt wird, was die Aufbauzeit der Seite verlangsamt, oder wenn ein Server Push Daten absendet, die der Client bereits gecachet hatte. Damit es nicht zu solchen Problemen kommt, ist es notwendig, dass der Entwickler sich an sinnvolle Strategien für einen Server-Push hält.
+https://ieeexplore.ieee.org/document/8264830/
+
+##### Kommunikation auf einem Kanal
+Die Kommunikation zwischen Browser und Server wird mit HTTP/2 über nur einen einzigen Kanal abgewickelt. In der Vorgängerversion wurden mehrere Verbindungen gleichzeitig aufgebaut, was zu einem Overhead und somit Performanceeinbußen führt.
 https://www.cyon.ch/support/a/was-ist-http-2
 
-##### Protocol Buffers
+##### Stream Dependency
+Aufgrund der Reduzierung auf nur einen einzigen Kanal, ist es nun wichtiger in welcher Reihenfolge die Daten geladen werden. Mit HTTP/2 ist der Browser in der Lage dem Server mitzuteilen, welche der Dateien für ihn die höchste Priorität haben, damit er diese zuerst vom Server gesendet bekommt.
+https://www.cyon.ch/support/a/was-ist-http-2
 
-Quellen:
+##### Kompression des Headers
+Weiterhin ermöglicht HTTP/2 die Kompression des Headers. Der HTTP-Header muss bei jeder Anfrage mitgesendet werden und durch die Kompression kann so auf Dauer eine Menge an Daten eingespart werden.
+https://www.cyon.ch/support/a/was-ist-http-2
+
+
+#### Protocol Buffers
+Protocol Buffers sind von Google entworfene sprachunabhängige, plattform-neutrale, erweiterbare Mechanismen, um strukturierte Daten zu serialisieren. Es ähnelt somit XML, ist jedoch kleiner, schneller und einfacher.
 https://developers.google.com/protocol-buffers/
-https://grpc.io/docs/guides/
+
+Zu Beginn wird hierzu eine Struktur in einer _.proto_-Datei angelegt, die beispielsweise wie folgt aussehen könnte:
+
+```
+message Person {
+  string name = 1;
+  int32 id = 2;
+  bool is_admin = 3;
+}
+```
+
+Nachdem die Struktur angelegt wurde, kann der Protocol-Buffer-Compiler _protoc_ genutzt werden, um eine Klasse für die gewünschte Programmiersprache zu generieren. Mithilfe der generierten Klasse kann auf die Daten mit Setter- und Getter-Methoden zugegriffen und das Objekt anschließend serialisiert und geparst werden. https://grpc.io/docs/guides/
+
+
+#### Designprinzipien
+Zum Verständnis des Frameworks, definiert Google eine Reihe an Prinzipien und Anforderungen, die während der Entwicklung eine Rolle spielten und mit gRPC umgesetzt wurden.
+https://grpc.io/blog/principles
+
+__Services statt Objekten, Messages statt Referenzen__-
+Es sollte die Mikroservice-Philosophie und das Nutzen der Proto-Buffer-Messages beworben werden, damit kein falsches Verständnis von Objekten und den Netzwerkeinschränkungen aufkommt. Auch wenn gRPC eine performante Kommunikation bietet, sollte an die Tücken einer Netzwerkanwendung gedacht  und nicht so gearbeitet werden, als wären alle Objekte lokal verfügbar.
+
+__Abdeckung und Simplizität__-
+Das Framework sollte auf jeder beliebten Entwicklungsplattform verfügbar und leicht zu benutzen sein. Außerdem sollte das System auf performancelimitierten Geräten laufen können.
+
+__Kostenlos und offen__-
+
+
+
+##### Interoperabel und Reichweite
+
+##### Genereller Zweck und Performance
+
+##### Layered
+
+##### Payload Agnostik
+
+##### Streaming
+
+##### Blocken und Nicht-Blocken
+
+##### Abbruch und Timeout
+
+##### Lameducking
+
+##### Fluß-Kontrolle
+
+##### Pluggable
+
+##### Erweiterung als APIs
+
+##### Metadaten-Austausch
+
+##### Standardisierte Status Codes
 
 #### Vorteile
 
-##### Performance
-
-##### Geringe Datengröße
+##### Performance und geringe Datengröße
+Der Schwerpunkt von gRPC liegt darauf eine performante Netzwerk-Kommunikation zu ermöglichen. HTTP/2 und Proto Buffer sorgen dafür, dass die Anzahl der Anfragen und die zu übermittelnden Daten in der Größe reduziert und gleichzeitig die Geschwindigkeit erhöht werden kann. Diese Eigenschaften prägen gRPC somit als ein Kommunikations-Protokoll, welches besonders geeignet für Anwendungen ist, die den Hauptfokus auf eine effiziente Performance legen.
 
 #### Nachteile
 
-##### Fehlender Leitfaden
-
-#### Anwendungsbeispiel
+##### Browser-Support
 
 ### REST
 
@@ -52,9 +111,26 @@ Representational State Transfer (REST) ist das am meist verbreiteste und genutzt
 Bei REST handelt es sich um einen Architektur-Style, welches einen Leitfaden bilden soll, der vorgibt wie eine zustandslose Kommunikation zwischen Client und Server ablaufen sollte.
 
 ##### Nutzung
+Die Kommunikation zwischen Server und Client geschieht in dem Fall von REST mithilfe von Daten, die, wie der Name andeutet, einen Zustand wiederspiegeln.
+Um eine bestimmte Ressource anzufragen oder abzusenden sendet der Client eine HTTP-Anfrage an eine bereitgestellte URL. Die Art der HTTP-Anfrage hängt davon ab was für eine Art von Operation auf dem Server ausgeführt werden soll.
+
+| __Anfrage-Art__                | __Aktion__                     |
+|---------------------------------|--------------------------------------|
+|GET|Zugriff auf eine Ressource im Lesemodus|
+|POST|Senden einer neuen Ressource zum Server|
+|PUT|Aktualisieren einer vorhandenen Ressource|
+|DELETE|Löschen einer vorhandenen Ressource|
+|HEAD|Dient der Anfrage, ob eine Ressource existiert|
+|OPTIONS|Gibt eine Liste von möglichen Operationen auf einer Ressource zurück|
+https://books.google.de/books?hl=de&lr=&id=kjUwCgAAQBAJ&oi=fnd&pg=PR7&dq=5.+Pro+REST+API+Development+with+Node.js&ots=f149Pu5Rua&sig=5C39PrLsUvNHatLVGiogA8Shtvk#v=onepage&q=5.%20Pro%20REST%20API%20Development%20with%20Node.js&f=true
+
+Der Client sendet hierbei Zustandsrepräsentationen über Dateiformate wie JSON oder XML oder über URL-Parameter an den Server und der Server antwortet dementsprechend wieder mit einer Zustandsrepräsentation seinerseits.
+
+TODO?Ausführlicher?
+
 
 ##### Prinzipien
-Um ein effiziente Architektur zu erreichen, definiert REST die folgenden sechs Grundprinzipien, die F. Doglio in [] beschreibt. https://books.google.de/books?hl=de&lr=&id=kjUwCgAAQBAJ&oi=fnd&pg=PR7&dq=5.+Pro+REST+API+Development+with+Node.js&ots=f149Pu5Rua&sig=5C39PrLsUvNHatLVGiogA8Shtvk#v=onepage&q=5.%20Pro%20REST%20API%20Development%20with%20Node.js&f=true
+Um eine effiziente Architektur zu erreichen, definiert REST die folgenden sechs Grundprinzipien, die F. Doglio in [] beschreibt. https://books.google.de/books?hl=de&lr=&id=kjUwCgAAQBAJ&oi=fnd&pg=PR7&dq=5.+Pro+REST+API+Development+with+Node.js&ots=f149Pu5Rua&sig=5C39PrLsUvNHatLVGiogA8Shtvk#v=onepage&q=5.%20Pro%20REST%20API%20Development%20with%20Node.js&f=true
 
 ###### Client-Server
 Das erste Grundprinzip behandelt die Netzwerk-Architektur Client-Server und damit auch die Seperierung der Zuständigkeiten. Der Server stellt ein bestimmtes Set von Services bzw. Funktionalitäten zur Verfügung, welche vom Client aufgerufen werden können. Der Server stellt Daten bereit, sowie speichert diese, und der Client kann die abgerufenen Daten darstellen und aufbereiten. Mithilfe dieser Aufteilung können Client und Server unabhängig voneinander entwickelt werden und ermöglicht dadurch gleichzeitig, dass verschiedene Client-Applikationen für dieselben Server-Services genutzt werden können.
