@@ -252,13 +252,13 @@ const itemCounter = <div>Anzahl an Items: {items.length}</div>;
 
 #### Code-Splitting
 
-Bei der Entwicklung von modernen Web Applikationen werden in der Regel eine Vielzahl an einzelnen Paketen verwendet. Tools wie Browserify oder Webpack bündeln die einzelnen Bestandteile zu einer großen Datei. Hierdurch kann eine Anwendung als Ganzes innerhalb einer Webseite inkludiert werden.
+Bei der Entwicklung von modernen Web Applikationen werden in der Regel eine Vielzahl an einzelnen Paketen verwendet. Tools wie browserify oder webpack bündeln die einzelnen Bestandteile zu einer großen Datei. Hierdurch kann eine Anwendung als Ganzes innerhalb einer Webseite inkludiert werden.
 
 Bei größeren Single Page Applications kann dies zu Problemen führen, da alle Daten geladen werden müssen, obwohl der Benutzer eventuell gar nicht alle Bereiche der Anwendung verwenden wird. Um diesem Problem aus dem Weg zu gehen, kann *Code-Splitting* eingesetzt werden.
 
 Code-Splitting ermöglicht es, die Bestandteile einer Webanwendung in verschiedene Bereiche aufzuteilen und diese erst bei Bedarf zu laden (quasi *lazy loading*).
 
-In React kann hierzu in Verbindung mit Webpack die dynamische *import()*-Syntax verwendet werden [[FACE18g]](#ref_face18g).
+In React kann hierzu in Verbindung mit webpack die dynamische *import()*-Syntax verwendet werden [[FACE18g]](#ref_face18g).
 
 Ohne Code-Splitting:
 ```javascript
@@ -269,7 +269,7 @@ SubMenu.open();
 
 Mit Code-Splitting:
 ```javascript
-// Webpack führt hier ein Code-Splitting durch 
+// webpack führt hier ein Code-Splitting durch 
 import("./SubMenu").then(module => {
   module.SubMenu.open();
 });
@@ -803,7 +803,7 @@ function someComponent() {
  Bei der Verwendung von CSS ist darauf zu achten, dass die Style-Definitionen standardmäßig global definiert werden, wodurch unerwünschte Seiteneffekte entstehen können.
 >*Two CSS properties walk into a bar. A barstool in a completely different bar falls over. - [Thomas Fuchs](https://twitter.com/thomasfuchs/status/493790680397803521?lang=de)*
 
- In Verbindung mit den Bundle-Tools [Webpack](https://webpack.github.io/) oder [Browserify](http://browserify.org/) können auch [CSS-Module](https://github.com/css-modules/css-modules) verwendet werden. Hierbei werden die Klassen- und Animationsnamen standardmäßig als lokal angelegt.
+ In Verbindung mit den Bundle-Tools [webpack](https://webpack.github.io/) oder [browserify](http://browserify.org/) können auch [CSS-Module](https://github.com/css-modules/css-modules) verwendet werden. Hierbei werden die Klassen- und Animationsnamen standardmäßig als lokal angelegt.
 
 **Styled Components**
 
