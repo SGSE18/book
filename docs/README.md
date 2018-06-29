@@ -28,7 +28,7 @@ home: true
  * [Backend](/fullstack/backend/)
    * Node.js
 
-### [AI - Machine learning](/ai-ml/ai)
+### [AI - Machine learning](/ai-ml/ai/)
   * [Ethik](/ethik/)
 
 ### [Embedded Computing](/embedded/)
