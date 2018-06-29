@@ -22,7 +22,7 @@ module.exports = {
     nav: [
       {
         text: 'Kursmaterial',
-        link: '/kurs/',
+        link: '/',
       }
     ],
     sidebar: [

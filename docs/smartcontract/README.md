@@ -10,8 +10,8 @@ Contracts](/blockchain/usecases/#smart-contracts), ergeben sich vielseitige
 Möglichkeiten für neue und bestehende Anwendungsbereiche
 [[REYN18](#ref_reyn18), [LASK18](#ref_lask18), [STRU18](#ref_stru18)]. Wie mit
 jeder neuen Technologie, aus denen sich neue Möglichkeiten ergeben, gehen diese
-auch bei Smart Contracts mit neuen Risiken einher. Neben rechtlicher und
-finanzieller Risiken, nehmen Fehler im Design bzw. der Implementierung von
+auch bei Smart Contracts mit neuen Risiken einher. Neben rechtlichen und
+finanziellen Risiken nehmen Fehler im Design bzw. der Implementierung von
 Smart Contracts, einen weitaus größeren Stellenwert ein. Im Gegensatz zu
 klassischen Applikationen, lassen sich einmal veröffentlichte Smart Contracts
 nicht mehr updaten und auch durch die Fehler verursachten Änderungen am
@@ -22,7 +22,7 @@ kontraproduktiv auf die Entwicklung von Smart Contracts.
 
 ## Vulnerabilities
 Da Smart Contracts in der Regel ebenfalls Vermögenswerte verwalten, ist es
-essenziell, mögliche Schwachstellen bereits im voraus zu erkennen. Dabei liegen
+essenziell, mögliche Schwachstellen bereits im Voraus zu erkennen. Dabei liegen
 die meisten Schwachstellen nicht direkt in dem implementierten Codeblock,
 sondern ergeben sich erst durch die unberücksichtigte Wechselwirkung, mit der
 zugrunde liegenden Smart Contract Plattform.
@@ -43,17 +43,17 @@ https://vessenes.com/more-ethereum-attacks-race-to-empty-is-the-real-deal/s
 https://medium.com/aikon/automated-smart-contract-security-de2daebfbef4
 -->
 
-Da Smart Contracts erst in den vergangen Jahren an Bedeutung gewonnen haben,
+Da Smart Contracts erst in den vergangenen Jahren an Bedeutung gewonnen haben,
 entstehen derartige Schwachstellen, durch den Mangel an Erfahrungen um diese
 zu erkennen und zu vermeiden. In diesem Abschnitt werden daher zunächst die
 häufigsten Fallstricke betrachtet und anschließend mögliche Vorgehensweisen
 präsentiert.
 
-### Call-Stack Tiefe
-Die Ethereum Virtual Machine (EVM) begrenzt die Call-Stack Tiefe einer
-Transaktion auf 1024 Aufrufe. Somit kann ein Angreifer die Call.Stack Tiefe
-einer Transaktion, mittels rekrusiven Aufrufen, künstlich vor die Limitierung
-positionieren, um anschliessend Fehler in der darauf folgenden zu Verarbeitung
+### Call-Stack-Tiefe
+Die Ethereum Virtual Machine (EVM) begrenzt die Call-Stack-Tiefe einer
+Transaktion auf 1024 Aufrufe. Somit kann ein Angreifer die Call-Stack-Tiefe
+einer Transaktion, mittels rekursiven Aufrufen, künstlich vor die Limitierung
+positionieren, um anschließend Fehler in der darauf folgenden zu Verarbeitung
 der Transaktion zu provozieren.
 
 ```javascript
@@ -70,9 +70,9 @@ contract auction {
 
 Obwohl die Funktion in sich keine Fehler aufweist und auch dem Empfänger
 vertraut werden kann, schlägt der Aufruf `recipient.send(refund)` fehl,
-da `send(...)` ebenfalls die Call Stack Tiefe erhöht. Da jedoch alle zuvor
+da `send(...)` ebenfalls die Call-Stack-Tiefe erhöht. Da jedoch alle zuvor
 ausgeführten Änderungen erfolgreich waren, wird das Konto des Empfängers auf 0
-gesetzt ohne den Betrag tatsächlich transferiert zu haben.
+gesetzt, ohne den Betrag tatsächlich transferiert zuhaben.
 
 Um eine derartige Schwachstelle zu vermeiden, ist Empfehlenswert den
 Rückgabewert der `send(...)`-Funktion auszuwerten und die Ausführung wie folgt
@@ -93,7 +93,7 @@ verursachen.
 Auf den ersten Blick erfüllen beiden Funktionen im folgenden Smart Contract die
 an die jeweilige Funktion gestellten Anforderungen. Der Benutzer darf mit der
 Funktion `transfer(...)` einen Betrag, der sein eigenes Guthaben nicht
-übersteigt, einer beliebige anderen Adresse zuordnen und mit der Funktion
+übersteigt, einer beliebigen anderen Adresse zuordnen und mit der Funktion
 `withdrawBalance()` das gesamte eigene Guthaben, an die hinterlegte Adresse
 überweisen.
 
@@ -126,7 +126,7 @@ Schleife zwischen den beiden Smart Contracts. Damit wird die Zeile
 `userBalances[msg.sender] = 0` erst erreicht, wenn das gesamte Guthaben im
 Smart Contract aufgebraucht ist, wodurch die `call(...)`-Funktion fehlschlägt.
 
-Statt dem erneuten Aufruf der `withdrawBalance()`-Funktion, kann der Angreifer
+Statt des erneuten Aufrufs der `withdrawBalance()`-Funktion, kann der Angreifer
 auch eine Cross-function Race Condition provozieren. Dazu wird erneut ein
 böswilliger Smart Contract implementiert und stattdessen diesmal die
 `transfer(...)`-Funktion in der Default-Funktion aufgerufen. Somit wird das
@@ -137,7 +137,7 @@ Beide Schwachstellen lassen sich beheben, in dem das Guthaben der aufrufenden
 Adresse vor der Ausführung der Überweisung auf 0 gesetzt wird. Um im Fehlerfall
 das Guthaben wiederherzustellen, empfiehlt es sich zusätzlich den Rückgabewert
 der `send()`-Funktion zu prüfen, die Ausführung mit `throw` zu terminieren und
-damit alle durch die Transaktion entstanden Änderungen am State, rückgängig zu
+damit alle durch die Transaktion entstandenen Änderungen am State, rückgängig zu
 machen.
 
 ### Denial of Service
@@ -171,15 +171,15 @@ immer zu einem Fehler, z.B durch die Überschreitung der Call Stack Tiefe, führ
 Wird nun ein neues Höchstgebot abgegeben, erhält der aktuelle Höchstbieter
 (Angreifer) sein Gebot wieder, wodurch die Default-Funktion im Smart Contract
 des Angreifers aufgerufen wird. Da diese jedoch fehlschlägt, liefert `send(...)`
-einen Fehler zurück wodurch die Ausführung terminiert und alle Änderungen
+einen Fehler zurück, wodurch die Ausführung terminiert wird und alle Änderungen
 rückgängig gemacht werden. Somit ist der Angreifer weiterhin der Höchstbietende
 und neue Höchstgebote schlagen immer fehl.
 
 Eine mögliche Lösung besteht darin, in diesem Fall keine Terminierung durch den
-`throw` im Fehlerfall vorzunehmen. Alternativ kann aber auch eine Liste der
-alten Höchstbietenden und deren Gebote geführt und ganz auf die automatische
+`throw` im Fehlerfall vorzunehmen. Alternativ kann auch eine Liste der
+alten Höchstbietenden zzgl. der Gebote geführt und ganz auf die automatische
 Auszahlung verzichtet werden. Über eine zusätzliche Funktion können sich
-anschließend die in dieser Liste geführten Höchstbieter ihr Gebot erstatten
+anschließend die in dieser Liste geführten Höchstbieter Ihr Gebot erstatten
 lassen.
 
 ## Sicherheitsmaßnahmen
@@ -192,9 +192,9 @@ sollen in diesem Abschnitt weiter generalisiert werden.
 Smart Contracts können direkt oder indirekt mit anderen Smart Contracts im
 Distributed Ledger interagieren. Unabhängig davon, ob diese Interaktion
 beabsichtigt ist oder durch die Default-Funktion eines Zahlungsempfänger
-herbei geführt wird, sollte in jedem Fall bedacht werden dass durch den Aufruf
+herbeigeführt wird, sollte in jedem Fall bedacht werden, dass durch den Aufruf
 einer externen Funktion, auch der Kontrollfluss an diese übergeben wird. Um die
-Risiken die damit einhergehen zu minimieren, kann das
+Risiken, die damit einhergehen zu minimieren, kann das
 Checks-Effects-Interactions-Muster angewandt werden [[VOLL18](#ref_voll18)].
 
 Diese ähneln den Coding Standards der *klassischen* Softwareentwicklung
@@ -205,13 +205,13 @@ wurde. Das Muster wird in folgende Teilschritte unterteilt.
 1. **Eingabe Parameter und State prüfen**
 
    Alle Eingabe Parameter der Funktion werden zunächst validiert und ggf. mit
-   dem State abgeglichen. Dazu zählt die Prüfung ob der Aufrufer überhaupt
-   diese Funktion aufrufen darf oder z.B. über genug Guthaben verfügt die er in
-   den Eingabe Parametern anfordert.
+   dem State abgeglichen. Dazu zählt die Prüfung ob der Aufrufer die Funktion
+   aufrufen darf oder über das in den Eingabeparametern angeforderte Guthaben
+   verfügt.
 2. **State Änderungen vornehmen**
 
-   Nach erfolgreicher Validierung der Parameter, werden anschließend die
-   Änderungen am State vorgenommen, wie z.B. die
+   Nach erfolgreicher Validierung der Parameter werden anschließend die
+   Änderungen am State vorgenommen.
 3. **Smart Contract Interaktionen durchführen**
 
    Erst zum Schluss werden alle Aktionen durchgeführt, die zu einer direkten
@@ -227,12 +227,12 @@ Maßnahmen an. Zum einen lassen sich Schutzmechanismen implementieren, die im
 Ernstfall die Ausführung bestimmter Funktionen im Smart Contracts pausieren und
 zum anderen können z.B. Auszahlungen in der Höhe oder Häufigkeit gedrosselt
 werden, um im Ernstfall genug Zeit für Reaktionen zu haben. Zusätzlich kann ein
-externer Dienst ausserhalb des Distributed Ledgers implementiert werden, der in
+externer Dienst außerhalb des Distributed Ledgers implementiert werden, der in
 regelmäßigen Abständen die State-Integrität des Smart Contracts prüft und bei
-unschlüßigen Zuständen die Verantwortlichen benachrichtigt.
+unschlüssigen Zuständen die Verantwortlichen benachrichtigt.
 
 Zwar helfen diese Mechanismen dabei verdächtige Aktivität im Smart Contract zu
-erkennen, um die Sicherheitslücke jedoch zu schliessen ist es notwendig den
+erkennen, um die Sicherheitslücke jedoch zu schließen, ist es notwendig den
 Smart Contract updaten zu können. Da dies, wie einleitend erwähnt, nicht von der
 Ethereum Plattform vorgesehen ist, muss entsprechende Funktionalität im Smart
 Contract implementiert werden. Hierzu kann eine Funktion implementiert werden,
@@ -244,8 +244,8 @@ Contract transferiert.
 *"Im Spektrum der qualitätssichernden Maßnahmen im Software-Entwurf gehören
 formale Spezifikations- und Verifikationsmethoden heute zweifellos zu den
 stärksten Waffen in puncto Fehlererkennung und Nachweis von
-Korrektheitseigenschaften"* [[REIF99](#ref_reif99)]. Dazu wird die zu überprüfende
-Software und die Spezifikation in einem mathematisch Theorem formalisiert, um
+Korrektheitseigenschaften"* [[REIF99](#ref_reif99)]. Dazu werden die zu überprüfende
+Software und die Spezifikation in einem mathematischen Theorem formalisiert, um
 automatisiert, mittels Theorembeweisern, eventuelle Abweichungen des
 Softwaremodells von der Spezifikation nachzuweisen. Zu den bekanntesten
 Theorembeweisern, gemessen an der bereits formalisierten
@@ -257,13 +257,13 @@ Um für die Formalisierung eines Smart Contracts, nicht die gesamte Ethereum
 Virtual Machine formalisieren zu müssen, existiert bereits ein Model der EVM für
 diverse Theorembeweiser [[HIRA17](#ref_hira17)] zu denen auch der Isabelle/HOL
 zählt. Basierend auf diesem Modell der EVM, kann nun vielmehr nur der Smart
-Contract formalisiert und gegen eine gegeben Spezifikation geprüft werden.
+Contract formalisiert und gegen eine gegebe Spezifikation geprüft werden.
 Darüber hinaus gibt es noch weitere Ansätze die EVM zu formalisieren
-[[HILD17](#ref_hild17)] und folgende Werkzeuge um Schwachstellen im Smart
+[[HILD17](#ref_hild17)] und folgende Werkzeuge, um Schwachstellen im Smart
 Contract zu lokalisieren.
 
 ### Mythril
-Diese Tool ist spezialisiert auf die formale Verifikation von Smart Contracts
+Dieses Tool ist spezialisiert auf die formale Verifikation von Smart Contracts
 und bietet dazu sowohl eine API um eigene Spezifikationen zu definieren, als
 auch ein CLI (Command Line Interface) um typische Fehler im Smart Contract
 nachzuweisen. Angewandt auf das [Re-Entrency Beispiel](#re-entrency-und-cross-function-race-conditions)
@@ -294,19 +294,19 @@ Sicherheitsmaßnahme, in diesem Fall das [Checks-Effects-Interactions-Pattern](#
 ausgegeben.
 
 #### Smart Contract Graph
-Ein weitere nützliche Funktion ist dass generieren von Kontrollfluss-Graphen
-zu einem Smart Contract. Dazu kann entweder der Solidity Code oder Bytecode
-verwendet werden und der Parameter `-g` der CLI übergeben werden.
+Eine weitere nützliche Funktion ist dass generieren von Kontrollflussgraphen
+zu einem Smart Contract. Dazu kann neben dem Paramter `-g`, entweder der
+Solidity Code oder der Bytecode der CLI übergeben werden.
 
 ![Control Flow Graph](./control_flow.png "Control Flow Graph")
 
-Abbildung 2.1.3.1 - Kontrollfluss Graph
+Abbildung 2.1.3.1 - Kontrollflussgraph
 
 Die Darstellung zeigt einen Ausschnitt aus dem Graphen, zu dem [Re-Entrancy](#re-entrency-und-cross-function-race-conditions)
 Beispiel aus dem vorherigen Abschnitt. Die Knoten stellen dabei Codeblöcke dar
-und enthalten die EVM-Befehle [[EVMO18](#ref_evm18)] die beim erreichen diesem
+und enthalten die EVM-Befehle [[EVMO18](#ref_evm18)], die beim Erreichen dieses
 Knotens ausgeführt werden. Die Kanten repräsentieren den Pfad, die je nach
-Erfüllung der an der Kante ausgewiesene Bedingung genommen wird. Die Bedingungen
+Erfüllung der an der Kante ausgewiesenen Bedingung genommen wird. Die Bedingungen
 in der Darstellung entsprechen der `if (userBalances[msg.sender] >= amount)` in
 der `transfer(...)`-Funktion.
 
@@ -317,35 +317,35 @@ Contract ausgeführt werden können, ist es ebenfalls möglich eigene
 Spezifikationen zu implementieren. Angenommen es soll laut Spezifikation
 sichergestellt werden, dass eine bestimmte State-Variable nur von dem Smart
 Contract Besitzer geändert werden kann. Unter Verwendung der im Ethereum Yellow
-Paper [[WOOD18](#ref_wood18)] eingeführten Notation, kann dies wie folgt als
+Paper [[WOOD18](#ref_wood18)] eingeführten Notation kann dies wie folgt als
 Theorem ausgedrückt werden.
 
 $$\begin{array}{c}
 P(\sigma) \wedge (I_b[\mu_{pc}] == SSTORE) \wedge (\mu_s[0] == 1) \wedge (I_s != \sigma[I_a]_s[0])
 \end{array}$$
 <!-- fix atom syntax highlighting error --><span style="font-size:2px">_</span>
-Ein verstoß gegen die Spezifikation kann nachgewiesen werden, wenn zu einem
+Ein Verstoß gegen die Spezifikation kann nachgewiesen werden, wenn zu einem
 beliebigen Zeitpunkt diese logische Bedingung erfüllt werden kann. Dabei prüft
 $P(\sigma)$ ob es einen [Pfad](#smart-contract-graph), unter Verwendung des
-Globalen-Zustand ($\sigma$), zu der instruction ($I_b[\mu_{pc}]$) am aktuellen
+globalen Zustands ($\sigma$), zu der Instruction ($I_b[\mu_{pc}]$) am aktuellen
 Programmcounter gibt und ob dieser dem `SSTORE` EVM-Befehl entspricht. Diese
 Instruction ist laut dem EVM-*Instruction-Set* der einzige Maschinenbefehl, der
 den Speicher und damit die State-Variablen des Smart Contracts ändern kann. Die
-Teilbedingung $\mu_s[0] == 1$ erfordert, dass die obersten Position im Stack
+Teilbedingung $\mu_s[0] == 1$ erfordert, dass die oberste Position im Stack
 ($\mu_s[0]$) mit dem Wert 1 befüllt ist. Da der `SSTORE`-Befehl, die Smart
 Contract Speicheradresse von der obersten Position im Stack liesst, wird somit
-geprüft ob die gewünschte State-Variable geändert werden soll. An welcher
+geprüft, ob die gewünschte State-Variable geändert werden soll. An welcher
 Speicheradresse eine Variable persistiert wird, hängt von der Reihenfolge der
 im Solidity-Code definierten Variablen ab. Sind alle bisherigen Teilbedingungen
-erfüllt, kann somit nachgewiesen werden dass die aktuell auszuführende
+erfüllt, kann somit nachgewiesen werden, dass die aktuell auszuführende
 Instruction die State-Variable an der Speicheradresse 1 beschreibt. Da
 zusätzlich nachgewiesen werden soll, ob die State-Variable von jemand anderem
-als dem Smart Contract Besitzer geändert wird, prüft die letzte Teilbedingung
+als dem Smart Contract Besitzer geändert wird, prüft die letzte Teilbedingung,
 ob der aktuelle Aufrufer ($I_s$) vom Besitzer abweicht. Da Smart Contracts das
 Konzept eines Besitzer nicht nativ unterstützen, wird der Besitzer in der Regel
 im Konstruktor des Smart Contracts in einer State-Variable gespeichert. In
 diesem Beispiel wird mit $\sigma[I_a]_s[0]$ angenommen, dass der Besitzer in der
-Speicheradresse 0 des Smart Contracts $I_a$ des Globalen-States $\sigma[x]_s$
+Speicheradresse 0 des Smart Contracts $I_a$ des globalen States $\sigma[x]_s$
 gehalten wird.
 <!-- fix atom syntax highlighting error --><span style="font-size:2px">_</span>
 
@@ -384,7 +384,7 @@ for node_id, node in statespace.nodes.items():            # Knoten iterieren
 
 Auf diese Weise lassen sich Smart Contracts flexible und automatisiert formal
 verifizieren. Über die hier dargestellten Möglichkeiten hinaus, bietet das
-Mythril Framework auch noch  weitere nützliche Funktionen, wie das Testen von
+Mythril Framework auch noch weitere nützliche Funktionen, wie das Testen von
 bereits in der Blockchain veröffentlichten Smart Contracts, als auch das
 Durchsuchen aller veröffentlichten Smart Contracts nach bestimmten EVM-Befehlen.
 
@@ -393,18 +393,18 @@ Wie [Mythril](#mythril) ist auch dieses Tool spezialisiert auf die formale
 Verifikation von Ethereum Smart Contracts. Während Mythril jedoch eine
 Transaktion isoliert betrachtet, verwendet MAIAN eine Kette von systematisch
 angelegten State und Stack Kombinationen um Schwachstellen im Smart Contract
-aufzuspüren [[NIKO18](#ref_niko18)]. Dabei ordnet Mythril die Schwachstellen
+aufzuspüren [[NIKO18](#ref_niko18)]. Dabei ordnet MAIAN die Schwachstellen
 in die folgenden Kategorien ein.
 
 * **Prodigal Contracts**
 
   In diese Klasse werden Smart Contracts eingeordnet, die Zahlungen an Empfänger
   schicken die keine Besitzer sind, jemals eine Einzahlung getätigt haben oder
-  Funktions-Parameter erwarten die nicht auch von einem beliebigen User stammen
+  Funktionsparameter erwarten, die nicht auch von einem beliebigen User stammen
   können.
 * **Suicidal Contracts**
 
-  Sind Smart Contracts die von einem beliebigen User zerstört werden können, in
+  Sind Smart Contracts, die von einem beliebigen User zerstört werden können, in
   dem eine Funktion aufgerufen wird, die den `SELFDESTRUCT` EVM-Befehl ausführt.
 * **Greedy Contracts**
 
@@ -415,10 +415,10 @@ Um einen Smart Contract in eine oder mehrere Kategorien einzuordnen, arbeitet
 sich MAIAN durch die EVM-Befehle im Smart Contract, beginnend mit dem ersten
 EVM-Befehl, und spannt dabei rekursiv einen Suchbaum auf mit den nötigen State
 Variablen Stack Zuständen um diese Verzweigung im Bytecode zu repräsentieren.
-Wird ein terminierender EVM-Befehl wie z.B RETURN oder REVERT erreicht oder die
+Wird ein terminierender EVM-Befehl wie z.B. RETURN oder REVERT erreicht oder die
 Suche in einem Pfad kann nicht in einem vorgegeben Zeitrahmen abgeschlossen
 werden, so wird die Suche in dem aktuellen Pfad beendet und per Backtracking
-der nächste Pfad untersucht. Wird nun in einem Pfad der gesucht EVM-Befehl, wie
+der nächste Pfad untersucht. Wird nun in einem Pfad der gesuchte EVM-Befehl, wie
 z.B. `SELFDESTRUCT` für Suicidal Contracts oder `CALL` für Prodigal Contracts,
 gefunden, wird die Ausführung beendet und die entsprechende Schwachstelle
 inkl. der Parameter um den Pfad zu erreichen ausgegeben.
@@ -431,18 +431,18 @@ während MAIAN Top-Down durch alle Befehle arbeitet und diese dabei auch
 ausführt, um den Suchbaum, Stack und State entsprechend aufzubauen. Dies führt
 dazu, dass die Ausführung einer Spezifikation längere Zeit beansprucht. Mythril
 hingegen sucht zunächst den entsprechenden EVM-Befehl (`SELFDESTRUCT`, `CALL`,
-etc..) in einer flachen Liste und arbeitet sich dann Rückwärts den Pfad hoch,
+etc..) in einer flachen Liste und arbeitet sich dann rückwärts den Pfad hoch,
 um die Bedingungen für alle möglichen Pfade zu analysieren.
 
-Beide Tools sind kaum dokumentiert und nur Mythril besitzt eine Github-Wiki
-Seite mit den grundlegenden Informationen zur Installation und Nutzung. Die
+Beide Tools sind kaum dokumentiert und nur Mythril besitzt eine Github-Wiki-Seite
+mit den grundlegenden Informationen zur Installation und Nutzung. Die
 Verifikation-API von Mythril ist auch ohne Dokumentation noch gut verständlich,
 während MAIAN undokumentierte globale Variablen für die Kommunikation zwischen
 den einzelnen Komponenten nutzt, dessen Verantwortlichkeiten sich erst nach dem
-einlesen in den Quellcode der einzelnen Komponenten offenbaren.
+Einlesen in den Quellcode der einzelnen Komponenten offenbaren.
 
 In der Benutzung sind beide Tools gleich einfach aufgebaut. Bei der Installation
-dagegen ist Mythril, aufgrund des Docker-Images, zügiger Einsatzbereit und
+dagegen ist Mythril, aufgrund des Docker-Images, zügiger einsatzbereit und
 vereinfacht durch das APT/Brew Package-Repository die native Installation auf
 dem System. MAIAN beschränkt sich hierbei auf das Clonen des GIT-Repositories
 und die manuelle Installation der benötigten Abhängigkeiten in den
