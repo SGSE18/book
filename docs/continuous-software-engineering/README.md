@@ -123,7 +123,7 @@ Bei diesem Vorgehen bekommt der Kunde sehr schnell die neueste Version und der E
 
 ![DevOps](./media/circle_of_life.jpg "DevOps")
 
-Abbildung 2 - DevOps cycle(Quelle: <a>[[PIEN18]](#ref_pien18)</a>)
+Abbildung 2 - DevOps Cycle (Quelle: <a>[[PIEN18]](#ref_pien18)</a>)
 
 ##### Definition
 
@@ -284,12 +284,12 @@ Blue Ocean kann mit populären Plattformen wie Github integriert werden. Das hei
 
 # Quellen
 
-<a name=‘ref_pien18‘>[PIEN18]</a>: Wie DevOps die IT beschleunigen, 2018, Frank Pientka, https://www.computerwoche.de/a/wie-devops-die-it-beschleunigen,3071433 (abgerufen am 26.06.2018)
+<a name="ref_pien18">[PIEN18]</a>: "Wie DevOps die IT beschleunigen", 2018, Frank Pientka, https://www.computerwoche.de/a/wie-devops-die-it-beschleunigen,3071433 (abgerufen am 26.06.2018)
 
-<a name="ref_ravi16">[RAVI16]</a>: Practical DevOps, 2016, A. Ravichandran et. al.
+<a name="ref_ravi16">[RAVI16]</a>: "Practical DevOps", 2016, A. Ravichandran et. al.
 
-<a name='ref_rood16'>[ROOD16]</a>: Docker, Microservices And Kubernetes, 2016, Resa Roodsari
+<a name="ref_rood16">[ROOD16]</a>: "Docker, Microservices And Kubernetes", 2016, Resa Roodsari
 
-<a name="ref_vero16">[VERO16]</a>: Practical DevOps, 2016, Joakim Verona
+<a name="ref_vero16">[VERO16]</a>: "Practical DevOps", 2016, Joakim Verona
 
-<a name="ref_wolf14">[WOLF14]</a>: Continuous Delivery : Der pragmatische Einstieg, 2014, Eberhard Wolff
+<a name="ref_wolf14">[WOLF14]</a>: "Continuous Delivery : Der pragmatische Einstieg", 2014, Eberhard Wolff
