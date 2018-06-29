@@ -197,42 +197,40 @@ Von Sicherheitsexperten wird daher der Mensch als unsicherstes Glied in sicherhe
 
 Wie oben beschrieben sollten die Menschen und die Usability im Mittelpunkt stehen und nicht wie es bisher war, dass die Menschen sich der Technik anpassen mussten. Daraus können auch ganze neue Konzepte für die Entwicklung und Forschung entstehen. Die Verschmelzung von biologischen und digitalen Konzepten wäre möglich, da wie schon gezeigt DAN und Maschinencode ähnlich und somit auch in gewisser Weise kompatible sind. Beispielsweise Schwarmintelligenz für die Logistik, lernende Roboter, Biosensorik, der schon angesprochene 3D-Druck und programmierbare Materialien zeigen in die beschriebene Richtung. [Quelle Buch]
 
+## Mixed-Reality (Augmented-Reality und Virtual-Reality)
 
-## Virtuelle Realität in Medien und Technik
+Technologien der virtuellen und erweiterten Realität, also „Augmented-Reality“ (AR) und „Virtual-Reality“ (VR), sind in vielen Anwendungsfelder zu finden. Aktuell sind beide Themen sehr aktuell und es existieren auch schon Produkte für Konsumenten. VR-Headsets von HTC, Oculus und Sony sind relativ weit verbreitet. AR wird auf dem Smartphone z.B. für Spiele eingesetzt und in der Industrie hat die „Google Glass“ eine zweite Chance bekommen nachdem diese bei Privatkunden aus Datenschutz Gründen nicht akzeptiert wurde. Die Entwicklung an der „Mircrosoft HoloLens“, einem Head-mounted-Display ist noch nicht abgeschlossen. In der Automobilindustrie werden „Head-up-Displays“ verbaut die eine Form der AG sind und Informationen über Geschwindigkeit usw. direkt auf die Windschutzscheibe projizieren.
 
-## Verarbeitung von Videodaten
+Die beiden Begriff AR und VR sind Teil des Oberbegriffs „Mixed-Reality“ dieser umfasst das gesamte Realitäts-Virtualitäts-Kontinuum. Von der reinen echten Umgebung bis hin zur vollständigen VR. Dazwischen liegen AR bei, der die Realität mit digitalen Informationen erweitert wird und die „Augmented-Virtuality“ (AV), welche die Virtualität um Informationen aus der realen Umgebung erweitert. In der folgenden Abbildung ist das Kontinuum dargestellt. 
 
-## Audiocodecs
+[https://de.wikipedia.org/wiki/Mixed_reality#/media/File:Mixed_Reality.png] [Wiki]
 
-## Digitaler Rundfunk
+Die Wichtigkeit und die Vorteile der Digitalisierung von realen Objekten wie z.B. Kulturgütern wurde bereits erläutert. Dabei werden durch solche Initiativen Standards für den digitalen Zugang durch den Endverbraucher festgelegt. Projekte wie das „Google Books Library Project“ dessen Ziel es ist Millionen von Büchern zu digitalisieren treiben dies noch weiter voran. Auch die virtuelle Bibliothek „Europeana“ hat inzwischen über 30. Millionen Artefakte digitalisiert. Es fällt dabei auf derartige Anstrengungen primär auf 2D Objekte beschränkt sind, da die zur hochpräzisen Digitalisierung von dreidimensionalen Objekten die kommerziell verfügbare Technologie fehlt. Der hohe Zeitaufwand und die damit verbundenen Kosten sorgen dafür das aktuelle hauptsächlich nur prestigeträchtige Einzelstück wie die Büste der Nofretete digitalisiert werden. Der Zeitaufwand, der alleine für die Einstellung und korrekte Ausrichtung der Erfassungsgräte ist enorm und liegt in etwa bei 85% des gesamten Erfassungsprozesses. Zusätzlich wird die Digitalisierung von Objekten erschwert, da die Erfassung von einigen Materialien leider weiterhin eingeschränkt ist und in dem Bereich noch Forschungsbedarf besteht. [Quelle Buch]
 
-## (5G-Datentransport mit Höchstgeschwindigkeit)
+### Anforderungen an Mixed-Reality
 
-## Industrial Data Space
+Die Umsetzung von VR und AR ist stark unterschiedlich. Diese reichen von Cloud-Infrastrukturen bis hin zum schon genannten Head-Mounted-Display, die in Verbindung mit unterschiedlichsten Rechenkapazitäten, Betriebssystemen und Ein- und Ausgabemöglichkeiten arbeiten. Diese Systeme sollen skalierbar sein und bei der hohen Plattform Diversität bringen grade die mobilen Systeme wieder den Security Aspekt in den Fokus. Vertrauliche Daten wie z.B. das CAD-Modelle des neuen Prototyps kabellos an das Ausgabegerät zu übertragen ohne dieses dort aus Sicherheitsgründen zu speichern stellt eine Herausforderung dar. Ähnliche Anforderungen lassen sich bei Web-Technologien finden. Daher werden VR/AR in Zukunft eng mit Web-Technologien verbunden sein um im puncto Sicherheit punkten zu können und ihre Einsetzbarkeit und Akzeptanz in der Industrie zu erhöhen. [Quelle Buch]
 
-## Future Work Lab
+In der folgenden Abbildung werden Mixed-Reality Median wie z.B. Spiele und Filme mit den Anforderungen an Integrierbarkeit und Konfigurierbarkeit des Industriebereiches verglichen. 
 
-## Cyber-Physische Systeme
+[Bild: anforderungen_vr_ar.png] [Quelle Buch]
 
-## (Leitprojekt "Go Beyond 4.0")
+### Virtual-Reality 
 
-## Kognitive Systeme und Robotik
+In Europa wird, trotz der hohen Anforderungen, VR schon seit über 25 Jahren in der Industrie eingesetzt. Es werden 3D-Daten erlebbar gestaltet und in der Automobilindustrie und vielen weiteren Industriesträngen verdrängen digitale Mock-Ups (DMU) die realen und physikalischen Mock-Ups (PMU). Obwohl die Kosten für Software und Hardware von VR-Lösungen relativ hoch sind werden diese Investitionen betrieben. In den letzten fünf Jahren sind die Preise durch Verbesserungen von LCD und OLED Displays von vierstelligen in dreistellige Bereiche gewandert. Passende VR-Medien wie Filme und Spiele werden z.B. über die üblichen Plattformen wie „Steam“ vertrieben. In der Industrie wird jedoch die schon oben in der Abbildung dargestellt dynamische Konfiguration und Integrierbarkeit verlangt für die es keine durchgängigen Lösungen gibt. Die entwickelten Lösungen für Konsumentenprodukte lassen sich in der Regel nicht ohne weiteres auf die Industriellen Anwendungsfälle übertragen. 
 
-## (Fraunhofer-Allianz Big Data)
+Im Industriebereich haben Modelle eine viel höhere Qualität oder enthalten noch Informationen die später nicht mehr benötigt werden, zusätzlich sind die Daten häufig stark verteilt. Dies treibt die Datengrößen exponentiell nach oben was wiederum nach neuen Lösungen verlangt. Aktuell werden für Industrielösungen etablierte Dokumentenformate und Verfahren genutzt. 
 
-## Safety und Security
+Um jedoch bei der steigenden Datenmenge und Qualität der nötigen Bilder-pro-Sekunde („Frames-Per-Secound“ (FPS) einhalten zu können reicht jedoch häufig nicht einmal mehr die modernste Grafik-Hardware. Zu niedrige FPS kann zu Schwindelanfällen, Übelkeit und allgemeinem Unwohlsein bei der Bedienung von VR-Systemen führen. Um die FPS Zahlen hoch und stabil zu halten reicht es jedoch nicht mehr aus den Grafikspeicher und die Grafikprozessor Geschwindigkeit(Rasterisierung) nach oben zu schrauben. Grade im Bereich der Sichtbarkeits-Berechnung von Szenen müssen neue räumliche und hierarchische Datenstrukturen eingesetzt werden, die den Darstellungsprozess beschleunigen. Dann können althergebrachte Konzepte wie „Divide-and-Conquer“ eingesetzt werden um lediglich die Hüllkörper von Szenen-Elementen zu verarbeiten. Dafür werden erzeugte Baumstrukturen von Szenen-Elementen rekursiv zerlegt was nebenbei die Parallelisierbarkeit des Prozesses erhöht.
 
-## Ausfallsichere Systeme
+Um solche Datenstrukturen aufzubauen und zu erzeugen können ebenso bekannte Konzepte wie z.B. „Raytracing“ und „Collision-Detection“ genutzt werden. Die resultierenden Datenstrukturen sind z.B. K-D-Bäume, Bounding-Volume-Hierarchie, Bounding-Interval-Hierarchy, reguläre Gitter und Octrees. Je nach Forschungsfeld und Anwendungsfeld werden diese Ansätze stetig verbessert und optimiert.
 
-## (Blockchain)
+Da in der Industrie die Datensätze so groß sind reicht der Hauptspeicher (RAM) der Computer häufig nicht aus und sogenannte „Out-of-Core-Technologien“ sollen dabei helfen Daten On-Demand und On-the-fly aus dem Sekundärspeicher (SSD/HDD) zu laden. Bei Konsumentenprodukten, die auf einem herkömmlichen Betriebssystem laufen ist dies in der Regel nicht möglich, da für die Umsetzung von Out-of-Core-Technologien vollständiger Zugriff auf das Speichermanagement sowie die Caching Verfahren des Systems vorhanden sein muss. Bei dieser Technologie steht in erster Line die Performanz hinsichtlich von harten Echtzeitanforderungen im Vordergrund und nicht die exakte bzw. vollständige und korrekte Visualisierung.
 
-## E-Health
+Um tatsächlich die Echtzeitanforderungen zu erfüllen muss die räumliche und zeitliche Kohärenz ausgenutzt werden. Die hierarchischen Datenstrukturen, die oben beschrieben wurden liefern die räumliche Kohärenz. Die zeitliche Kohärenz also der frame-übergreifende zeitliche Zusammenhang muss durch den gewählten Render-Algorithmus gelöst werden. Zusätzlich muss eine Verdeckungsberechnungen („Occlusion-Culling“) von mehreren überlappenden Szenen-Elementen durch geführt werden. Dazu kann z.B. der „Coherent-Hierarchical-Culling“ eingesetzt werden.
 
-## Smart Energy
+### Augmented-Reality
 
-## Advanced Software Engineering
-
-## Automatisiertes Fahren
 
 <!-- COMMENT!
 
