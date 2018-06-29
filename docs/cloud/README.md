@@ -321,200 +321,200 @@ Die schrittweise Verarbeitung und Konvertierung von gesammelten Daten stellt ein
 
 <table style="width:100%">
     <tr>
-        <td></td>
-        <td></td>
+        <td style="width:10%"></td>
+        <td style="width:90%"></td>
     </tr>
     <tr>
-        <td rowspan="2"><a name="ref_avra16">[AVRA16]</a></td>
-        <td>Avram, Abel ; InfoQ, 25.06.2016: FaaS, PaaS, and the Benefits of Serverless Architecture</td>
+        <td rowspan="2" style="width:10%"><a name="ref_avra16">[AVRA16]</a></td>
+        <td style="width:90%">Avram, Abel ; InfoQ, 25.06.2016: FaaS, PaaS, and the Benefits of Serverless Architecture</td>
     </tr>
     <tr>
         <td>URL: <a>https://www.infoq.com/news/2016/06/faas-serverless-architecture</a> (abgerufen am 27.06.2018)</td>
     </tr>
     <tr>
-        <td rowspan="2"><a name="ref_bian20">[BIAN20]</a></td>
-        <td>Bianchi, Alessandra ; Inc., 01.04.2000: Say good-bye to software as we know it and hello to ASP start-up</td>
+        <td rowspan="2" style="width:10%"><a name="ref_bian20">[BIAN20]</a></td>
+        <td style="width:90%">Bianchi, Alessandra ; Inc., 01.04.2000: Say good-bye to software as we know it and hello to ASP start-up</td>
     </tr>
     <tr>
         <td>URL: <a>https://www.inc.com/magazine/20000401/18093.html</a> (abgerufen am 26.06.2018)</td>
     </tr>
     <tr>
-        <td rowspan="2"><a name="ref_bsi18">[BSI18]</a></td>
-        <td>Bundesamt für Sicherheit in der Informationstechnik (BSI): Cloud Computing Grundlagen</td>
+        <td rowspan="2" style="width:10%"><a name="ref_bsi18">[BSI18]</a></td>
+        <td style="width:90%">Bundesamt für Sicherheit in der Informationstechnik (BSI): Cloud Computing Grundlagen</td>
     </tr>
     <tr>
         <td>URL: <a>https://www.bsi.bund.de/DE/Themen/DigitaleGesellschaft/CloudComputing/Grundlagen/Grundlagen_node.html</a> (abgerufen am 03.05.2018)</td>
     </tr>
     <tr>
-        <td rowspan="2"><a name="ref_butl17">[BUTL17]</a></td>
-        <td>Butler, Brandon ; Network World, 21.09.2017: What is edge computing and how it's changing the network</td>
+        <td rowspan="2" style="width:10%"><a name="ref_butl17">[BUTL17]</a></td>
+        <td style="width:90%">Butler, Brandon ; Network World, 21.09.2017: What is edge computing and how it's changing the network</td>
     </tr>
     <tr>
         <td>URL: <a>https://www.networkworld.com/article/3224893/internet-of-things/what-is-edge-computing-and-how-it-s-changing-the-network.html</a> (abgerufen am 29.06.2018)</td>
     </tr>
     <tr>
-        <td rowspan="2"><a name="ref_cisc13">[CISC13]</a></td>
-        <td>Cisco, 2013: Fog Computing, Ecosystem, Architecture and Applications</td>
+        <td rowspan="2" style="width:10%"><a name="ref_cisc13">[CISC13]</a></td>
+        <td style="width:90%">Cisco, 2013: Fog Computing, Ecosystem, Architecture and Applications</td>
     </tr>
     <tr>
         <td>URL: <a>https://web.archive.org/web/20140922061044/http://www.cisco.com/web/about/ac50/ac207/crc_new/university/RFP/rfp13078.html</a> (abgerufen am 29.06.2018)</td>
     </tr>
     <tr>
-        <td rowspan="2"><a name="ref_elle17">[ELLE17]</a></td>
-        <td>Elle, Jessica ; Forestgiant, 05.04.2017: Fog VS Edge Computing</td>
+        <td rowspan="2" style="width:10%"><a name="ref_elle17">[ELLE17]</a></td>
+        <td style="width:90%">Elle, Jessica ; Forestgiant, 05.04.2017: Fog VS Edge Computing</td>
     </tr>
     <tr>
         <td>URL: <a>https://forestgiant.com/articles/fog-vs-edge/</a> (abgerufen am 26.06.2018)</td>
     </tr>
     <tr>
-        <td rowspan="2"><a name="ref_feld17">[FELD17]</a></td>
-        <td>Felde, Christian ; Blog of Christian Felde, 20.12.2017´: On edge architecture</td>
+        <td rowspan="2" style="width:10%"><a name="ref_feld17">[FELD17]</a></td>
+        <td style="width:90%">Felde, Christian ; Blog of Christian Felde, 20.12.2017´: On edge architecture</td>
     </tr>
     <tr>
         <td>URL: <a>https://blog.cfelde.com/2017/12/on-edge-architecture/</a> (abgerufen am 27.05.2018)</td>
     </tr>
     <tr>
-        <td rowspan="2"><a name="ref_foot17">[FOOT17]</a></td>
-        <td>Foote, Keith D. ; Dataversity, 22.06.2017: A Brief History of Cloud Computing</td>
+        <td rowspan="2" style="width:10%"><a name="ref_foot17">[FOOT17]</a></td>
+        <td style="width:90%">Foote, Keith D. ; Dataversity, 22.06.2017: A Brief History of Cloud Computing</td>
     </tr>
     <tr>
         <td>URL: <a>http://www.dataversity.net/brief-history-cloud-computing/</a> (abgerufen am 27.05.2018)</td>
     </tr>
     <tr>
-        <td rowspan="2"><a name="ref_forr06">[FORR06]</a></td>
-        <td>Forrest, Brady ; O'Reilly Radar, 25.09.2006: Zimki, hosted JavaScript environment</td>
+        <td rowspan="2" style="width:10%"><a name="ref_forr06">[FORR06]</a></td>
+        <td style="width:90%">Forrest, Brady ; O'Reilly Radar, 25.09.2006: Zimki, hosted JavaScript environment</td>
     </tr>
     <tr>
         <td>URL: <a>http://radar.oreilly.com/2006/09/zimki-hosted-javascript-enviro.html</a> (abgerufen am 26.06.2018)</td>
     </tr>
     <tr>
-        <td rowspan="2"><a name="ref_gass16">[GASS16]</a></td>
-        <td>Gassner, Heinz ; Smart Industry Forum, 02.12.2016: What Do We Actually Mean By: IaaS, PaaS, SaaS?</td>
+        <td rowspan="2" style="width:10%"><a name="ref_gass16">[GASS16]</a></td>
+        <td style="width:90%">Gassner, Heinz ; Smart Industry Forum, 02.12.2016: What Do We Actually Mean By: IaaS, PaaS, SaaS?</td>
     </tr>
     <tr>
         <td>URL: <a>https://smartindustryforum.org/what-do-we-actually-mean-by-iaas-paas-saas/</a> (abgerufen am 21.06.2018)</td>
     </tr>
     <tr>
-        <td rowspan="2"><a name="ref_gedi18">[GEDI18]</a></td>
-        <td>GE Digital: What is Edge Computing?</td>
+        <td rowspan="2" style="width:10%"><a name="ref_gedi18">[GEDI18]</a></td>
+        <td style="width:90%">GE Digital: What is Edge Computing?</td>
     </tr>
     <tr>
         <td>URL: <a>https://www.ge.com/digital/blog/what-edge-computing#edge-computing-vs-cloud-computing-3</a> (abgerufen am 27.05.2018)</td>
     </tr>
     <tr>
-        <td rowspan="2"><a name="ref_han17">[HAN17]</a></td>
-        <td>Han, Bowei ; Medium, 05.11.2017: An Introduction to Serverless and FaaS (Function as a Service)</td>
+        <td rowspan="2" style="width:10%"><a name="ref_han17">[HAN17]</a></td>
+        <td style="width:90%">Han, Bowei ; Medium, 05.11.2017: An Introduction to Serverless and FaaS (Function as a Service)</td>
     </tr>
     <tr>
         <td>URL: <a>https://medium.com/@BoweiHan/an-introduction-to-serverless-and-faas-functions-as-a-service-fb5cec0417b2</a> (abgerufen am 27.06.2018)</td>
     </tr>
     <tr>
-        <td rowspan="2"><a name="ref_ibmj09">[IBMJ09]</a></td>
-        <td>IBM Journal of Research and Development, 07.2009: The Reservoir model and architecture for open federated cloud computing</td>
+        <td rowspan="2" style="width:10%"><a name="ref_ibmj09">[IBMJ09]</a></td>
+        <td style="width:90%">IBM Journal of Research and Development, 07.2009: The Reservoir model and architecture for open federated cloud computing</td>
     </tr>
     <tr>
         <td>URL: <a>https://ieeexplore.ieee.org/document/5429058/</a> (abgerufen am 19.06.2018)</td>
     </tr>
     <tr>
-        <td rowspan="2"><a name="ref_inno17">[INNO17]</a></td>
-        <td>Innocent, Johnson ; DZone / Cloud Zone, 09.03.2017: Cloud Computing Deployment Models</td>
+        <td rowspan="2" style="width:10%"><a name="ref_inno17">[INNO17]</a></td>
+        <td style="width:90%">Innocent, Johnson ; DZone / Cloud Zone, 09.03.2017: Cloud Computing Deployment Models</td>
     </tr>
     <tr>
         <td>URL: <a>https://dzone.com/articles/cloud-computing-deployment-models</a> (abgerufen am 28.06.2018)</td>
     </tr>
     <tr>
-        <td rowspan="2"><a name="ref_lynl18">[LYNL18]</a></td>
-        <td>Lynley, Matthew ; techcruch.com: Amazon may be developing AI chips for Alexa</td>
+        <td rowspan="2" style="width:10%"><a name="ref_lynl18">[LYNL18]</a></td>
+        <td style="width:90%">Lynley, Matthew ; techcruch.com: Amazon may be developing AI chips for Alexa</td>
     </tr>
     <tr>
         <td>URL: <a>https://techcrunch.com/2018/02/12/amazon-may-be-developing-ai-chips-for-alexa/</a> (abgerufen am 27.05.2018)</td>
     </tr>
     <tr>
-        <td rowspan="2"><a name="ref_mark07">[MARK07]</a></td>
-        <td>Markham, Gervase ; Hacking for Christ, 25.09.2007: Zimki Shuts Down</td>
+        <td rowspan="2" style="width:10%"><a name="ref_mark07">[MARK07]</a></td>
+        <td style="width:90%">Markham, Gervase ; Hacking for Christ, 25.09.2007: Zimki Shuts Down</td>
     </tr>
     <tr>
         <td>URL: <a>http://blog.gerv.net/2007/09/zimki_shuts_down/</a> (abgerufen am 26.06.2018)</td>
     </tr>
     <tr>
-        <td rowspan="2"><a name="ref_mill18">[MILL18]</a></td>
-        <td>Miller, Paul ; The Verge, 07.05.2018: What is edge computing?</td>
+        <td rowspan="2" style="width:10%"><a name="ref_mill18">[MILL18]</a></td>
+        <td style="width:90%">Miller, Paul ; The Verge, 07.05.2018: What is edge computing?</td>
     </tr>
     <tr>
         <td>URL: <a>https://www.theverge.com/circuitbreaker/2018/5/7/17327584/edge-computing-cloud-google-microsoft-apple-amazon</a> (abgerufen am 27.05.2018)</td>
     </tr>
     <tr>
-        <td rowspan="2"><a name="ref_nist11">[NIST11]</a></td>
-        <td>National Institute of Standards and Technology (NIST) - The NIST Definition of Cloud Computing 2011</td>
+        <td rowspan="2" style="width:10%"><a name="ref_nist11">[NIST11]</a></td>
+        <td style="width:90%">National Institute of Standards and Technology (NIST) - The NIST Definition of Cloud Computing 2011</td>
     </tr>
     <tr>
         <td>URL: <a>https://csrc.nist.gov/publications/detail/sp/800-145/final</a> (abgerufen am 03.05.2018)</td>
     </tr>
     <tr>
-        <td rowspan="2"><a name="ref_open17">[OPEN17]</a></td>
-        <td>OpenFog, 09.02.2017: OpenFog Reference Architecture for Fog Computing</td>
+        <td rowspan="2" style="width:10%"><a name="ref_open17">[OPEN17]</a></td>
+        <td style="width:90%">OpenFog, 09.02.2017: OpenFog Reference Architecture for Fog Computing</td>
     </tr>
     <tr>
         <td>URL: <a>https://www.openfogconsortium.org/wp-content/uploads/OpenFog_Reference_Architecture_2_09_17-FINAL.pdf</a> (abgerufen am 10.06.2018)</td>
     </tr>
     <tr>
-        <td rowspan="2"><a name="ref_opto18">[OPTO18]</a></td>
-        <td>OPTO 22: Fog Computing vs. Edge Computing</td>
+        <td rowspan="2" style="width:10%"><a name="ref_opto18">[OPTO18]</a></td>
+        <td style="width:90%">OPTO 22: Fog Computing vs. Edge Computing</td>
     </tr>
     <tr>
         <td>URL: <a>http://info.opto22.com/fog-vs-edge-computing</a> (abgerufen am 29.06.2018)</td>
     </tr>
     <tr>
-        <td rowspan="2"><a name="ref_rega11">[REGA11]</a></td>
-        <td>Regalado, Antonio ; MIT Technology Review, 31.10.2011: Who Coined 'Cloud Computing'?</td>
+        <td rowspan="2" style="width:10%"><a name="ref_rega11">[REGA11]</a></td>
+        <td style="width:90%">Regalado, Antonio ; MIT Technology Review, 31.10.2011: Who Coined 'Cloud Computing'?</td>
     </tr>
     <tr>
         <td>URL: <a>https://www.technologyreview.com/s/425970/who-coined-cloud-computing/</a> (abgerufen am 27.05.2018)</td>
     </tr>
     <tr>
-        <td rowspan="2"><a name="ref_rous17a">[ROUS17a]</a></td>
-        <td>Rouse, Margaret ; TechTarget, 09.2017: Infrastructure as a Service (IaaS)</td>
+        <td rowspan="2" style="width:10%"><a name="ref_rous17a">[ROUS17a]</a></td>
+        <td style="width:90%">Rouse, Margaret ; TechTarget, 09.2017: Infrastructure as a Service (IaaS)</td>
     </tr>
     <tr>
         <td>URL: <a>https://searchcloudcomputing.techtarget.com/definition/Infrastructure-as-a-Service-IaaS</a> (abgerufen am 21.06.2018)</td>
     </tr>
     <tr>
-        <td rowspan="2"><a name="ref_rous17b">[ROUS17b]</a></td>
-        <td>Rouse, Margaret ; TechTarget, 11.2017: XaaS (Everything as a Service)</td>
+        <td rowspan="2" style="width:10%"><a name="ref_rous17b">[ROUS17b]</a></td>
+        <td style="width:90%">Rouse, Margaret ; TechTarget, 11.2017: XaaS (Everything as a Service)</td>
     </tr>
     <tr>
         <td>URL: <a>https://searchcloudcomputing.techtarget.com/definition/XaaS-anything-as-a-service</a> (abgerufen am 27.06.2018)</td>
     </tr>
     <tr>
-        <td rowspan="2"><a name="ref_shaw17">[SHAW17]</a></td>
-        <td>Shaw, Keith ; NetworkWorld, 19.12.2017: What is a hypervisor?</td>
+        <td rowspan="2" style="width:10%"><a name="ref_shaw17">[SHAW17]</a></td>
+        <td style="width:90%">Shaw, Keith ; NetworkWorld, 19.12.2017: What is a hypervisor?</td>
     </tr>
     <tr>
         <td>URL: <a>https://www.networkworld.com/article/3243262/virtualization/what-is-a-hypervisor.html</a> (abgerufen am 21.06.2018)</td>
     </tr>
     <tr>
-        <td rowspan="2"><a name="ref_stat16">[STAT16]</a></td>
-        <td>Statt, Nick ; The Verge: How an army of vulnerable gadgets took down the web today</td>
+        <td rowspan="2" style="width:10%"><a name="ref_stat16">[STAT16]</a></td>
+        <td style="width:90%">Statt, Nick ; The Verge: How an army of vulnerable gadgets took down the web today</td>
     </tr>
     <tr>
         <td>URL: <a>https://www.theverge.com/2016/10/21/13362354/dyn-dns-ddos-attack-cause-outage-status-explained</a> (abgerufen am 27.05.2018)</td>
     </tr>
     <tr>
-        <td rowspan="2"><a name="ref_watt17">[WATT17]</a></td>
-        <td>Watts, Stephen ; BMC Blogs, 22.09.2017: SaaS vs PaaS vs IaaS: What's The Difference and How To Choose</td>
+        <td rowspan="2" style="width:10%"><a name="ref_watt17">[WATT17]</a></td>
+        <td style="width:90%">Watts, Stephen ; BMC Blogs, 22.09.2017: SaaS vs PaaS vs IaaS: What's The Difference and How To Choose</td>
     </tr>
     <tr>
         <td>URL: <a>https://www.bmc.com/blogs/saas-vs-paas-vs-iaas-whats-the-difference-and-how-to-choose/</a> (abgerufen am 26.06.2018)</td>
     </tr>
     <tr>
-        <td rowspan="2"><a name="ref_wiki18">[WIKI18]</a></td>
-        <td>Wikipedia, 26.06.2018: As a service</td>
+        <td rowspan="2" style="width:10%"><a name="ref_wiki18">[WIKI18]</a></td>
+        <td style="width:90%">Wikipedia, 26.06.2018: As a service</td>
     </tr>
     <tr>
         <td>URL: <a>https://en.wikipedia.org/wiki/As_a_service</a> (abgerufen am 27.06.2018)</td>
     </tr>
     <tr>
-        <td rowspan="2"></td>
-        <td></td>
+        <td rowspan="2" style="width:10%"></td>
+        <td style="width:90%"></td>
     </tr>
 </table>
