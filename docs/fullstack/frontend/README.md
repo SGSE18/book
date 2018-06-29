@@ -252,13 +252,13 @@ const itemCounter = <div>Anzahl an Items: {items.length}</div>;
 
 #### Code-Splitting
 
-Bei der Entwicklung von modernen Web Applikationen werden in der Regel eine Vielzahl an einzelnen Paketen verwendet. Tools wie Browserify oder Webpack bündeln die einzelnen Bestandteile zu einer großen Datei. Hierdurch kann eine Anwendung als Ganzes innerhalb einer Webseite inkludiert werden.
+Bei der Entwicklung von modernen Web Applikationen werden in der Regel eine Vielzahl an einzelnen Paketen verwendet. Tools wie browserify oder webpack bündeln die einzelnen Bestandteile zu einer großen Datei. Hierdurch kann eine Anwendung als Ganzes innerhalb einer Webseite inkludiert werden.
 
 Bei größeren Single Page Applications kann dies zu Problemen führen, da alle Daten geladen werden müssen, obwohl der Benutzer eventuell gar nicht alle Bereiche der Anwendung verwenden wird. Um diesem Problem aus dem Weg zu gehen, kann *Code-Splitting* eingesetzt werden.
 
 Code-Splitting ermöglicht es, die Bestandteile einer Webanwendung in verschiedene Bereiche aufzuteilen und diese erst bei Bedarf zu laden (quasi *lazy loading*).
 
-In React kann hierzu in Verbindung mit Webpack die dynamische *import()*-Syntax verwendet werden [[FACE18g]](#ref_face18g).
+In React kann hierzu in Verbindung mit webpack die dynamische *import()*-Syntax verwendet werden [[FACE18g]](#ref_face18g).
 
 Ohne Code-Splitting:
 ```javascript
@@ -269,7 +269,7 @@ SubMenu.open();
 
 Mit Code-Splitting:
 ```javascript
-// Webpack führt hier ein Code-Splitting durch 
+// webpack führt hier ein Code-Splitting durch 
 import("./SubMenu").then(module => {
   module.SubMenu.open();
 });
@@ -412,7 +412,7 @@ const Header = (props) => {
 
 Im Gegensatz zu Dumb Components verfügen Smart Components über einen Status (*state*). Hierbei handelt es sich wie bei den Properties um ein Objekt, das aus Key-Value Paaren besteht. Besonders ist hierbei jedoch, dass sich der Status innerhalb des Lebenszyklus der Komponente ändern kann. 
 
-Smart Components werden in Form von Klassen realisiert. Ihre Properties erhalten sie dabei als Parameter ihres Konstruktors. Die folgende Komponente stellt einen Zähler dar, der als Property einen Startwert (*startValue*) erhält und bei Betätigung des Buttons den Zähler um eins erhöht. Dieser Zähler wird als Statusvariable (*this.state.count*) realisiert und mithilfe der Rendermethode angezeigt (die Rendermethode wird im Kapitel [Rendern](#rendern) genauer betrachtet). 
+Smart Components werden in Form von Klassen realisiert. Ihre Properties erhalten sie dabei als Parameter ihres Konstruktors. Die folgende Komponente stellt einen Zähler dar, der als Property einen Startwert (*startValue*) erhält und bei Betätigung des Buttons den Zähler um eins erhöht. Dieser Zähler wird als Statusvariable (`this.state.count`) realisiert und mithilfe der Rendermethode angezeigt (die Rendermethode wird im Kapitel [Rendern](#rendern) genauer betrachtet). 
 
 ```jsx
 class Counter extends React.Component {
@@ -442,7 +442,7 @@ class Counter extends React.Component {
 }
 ```
 
-Bei der Verwendung des Status ist zu beachten, dass Werte von Statusvariablen mit der asynchronen Methode *setState()* geändert werden müssen. Die Methode erhält ein Objekt mit den Key-Value Paaren, die geändert werden sollen. Auf diese Art und Weise wird die Anzeige direkt nach dem Ändern eines Statuswerts aktualisiert. Das Kapitel [State Management](#state-management) beschreibt weitere Details zur Verwendung von setState() und alternative Möglichkeiten zum Verwalten des Zustands von React-Komponenten. Informationen zum Lifecycle von Smart Components finden sich im Kapitel [Lifecycle](#lifecycle).
+Bei der Verwendung des Status ist zu beachten, dass Werte von Statusvariablen mit der asynchronen Methode `setState()` geändert werden müssen. Die Methode erhält ein Objekt mit den Key-Value Paaren, die geändert werden sollen. Auf diese Art und Weise wird die Anzeige direkt nach dem Ändern eines Statuswerts aktualisiert. Das Kapitel [State Management](#state-management) beschreibt weitere Details zur Verwendung von `setState()` und alternative Möglichkeiten zum Verwalten des Zustands von React-Komponenten. Informationen zum Lifecycle von Smart Components finden sich im Kapitel [Lifecycle](#lifecycle).
 
 ###### Higher Order Components (HOCs)
 Higher Order Components erweitern Komponenten, indem sie ihnen zusätzliche Funktionalitäten oder Properties zur Verfügung stellen (ähnlich wie beim Decorator Pattern) [[TSON18]](#ref_tson18). Möchte man beispielsweise bei jedem Mounting- und Rendervorgang von Komponenten eine Log-Nachricht ausgeben, so müsste man den gleichen Code an vielen Stellen des Projekts einbauen (in der componentDidMount- und der render-Methode der jeweiligen Komponente). Eine HOC kann hier Abhilfe schaffen:
@@ -567,7 +567,7 @@ render() {
 }
 ```
 
-Um Komponenten letztendlich im Browser anzuzeigen, wird die Funktion *ReactDOM.render()* verwendet. Diese erhält als ersten Parameter die zu rendernde React Komponente und als zweiten Parameter das tatsächliche DOM-Element, an dessen Position die Komponente in den nativen DOM eingefügt worden soll:
+Um Komponenten letztendlich im Browser anzuzeigen, wird die Funktion `ReactDOM.render()` verwendet. Diese erhält als ersten Parameter die zu rendernde React Komponente und als zweiten Parameter das tatsächliche DOM-Element, an dessen Position die Komponente in den nativen DOM eingefügt worden soll:
 
 ```jsx
 ReactDOM.render(
@@ -721,7 +721,7 @@ class StartButton extends React.Component {
 
 **Arrow Function (*nicht empfohlen*)**
 
-Arrow Functions verfügen in JavaScript nicht über ein eigenes *this* und umgehen somit die angesprochene Problematik [[MOZI18]](#ref_mozi18). Diese Art der Programmierung wird jedoch nicht empfohlen, da jeder Rendervorgang der Komponente eine neue Funktion erzeugt. Wird dieser Callback als Property an andere Komponenten weitergegeben, werden diese eventuell ebenfalls neu gerendert , wodurch die Performance leidet.
+Arrow Functions verfügen in JavaScript nicht über ein eigenes `this` und umgehen somit die angesprochene Problematik [[MOZI18]](#ref_mozi18). Diese Art der Programmierung wird jedoch nicht empfohlen, da jeder Rendervorgang der Komponente eine neue Funktion erzeugt. Wird dieser Callback als Property an andere Komponenten weitergegeben, werden diese eventuell ebenfalls neu gerendert , wodurch die Performance leidet.
 
 ```jsx
 class StartButton extends React.Component {
@@ -752,14 +752,14 @@ const someValue = 1;
 <button onClick={this.start.bind(this, someValue)}>Start</button>
 ```
 
-In beiden Fällen wird das React Event als zweiter Parameter an die Methode *start* übergeben. Werden bei der *bind*-Methode mehrere Parameter übergeben, wird der Eventparameter entsprechend nach hinten verschoben. Die Parameterübergabe geschieht dort implizit und muss somit nicht angegeben werden. 
+In beiden Fällen wird das React Event als zweiter Parameter an die Methode *start* übergeben. Werden bei der `bind`-Methode mehrere Parameter übergeben, wird der Eventparameter entsprechend nach hinten verschoben. Die Parameterübergabe geschieht dort implizit und muss somit nicht angegeben werden. 
 
 ##### Styling
 Das Styling von React Komponenten kann prinzipiell auf unterschiedliche Arten geschehen. Im Folgenden werden drei häufig verwendete Verfahren vorgestellt.
 
 ***style*-Attribut**
 
-Das Aussehen von Elementen kann z.B. direkt über ihr **style**-Attribut angepasst werden. Hierbei ist darauf zu achten, dass die Style-Bezeichner ihrem CSS-Äquivalent als *camelCase* entsprechen. So wird "font-size" z.B. zu "fontSize".
+Das Aussehen von Elementen kann z.B. direkt über ihr Attribut `style` angepasst werden. Hierbei ist darauf zu achten, dass die Style-Bezeichner ihrem CSS-Äquivalent als *camelCase* entsprechen. So wird `font-size` z.B. zu `fontSize`.
 
 Beispiel:
 
@@ -779,8 +779,8 @@ function someComponent() {
 **CSS**
 
 Eine weitere Möglichkeit ist das Verwenden von herkömmlichen CSS-Dateien.
-Es ist darauf zu achten, dass das *class*-Attribut in JSX *className* lautet.
-Das *id*-Attribut kann wie von HTML gewohnt verwendet werden.
+Es ist darauf zu achten, dass das `class`-Attribut in JSX `className` lautet.
+Das `id`-Attribut kann wie von HTML gewohnt verwendet werden.
 
 Beispiel:
 
@@ -803,7 +803,7 @@ function someComponent() {
  Bei der Verwendung von CSS ist darauf zu achten, dass die Style-Definitionen standardmäßig global definiert werden, wodurch unerwünschte Seiteneffekte entstehen können.
 >*Two CSS properties walk into a bar. A barstool in a completely different bar falls over. - [Thomas Fuchs](https://twitter.com/thomasfuchs/status/493790680397803521?lang=de)*
 
- In Verbindung mit den Bundle-Tools [Webpack](https://webpack.github.io/) oder [Browserify](http://browserify.org/) können auch [CSS-Module](https://github.com/css-modules/css-modules) verwendet werden. Hierbei werden die Klassen- und Animationsnamen standardmäßig als lokal angelegt.
+ In Verbindung mit den Bundle-Tools [webpack](https://webpack.github.io/) oder [browserify](http://browserify.org/) können auch [CSS-Module](https://github.com/css-modules/css-modules) verwendet werden. Hierbei werden die Klassen- und Animationsnamen standardmäßig als lokal angelegt.
 
 **Styled Components**
 
@@ -832,13 +832,13 @@ Abbildung bearbeitet; entnommen aus <a>[[MAJ18]](#ref_maj18)</a> (dort als inter
 
 **Mounting**
 
-Noch bevor die Komponente zum DOM hinzugefügt wurde (man spricht hierbei von "mounted"), wird ihr Konstruktor (**constructor(props)**) aufgerufen. Hierbei sollte darauf geachtet werden, dass als erstes der Konstruktor der Basisklasse aufgerufen wird (*super(props)*), da andernfalls das Klassenattribut *this.props* noch nicht definiert ist und es somit zu Bugs kommen kann. Der Konstruktor sollte zur Initialisierung des Objektzustands (mit *this.state*) verwendet werden.
+Noch bevor die Komponente zum DOM hinzugefügt wurde (man spricht hierbei von "mounted"), wird ihr Konstruktor (`constructor(props)`) aufgerufen. Hierbei sollte darauf geachtet werden, dass als erstes der Konstruktor der Basisklasse aufgerufen wird (`super(props)`), da andernfalls das Klassenattribut `this.props` noch nicht definiert ist und es somit zu Bugs kommen kann. Der Konstruktor sollte zur Initialisierung des Objektzustands (mit `this.state`) verwendet werden.
 
-Nachdem das Objekt initialisiert wurde, wird die Methode **getDerivedStateFromProps(nextProps, prevState)** aufgerufen.  Als Rückgabewert wird ein Objekt erwartet, das den Status auf Basis der angepassten Properties enthält oder *null*, um zu signalisieren, dass sich der Status auf Basis der Props nicht geändert hat. Um zu prüfen, welche Props sich geändert haben (bzw. ändern werden), kann der Parameter *nextProps* mit den aktuellen Properties des Objekts verglichen werden.
+Nachdem das Objekt initialisiert wurde, wird die Methode `getDerivedStateFromProps(nextProps, prevState)` aufgerufen.  Als Rückgabewert wird ein Objekt erwartet, das den Status auf Basis der angepassten Properties enthält oder `null`, um zu signalisieren, dass sich der Status auf Basis der Props nicht geändert hat. Um zu prüfen, welche Props sich geändert haben (bzw. ändern werden), kann der Parameter `nextProps` mit den aktuellen Properties des Objekts verglichen werden.
 
-Es folgt der Aufruf der **render**-Methode und anschließend das Updaten des "nativen DOMs" und der "refs" (Verweise auf die Elemente des nativen DOMs).
+Es folgt der Aufruf von `render()` und anschließend das Updaten des "nativen DOMs" und der "refs" (Verweise auf die Elemente des nativen DOMs).
 
-Mit dem Aufruf von **componentDidMount** endet der Mounting-Vorgang. Innerhalb dieser Methode können beispielsweise Initialisierungen eingebaut werden, die Zugriff auf den nativen DOM benötigen, oder Netzwerkzugriffe durchgeführt werden (AJAX-Requests). Obwohl **render** bereits ausgeführt wurde, kann der Status hier jedoch noch mit *setState()* aktualisiert werden, bevor die Änderungen tatsächlich im Browser sichtbar werden (**render** würde in dem Fall erneut aufgerufen werden; Achtung, die Performanz kann hierunter leiden).
+Mit dem Aufruf von `componentDidMount()` endet der Mounting-Vorgang. Innerhalb dieser Methode können beispielsweise Initialisierungen eingebaut werden, die Zugriff auf den nativen DOM benötigen, oder Netzwerkzugriffe durchgeführt werden (AJAX-Requests). Obwohl `render()` bereits ausgeführt wurde, kann der Status hier jedoch noch mit `setState()` aktualisiert werden, bevor die Änderungen tatsächlich im Browser sichtbar werden `render()` würde in dem Fall erneut aufgerufen werden; Achtung, die Performanz kann hierunter leiden).
 
 **Updating**
 
@@ -846,26 +846,26 @@ React Komponenten können in ihrem Lebenszyklus auf 3 verschiedene Arten aktuali
 
 *New props*
 
-Sie können von ihrem hierarchischen Vater (bezogen auf die ReactDOM-Hierarchie) neue Props erhalten. In diesem Fall wird die Methode **getDerivedStateFromProps** (s.o.) erneut aufgerufen. Der Unterschied zum Aufruf während des Mounting-Vorgangs ist, dass nun vor **render** eine weitere Methode aufgerufen wird, mithilfe der entschieden werden kann, ob ein erneutes Rendern wirklich erforderlich ist. Es handelt sich um die Methode **shouldComponentUpdate(nextProps, nextState)**. Standardmäßig liefert sie *true* zurück, sodass der Rendervorgang durchgeführt wird. Implementiert man diese Methode und gibt *false* zurück (z.B., weil die neu erhaltenen Props keine Relevanz für die Anzeige haben), wird der Update-Vorgang ohne Rendern abgeschlossen. 
+Sie können von ihrem hierarchischen Vater (bezogen auf die ReactDOM-Hierarchie) neue Props erhalten. In diesem Fall wird die Methode `getDerivedStateFromProps()` (s.o.) erneut aufgerufen. Der Unterschied zum Aufruf während des Mounting-Vorgangs ist, dass nun vor `render()` eine weitere Methode aufgerufen wird, mithilfe der entschieden werden kann, ob ein erneutes Rendern wirklich erforderlich ist. Es handelt sich um die Methode `shouldComponentUpdate(nextProps, nextState)`. Standardmäßig liefert sie `true` zurück, sodass der Rendervorgang durchgeführt wird. Implementiert man diese Methode und gibt `false` zurück (z.B., weil die neu erhaltenen Props keine Relevanz für die Anzeige haben), wird der Update-Vorgang ohne Rendern abgeschlossen. 
 
 *setState()*
 
-Ein durch *setState()* geänderter Zustand ruft shouldComponentUpdate ebenfalls auf.
+Ein durch `setState()` geänderter Zustand ruft `shouldComponentUpdate()` ebenfalls auf.
 
  *forceUpdate()*
 
-Ein Aufruf der Methode *forceUpdate()* initiiert ebenfalls ein erneutes Rendern. Nach Möglichkeit sollte *forceUpdate* nur aufgerufen werden, wenn eine GUI-Änderung andernfalls nicht bemerkt werden würde (das sollte im Normallfall jedoch nicht notwendig sein).
+Ein Aufruf der Methode `forceUpdate()` initiiert ebenfalls ein erneutes Rendern. Nach Möglichkeit sollte `forceUpdate` nur aufgerufen werden, wenn eine GUI-Änderung andernfalls nicht bemerkt werden würde (das sollte im Normallfall jedoch nicht notwendig sein).
 
-Bevor die Änderungen in den nativen DOM übertragen werden, wird die Methode **getSnapshotBeforeUpdate(prevProps, prevState)** aufgerufen. Hiermit können Werte gespeichert werden, die sich potentiell nach dem Update ändern könnten (z.B. eine Scrollbar-Position). Alle Bestandteile des Rückgabewertes werden an die Methode **componentDidUpdate(prevProps, prevState[, snapshot])** weitergeleitet. Diese Methode wird demnach aufgerufen, nachdem die Änderungen im nativen DOM angepasst wurden. 
+Bevor die Änderungen in den nativen DOM übertragen werden, wird die Methode `getSnapshotBeforeUpdate(prevProps, prevState)` aufgerufen. Hiermit können Werte gespeichert werden, die sich potentiell nach dem Update ändern könnten (z.B. eine Scrollbar-Position). Alle Bestandteile des Rückgabewertes werden an die Methode `componentDidUpdate(prevProps, prevState[, snapshot])` weitergeleitet. Diese Methode wird demnach aufgerufen, nachdem die Änderungen im nativen DOM angepasst wurden. 
 
 **Unmounting**
 
-Unmittelbar bevor eine Komponente unmountet und zerstört wird, wird die Methode **componentWillUnmount()** aufgerufen. Sie dient zum Aufräumen von Timern, Netzwerkverbindungen etc.
+Unmittelbar bevor eine Komponente unmountet und zerstört wird, wird die Methode `componentWillUnmount()` aufgerufen. Sie dient zum Aufräumen von Timern, Netzwerkverbindungen etc.
 
 
 **Abschlussbemerkung**
 
-Zusätzlich zu den hier vorgestellten Lifecycle-Methoden existiert auch noch die Methode componentDidCatch(error, errorInfo). Diese erzeugt aus der aktuellen Klasse eine *Error Boundary Klasse*, die JavaScript-Fehler innerhalb ihrer Kinderelemente fängt. Weiterführende Informationen finden sich im Kapitel [Error Boundaries](#error-boundaries).
+Zusätzlich zu den hier vorgestellten Lifecycle-Methoden existiert auch noch die Methode `componentDidCatch(error, errorInfo)`. Diese erzeugt aus der aktuellen Klasse eine *Error Boundary Klasse*, die JavaScript-Fehler innerhalb ihrer Kinderelemente fängt. Weiterführende Informationen finden sich im Kapitel [Error Boundaries](#error-boundaries).
 
 #### State Management in React
 
@@ -873,7 +873,7 @@ Das Erstellen von dynamischen Webseiten bedarf einer guten Strategie zur Verwalt
 
 ##### setState
 
-Eine einsteigerfreundliche Variante des State Managements ist das Verwenden der bereits in vorherigen Kapiteln angesprochenen asynchronen setState-Methode. Jede smarte Komponente verfügt über einen Zustand. Dieser Zustand wird als JavaScript-Objekt in dem Klassenattribut *this.state* gespeichert und mithilfe der setState-Methode aktualisiert (vgl. Kapitel [Dumb Components und Smart Components](#dumb-components-und-smart-components)). Mit steigender Anwendungsgröße steigt auch die Komplexität eines solchen direkten State Managements. Das rührt daher, dass die Verbindungen (Bindings) explizit als Property bis an die untersten Komponenten weitergeführt werden müssen, um dort aktiv zu werden [[LABO18]](#ref_labo18). 
+Eine einsteigerfreundliche Variante des State Managements ist das Verwenden der bereits in vorherigen Kapiteln angesprochenen asynchronen Methode `setState()`. Jede smarte Komponente verfügt über einen Zustand. Dieser Zustand wird als JavaScript-Objekt in dem Klassenattribut `this.state` gespeichert und mithilfe von `setState()` aktualisiert (vgl. Kapitel [Dumb Components und Smart Components](#dumb-components-und-smart-components)). Mit steigender Anwendungsgröße steigt auch die Komplexität eines solchen direkten State Managements. Das rührt daher, dass die Verbindungen (Bindings) explizit als Property bis an die untersten Komponenten weitergeführt werden müssen, um dort aktiv zu werden [[LABO18]](#ref_labo18). 
 
 ##### Context
 Um ein umständliches Weiterreichen der Statusinformationen in Form von Properties aus dem Weg zu gehen, verfügen die neusten React Versionen über das kontextbasierte Verfahren *Context*. Es sollte dort genutzt werden, wo bestimmte Daten als global angesehen werden können (z.B. Benutzerdaten und GUI-Themes).
@@ -1071,8 +1071,8 @@ Standardmäßig ist JavaScript eine dynamisch typisierte Programmiersprache. Mö
 ##### PropTypes
 Durch das Importieren des Packets "prop-types" erhält man Zugriff auf das in React eingebaute Type Checking Werkzeug *PropTypes*. Mithilfe von PropTypes kann überwacht werden, ob alle benötigten Properties einer Komponente übergeben wurden und ob der Typ des Übergabewertes korrekt ist.
 
-Im folgenden Beispiel wird ein zwingend notwender String (*title*) sowie optionale Kindelemente (*children*) als Properties festgelegt. Hierzu wird der Komponenten eine Variable mit dem Namen *propTypes* zugewiesen.
-Innerhalb dieser Variable werden die Properties und deren Typen definiert. Das Anfügen von *isRequired* führt dazu, dass der Property zwingend ein Wert des angegebenen Typs zugewiesen werden muss.
+Im folgenden Beispiel wird ein zwingend notwender String (`title`) sowie optionale Kindelemente (`children`) als Properties festgelegt. Hierzu wird der Komponenten eine Variable mit dem Namen `propTypes` zugewiesen.
+Innerhalb dieser Variable werden die Properties und deren Typen definiert. Das Anfügen von `isRequired` führt dazu, dass der Property zwingend ein Wert des angegebenen Typs zugewiesen werden muss.
 Ist dies nicht der Fall, erscheint eine entsprechende Fehlermeldung in der Konsole des verwendeten Browsers.
 
 ```jsx
@@ -1096,14 +1096,14 @@ Header.propTypes = {
 ```
 
 Es können viele Typen überprüft werden, z.B.:
-* PropTypes.string
-* PropTypes.number
-* PropTypes.array
-* PropTypes.bool
-* PropTypes.func -> Funktion
-* PropTypes.element -> React Element
-* PropTypes.instanceOf(*Klasse*)
-* PropTypes.oneOf(['EnumA', 'EnumB']) -> wie eine Enumeration
+* `PropTypes.string`
+* `PropTypes.number`
+* `PropTypes.array`
+* `PropTypes.bool`
+* `PropTypes.func` -> Funktion
+* `PropTypes.element` -> React Element
+* `PropTypes.instanceOf(<Klasse>)`
+* `PropTypes.oneOf(['EnumA', 'EnumB'])` -> wie eine Enumeration
 
 PropTypes überprüft die Typen aus Gründen der Performance nur im "development mode" [[FACE18e]](#ref_face18e).
 
@@ -1197,9 +1197,9 @@ class Timer implements TimerInterface {
 
 Eine weitere wichtige Erweiterung sind die Zugriffsmodifizierer (access modifiers), die eine bessere Kapselung von Klassenfunktionalität ermöglichen. Es werden die drei klassischen Modifier unterstützt:
 
-* public (*default*):  von überall aus erreichbar
-* private: nur innerhalb der Klasse erreichbar
-* protected: nur innerhalb der Klasse und über Vererbung erreichbar
+* `public` (*default*):  von überall aus erreichbar
+* `private`: nur innerhalb der Klasse erreichbar
+* `protected`: nur innerhalb der Klasse und über Vererbung erreichbar
 
 Das Typensystem kann jedoch auch bei Verwendung von TypeScript umgangen werden. Wird als Typ **any** angegeben, findet keine Überprüfung des Typs statt.
 Um solche unsauberen Lösungen zu umgehen, kann z.B. das statische Code-Analyse Tool "TSLint" verwendet werden. Wird hier die Regel *no-any* gesetzt, wird eine entsprechende Warnung bzw. ein Fehler ausgegeben. Dieses Tool kann außerdem dabei helfen, Coderichtlinien einzuhalten.
@@ -1209,9 +1209,9 @@ findet sich [hier](https://github.com/Microsoft/TypeScript-React-Starter#typescr
 
 #### Reconciliation
 
-Da das Updaten von Elementen des nativen DOMs relativ ineffizient ist, verfügt React über ein virtuelles DOM. Statt Änderungen direkt im DOM zu rendern, wird der alte virtuelle DOM mit dem aus den Änderungen resultierenden DOM verglichen. Hierbei handelt es sich um leichtgewichtige JavaScript Objekte, die in-memory gespeichert werden, sodass dort Operationen deutlich schneller durchgeführt werden können. Initial wird der virtuelle DOM mit der Funktion **ReactDOM.render()** erstellt.
+Da das Updaten von Elementen des nativen DOMs relativ ineffizient ist, verfügt React über ein virtuelles DOM. Statt Änderungen direkt im DOM zu rendern, wird der alte virtuelle DOM mit dem aus den Änderungen resultierenden DOM verglichen. Hierbei handelt es sich um leichtgewichtige JavaScript Objekte, die in-memory gespeichert werden, sodass dort Operationen deutlich schneller durchgeführt werden können. Initial wird der virtuelle DOM mit der Funktion `ReactDOM.render()` erstellt.
 
-Der Objektbaum wird durch das Aufrufen von **setState()** jeweils komplett neu erstellt und verglichen. Algorithmen, die die minimale Anzahl von nötigen Modifikation bestimmen, liegen bestenfalls in O(n³). Um diesen Vorgang zu beschleunigen, verwendet React den sogenannten *Reconciliation*-Algorithmus. Hierbei wird eine Heuristik verwendet, die das Problem in O(n) lösen kann. Es werden 2 Annahmen getroffen:
+Der Objektbaum wird durch das Aufrufen von `setState()` jeweils komplett neu erstellt und verglichen. Algorithmen, die die minimale Anzahl von nötigen Modifikation bestimmen, liegen bestenfalls in O(n³). Um diesen Vorgang zu beschleunigen, verwendet React den sogenannten *Reconciliation*-Algorithmus. Hierbei wird eine Heuristik verwendet, die das Problem in O(n) lösen kann. Es werden 2 Annahmen getroffen:
 
 **Annahme 1:**
 
@@ -1227,11 +1227,11 @@ Vergleiche die alte Liste mit der neuen Liste:
 
 * Durchlaufe alle Elemente
   * Key in alter, aber nicht in neuer Liste vorhanden?
-    * rufe **unmount** für die Komponente auf
+    * rufe `unmount` für die Komponente auf
   * Key in neuer, aber nicht in alter Liste vorhanden?
-    * rufe **mount** Komponente auf
+    * rufe `mount` Komponente auf
   * Key in beiden Listen vorhanden?
-    * rufe **shouldComponentUpdate** auf, um zu entscheiden, was passieren soll
+    * rufe `shouldComponentUpdate` auf, um zu entscheiden, was passieren soll
 
 *Anmerkung:*
 
@@ -1292,12 +1292,12 @@ ReactDOM.render((
 ), document.getElementById('root'))
 ```
 
-In diesem Beispiel würde ein Aufruf von "*URL*/" die Komponente *Home* aufrufen, wohingegen "*URL*/Display/Hallo" den Wert *Hallo* als Parameter *text* and die Komponente *DisplayText* übergeben würde. In allen anderen Aufrufen der URL würde die Komponente *Default* aufgerufen werden. Die Routen lassen sich auch Verschachteln, woraufhin tiefergelegene Komponenten entsprechend als *Children* an die darüberliegende Komponente übergeben werden. Dieser Routing-Vorgang wird aufgrund der BrowserRouter-Komponente dynamisch ausgeführt, d.h. er wird zur Laufzeit vorgenommen [[SCHE17]](#ref_sche17).
+In diesem Beispiel würde ein Aufruf von "*URL*/" die Komponente `Home` aufrufen, wohingegen "*URL*/Display/Hallo" den Wert *Hallo* als Parameter `text` and die Komponente `DisplayText` übergeben würde. In allen anderen Aufrufen der URL würde die Komponente `Default` aufgerufen werden. Die Routen lassen sich auch Verschachteln, woraufhin tiefergelegene Komponenten entsprechend als `children` an die darüberliegende Komponente übergeben werden. Dieser Routing-Vorgang wird aufgrund der BrowserRouter-Komponente dynamisch ausgeführt, d.h. er wird zur Laufzeit vorgenommen [[SCHE17]](#ref_sche17).
 
-Für statische SPAs, bei denen der Server nur statische Dateien liefern kann, kann der *HashRouter* anstelle von *BrowserRouter* verwendet werden. Der HashRouter verwendet den Hash einer URL (window.location.hash) zur Unterteilung. Es wird also nach einem Hash (#) in der URL gesucht und der Text dahinter als Parameter verwendet [[TECH17]](#ref_tech17).
+Für statische SPAs, bei denen der Server nur statische Dateien liefern kann, kann der `HashRouter` anstelle von `BrowserRouter` verwendet werden. Der `HashRouter` verwendet den Hash einer URL (`window.location.hash`) zur Unterteilung. Es wird also nach einem Hash (#) in der URL gesucht und der Text dahinter als Parameter verwendet [[TECH17]](#ref_tech17).
 
 #### Strict Mode
-Strict Mode stellt sicher, dass gewisse Best Practices eingehalten werden. Durch das Einfügen von *StrictMode* in den ReactDOM werden die Kinderelemente dieser Komponente auf verschiedene mögliche Probleme hin überprüft [[SZCZ18]](#ref_szcz18). Wird beispielsweise eine veraltete (deprecated) Lifecycle-Methode verwendet, erscheint eine Warnung der folgenden Art:
+Strict Mode stellt sicher, dass gewisse Best Practices eingehalten werden. Durch das Einfügen von `StrictMode` in den `ReactDOM` werden die Kinderelemente dieser Komponente auf verschiedene mögliche Probleme hin überprüft [[SZCZ18]](#ref_szcz18). Wird beispielsweise eine veraltete (deprecated) Lifecycle-Methode verwendet, erscheint eine Warnung der folgenden Art:
 
  <a name="ref_unsafeLifecycleMethod"></a>![ref_lifecycles](./images/unsafelifecyclemethod.png "React Lifecycle Methoden")
 
