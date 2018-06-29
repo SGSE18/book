@@ -29,7 +29,7 @@ Autor: Björn Böing
         - [Mangelhafte Backups](#mangelhafte-backups)
         - [Systemfehler](#systemfehler)
     - [Nachteile & Begrenzungen](#nachteile-begrenzungen)
-- [Amazon Web Service (AWS)](#amazon-web-service)
+- [Amazon Web Service (AWS)](#aws)
     - [Einführung & Grundlagen](#einführung-grundlagen)
     - [Elastic Compute Cloud (EC2)](#elastic-compute-cloud)
     - [Simple Storage Service (S3)](#simple-storage-service)
@@ -303,9 +303,22 @@ Ein weiterer Sicherheitsaspekt, der zu betrachten gilt, ist die Wichtigkeit von 
 
 #### Systemfehler
 
-- Multimandantenfähigkeit mangelhaft
-- Provider Zugriff
-- Datenschutzrechtlich in DE (Kundendaten nicht auf Server im Ausland)
+Wird beim Entwickeln von Softwareanwendungen nicht ein gewisser Qualitätsstandard eingehalten, kann dies zu Sicherheitslücken führen. Da bilden Anwendungen in der Cloud, beziehungsweise Anwendungen die für das Bereitsstellen in der Cloud verwendet werden, keine Ausnahme. Möchte ein Anbieter beispielsweise mehrere Kunden mit der selben Instanz versorgen, so setzt dieser auf ein multimandantenfähiges System. Fehler innerhalb solchen Anwendungen können allerdings dafür sorgen, dass die Daten der Kunden nicht sauber von einander getrennt sind und unbefugte Zugriffe ermöglicht werden. [[UTLE18]](#ref_utle18)
+
+Entscheiden sich Unternehmen ihre Cloud Systeme bei einem Dritten online zu stellen, machen diese sich auch automatisch abhängig. Bei der Wahl des Anbieters sollten sich Unternehmen Gedanken machen, was für Auswirkungen es hat, sollte ein System mal nicht erreichbar sein. Vor allem die großen Cloud Anbieter können sich allerdings damit rühmen eine Erreichbarkeit von über 99% vorweisen zu können. [[CLOU18]](#ref_clou18)
+
+
+#### Privatsphäre
+
+Die vorhergehend erläuterten Sicherheitsaspekte richten sich vor allem an Unternehmen, die ihre Cloud-Infrastruktur von einem Dritten beziehen. Aber auch auf Endnutzer und vor allem auf deren Privatsphäre, hat der Wandel zur Cloud Auswirkungen.
+
+Nutzer teilen, durch den steigenden Einsatz von Cloud-Anwendungen, viele private Informationen mit einem Dritten und wissen häufig gar nicht, wie diese Informationen verarbeitet werden und von wem sie eingesehen werden können. Dies wird, vor allem in den Medien, als _"gläsernden Bürgern"_ bezeichnet. Darüberhinaus können Cloud Anbieter, genau wie Provider von anderen IT-Services, gesammelte Daten weitergeben oder müssen dies teilweise sogar, wenn es von der Regierung eingefordert wird. Ein Auszug aus den AGBs von Dropbox zeigt, dass der Anbieter, ähnlich wie andere, sich vorbehält Daten mit Dritten auszutauschen:
+
+<span style="display:block;text-align:center">_"**Recht und Ordnung sowie öffentliches Interesse** – Wir können Ihre Daten auch Dritten offenlegen, wenn dies nach unserem Ermessen sinnvoll und notwendig scheint, um (a) geltenden Gesetzen, Vorschriften, rechtlichen Verfahren oder angemessenen Anfragen von Behörden Folge zu leisten, (b) einen Menschen vor dem Tod oder schwerer körperlicher Verletzung zu schützen, (c) Dropbox oder unsere Nutzer vor Betrug oder Missbrauch zu schützen, (d) die Rechte, das Eigentum, die Sicherheit oder die Interessen von Dropbox zu schützen oder (e) Aufgaben auszuführen, die im öffentlichen Interesse liegen."_ [[DROP18]](#ref_drop18)</span>
+
+Solche Regelungen geben Cloud Anbietern viel Handlungsfreiraum, sodass in extremen Situationen auch Informationen ohne Durchsuchungsbeschluss offen gelegt werden können. Auf der anderen Seite können Anbieter in den meisten Ländern nicht dazu gezwungen werden Informationen an staatliche Behörden weiter zu geben. So hat ein amerikanisches Gericht entschieden, dass Microsoft nicht dazu gezwungen werden kann, Emails eines Nutzer an den amerikanischen Staat weiterzugeben, wenn diese Emails auf einem Server im Ausland liegen. Microsoft hat sich damals geweigert die Daten von einem irischen Server frei zu geben. [[EDWA17]](#ref_edwa17)
+
+Die seit dem 25.05.2018 wirksame EU-Datenschutz-Grundverordnung (EU-DSGVO) hat großen Einfluss auf die zu leistenden Datenschutzmaßnahmen von Unternehmen. Diese Grundverordnung beinhaltet zum einen, dass Unternehmen der EU dazu verpflichtet werden, dass personenbezogene Daten künftig innerhalb der EU-Grenzen gespeichert und _"nach datenschutzrechtlichen Bestimmungen und Vorgaben"_ verarbeitet werden müssen. Ob diese Vorgaben eingehalten werden, wird von Datenschutzexperten geprüft und Verstöße können dabei mit bis zu vier Prozent des Jahreseinkommens verantwortet werden. Außerdem sind Unternehmen auch dafür verantwortlich, dass diese sicherstellen, dass die EU-DSGVO von Drittanbietern eingehalten wird, bei denen ein Unternehmen Daten speichert. Dabei sind vor allem Unternehmen, die Clouddienste nutzen betroffen. Des weiteren müssen Einzelpersonen über jede Datenerhebung ausdrücklich und ausführlich informiert werden, was die Transparenz zum Umgang mit persönlichen Daten steigern soll. Die EU-DSGVO sieht auch vor, dass Daten auf Verlangen hin, möglichst unverzüglich, gelöscht oder korrigiert werden müssen. [[EUDS18]](#ref_euds18) [[NETW18]](#ref_netw18)
 
 
 <a name="nachteile-begrenzungen"></a>
@@ -316,7 +329,7 @@ Ein weiterer Sicherheitsaspekt, der zu betrachten gilt, ist die Wichtigkeit von 
 - Geringere Individualisierungsmöglichkeiten
 
 
-<a name="amazon-web-service"></a>
+<a name="aws"></a>
 
 ## Amazon Web Service (AWS)
 
@@ -411,11 +424,39 @@ Ein weiterer Sicherheitsaspekt, der zu betrachten gilt, ist die Wichtigkeit von 
         <td>URL: <a>https://web.archive.org/web/20140922061044/http://www.cisco.com/web/about/ac50/ac207/crc_new/university/RFP/rfp13078.html</a> (abgerufen am 29.06.2018)</td>
     </tr>
     <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_clou18">[CLOU18]</a></td>
+        <td style="width:90%">Cloud Harmony: CloudSquare Service Status</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://cloudharmony.com/status</a> (abgerufen am 29.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_drop18">[DROP18]</a></td>
+        <td style="width:90%">Dropbox DE: Datenschutzrichtlinien</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://www.dropbox.com/de/privacy</a> (abgerufen am 29.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_edwa17">[EDWA17]</a></td>
+        <td style="width:90%">Edwards, Elaine: The Irish Times, 16.10.2017: US supreme court to hear appeal in Microsoft warrant case</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://www.irishtimes.com/business/technology/us-supreme-court-to-hear-appeal-in-microsoft-warrant-case-1.3257825</a> (abgerufen am 29.06.2018)</td>
+    </tr>
+    <tr>
         <td rowspan="2" style="width:10%"><a name="ref_elle17">[ELLE17]</a></td>
         <td style="width:90%">Elle, Jessica ; Forestgiant, 05.04.2017: Fog VS Edge Computing</td>
     </tr>
     <tr>
         <td>URL: <a>https://forestgiant.com/articles/fog-vs-edge/</a> (abgerufen am 26.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_euds18">[EUDS18]</a></td>
+        <td style="width:90%">Intersoft Consulting: Datenschutz-Grundverordnung DSGVO</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://dsgvo-gesetz.de/</a> (abgerufen am 29.06.2018)</td>
     </tr>
     <tr>
         <td rowspan="2" style="width:10%"><a name="ref_feld17">[FELD17]</a></td>
@@ -507,6 +548,13 @@ Ein weiterer Sicherheitsaspekt, der zu betrachten gilt, ist die Wichtigkeit von 
     </tr>
     <tr>
         <td>URL: <a>https://www.theverge.com/circuitbreaker/2018/5/7/17327584/edge-computing-cloud-google-microsoft-apple-amazon</a> (abgerufen am 27.05.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_netw18">[NETW18]</a></td>
+        <td style="width:90%">Network-Karriere, 18.01.2018: EU-Datenschutz für personenbezgene Daten ab 2018 wirksam - Server-Standort entscheidend!</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://www.network-karriere.com/2018/01/18/eu-datenschutz-f%C3%BCr-personenbezogene-daten-ab-2018-wirksam-server-standort-entscheidend/</a> (abgerufen am 29.06.2018)</td>
     </tr>
     <tr>
         <td rowspan="2" style="width:10%"><a name="ref_nist11">[NIST11]</a></td>
