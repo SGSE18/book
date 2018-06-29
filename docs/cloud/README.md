@@ -23,16 +23,17 @@ Autor: Björn Böing
     - [Vergleich zu anderen Modellen](#vergleich-zu-anderen-modellen)
     - [Edge Computing](#edge-computing)
     - [Fog Computing](#fog-computing)
-    - [Sicherheitsaspekte](#sicherheitsaspekte)
+    - [Nachteile & Begrenzungen](#nachteile-begrenzungen)
         - [Distributed-Denial-of-Service (DDoS) Angriffe](#ddos)
         - [Layer 8 Fehler](#layer-8-fehler)
         - [Mangelhafte Backups](#mangelhafte-backups)
         - [Systemfehler](#systemfehler)
-    - [Nachteile & Begrenzungen](#nachteile-begrenzungen)
-- [Amazon Web Service (AWS)](#amazon-web-service)
+        - [Privatsphäre](#privatsphäre)
+        - [Inflexibilität & geringere Kontrolle](#inflexibilität)
+- [Amazon Web Service (AWS)](#aws)
     - [Einführung & Grundlagen](#einführung-grundlagen)
     - [Elastic Compute Cloud (EC2)](#elastic-compute-cloud)
-    - [Simple Storage Service (S3)](#simple-storage-service)
+    - [Simple Storage Service (S3)](#s3)
     - [AWS Lambda](#aws-lambda)
 - [Cloud Design Pattern](#cloud-design-pattern)
     - [Event Sourcing](#event-sourcing)
@@ -273,7 +274,9 @@ Die schrittweise Verarbeitung und Konvertierung von gesammelten Daten stellt ein
 [[CISC13]](#cisc13) [[ELLE17]](#ref_elle17) [[OPEN17]](#ref_open17) [[OPTO18]](#ref_opto18)
 
 
-### Sicherheitsaspekte
+<a name="nachteile-begrenzungen"></a>
+
+### Nachteile & Begrenzungen
 
 Cloud Computing bietet durch die Erschwinglichkeit, Effektivität und Skalierbarkeit viele Vorteile für Unternehmen. Kosten, Arbeitsaufwand und auch Know-How können an einen Anbieter abgegeben werden und ermöglicht den Unternehmen dadurch sich auf das eigene Tagesgeschäft zu fokussieren. Trotz alle dem birgt der Umstieg zur Cloud auch Sicherheitsrisiken, die bei mangelnden Gegenmaßnahmen zu erheblichen Problemen führen können.
 
@@ -282,7 +285,15 @@ Cloud Computing bietet durch die Erschwinglichkeit, Effektivität und Skalierbar
 
 #### Distributed-Denial-of-Service (DDoS) Angriffe
 
-Obwohl Cloud Anbieter über eine riesige Menge an Ressourcen verfügen und Kunden dadurch eine flexible Skalierung angeboten wird, so sind DDoS Angriffe auf Cloud Systeme mittlerweile durchaus denkbar. Dies wird vor allem durch die stetig steigende Menge von IoT Geräten ermöglicht, von denen viele über mangelhafte Sicherheitsmechanismen verfügen. Der bereits im Abschnitt [Edge Computing](#edge-computing) angesprochene Angriff auf den amerikanischen DNS-Betriber Dyn im Jahr 2016 zeigt, dass auch große Organisationen nicht immer vor DDoS sicher sind. Ganz davon abgesehen, dass Kunden die Option zur automatischen Skalierung zusätzlich buchen müssen, können Cloud Server trotzdem mit genügend Traffic in die Knie gehen oder zumindest eine geringere QoS bieten. Unternehmen, die ihre eigene Cloud Infrastruktur aufbauen, können einerseits durch geringere Ressourcen deutlich angreifbarer sein, andererseits können Angriffe auf Cloud Systeme wie beispielsweise [AWS](#aws) oder Azure dazu führen, dass viele Kunden gleichzeitig von einem DDoS Angriff betroffen sind. [[BRAD16]](#ref_brad16) [[UTLE18]](#ref_utle18)
+Obwohl Cloud Anbieter über eine riesige Menge an Ressourcen verfügen und Kunden dadurch eine flexible Skalierung angeboten wird, so sind DDoS Angriffe auf Cloud Systeme mittlerweile durchaus denkbar. Dies wird vor allem durch die stetig steigende Menge von IoT Geräten ermöglicht, von denen viele über mangelhafte Sicherheitsmechanismen verfügen.
+
+Der bereits im Abschnitt [Edge Computing](#edge-computing) angesprochene Angriff auf den amerikanischen DNS-Betriber Dyn im Jahr 2016 zeigt, dass auch große Organisationen nicht immer vor DDoS sicher sind. Ganz davon abgesehen, dass Kunden die Option zur automatischen Skalierung zusätzlich buchen müssen, können Cloud Server trotzdem mit genügend Traffic in die Knie gehen oder zumindest eine geringere QoS bieten.
+
+Unternehmen, die ihre eigene Cloud Infrastruktur aufbauen, können einerseits durch geringere Ressourcen deutlich angreifbarer sein, andererseits können Angriffe auf Cloud Systeme wie beispielsweise [AWS](#aws) oder Azure dazu führen, dass viele Kunden gleichzeitig von einem DDoS Angriff betroffen sind.
+
+Und selbst, wenn der Cloud Anbieter die geeigneten Maßnahmen gegen solche Angriffe trifft, können auch weitere, unglücklichen Ereignisse dafür sorgen, dass der Dienst eines Unternehmens nicht erreichbar ist. Im April 2017 waren große Teile des [Simple Storage Service (S3)](#s3) von Amazon für kurze Zeit nicht erreichbar, was in dieser Zeit zu einem Schaden von ca. 150 Millionen US-Dollar führte. Ursache war laut Amazon ein Tippfehler beim Entfernen von S3 Server, der dazu führte, dass deutlich mehr Server heruntergefahren wurden, als geplant. Cloud Nutzer sollten die Risiken von offline Zeiten kalkulieren und Ausfallpläne bereithalten, um Verluste möglichst gering zu halten.
+
+[[BRAD16]](#ref_brad16) [[UTLE18]](#ref_utle18)
 
 
 #### Layer 8 Fehler
@@ -303,20 +314,44 @@ Ein weiterer Sicherheitsaspekt, der zu betrachten gilt, ist die Wichtigkeit von 
 
 #### Systemfehler
 
-- Multimandantenfähigkeit mangelhaft
-- Provider Zugriff
-- Datenschutzrechtlich in DE (Kundendaten nicht auf Server im Ausland)
+Wird beim Entwickeln von Softwareanwendungen nicht ein gewisser Qualitätsstandard eingehalten, kann dies zu Sicherheitslücken führen. Da bilden Anwendungen in der Cloud, beziehungsweise Anwendungen die für das Bereitsstellen in der Cloud verwendet werden, keine Ausnahme. Möchte ein Anbieter beispielsweise mehrere Kunden mit der selben Instanz versorgen, so setzt dieser auf ein multimandantenfähiges System. Fehler innerhalb solchen Anwendungen können allerdings dafür sorgen, dass die Daten der Kunden nicht sauber von einander getrennt sind und unbefugte Zugriffe ermöglicht werden. [[UTLE18]](#ref_utle18)
+
+Entscheiden sich Unternehmen ihre Cloud Systeme bei einem Dritten online zu stellen, machen diese sich auch automatisch abhängig. Bei der Wahl des Anbieters sollten sich Unternehmen Gedanken machen, was für Auswirkungen es hat, sollte ein System mal nicht erreichbar sein. Vor allem die großen Cloud Anbieter können sich allerdings damit rühmen eine Erreichbarkeit von über 99% vorweisen zu können. [[CLOU18]](#ref_clou18)
+
+2014 erhielt ein Angreifer Zugang zu der AWS Management Konsole des Softwareunternehmens Code Space. Dieses Unternehmen bot Quellcode Repositories und Projekt Management Dienste an und setzte dabei fast vollständig auf Infrastrukturen und Anwendungen von Amazon. Der Angreifer erpresste Code Space und löschte einen Großteil der Daten und Infrastruktur des Unternehmens, als dieses nicht kooperierte. Dabei gingen auch die Backups, die das Unternehmen für Notfälle erstellt hatte mit verloren, was das Unternehmen sehr schwer traf und wurde in den Medien mit dem _"Mord"_ an ein Unternehmen verglichen. [[VENE14]](#ref_vene14)
 
 
-<a name="nachteile-begrenzungen"></a>
+#### Privatsphäre
 
-### Nachteile & Begrenzungen
+Die vorhergehend erläuterten Sicherheitsaspekte richten sich vor allem an Unternehmen, die ihre Cloud-Infrastruktur von einem Dritten beziehen. Aber auch auf Endnutzer und vor allem auf deren Privatsphäre, hat der Wandel zur Cloud Auswirkungen.
 
-- https://cloudacademy.com/blog/disadvantages-of-cloud-computing/
-- Geringere Individualisierungsmöglichkeiten
+Nutzer teilen, durch den steigenden Einsatz von Cloud-Anwendungen, viele private Informationen mit einem Dritten und wissen häufig gar nicht, wie diese Informationen verarbeitet werden und von wem sie eingesehen werden können. Dies wird, vor allem in den Medien, als _"gläsernden Bürgern"_ bezeichnet. Darüberhinaus können Cloud Anbieter, genau wie Provider von anderen IT-Services, gesammelte Daten weitergeben oder müssen dies teilweise sogar, wenn es von der Regierung eingefordert wird. Ein Auszug aus den AGBs von Dropbox zeigt, dass der Anbieter, ähnlich wie andere, sich vorbehält Daten mit Dritten auszutauschen:
+
+<span style="display:block;text-align:center">_"**Recht und Ordnung sowie öffentliches Interesse** – Wir können Ihre Daten auch Dritten offenlegen, wenn dies nach unserem Ermessen sinnvoll und notwendig scheint, um (a) geltenden Gesetzen, Vorschriften, rechtlichen Verfahren oder angemessenen Anfragen von Behörden Folge zu leisten, (b) einen Menschen vor dem Tod oder schwerer körperlicher Verletzung zu schützen, (c) Dropbox oder unsere Nutzer vor Betrug oder Missbrauch zu schützen, (d) die Rechte, das Eigentum, die Sicherheit oder die Interessen von Dropbox zu schützen oder (e) Aufgaben auszuführen, die im öffentlichen Interesse liegen."_ [[DROP18]](#ref_drop18)</span>
+
+Solche Regelungen geben Cloud Anbietern viel Handlungsfreiraum, sodass in extremen Situationen auch Informationen ohne Durchsuchungsbeschluss offen gelegt werden können. Auf der anderen Seite können Anbieter in den meisten Ländern nicht dazu gezwungen werden Informationen an staatliche Behörden weiter zu geben. So hat ein amerikanisches Gericht entschieden, dass Microsoft nicht dazu gezwungen werden kann, Emails eines Nutzer an den amerikanischen Staat weiterzugeben, wenn diese Emails auf einem Server im Ausland liegen. Microsoft hat sich damals geweigert die Daten von einem irischen Server frei zu geben. [[EDWA17]](#ref_edwa17)
+
+Die seit dem 25.05.2018 wirksame EU-Datenschutz-Grundverordnung (EU-DSGVO) hat großen Einfluss auf die zu leistenden Datenschutzmaßnahmen von Unternehmen. Diese Grundverordnung beinhaltet zum einen, dass Unternehmen der EU dazu verpflichtet werden, dass personenbezogene Daten künftig innerhalb der EU-Grenzen gespeichert und _"nach datenschutzrechtlichen Bestimmungen und Vorgaben"_ verarbeitet werden müssen. Ob diese Vorgaben eingehalten werden, wird von Datenschutzexperten geprüft und Verstöße können dabei mit bis zu vier Prozent des Jahreseinkommens verantwortet werden. Außerdem sind Unternehmen auch dafür verantwortlich, dass diese sicherstellen, dass die EU-DSGVO von Drittanbietern eingehalten wird, bei denen ein Unternehmen Daten speichert. Dabei sind vor allem Unternehmen, die Clouddienste nutzen betroffen. Des weiteren müssen Einzelpersonen über jede Datenerhebung ausdrücklich und ausführlich informiert werden, was die Transparenz zum Umgang mit persönlichen Daten steigern soll. Die EU-DSGVO sieht auch vor, dass Daten auf Verlangen hin, möglichst unverzüglich, gelöscht oder korrigiert werden müssen. [[EUDS18]](#ref_euds18) [[NETW18]](#ref_netw18)
 
 
-<a name="amazon-web-service"></a>
+<a name="inflexibilität"></a>
+
+#### Inflexibilität und geringere Kontrolle
+
+Neben den bereits erläuterten Sicherheitsaspekten, bei denen vor allem Abhängigkeit zu einem Dritten, Risiken in Sachen Sicherheitlücken und Privatsphäre herausstechen, gibt es in Sachen Cloud Computing weitere Nachteile und auch Begrenzungen.
+
+Im Vergleich zu standardmäßigen on premise Anwendungen und selbstständig verwalteten IT-Infrastrukturen, schrenken Clouddienste die Kontrolle und Flexibilität ein. Über die end-user licence agreement (EULA) können Anbieter enorme Einschränkungen machen, was Kunden mit den genutzten Diensten machen können.
+
+Darüber hinaus werden Cloud Anwendungen in der Regel nur in einer einzigen Version zur Verfügung gestellt, um dem Kunden möglichst zeitnah Updates liefern zu können. Dies hat allerdings zur Folge, dass auf individuelle Probleme und Forderungen von Kunden kaum noch eingegangen werden kann. Bei on-premise Anwendungen ist es noch häufig der Fall, dass ein Unternehmen Wünschen von besonders treuen Kunden entgegen kommt und individuelle Lösungen entwickelt.
+
+Ein weiterer Nachteil von Cloud Computing ist das sogenannte _"Vendor Lock-In"_. Damit ist gemeint, dass der Wechsel von einem Cloud Anbieter zum nächsten häufig nicht problemlos möglich ist, was zu zusätzlichen Kosten führt. Cloud Architekturen, die auf die Infrastruktur eines speziellen Anbieters zugeschnitten ist, könnte beim Wechsel zu einem anderen Anbieter nur mit Kompromissen oder zusätzlichen Entwicklungsaufwand übernommen werden. Dies kann zu zusätzlichen Sicherheitsrisiken führen.
+
+Zusammenfassend ist zu sagen, dass viele Unternehmen durch die Skalierbarkeit, Agilität und dem pay-per-use Prinzip von Cloud Computing profitieren können. Jedoch sollte für jeden Anwendungsfalls das geeignete [Service Modell](#service-modelle) gewählt, die Risiken stetig abgewägt und ausreichend Sicherheitsmaßnahmen getroffen werden.
+
+[[LARK18]](#ref_lark18) [[WARD18]](#ref_ward18)
+
+
+<a name="aws"></a>
 
 ## Amazon Web Service (AWS)
 
@@ -339,7 +374,7 @@ Ein weiterer Sicherheitsaspekt, der zu betrachten gilt, ist die Wichtigkeit von 
 - IaaS
 
 
-<a name="simple-storage-service"></a>
+<a name="s3"></a>
 
 ### Simple Storage Service (S3)
 
@@ -411,11 +446,39 @@ Ein weiterer Sicherheitsaspekt, der zu betrachten gilt, ist die Wichtigkeit von 
         <td>URL: <a>https://web.archive.org/web/20140922061044/http://www.cisco.com/web/about/ac50/ac207/crc_new/university/RFP/rfp13078.html</a> (abgerufen am 29.06.2018)</td>
     </tr>
     <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_clou18">[CLOU18]</a></td>
+        <td style="width:90%">Cloud Harmony: CloudSquare Service Status</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://cloudharmony.com/status</a> (abgerufen am 29.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_drop18">[DROP18]</a></td>
+        <td style="width:90%">Dropbox DE: Datenschutzrichtlinien</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://www.dropbox.com/de/privacy</a> (abgerufen am 29.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_edwa17">[EDWA17]</a></td>
+        <td style="width:90%">Edwards, Elaine: The Irish Times, 16.10.2017: US supreme court to hear appeal in Microsoft warrant case</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://www.irishtimes.com/business/technology/us-supreme-court-to-hear-appeal-in-microsoft-warrant-case-1.3257825</a> (abgerufen am 29.06.2018)</td>
+    </tr>
+    <tr>
         <td rowspan="2" style="width:10%"><a name="ref_elle17">[ELLE17]</a></td>
         <td style="width:90%">Elle, Jessica ; Forestgiant, 05.04.2017: Fog VS Edge Computing</td>
     </tr>
     <tr>
         <td>URL: <a>https://forestgiant.com/articles/fog-vs-edge/</a> (abgerufen am 26.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_euds18">[EUDS18]</a></td>
+        <td style="width:90%">Intersoft Consulting: Datenschutz-Grundverordnung DSGVO</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://dsgvo-gesetz.de/</a> (abgerufen am 29.06.2018)</td>
     </tr>
     <tr>
         <td rowspan="2" style="width:10%"><a name="ref_feld17">[FELD17]</a></td>
@@ -474,6 +537,13 @@ Ein weiterer Sicherheitsaspekt, der zu betrachten gilt, ist die Wichtigkeit von 
         <td>URL: <a>https://medium.com/@BoweiHan/an-introduction-to-serverless-and-faas-functions-as-a-service-fb5cec0417b2</a> (abgerufen am 27.06.2018)</td>
     </tr>
     <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_hers17">[HERS17]</a></td>
+        <td style="width:90%">Hersher, Rebecca ; National Public Radio, 03.03.2017: Amazon And The $150 Million Typo</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://www.npr.org/sections/thetwo-way/2017/03/03/518322734/amazon-and-the-150-million-typo?t=1529930367722</a> (abgerufen am 29.06.2018)</td>
+    </tr>
+    <tr>
         <td rowspan="2" style="width:10%"><a name="ref_ibmj09">[IBMJ09]</a></td>
         <td style="width:90%">IBM Journal of Research and Development, 07.2009: The Reservoir model and architecture for open federated cloud computing</td>
     </tr>
@@ -486,6 +556,13 @@ Ein weiterer Sicherheitsaspekt, der zu betrachten gilt, ist die Wichtigkeit von 
     </tr>
     <tr>
         <td>URL: <a>https://dzone.com/articles/cloud-computing-deployment-models</a> (abgerufen am 28.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_lark18">[LARK18]</a></td>
+        <td style="width:90%">Larkin, Andrew ; Cloudacademy, 26.06.2018</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://cloudacademy.com/blog/disadvantages-of-cloud-computing/</a> (abgerufen am 29.06.2018)</td>
     </tr>
     <tr>
         <td rowspan="2" style="width:10%"><a name="ref_lynl18">[LYNL18]</a></td>
@@ -507,6 +584,13 @@ Ein weiterer Sicherheitsaspekt, der zu betrachten gilt, ist die Wichtigkeit von 
     </tr>
     <tr>
         <td>URL: <a>https://www.theverge.com/circuitbreaker/2018/5/7/17327584/edge-computing-cloud-google-microsoft-apple-amazon</a> (abgerufen am 27.05.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_netw18">[NETW18]</a></td>
+        <td style="width:90%">Network-Karriere, 18.01.2018: EU-Datenschutz für personenbezgene Daten ab 2018 wirksam - Server-Standort entscheidend!</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://www.network-karriere.com/2018/01/18/eu-datenschutz-f%C3%BCr-personenbezogene-daten-ab-2018-wirksam-server-standort-entscheidend/</a> (abgerufen am 29.06.2018)</td>
     </tr>
     <tr>
         <td rowspan="2" style="width:10%"><a name="ref_nist11">[NIST11]</a></td>
@@ -570,6 +654,20 @@ Ein weiterer Sicherheitsaspekt, der zu betrachten gilt, ist die Wichtigkeit von 
     </tr>
     <tr>
         <td>URL: <a>https://www.cwps.com/blog/cloud-computing-security-issues</a> (abgerufen am 29.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_vene14">[VENE14]</a></td>
+        <td style="width:90%">Venezia, Paul ; InfoWorld, 23.06.2014: Murder in the Amazon cloud</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://www.infoworld.com/article/2608076/data-center/murder-in-the-amazon-cloud.html</a> (abgerufen am 29.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_ward18">[WARD18]</a></td>
+        <td style="width:90%">Ward, Susan ; The balance small business, 15.04.2018: The Cons of Cloud Computing</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://www.thebalancesmb.com/disadvantages-of-cloud-computing-4067218</a> (abgerufen am 29.06.2018)</td>
     </tr>
     <tr>
         <td rowspan="2" style="width:10%"><a name="ref_watt17">[WATT17]</a></td>
