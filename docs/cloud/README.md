@@ -24,6 +24,10 @@ Autor: Björn Böing
     - [Edge Computing](#edge-computing)
     - [Fog Computing](#fog-computing)
     - [Sicherheitsaspekte](#sicherheitsaspekte)
+        - [Distributed-Denial-of-Service (DDoS) Angriffe](#ddos)
+        - [Layer 8 Fehler](#layer-8-fehler)
+        - [Mangelhafte Backups](#mangelhafte-backups)
+        - [Systemfehler](#systemfehler)
     - [Nachteile & Begrenzungen](#nachteile-begrenzungen)
 - [Amazon Web Service (AWS)](#amazon-web-service)
     - [Einführung & Grundlagen](#einführung-grundlagen)
@@ -86,8 +90,14 @@ Auf Basis von Cloud Computing Technologien sind in den vergangenen Jahren eine V
 
 Die [Abbildung 1](#img_service_models) zeigt den Zusammenhang der drei verbreitetsten Service Modelle _"Infrastructure as a Service" (IaaS)_, _"Plattform as a Service" (PaaS)_ und _"Software as a Service" (SaaS)_ in Form eines Mengendiagramms. In den nächsten Abschnitten sollen diese drei Modelle und weitere vorgestellt und deren Anwendungsfälle betrachtet werden.
 
-<span style="display:block;text-align:center"/><a name="img_service_models"></a>![alt text](./images/iaas_paas_saas.jpg "IaaS vs PaaS vs SaaS")
-<span style="display:block;text-align:center"/>Abb. 1: IaaS vs PaaS vs SaaS - Quelle: [[GASS16]](#ref_gass16)
+<a name="img_service_models"></a>
+<div style="text-align:center">
+    <img alt="IaaS vs PaaS vs SaaS" src="./images/iaas_paas_saas.jpg"/>
+    <br>
+
+Abb. 1: IaaS vs PaaS vs SaaS - Quelle: [[GASS16]](#ref_gass16)
+
+</div>
 
 
 <a name="infrastructure-as-a-service"></a>
@@ -208,7 +218,7 @@ Der Wandel, der durch Edge Computing vollzogen wird, ist in mehreren Bereichen s
 
 Zum einen senkt es die Latenz, die eine Anwendung oder ein Gerät für eine Entscheidungsfindung oder ein Ergebnis braucht. Eine Anfrage quer über den Globus zu schicken, wo eventuell weitere Anfragen entstehen, ehe eine Antwort zurück kommt, dauert deutlich länger als auf alle benötigten Mittel vor Ort zugreifen zu können. Laut Matthew Lynley von "techcrunch.com" [[LYNL18]](#ref_lynl18) entwickelt Amazon möglicherweise Chips für Amazon Echo, um genau diesem Latenz-Problem entgegen zu wirken. Diese Chips sollen die Informationen und Anfragen, die in die Cloud geschickt werden müssen, senken, um so die Antwortzeit drastisch zu reduzieren.
 
-Zum anderen bietet Edge Computing die Möglichkeit über ein richtiges Management die Sicherheit, beispielsweise von Nutzern und deren Geräten, zu steigern. Spätestens nach der Distributed Denial of Service (DDOS) Attacke auf die Dyn im Oktober 2016 [[STAT16]](#ref_stat16) ist die Sicherheit von Edge Geräten, wie sie häufig für Internet of Things (IoT) Netzwerke benutzt werden, ein großes Thema. Damals konnte ein riesiges Botnetz, das zum Großteil aus IoT-Geräten bestand, die Verwendung des Internets dramatisch stören. Die Mirai Malware übernahm die Kontrolle von Geräten, die statische Nutzernamen und Passwörter besaßen oder diese den Werkseinstellungen entsprachen und nutzte die so gesammelte Rechenleistung für eine DDOS Attacke gegen den DNS-Betreiber der USA.
+Zum anderen bietet Edge Computing die Möglichkeit über ein richtiges Management die Sicherheit, beispielsweise von Nutzern und deren Geräten, zu steigern. Spätestens nach den Distributed Denial of Service (DDOS) Angriff auf die Dyn im Oktober 2016 [[STAT16]](#ref_stat16) ist die Sicherheit von Edge Geräten, wie sie häufig für Internet of Things (IoT) Netzwerke benutzt werden, ein großes Thema. Damals konnte ein riesiges Botnetz, das zum Großteil aus IoT-Geräten bestand, die Verwendung des Internets dramatisch stören. Die Mirai Malware übernahm die Kontrolle von Geräten, die statische Nutzernamen und Passwörter besaßen oder diese den Werkseinstellungen entsprachen und nutzte die so gesammelte Rechenleistung für eine DDOS Attacke gegen den DNS-Betreiber der USA.
 
 Ebenso wie Werkseinstellungen von Nutzernamen und Passwörter, bringen auch veraltete Betriebssysteme und Software Sicherheitsrisiken mit sich. Laufende IoT-Geräte werden nur selten mit aktuellen Updates ausgestattet und beinhalten wenige Sicherheitsmechanismen. Statt händisch einzelne Geräte zu updaten sollte stattdessen ein zentrales Management diese Aufgabe übernehmen und für mehr Sicherheit am Netzwerkrand sorgen. Genauso wie Webbrowser meist verdeckt Updates erhalten oder Smartphone-Besitzer auf neue Versionen hingewiesen werden, sollte es auch bei Edge-Geräten der Fall sein.
 
@@ -238,8 +248,15 @@ Der Begriff "Fog Computing" wurde 2013 erstmals von Cisco bei einer Pu­b­li­z
 
 Die Unterschiede zu Cloud und Edge Computing sind die Nähe zum Endverbraucher, die dichte geografische Verteilung und die mobile Einsatzmöglichkeit. Das standardmäßige Prinzip von Cloud Computing wird dahingehend verändert, dass durch sogenannte Fog-Nodes mehrere Endgeräte verknüpft werden und diese die Kommunikation zur Cloud übernehmen, statt die Endgeräte direkt. Durch die erhöhte Leistung sind die Fog-Nodes in der Lage Aufgaben der Cloud (z.B. Filterung von gesammelten Daten) zu übernehmen und darüberhinaus auch als eine Art von "vorgelagerter Cloud" betrachtet werden kann.
 
-<span style="display:block;text-align:center"/><a name="img_fog_vs_edge"></a>![alt text](./images/fog_vs_edge.png "Edge vs Fog Computing")<span style="display:block;text-align:center"/>
+<a name="img_fog_vs_edge"></a>
+<div style="text-align:center">
+    <img alt="Fog vs Edge Computing" src="./images/fog_vs_edge.png"/>
+    <br>
+
 Abb. 2: Edge vs Fog Computing - Quelle: [[ELLE17]](#ref_elle17)
+
+</div>
+
 
 Im Vergleich zu Edge Computing, wo die Endgeräte (z.B. IoT-Dinge) eine stärkere Rechenleistung, Speicherkapazität und Intelligenz erhalten, bleiben die Endgeräte im Fog-Computing meist leistungsschwach. Stattdessen sind Gateways oder Fog-Nodes mit starker Leistung ausgestattet, um die bereits genannten Vorteile auszuspielen. Die [Abbildung 2](#img_fog_vs_edge) zeigt genau diesen Unterschied, in einer vereinfachten Darstellung.
 
@@ -258,6 +275,35 @@ Die schrittweise Verarbeitung und Konvertierung von gesammelten Daten stellt ein
 
 ### Sicherheitsaspekte
 
+Cloud Computing bietet durch die Erschwinglichkeit, Effektivität und Skalierbarkeit viele Vorteile für Unternehmen. Kosten, Arbeitsaufwand und auch Know-How können an einen Anbieter abgegeben werden und ermöglicht den Unternehmen dadurch sich auf das eigene Tagesgeschäft zu fokussieren. Trotz alle dem birgt der Umstieg zur Cloud auch Sicherheitsrisiken, die bei mangelnden Gegenmaßnahmen zu erheblichen Problemen führen können.
+
+
+<a name="ddos"></a>
+
+#### Distributed-Denial-of-Service (DDoS) Angriffe
+
+Obwohl Cloud Anbieter über eine riesige Menge an Ressourcen verfügen und Kunden dadurch eine flexible Skalierung angeboten wird, so sind DDoS Angriffe auf Cloud Systeme mittlerweile durchaus denkbar. Dies wird vor allem durch die stetig steigende Menge von IoT Geräten ermöglicht, von denen viele über mangelhafte Sicherheitsmechanismen verfügen. Der bereits im Abschnitt [Edge Computing](#edge-computing) angesprochene Angriff auf den amerikanischen DNS-Betriber Dyn im Jahr 2016 zeigt, dass auch große Organisationen nicht immer vor DDoS sicher sind. Ganz davon abgesehen, dass Kunden die Option zur automatischen Skalierung zusätzlich buchen müssen, können Cloud Server trotzdem mit genügend Traffic in die Knie gehen oder zumindest eine geringere QoS bieten. Unternehmen, die ihre eigene Cloud Infrastruktur aufbauen, können einerseits durch geringere Ressourcen deutlich angreifbarer sein, andererseits können Angriffe auf Cloud Systeme wie beispielsweise [AWS](#aws) oder Azure dazu führen, dass viele Kunden gleichzeitig von einem DDoS Angriff betroffen sind. [[BRAD16]](#ref_brad16) [[UTLE18]](#ref_utle18)
+
+
+#### Layer 8 Fehler
+
+Der Nutzer wird häufig als achte Schicht über dem OSI-Netzwerk-Modell bezeichnet und genau wie in allen anderen Systemen können Fehler von Nutzern erhebliche Folgen haben. Viele Cloud Anbieter ermöglichen den Zugriff zur Cloud über beinahe jedes Endgerät wie PC, Laptops, Tablets und Smartphones. Der Verlust oder die Kompromittierung dieser Geräte kann Unbefugten den Zugang zu gesicherten Cloud Systemen ermöglichen und stellt somit ein erhebliches Sicherheitsrisiko dar.
+
+Durch den großen Bekanntheitsgrad von Cloud Systemen sind diese seit einiger Zeit auch das Ziel von _"Phishing"_ und _"Social Engineering Angriffen"_. Ersteres kann beispielsweise in Form von Emails sein, die den Empfänger auf präparierte Webseiten locken, wo dann vertraulichen Informationen preisgeben werden sollen und dadurch in die Hände des Angreifers fallen. Bei Social Engineering Angriffen wird gezielt versucht Mitarbeiter von der Vertrauenswürdigkeit des Angreifers zu überzeugen, sodass der Angreifer sensible Informationen oder Zugänge erhält.
+
+Ein aktueller Fall von fehlerhaftem Nutzerverhalten stellt der Fall der Marketing Firma Exactis dar. Wie WIRED am 27.06.2018 veröffentlichte war eine Datenbank der Firma Exactis mit rund 340 Mil. sensiblen Datensätzen für eine längere vollkommen öffentlich und ungeschützt online erreichbar. Diese Datensätze beinhalten zwar keine Informationen zu Kreditkarten oder Sozialversicherungsnummern, dafür allerdings sehr private Charakteristika der Betroffenen. Enthalten sind unter anderem Informationen zu Telefonnummer und Adresse, aber auch zu Interessen, Angewohnheiten und die Geschlechter der Kinder einer Person. [[GREE18]](#gree18)
+
+[[UTLE18]](#ref_utle18) [[WOOD13]](#ref_wood13)
+
+
+#### Mangelhafte Backups
+
+Ein weiterer Sicherheitsaspekt, der zu betrachten gilt, ist die Wichtigkeit von Backups. Viele Cloud Betreiber bieten einen automatisierten Service an, der von den laufenden Systemen Backups macht. Dafür muss allerdings sichergestellt werden, dass auch alle relevanten Daten adäquat synchronisiert werden und nicht verloren gehen. Gerade für den Fall, dass ein System von Ransomware befallen und verschlüsselt wird sind Backups der einzige Weg, um dem Angreifer nicht ausgeliefert zu sein. Das Massachusetts Institute of Technology (MIT) sieht Ransomware als einer der sechs größten Gefahren, denen Unternehmen 2018 gegenüber stehen. Durch Cloud Computing sind in den vergangenen Jahren enorme Mengen an Daten zentralisiert worden und stellen dadurch interessante Ziele für Angreifer dar. Vor allem kleinere Cloud Anbieter könnten Opfer von Angriffen werden, da ihre Ressourcen weitaus eingeschränkter sind. [[GILE18]](#ref_gile18) [[UTLE18]](#ref_utle18)
+
+
+#### Systemfehler
+
+- Multimandantenfähigkeit mangelhaft
 - Provider Zugriff
 - Datenschutzrechtlich in DE (Kundendaten nicht auf Server im Ausland)
 
@@ -266,6 +312,7 @@ Die schrittweise Verarbeitung und Konvertierung von gesammelten Daten stellt ein
 
 ### Nachteile & Begrenzungen
 
+- https://cloudacademy.com/blog/disadvantages-of-cloud-computing/
 - Geringere Individualisierungsmöglichkeiten
 
 
@@ -278,6 +325,7 @@ Die schrittweise Verarbeitung und Konvertierung von gesammelten Daten stellt ein
 - Eventverarbeitung
 - Generelle Erläuterung und kleinere Anleitungen
 - AWS API gateway (Skalierbare APIs) ?
+- IAM erläutern
 
 
 <a name="einführung-grundlagen"></a>
@@ -321,10 +369,6 @@ Die schrittweise Verarbeitung und Konvertierung von gesammelten Daten stellt ein
 
 <table style="width:100%">
     <tr>
-        <td style="width:10%"></td>
-        <td style="width:90%"></td>
-    </tr>
-    <tr>
         <td rowspan="2" style="width:10%"><a name="ref_avra16">[AVRA16]</a></td>
         <td style="width:90%">Avram, Abel ; InfoQ, 25.06.2016: FaaS, PaaS, and the Benefits of Serverless Architecture</td>
     </tr>
@@ -351,6 +395,13 @@ Die schrittweise Verarbeitung und Konvertierung von gesammelten Daten stellt ein
     </tr>
     <tr>
         <td>URL: <a>https://www.networkworld.com/article/3224893/internet-of-things/what-is-edge-computing-and-how-it-s-changing-the-network.html</a> (abgerufen am 29.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_brad16">[BRAD16]</a></td>
+        <td style="width:90%">Bradbury, Danny ; The Register, 21.06.2016: DDoS, the cloud and you</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://www.theregister.co.uk/2016/07/21/ddos_the_cloud_and_you/</a> (abgerufen am 29.06.2018)</td>
     </tr>
     <tr>
         <td rowspan="2" style="width:10%"><a name="ref_cisc13">[CISC13]</a></td>
@@ -400,6 +451,20 @@ Die schrittweise Verarbeitung und Konvertierung von gesammelten Daten stellt ein
     </tr>
     <tr>
         <td>URL: <a>https://www.ge.com/digital/blog/what-edge-computing#edge-computing-vs-cloud-computing-3</a> (abgerufen am 27.05.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_gile18">[GILE18]</a></td>
+        <td style="width:90%">Giles, Martin ; MIT Technology Review, 02.01.2018</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://www.technologyreview.com/s/609641/six-cyber-threats-to-really-worry-about-in-2018/</a> (abgerufen am 29.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_gree18">[GREE18]</a></td>
+        <td style="width:90%">Greenberg, Andy ; WIRED, 27.06.2018: Marketing firm Exactis leaked a personal info database with 340 million records</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://www.wired.com/story/exactis-database-leak-340-million-records/</a> (abgerufen am 29.06.2018)</td>
     </tr>
     <tr>
         <td rowspan="2" style="width:10%"><a name="ref_han17">[HAN17]</a></td>
@@ -500,6 +565,13 @@ Die schrittweise Verarbeitung und Konvertierung von gesammelten Daten stellt ein
         <td>URL: <a>https://www.theverge.com/2016/10/21/13362354/dyn-dns-ddos-attack-cause-outage-status-explained</a> (abgerufen am 27.05.2018)</td>
     </tr>
     <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_utle18">[UTLE18]</a></td>
+        <td style="width:90%">Utley, Gary ; The CWPS Blog, 12.05.2018: 6 Most Common Cloud Computing Security Issues</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://www.cwps.com/blog/cloud-computing-security-issues</a> (abgerufen am 29.06.2018)</td>
+    </tr>
+    <tr>
         <td rowspan="2" style="width:10%"><a name="ref_watt17">[WATT17]</a></td>
         <td style="width:90%">Watts, Stephen ; BMC Blogs, 22.09.2017: SaaS vs PaaS vs IaaS: What's The Difference and How To Choose</td>
     </tr>
@@ -514,7 +586,10 @@ Die schrittweise Verarbeitung und Konvertierung von gesammelten Daten stellt ein
         <td>URL: <a>https://en.wikipedia.org/wiki/As_a_service</a> (abgerufen am 27.06.2018)</td>
     </tr>
     <tr>
-        <td rowspan="2" style="width:10%"></td>
-        <td style="width:90%"></td>
+        <td rowspan="2" style="width:10%"><a name="ref_wood13">[WOOD13]</a></td>
+        <td style="width:90%">Wood, Peter ; SlideShare, 28.05.2013: Attacking the cloud with social engineering</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://www.slideshare.net/PeterWoodx/attacking-the-cloud-with-social-engineering</a> (abgerufen am 29.06.2018)</td>
     </tr>
 </table>
