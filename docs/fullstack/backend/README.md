@@ -7,11 +7,12 @@
 
 #### Allgemein
 gRPC ist ein von Google entwickeltes modernes, performantes Open Source RPC (Remote Procedure Call) Framework, welches innerhalb vieler verschiedener Umgebungen laufen kann. https://grpc.io/about/
-Mithilfe von gRPC kann eine Client-Anwendung direkt Methoden einer Server-Anwendung aufrufen, als wäre es ein lokales Objekt. Besonders hervorstechende Merkmale von gRPC sind die Nutzung von HTTP/2 und Protocol Buffers.
+Mithilfe von gRPC kann eine Client-Anwendung direkt Methoden einer Server-Anwendung aufrufen, als wäre es ein lokales Objekt. Hierzu wird ein gRPC-Server und ein oder mehrere gRPC-Clients implementiert. Der Server bietet hierbei dieselben Methoden an, wie der Client, wobei ein Client-Methodenaufruf autmatisch zur Aufrufung der Server-Methode führt (siehe folgende Abbildung).
+Der Server und Client sind hierbei sprachunabhängig voneinander, was es ermöglicht, dass die Entwicklung eines neuen Clients oder Servers höchst flexibel ist. https://grpc.io/docs/guides/
 
+image https://grpc.io/docs/guides/
 
-https://grpc.io/docs/guides/
-https://jaxenter.de/grpc-mobile-http-2-google-framework-65937
+Besonders hervorstechende Merkmale von gRPC sind die Nutzung von HTTP/2 und Protocol Buffers.
 
 #### HTTP/2
 HTTP/2 ist der Nachfolger von HTTP/1.1 und wurde 2015 veröffentlicht.
@@ -19,7 +20,7 @@ Durch das neue Protokoll wird die Latenz bei der Kommunikation zwischen Browser 
 Die größten Veränderungen gegenüber des Vorgängers können in die folgenden vier Punkte aufgeteilt werden.
 
 ##### Server Push
-"Server Push" ermöglicht dem Server von sich aus Daten an den Client zu senden. Dies steht gegenüber dem Prinzip von HTTP/1, bei dem die Kommunikation "Pull only" ablief und die Kommunikation nur vom Client gestartet werden konnte. Mithilfe dieser Funktionalität wird die Web-Kommunikation beschleunigt, indem unnötige Client-Anfragen und somit Paketumlaufzeit (Round Trip Time) eingespart werden kann. Sinnvoll ist dies vorallem, damit der Server bei dem initialen Seitenaufruf Dateien an den Browser mitsenden kann, die er sowieso zur Anzeige der Seite benötigt (siehe folgende Abbildung).  
+"Server Push" ermöglicht dem Server von sich aus Daten an den Client zu senden, eine sogenannte bidirektionale Kommunikation. Dies steht gegenüber dem Prinzip von HTTP/1, bei dem die Kommunikation "Pull only" ablief und nur vom Client gestartet werden konnte. Mithilfe dieser Funktionalität wird die Web-Kommunikation beschleunigt, indem unnötige Client-Anfragen und somit Paketumlaufzeit (Round Trip Time) eingespart werden kann. Sinnvoll ist dies vorallem, damit der Server bei dem initialen Seitenaufruf Dateien an den Browser mitsenden kann, die er sowieso zur Anzeige der Seite benötigt (siehe folgende Abbildung).  
 https://ieeexplore.ieee.org/document/8264830/
 
 Ein Nachteil kann durch den Server Push auftreten, wenn die Funktionalität falsch eingesetzt wird. Dies kann vorkommen, wenn ein Server Push vor dem Seitenrendering genutzt wird, was die Aufbauzeit der Seite verlangsamt, oder wenn ein Server Push Daten absendet, die der Client bereits gecachet hatte. Damit es nicht zu solchen Problemen kommt, ist es notwendig, dass der Entwickler sich an sinnvolle Strategien für einen Server-Push hält.
@@ -56,53 +57,72 @@ Nachdem die Struktur angelegt wurde, kann der Protocol-Buffer-Compiler _protoc_ 
 
 
 #### Designprinzipien
-Zum Verständnis des Frameworks, definiert Google eine Reihe an Prinzipien und Anforderungen, die während der Entwicklung eine Rolle spielten und mit gRPC umgesetzt wurden.
+Zum Verständnis des Frameworks, definierte Google während der Entwicklung eine Reihe an Prinzipien und Anforderungen, die gRPC prägen.
 https://grpc.io/blog/principles
 
 __Services statt Objekten, Messages statt Referenzen__-
-Es sollte die Mikroservice-Philosophie und das Nutzen der Proto-Buffer-Messages beworben werden, damit kein falsches Verständnis von Objekten und den Netzwerkeinschränkungen aufkommt. Auch wenn gRPC eine performante Kommunikation bietet, sollte an die Tücken einer Netzwerkanwendung gedacht  und nicht so gearbeitet werden, als wären alle Objekte lokal verfügbar.
+Es soll die Mikroservice-Philosophie und das Nutzen der Proto-Buffer-Messages beworben werden, damit kein falsches Verständnis von Objekten und den Netzwerkeinschränkungen aufkommt. Auch wenn gRPC eine performante Kommunikation bietet, sollte an die Tücken einer Netzwerkanwendung gedacht und nicht so gearbeitet werden, als wären alle Objekte lokal verfügbar.
 
 __Abdeckung und Simplizität__-
 Das Framework sollte auf jeder beliebten Entwicklungsplattform verfügbar und leicht zu benutzen sein. Außerdem sollte das System auf performancelimitierten Geräten laufen können.
 
 __Kostenlos und offen__-
+Die fundamentalen Features sollen kostenlos und für alle zur Verfügung stehen. Alle Komponenten sollen als Open Source und mit Lizenzen zur freien Anpassung veröffentlicht werden.
 
+__Interoperabel und Reichweite__-
+Das Protokoll muss in der Lage sein verschiedene Internet-Infrastrukturen zu traversieren.
 
+__Genereller Zweck und Performance__-
+Das System sollte auf eine breite Klasse von Use-Cases passen, während so wenig Performance wie möglich verloren wird im Vergleich zu einem System für einen spezifischen Use-Case.
 
-##### Interoperabel und Reichweite
+__Layered__-
+Hauptfacetten des Systems müssen unabhängig voneinander entwickelt werden können.
 
-##### Genereller Zweck und Performance
+__Payload Agnostik__-
+Trotz des Standard-Payloads der Protocol Buffer nutzt, müssen auch andere Typen wie JSON oder XML unterstützt werden. Außerdem muss das System Payload-Kompression für variable Use-Cases unterstützen.
 
-##### Layered
+__Streaming__-
+Viele Systeme benötigen Streaming, um große Daten zu übertragen oder um Daten live zu aktualisieren.
 
-##### Payload Agnostik
+__Blocken und Nicht-Blocken__-
+Es muss sowohl asynchrones, als auch synchrones Abarbeiten von Nachrichten von Client und Serve unterstützt werden. Dies ist essentiell für die Skalierung und zum Abarbeiten von Streams.  
 
-##### Streaming
+__Abbruch und Timeout__-
+Manche Operationen sind ressourcenaufwendig und haben eine lange Laufzeit. Durch den Abbruch von Operationen kann der Server notfalls Ressourcen freigeben, die von einem einzelnen Client blockiert werden. Zusätzlich soll der Client ein Timeout angeben können, damit der Server die Operationen entsprechend anpassen kann.
 
-##### Blocken und Nicht-Blocken
+__Lameducking__-
+Server müssen in der Lage sein mit einem laufenden Übergang herunterzufahren. Dies bedeutet, dass keine neuen Anfragen mehr angenommen, aber die bestehenden Anfragen noch abgearbeitet werden.
 
-##### Abbruch und Timeout
+__Datenflusssteuerung__-
+Ressourcen und Netzwerk-Kapazität sind meist im Ungleichgewicht zwischen Client und Server. Mithilfe von Datenflusssteuerung wird die Geschwindigkeit der Datenübertragung so angepasst, dass optimal mit Buffern gearbeitet werden kann.
 
-##### Lameducking
+__Pluggable__-
+Features für Sicherheit, Health-Checks, Load-Balancing, Monitoring, Tracing und Logging sollen alle über Erweiterungen aktivierbar sein und eine Beispielimplementierung bieten.
 
-##### Fluß-Kontrolle
+__Erweiterungen als APIs__-
+Erweiterungen die eine Zusammenarbeit von Services benötigen, sollten auf APIs setzen, anstatt das Protokoll zu erweitern.
 
-##### Pluggable
+__Metadaten-Austausch__-
+In manchen Fällen, wie bei der Authentifizierung, müssen Metadaten ausgetauscht werden, die nicht im Standardinterface eines Services beinhaltet sind. Diese Features müssen individuell entwickelbar sein.
 
-##### Erweiterung als APIs
-
-##### Metadaten-Austausch
-
-##### Standardisierte Status Codes
+__Standardisierte Status Codes__-
+Es muss eine bestimmte Anzahl von standardisierten Status Codes geben, damit der Client entsprechend der Lage reagieren kann. Falls ein System aussagekräftigere Status Codes benötigt, können diese zusätzlich implementiert und über den Metadaten-Austausch kommuniziert werden.
 
 #### Vorteile
 
 ##### Performance und geringe Datengröße
 Der Schwerpunkt von gRPC liegt darauf eine performante Netzwerk-Kommunikation zu ermöglichen. HTTP/2 und Proto Buffer sorgen dafür, dass die Anzahl der Anfragen und die zu übermittelnden Daten in der Größe reduziert und gleichzeitig die Geschwindigkeit erhöht werden kann. Diese Eigenschaften prägen gRPC somit als ein Kommunikations-Protokoll, welches besonders geeignet für Anwendungen ist, die den Hauptfokus auf eine effiziente Performance legen.
 
+##### Simple Integration von Erweiterungen
+Das Pluggable-Prinzip ermöglicht es vorgefertigte Funktionen für Authentifizierung, Tracing, Load-Balancing und Health-Checking schnell und simpel zu integrieren.
+
 #### Nachteile
 
 ##### Browser-Support
+Zurzeit stehen verschiedene Versionen von gRPC-Bibliotheken zur Verfügung, um gRPC vom Browser aus einzusetzen. Hierzu zählen gRPC-js, gRPC-Web und gRPC-Web-Client. Leider verfügen alle drei Bibliotheken über technische Limitierungen, wie Browserinkompatibilität, wodurch eine native gRPC-Kommunikation nicht möglich ist und nur über einen Proxydienst abgehandelt werden kann. Diese Probleme sollen zwar in naher Zukunft durch nativen Browsersupport behoben werden, jedoch muss aktuell noch auf eine Proxy-Lösung zurückgegriffen werden.
+https://github.com/grpc/grpc-node/tree/master/packages/grpc-js-core
+https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-WEB.md
+https://github.com/grpc/grpc-web
 
 ### REST
 
