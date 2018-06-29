@@ -62,10 +62,6 @@ Gradle versucht, einen Mittelweg zu finden. Ähnlich wie bei Maven wird vieles �
 
 "Continuous Delivery" beschreibt ein Vorgehen aus dem Umfeld der agilen Softwareentwicklung, welches es ermöglicht, Software schneller und vor allem zuverlässiger in Produktion zu bringen. Grundlage dafür ist die sogenannte "Continuous Delivery Pipeline", die viele der nötigen Prozesse automatisiert und den Gesamtprozess der Auslieferung somit reproduzierbar macht.
 
-### Lean
-
-Ein Grundgedanke bei Continuous Delivery ist "Lean". Jede Änderung, für die der Kunde nicht zahlt, entspricht verschwendeten Entwicklerressourcen. Eine Änderung, die der Kunde nicht hat, wird vom Kunden nicht bezahlt. Continuous Delivery hilft dabei, Änderungen möglichst schnell an den Kunden auszuliefern.
-
 ### Warum?
 
 Dadurch, dass Continuous Delivery vieles automatisiert und reproduzierbar macht, kann jede neue Version der Software daraufhin getestet werden, ob sie problemlos veröffentlicht werden kann. Somit werden Fehler schneller erkannt und können entsprechend behoben werden, bevor sie möglicherweise Monate später bei der Auslieferung der Software an den Kunden zu Problemen und Verzögerungen führen. Zudem kann die Software öfter als "Gesamtes" getestet werden, und durch den hohen Grad an Automatisierung (und die bereits angesprochene Reproduzierbarkeit) ist sichergestellt, dass Fehler in der Testumgebung erkannt werden und nicht zu "false positives" führen.
@@ -136,6 +132,10 @@ DevOps ist Unternehmenskultur, keine Werkzeug zum lösen eines konkreten Problem
 
 ##### Entwicklung/IT-Operations
 
+![DevOps Fancy](./media/fancy_devops.png "DevOps Fancy")
+
+Abbildung 3 - DevOps als Folge von IT und IT-Operations betreffenden Prozessen (Quelle: <a>[[ROOD16]](#ref_rood16)</a>)
+
 Der Begriff DevOps setzt sich zusammen aus den Begriffen Development (Entwicklung) und Operations. Der Bereich Entwicklung ist für die Softwareentwicklung zuständig, der Bereich Operations für die notwendige IT-Infrastruktur (z.b. Bereitstellung notwendiger Tools). Wenn zusätzlich der Bereich Sicherheit involviert ist, spricht man auch von DevSecOps. Ziel ist es, dass diese Bereiche enger zusammenarbeiten und gemeinsam effizienter sind. 
 
 #### DevSecOps
@@ -159,6 +159,10 @@ more."
 
 Der erste Punkt, "Individuals and interactions over processes and tools", also frei übersetzt "Der individuelle Mitarbeiter ist wichtiger als Prozesse und Werkzeuge", wird von DevOps sehr ernst genommen. Interaktionen zwischen Mitarbeitern sind wichtiger als die verwendeten Werkzeuge. Die verwendeten Werkzeuge sollen Interaktionen unterstützen, nicht bestimmen, wie diese ablaufen.
 Trotzdem ist die Verwendung geeigneter Werkzeuge bei DevOps wichtig, mit Betonung auf geeignet. Wenn ein Werkzeug für Unruhe oder Streit innerhalb eines Teams führt, ist es eventuell nicht geeignet.
+
+#### Lean
+
+Ein Grundgedanke bei Continuous Delivery ist "Lean". Jede Änderung, für die der Kunde nicht zahlt, entspricht verschwendeten Entwicklerressourcen. Eine Änderung, die der Kunde nicht hat, wird vom Kunden nicht bezahlt. Continuous Delivery hilft dabei, Änderungen möglichst schnell an den Kunden auszuliefern.
 
 
 ##### Automatisierung
@@ -209,7 +213,10 @@ Damit alle Plattformen, die Container unterstützen, kompatibel sind und ein Con
 
 Docker ist ein Tool zur Containerisierung von Software. Dabei wird die Software mit allen ihren Abhängigkeiten (z.b. Bibliotheken) in ein Image gepackt. Dieses Image kann dann von einem standardisierten Container ausgeführt werden.
 
-Die Docker-Laufzeitumgebung ist an Linux angelehnt. Es stehen dem Entwickler somit alle die Funktionen von Linux zur Verfügung. Docker selbst ist ebenfalls Linux-Software und damit standardmäßig nur unter Linux lauffähig. Soll Docker unter Windows oder Mac OS ausgeführt werden, muss ein Linux-System in einer virtuellen Maschine genutzt werden. Docker selbst nutzt jedoch keine Virtualisierung, sondern das Linux-Tool containerd zur Trennung von Betriebssystem- und Containerressourcen.
+Auch wenn Docker derzeit das bekannteste Containerisierungs-Werkzeug ist, es ist nicht das erste: Die Anfänge der Containerisierung gehen auf das in den 70ern und 80ern entwickelte chroot zurück. Anders als Docker hat chroot die betroffenen Prozesse aber nur auf Benutzerebene voneinander isoliert, während bei Docker einzelne Prozesse in unterschiedlichen Kernel-Namespaces laufen, um größtmögliche Isolation ohne Virtualisierung zu erreichen.
+Docker ist auch nicht das einzige solche Werkzeug. Es existiert eine Vielzahl anderer proprietärer und open-source Lösungen, von denen einige nach ähnlichen Prinzipien aufgebaut sind wie Docker. Docker selbst basierte lange Zeit auf LXC, einer weiteren populären Lösung zur Containerisierung unter Linux.
+
+Die Docker-Laufzeitumgebung ist an Linux angelehnt. Es stehen dem Entwickler somit alle die Funktionen von Linux zur Verfügung. Docker selbst ist ebenfalls Linux-Software und damit standardmäßig nur unter Linux lauffähig. Soll Docker unter Windows oder Mac OS ausgeführt werden, muss ein Linux-System in einer virtuellen Maschine genutzt werden. Dazu stehen von Docker erweiternde Werkzeuge zur Verfügung. Docker selbst nutzt jedoch keine Virtualisierung, sondern das Linux-Tool containerd zur Trennung von Betriebssystem- und Containerressourcen auf Kernel-Ebene. Das hat den Vorteil, dass im Gegensatz zur Virtualisierung wesentlich weniger Ressourcen reserviert werden müssen und vom Container genutzt werden.
 
 #### Begriffe
 
@@ -223,19 +230,34 @@ Ein Layer ist ein Set von Änderungen innerhalb eines Image. Für jede Änderung
 
 ##### Container
 
-Ein Container ist die laufende Instanz eines Images. Container bieten eine standardisierte Laufzeitumgebung für Images.
+Ein Container ist die laufende Instanz eines Images. Container bieten eine standardisierte Laufzeitumgebung für Images. Standardmäßig wird das neueste Layer in einem Image zur Instanziierung verwendet, theoretisch kann aber jedes Layer verwendet werden.
 
 #### Containerisierung vs. Virtualisierung
 
-Ähnlich wie bei der Virtualisierung wird auch bei der Containerisierung eine Gast-Betriebssystem innerhalb des Host-Systems emuliert, Containerisierung hat gegenüber der Virtualisierung aber den Unterschied, dass das Container-System sich Ressourcen mit dem Host-System teilt. Dies soll bei der Virtualisierung vermieden werden.
+![Containerisierung vs. Virtualisierung](./media/vm_vs_container.png "Containerisierung vs. Virtualisierung")
+
+Abbildung 4 - Containerisierung vs. Virtualisierung (Quelle: <a>[[ROOD16]](#ref_rood16)</a>)
+
+Ähnlich wie bei der Virtualisierung wird auch bei der Containerisierung eine Gast-Betriebssystem innerhalb des Host-Systems emuliert, Containerisierung hat gegenüber der Virtualisierung aber den Unterschied, dass das Container-System sich Ressourcen mit dem Host-System teilt. Dies soll bei der Virtualisierung vermieden werden. Die obige Grafik soll den Unterschied verdeutlichen: Auf der linken Seite laufen mehrere vollständig voneinander getrennte Betriebssysteme zeitgleich auf einem System, auf der rechten läuft nur ein Betriebssystem und die Anwendung läuft mit ihren Abhängigkeiten in einem Container, der sich Betriebssystemressourcen mit anderen Containern teilt.
 
 Im Falle der Containerisierung hat das zum Vorteil, das Ressourcen besser genutzt werden und der "Overhead" einer containerisierten Anwendung sehr viel geringer ist als der einer virtualisierten Anwendung. Dies erlaubt dem Entwickler, problemlos mehrere containerisierte Anwendungen gleichzeitig laufen zu lassen, was bei der Virtualisierung oft nicht ohne weiteres möglich ist. Docker ist kein System zur Virtualisierung, sondern zur Containerisierung.
+
+#### Betriebssystem-Container und Anwendungscontainer
+
+Es gibt zwei Arten von Container. Betriebssystem-Container sind Container, in denen wie in einer VM ein vollwertiges Betriebssystem läuft. Jeder Betriebssystem-Container hat ein eigenes Dateisystem, und in jedem Betriebssystem-Container können mehrere Anwendungen laufen. Ein solcher Ansatz wird beispielsweise von LXC verfolgt.
+Anwendungscontainer funktionieren anders. Anwendungscontainer haben kein eigenes Dateisystem, alle Daten werden außerhalb des Containers gespeichert. Jeder Container ist darauf ausgelegt, eine einzelne Anwendung auszuführen, und die ausgeführte Anwendung kann den Container selber nicht verändern. Dieser Ansatz ist schlanker als der der Betriebssystem-Container, allerdings kann die Isolierung vom Host-System auch nicht in gleichem Maße garantiert werden. Docker stellt Anwendungscontainer zur Verfügung.
 
 #### Tools für Docker
 
 ##### Docker-Hub
 
-Docker-Hub ist ein zentrales Repository, welches vorkonfigurierte Dockercontainer bereitstellt und durch die Integration mit Docker selbst das Management und die Verteilung von Docker-Images vereinfacht. Docker-Hub ermöglicht es dem Nutzer, jeden Layer des Images, also jeden Versionsstand, als vollwertiges Image zu verwenden. Das macht es sehr einfach, zwischen Versionen zu wechseln beziehungsweise auf dem neuesten Stand zu bleiben.
+Docker-Hub ist ein zentrales Repository, welches vorkonfigurierte Dockercontainer bereitstellt und durch die Integration in Docker das Management und die Verteilung von Docker-Images vereinfacht. Docker-Hub ermöglicht es dem Nutzer, jeden Layer des Images, also jeden Versionsstand, als vollwertiges Image zu verwenden. Das macht es sehr einfach, zwischen Versionen zu wechseln beziehungsweise auf dem neuesten Stand zu bleiben.
+
+##### Kubernetes
+
+Kubernetes ist eine Plattform, die die Verteilung von Docker-Images und deren Betrieb über Netzwerke hinweg unterstützt. Kubernetes, ursprünglich von Google entwickelt, wird inzwischen unter dem Dach der Cloud Native Computing Foundation entwickelt.
+Kubernetes definiert sogenannte Pods oder Deployment Units. Jedes Pod kann ins oder mehrere Docker-Images gruppieren und ausliefern. Jedes Pod stellt einen Service bereit.
+Diese Architektur ist auch als Microservice bekannt, deswegen soll hier nicht weiter darauf eingegangen werden.
 	
 #### Versionsverwaltung
 
@@ -243,7 +265,7 @@ Docker hat eine integrierte Versionsverwaltung. Änderungen an einem Image werde
 		
 #### Sicherheit
 
-Die Docker-Laufzeitumgebung läuft mit *root*-Rechten, um Zugriff auf sämtliche Betriebssystem-Funktionen zu haben. Die Ressourcen der Anwendung im Container werden allerdings vom Betriebssystem getrennt, und Docker schränkt den Zugriff auf wichtige Systemdateien ein.
+Die Docker-Laufzeitumgebung läuft mit *root*-Rechten, um Zugriff auf sämtliche Betriebssystem-Funktionen zu haben. Die Ressourcen der Anwendung im Container werden mithilfe von containerd allerdings vom Betriebssystem getrennt, und Docker schränkt den Zugriff auf wichtige Systemdateien ein. Anders als bei Virtualisierung kann eine vollständige Trennung vom Betriebssystem nicht garantiert werden.
 
 
 ### JIRA
@@ -256,14 +278,18 @@ Alle Informationen werden in JIRA in Tickets organisiert, die jeder am Projekt b
 
 ### Jenkins
 
-Jenkins ist ein CI (Continuous Integration) und Continuous Delivery System
+Jenkins ist ein serverbasiertes CI (Continuous Integration) und Continuous Delivery System. Jenkins ist open-source und ist darauf ausgelegt, möglichst viel zu automatisieren. Die Jenkins-Software basiert auf Java, es kann aber Quellcode in jeder beliebigen Programmiersprache gebaut un d getestet werde. Der Build- und Testprozess wird über Skripte gesteuert. Wo der zu bauende/testende Quellcode liegt, ist bei Jenkins (fast) egal: Mehrere VCS-Systeme wie Git und SVN werden unterstützt. 
+Mit der Erweiterung Blue Ocean kann Jenkins auch Continuous Delivery. Nach dem CI-Prozess können automatisiert beliebige Tests und Skripte ausgeführt werden. Blue Ocean unterstützt nicht nur sequentielle Pipelines, sondern kann Prozesse auch parallel ausführen. Das heißt, wenn ein Test auf mehreren Plattformen ausgeführt wird, werden die Tests auf allen Plattformen parallel ausgeführt. Wenn ein Test auf einer Plattform fehlschlägt, werden die Tests auf anderen Plattformen nicht beeinflusst.
+Blue Ocean kann mit populären Plattformen wie Github integriert werden. Das heißt, der Quellcode, der als Basis für den CI und Continuous Delivery Prozess dient, wird von Github geholt und das Ergebnis dieser Prozesse wird an Github zurückgemeldet und dort im Projekt angezeigt.
 
-#Quellen
+# Quellen
 
-<a name=‘ref_pien18‘>[PIEN18]</a>: Wie DevOps die IT beschleunigen, 2018, Frank Pientka, https://www.computerwoche.de/a/wie-devops-die-it-beschleunigen,3071433 (abgerufen am 28.06.2018)
+<a name=‘ref_pien18‘>[PIEN18]</a>: Wie DevOps die IT beschleunigen, 2018, Frank Pientka, https://www.computerwoche.de/a/wie-devops-die-it-beschleunigen,3071433 (abgerufen am 26.06.2018)
 
 <a name="ref_ravi16">[RAVI16]</a>: Practical DevOps, 2016, A. Ravichandran et. al.
 
+<a name='ref_rood16'>[ROOD16]</a>: Docker, Microservices And Kubernetes, 2016, Resa Roodsari
+
 <a name="ref_vero16">[VERO16]</a>: Practical DevOps, 2016, Joakim Verona
 
-<a name="ref_wolf14">[WOLF14]</a>:
+<a name="ref_wolf14">[WOLF14]</a>: Continuous Delivery : Der pragmatische Einstieg, 2014, Eberhard Wolff
