@@ -121,7 +121,7 @@ Bei diesem Vorgehen bekommt der Kunde sehr schnell die neueste Version und der E
 
 ### DevOps
 
-![DevOps](./media/738x415_f5f5f5.jpg "DevOps")
+![DevOps](./media/circle_of_life.jpg "DevOps")
 
 Abbildung 2 - DevOps cycle(Quelle: <a>[[PIEN18]](#ref_pien18)</a>)
 
