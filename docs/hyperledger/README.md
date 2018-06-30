@@ -52,7 +52,7 @@ Des Weiteren muss der Benutzer die Möglichkeit haben, neue Zertifikate zu hinte
 bestehende Zertifikate zu verwalten. Dies soll direkt über die Erweiterung im
 Browser möglich sein und muss zusätzlich mit einem Passwort gesichert werden.
 
-Für die Interaktion mit der Erweiterung muss es eine Javascript-API
+Für die Interaktion mit der Erweiterung muss es eine Javascript-Schnittstelle
 bereitgestellt werden, die in die clientseitige Webapplikation eingebunden werden
 kann. Diese soll berechtigten Webapplikationen die Möglichkeit geben zu prüfen, ob
 ein Zertifikat für die aktuelle Webapplikation vorhanden ist. Zusätzlich müssen
@@ -95,16 +95,16 @@ gRPC-Server zu kommunizieren und unterstützt somit ebenfalls Dienste mit
 bidirektionalen Datenströmen zwischen Client und Server.
 
 Das HTTP/2-Protokoll wird zwar ebenfalls von modernen Browsern unterstützt,
-diese stellen das Protokoll aber nur implizit über die `fetch` bzw.
-`XMLHttpRequest` API bereit. Daher kann die gRPC-js Bibliothek nicht im Browser
-eingesetzt werden, da die API des HTTP/2-Moduls in Node.js nicht kompatibel
-mit der API im Browser ist.
+diese stellen das Protokoll aber nur implizit über die `fetch`- bzw.
+`XMLHttpRequest`-Schnittstelle bereit. Daher kann die gRPC-js Bibliothek nicht im Browser
+eingesetzt werden, da die Schnittstelle des HTTP/2-Moduls in Node.js nicht kompatibel ist,
+mit der Schnittstelle im Browser.
 
 #### gRPC-Web
 Für den Zugriff auf einen gRPC-Dienst aus dem Browser gibt es seit Anfang 2018
 eine öffentliche Betaphase der offiziellen gRPC-Web-Bibliothek
 [[GRWE18](#ref_grwe18)]. Diese nutzt, je nach Browser und Verfügbarkeit,
-die `fetch` bzw. `XMLHttpRequest` API um gRPC-Dienste über HTTP/2-Requests
+die `fetch`- bzw. `XMLHttpRequest`-Schnittstelle um gRPC-Dienste über HTTP/2-Requests
 anzusprechen.
 
 Aufgrund einiger Einschränkungen im Browser, wie z.B. die fehlende Unterstützung
@@ -153,7 +153,7 @@ und privaten Schlüssel betrachtet.
 
 #### Kommunikation
 Die Kommunikation zwischen den in [Abbildung 2.2.2.2](#img_2222) abgebildeten
-Komponenten einer Chrome Extension, kann mittels der Message API realisiert
+Komponenten einer Chrome Extension, kann mittels der Message-Schnittstelle realisiert
 werden [[CHMA18](#ref_chma18)].
 
 ![Chrome Extension Messaging](./messagingarc.png)
@@ -193,7 +193,7 @@ verwendet werden.
 
 #### Persistierung
 Ähnlich wie in der Browser Umgebung, kann auch in einer Chrome Extension die
-LocalStorage-API verwendet werden, um die Zertifikate und privaten Schlüssel zu
+LocalStorage-Schnittstelle verwendet werden, um die Zertifikate und privaten Schlüssel zu
 persistieren. Für die Verschlüsselung der Daten kann die
 [CryptoJS](https://www.npmjs.com/package/crypto-js)-Bibliothek genutzt werden.
 
@@ -243,7 +243,7 @@ für die Interaktion mit dem Hyperledger Fabric Framework.
 #### Background Script
 Für die Fabric Extension übernimmt das Background Script die Persistierung der
 Zertifikate und privaten Schlüssel und stellt diese, nach erstmaliger Eingabe
-des Passworts im Popup, über die Messaging API den restlichen
+des Passworts im Popup, über die Messaging-Schnittstelle den restlichen
 Komponenten bereit.
 
 #### Popup / Certificate Service
@@ -257,7 +257,7 @@ Zertifikate persistiert.
 Die Fabric Extension Client stellt die Funktionalitäten zum Zugriff auf die
 Zertifikate sowie die Interaktion mit dem Distributed Ledger bereit. Dazu
 kapselt es die Logik, um mit dem Content Script zu kommunizieren und bietet der
-clientseitigen Webapplikation, eine Javascript API zur Interaktion mit der
+clientseitigen Webapplikation, eine Javascript-Schnittstelle zur Interaktion mit der
 Erweiterung an.
 
 #### Content Script
