@@ -441,6 +441,8 @@ Abb. 3: AWS IAM Dashboard - Quelle: [[AWS18h]](#ref_aws18h)
 
 Bei der Erstellung von neuen IAM-Benutzern können unter anderem Passwörter und Zugangsschlüssel vordefiniert werden, aber auch temporäre Anmeldedaten erzeugt werden. Temporäre Zugangsdaten können auch IAM-Benutzer und AWS-Dienste erhalten, die normalerweise keinen Zugriff auf AWS-Ressourcen einer Organisation haben. Hierbei kommen die IAM-Rollen ins Spiel die einer AWS-Ressource zugewiesen werden müssen. IAM-Benutzer und AWS-Dienste können diese definierten Rollen annehmen und anschließend temporäre Anmeldeinformationen erhalten, mit denen Aufrufe von AWS-APIs erfolgen können. [Abbildung 4](#img_aws_iam) zeigt beispielhaft ein IAM Dashboard, in dem mehrere Benutzer und Gruppen verwaltet werden können.
 
+[[AWS18i]](#ref_aws18i) [[AWS18j]](#ref_aws18j)
+
 
 <a name="ec2"></a>
 
@@ -540,6 +542,20 @@ Bei der Erstellung von neuen IAM-Benutzern können unter anderem Passwörter und
     </tr>
     <tr>
         <td>URL: <a>https://console.aws.amazon.com/iam/home?region=us-east-2#/users</a> (abgerufen am 30.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_aws18i">[AWS18i]</a></td>
+        <td style="width:90%">Amazon AWS: Verwalten von Rollen</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://aws.amazon.com/de/iam/details/manage-roles/?nc1=f_ls</a> (abgerufen am 30.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_aws18j">[AWS18j]</a></td>
+        <td style="width:90%">Amazon AWS: AWS Identity and Access Management (IAM)</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://aws.amazon.com/iam/?nc2=h_m1</a> (abgerufen am 30.06.2018)</td>
     </tr>
     <tr>
         <td rowspan="2" style="width:10%"><a name="ref_bian20">[BIAN20]</a></td>
