@@ -4,15 +4,16 @@ Autor: Björn Böing
 
 ## Inhaltsverzeichnis
 
+- [Abkürzungsverzeichnis](#abkürzungen)
 - [Einleitung](#einleitung)
     - [Definition](#definition)
     - [Geschichtliches](#geschichtliches)
 - [Architektur](#architektur)
     - [Charakteristika](#charakteristika)
     - [Service Modelle](#service-modelle)
-        - [Infrastructure as a Service (IaaS)](#infrastructure-as-a-service)
-        - [Platform as a Service (PaaS)](#platform-as-a-service)
-        - [Software as a Service (SaaS)](#software-as-a-service)
+        - [Infrastructure as a Service (IaaS)](#iaas)
+        - [Platform as a Service (PaaS)](#paas)
+        - [Software as a Service (SaaS)](#saas)
         - [Function as a Service (FaaS)](#function-as-a-service)
         - [Everything as a Service (XaaS)](#everything-as-a-service)
     - [Bereitstellungsmodelle](#bereitstellungsmodelle)
@@ -42,6 +43,11 @@ Autor: Björn Böing
     - [Aktuelle Trends](#aktuelle-trends)
 
 
+## Abkürzungsverzeichnis
+
+- TODO
+
+
 ## Einleitung
 
 - Ursprung in Semesterarbeit
@@ -54,11 +60,12 @@ _"Cloud computing is a model for enabling ubiquitous, convenient, on-demand netw
 
 Neben dem Kernpunkt aller Definitionen, dass Rechnerressourcen über ein Netzwerk bereitgestellt und genutzt werden können, stellt das NIST mit dieser Definition eine schnelle und einfache Verwendung in den Fokus. Das Bundesamt für Sicherheit in der Informationstechnik (BSI) geht noch einen Schritt weiter und sagt, dass Angebote und Nutzung der Cloud Dienstleistungen ausschließlich über definierte technische Schnittstellen und Protokolle abläuft. Die direkte Interaktion mit den Anbietern ist nicht vorgesehen. [[BSI18]](#ref_bsi18)
 
+
 ### Geschichtliches
 
 Die Bedeutung von "Cloud Computing" wie sie heute existiert und was damit verbunden wird, hat sich seit der ersten Verwendung nicht viel verändert. Die Compaq, Weltmarktführer für PC-Systeme der 1990er, verwendete den Begriff 1996 in einem internen Dokument. Schon davor wurde der Begriff "Cloud" und die dazugehörige Abbildung verwendet, um unter anderem das Internet, Telekommunikation und verteilte Anwendungen darzustellen. [[REGA11]](#ref_rega18)
 
-Populär wurde der Begriff "Cloud Computing", als Amazon 2006 ihre Elastic Compute Cloud (EC2) auf den Markt brachte. In den anschließenden Jahren brachten auch Unternehmen wie Google, Microsoft, IBM und auch Oracle vergleichbare Produkte auf den Markt, um den neu erzeugten Bedarf nach externer und mietbarer Rechenleistung zu bedienen. Das erste open-source Projekt, welches das Erstellen von [privaten](#private) und [hybrid](#hybrid) Clouds ermöglichte, war das OpenNebula Projekt der NASA und wurde 2008 veröffentlicht. [[FOOT17]](#ref_foot17) [[IBMJ]](#ref_ibmj09)
+Populär wurde der Begriff "Cloud Computing", als Amazon 2006 ihre [Elastic Compute Cloud](#ec2) (EC2) auf den Markt brachte. In den anschließenden Jahren brachten auch Unternehmen wie Google, Microsoft, IBM und auch Oracle vergleichbare Produkte auf den Markt, um den neu erzeugten Bedarf nach externer und mietbarer Rechenleistung zu bedienen. Das erste open-source Projekt, welches das Erstellen von [privaten](#private) und [hybrid](#hybrid) Clouds ermöglichte, war das OpenNebula Projekt der NASA und wurde 2008 veröffentlicht. [[FOOT17]](#ref_foot17) [[IBMJ09]](#ref_ibmj09)
 
 
 ## ?? Architektur / Konzept
@@ -89,7 +96,7 @@ Weitere Charakteristika:
 
 Auf Basis von Cloud Computing Technologien sind in den vergangenen Jahren eine Vielzahl verschiedener Projekte und Produkte entstanden, die vor allem darauf abzielen dem Nutzer Funktionalitäten flexibel und skalierbar zur Verfügung zu stellen. Da Nutzer in der Regel keine Funktionalitäten wirklich kaufen, sondern eher mieten, wird in diesem Zusammenhang von "Services" gesprochen. In diesem Zusammenhang ist auch die Begrifflichkeit "as a Service" entstanden, mit denen Cloud Computing Produkte häufig betitelt werden. Die finanzielle Abrechnung läuft bei Cloud Services in der Regel über das _"Pay as you go"_ Prinzip ab, welches in Verbindung mit genauen Messungen zur tatsächlichen Nutzung der Funktionalitäten und anbieterabhängigen Schwerpunkten die Kosten kalkuliert.
 
-Die [Abbildung 1](#img_service_models) zeigt den Zusammenhang der drei verbreitetsten Service Modelle _"Infrastructure as a Service" (IaaS)_, _"Plattform as a Service" (PaaS)_ und _"Software as a Service" (SaaS)_ in Form eines Mengendiagramms. In den nächsten Abschnitten sollen diese drei Modelle und weitere vorgestellt und deren Anwendungsfälle betrachtet werden.
+Die [Abbildung 1](#img_service_models) zeigt den Zusammenhang der drei verbreitetsten Service Modelle _"[Infrastructure as a Service](#iaas)" (IaaS)_, _"[Plattform as a Service](#paas)" (PaaS)_ und _"[Software as a Service](#saas)" (SaaS)_ in Form eines Mengendiagramms. In den nächsten Abschnitten sollen diese drei Modelle und weitere vorgestellt und deren Anwendungsfälle betrachtet werden.
 
 <a name="img_service_models"></a>
 <div style="text-align:center">
@@ -101,7 +108,7 @@ Abb. 1: IaaS vs PaaS vs SaaS - Quelle: [[GASS16]](#ref_gass16)
 </div>
 
 
-<a name="infrastructure-as-a-service"></a>
+<a name="iaas"></a>
 
 #### Infrastructure as a Service (IaaS)
 
@@ -118,7 +125,7 @@ Auch diese Definition beinhaltet, dass die grundlegende Infrastruktur vom Anbiet
 Im späteren Verlauf dieses Kapitels wird auf AWS EC2 eingegangen, was eine IaaS Lösung von Amazon darstellt.
 
 
-<a name="platform-as-a-service"></a>
+<a name="paas"></a>
 
 #### Platform as a Service (PaaS)
 
@@ -131,7 +138,7 @@ Vorrangiges Ziel von PaaS ist es die Entwicklung von Softwareanwendungen zu vere
 Fotango, eine Tochterfirma von Canon Europe, brachte 2006 als weltweit erster Anbieter einen Dienst online, der das umsetzte, was später als PaaS bekannt wurde. Mit _"Zimki"_ wurde damals eine Plattform angeboten, die alle Nebenaufgaben für die Entwicklung von JavaScript automatisiert umsetzte und dabei das _"Pay as you go"_ Prinzip für die finanzielle Abrechnungen nutze. Obwohl Zimki Profit einspielte und sich einer wachsenden Nutzerzahl erfreuen konnte, entschied sich Canon den Dienst am 24.12.07 einzustellen. [[FORR06]](#ref_forr06) [[MARK07]](#ref_mark07)
 
 
-<a name="software-as-a-service"></a>
+<a name="saas"></a>
 
 #### Software as a Service (SaaS)
 
@@ -363,7 +370,24 @@ Zusammenfassend ist zu sagen, dass viele Unternehmen durch die Skalierbarkeit, A
 - IAM erläutern
 
 
-<a name="einführung-grundlagen"></a>
+<a name="iam"></a>
+
+### Identity and Access Management (IAM)
+
+Unternehmen und Organistationen, die AWS-Dienste nutzen, können durch die Verwendung von Amazons Accountsverwaltung _"Identity and Access Management"_ (IAM) ein individuelles Rechtesystem auf die AWS Infrastruktur abbilden. Dabei bietet IAM die Möglichkeit verschiedene Benutzer, Benutzergruppen und Rollen zu definieren und diesen sehr detailliert den Zugriff auf Ressourcen erlauben oder verbieten. Diese Benutzerverwaltung wird von Amazon kostenfrei angeboten und soll unter anderem mittels [Best Practices](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html) (externer Link) eine sichere Verwendung der AWS-Dienste innerhalb von Unternehmen und Organistationen bieten.
+
+Die Granularität in denen Rechte vergeben werden können reicht dabei von einem vollen Zugriff auf die AWS Management Console, über den Zugriff auf vereinzelte Dienste und Einstellungsmöglichkeiten bis zur Beschränkung darauf, dass nur einzelne Funktionen eines Dienstes aufgerufen werden können. Hinzu kommt, dass Zugriffe auf bestimmte Uhrzeiten und Zeiträume beschränkt werden können und Nutzern auch die Verwendung von Multi-Faktor-Authentifizierung vorgeschrieben werden kann.
+
+<a name="img_aws_iam"></a>
+<div style="text-align:center">
+    <img alt="AWS IAM Dashboard" src="./images/aws_iam.png"/>
+    <br>
+
+Abb. 3: AWS IAM Dashboard - Quelle: [[AWS18h]](#ref_aws18h)
+
+</div>
+
+Bei der Erstellung von neuen IAM-Benutzern können unter anderem Passwörter und Zugangsschlüssel vordefiniert werden, aber auch temporäre Anmeldedaten erzeugt werden. Temporäre Zugangsdaten können auch IAM-Benutzer und AWS-Dienste erhalten, die normalerweise keinen Zugriff auf AWS-Ressourcen einer Organisation haben. Hierbei kommen die IAM-Rollen ins Spiel die einer AWS-Ressource zugewiesen werden müssen. IAM-Benutzer und AWS-Dienste können diese definierten Rollen annehmen und anschließend temporäre Anmeldeinformationen erhalten, mit denen Aufrufe von AWS-APIs erfolgen können. [Abbildung 4](#img_aws_iam) zeigt beispielhaft ein IAM Dashboard, in dem mehrere Benutzer und Gruppen verwaltet werden können.
 
 ### Einführung & Grundlagen
 
@@ -625,7 +649,7 @@ Zusammenfassend ist zu sagen, dass viele Unternehmen durch die Skalierbarkeit, A
         <td style="width:90%">Rouse, Margaret ; TechTarget, 09.2017: Infrastructure as a Service (IaaS)</td>
     </tr>
     <tr>
-        <td>URL: <a>https://searchcloudcomputing.techtarget.com/definition/Infrastructure-as-a-Service-IaaS</a> (abgerufen am 21.06.2018)</td>
+        <td>URL: <a>https://searchcloudcomputing.techtarget.com/definition/iaas-IaaS</a> (abgerufen am 21.06.2018)</td>
     </tr>
     <tr>
         <td rowspan="2" style="width:10%"><a name="ref_rous17b">[ROUS17b]</a></td>
