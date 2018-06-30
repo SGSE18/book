@@ -1012,6 +1012,9 @@ counterState.increment = action(() => {
 ReactDOM.render(<Counter counterState={this.props.counterState} />, document.body);
 ```
 
+Zur Debug-Unterstützung kann die Browser-Extension [MobX Developer Tools
+](https://github.com/mobxjs/mobx-devtools) genutzt werden.
+
 ##### Redux
 Redux ist eine weitere JavaScript Bibliothek, die (i.d.R. genau) einen "Zustands-Container" (*state-container*) zur Hilfe bei der Verwaltung des Datenflusses einer Applikation bereitstellt. Die Architektur erinnert ebenfalls an die Flux Architektur, siehe nachfolgende Abbildung. Für die Verwendung von Redux mit React kann man die Bibliothek [react-redux](https://github.com/reactjs/react-redux) verwenden.
 
@@ -1046,7 +1049,7 @@ Dies sind Funktionen, die den aktuellen Zustand eines Stores sowie eine Action e
 
 * Die Funktion darf keine Seiteneffekte besitzen, d.h. keine globalen Variablen verwenden, keine asynchronen Aufrufe tätigen etc.  
 
-Das folgende Beispiel stellt einen einfachen Reducer für ein Array von Personen dar. Es erhält den aktuellen Zustand (ein Array mit den aktuell vorhandenen Personen) sowie die auszuführende Action. Anhand des Action-Attributes *type* wird die auf den Zustand anzuwendende Aktion ausgewählt und der neue Zustand anschließend zurückgegeben (als tiefe Kopie!). Der Zustand selber ist somit **immutable** und kann z.B. mithilfe der Chrome-Erweiterung [Redux DevTools](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=de) komfortabel gedebuggt werden. 
+Das folgende Beispiel stellt einen einfachen Reducer für ein Array von Personen dar. Es erhält den aktuellen Zustand (ein Array mit den aktuell vorhandenen Personen) sowie die auszuführende Action. Anhand des Action-Attributes *type* wird die auf den Zustand anzuwendende Aktion ausgewählt und der neue Zustand anschließend zurückgegeben (als tiefe Kopie!). Der Zustand selber ist somit **immutable** und kann z.B. mithilfe der Browser-Erweiterung [Redux DevTools](https://github.com/zalmoxisus/redux-devtools-extension) komfortabel gedebuggt werden. 
 Speichert man sich die tiefen Kopien als Historie ab, kann man auf einfache Art und Weise "Undo-Funktionalitäten" realisieren.
 
 Aus Gründen der Übersichtlichkeit wird in dem Beispiel von dem aktuellen Zustand `state` jedoch *keine* tiefe Kopie erzeugt. Dies müsste bei einer Implementation entsprechend angepasst werden.
