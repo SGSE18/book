@@ -1,4 +1,5 @@
 # Microservices
+Autor: Sebastian Janzen
 
 - [Einführung](#einführung)
 - [Charakteristiken einer Microservice-Architektur](#charakteristiken-einer-microservice-architektur)
