@@ -214,7 +214,9 @@ Auch existieren Spiegelungen der Wikipediaplattform in <a href="https://ipfs.io/
 
 #### Initialisierung
 Die grundsätzliche Nutzung von IPFS als Peer erfordert die Installation des IPFS-Command-Line-Interfaces (<a href="https://dist.ipfs.io/#go-ipfs">hier</a>).
-Nach der Installation ist im Kommandozeileinterfaces des Betriebssystems IPFS verfügbar. Um IPFS nutzen zu können, muss ein globales lokales Objektrepository angelegt werden. 
+Nach der Installation ist im Kommandozeileinterfaces des Betriebssystems IPFS verfügbar.
+
+Um IPFS nutzen zu können, muss ein globales lokales Objektrepository angelegt werden. 
 Dazu muss einmalig der Befehl `ipfs init` genutzt werden.  In der Standardkonfiguration wird ein `.ipfs`-Ordner im Home-Verzeichnis angelegt. 
 Innerhalb des Verzeichnisses befindet sich eine `config`-Datei im JSON-Format, diese dient zum Konfigurationen der IPFS-Repository, so beträgt z.B. die maximale des Storage 10-GB in der Standardkonfiguration. 
 
@@ -385,6 +387,35 @@ Dies kann ggf. durch die leichte Kombinationsmöglichkeit mit der Blockchaintech
 
 
 ### DAT CLI
+
+Die Installation vom DAT-Protokoll erfolgt durch den Paketmanager *npm*, dazu wird der Befehl `npm install -g dat` genutzt. Der Umgang mit dem DAT-Protokoll ist deutlich einfach als der Umgang mit dem IPFS-Protokoll.
+Grundsätzlich stellt DAT lediglich vier Funktionen zur Verfügung:
+1. `dat clone dat://<LINK><DOWNLOAD_VERZEICHNIS>`
+2. `dat share <VERZEICHNIS>`
+3. `dat pull`
+4. `dat sync`
+
+Dabei orientiert sich DAT stark an der Bedienung von Git. So wird mit dem `clone` Befehl ebenfalls ein DAT-Repository geklont, während mit `dat share` ein Repository angelegt und mit einem öffentlichen Schlüssel erstellt wird.
+```
+mkdir Verzeichnis
+cd Verzeichnis
+dat share
+dat v13.10.0
+Created new dat in \Verzeichnis/.dat
+dat://d054992e1302fbcb4b3118d9bc34f62c9a1eba7c5ba57ae046238eae8e3dbc98
+Sharing dat: (empty archive)
+
+0 connections | Download 0 B/s Upload 0 B/s
+
+Watching for file updates
+```
+
+In der Abbildung zu sehen, ist das Erstellen eines neuen Repository, erkennbar ist auch, dass das Repository bereits auf Updates wartet. Dieser Zustand wird ebenso mit dem Aufruf des Befehls `dat sync` im Verzeichnis hergestellt.
+Sobald Änderungen registiert werden, werden die Dateien entsprechend synchronisiert. Die Besonderheit am `sync` Befehl ist, dass die Verbindung aktiv bleibt, gegensätzlich wird beim `dat pull` die Verbindung unmittelbar nach der Synchronisation geschlossen.
+#### Hashbase und HTTP-Gateway
+
+Da mit Hilfe von DAT, durch den Freigabemechanismus dezentrale Anwendungen theoretisch realisiert werden können, steht durch hashbase.io (<a href="https://hashbase.io/">hier</a>) eine Plattfor zur Verfügung, da ein DAT-Repository dauerhaft zur Verfügung stellt.
+Zur Nutzung in einem aktuellen Browser kann ein Repository via HTTP, durch `dat sync --http`, synchronisiert werden. Hashbase.io stellt diesen Service ebenfalls zur Verfügung.
 
 ### Beakerbrowser
 
