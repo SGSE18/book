@@ -138,7 +138,7 @@ Als belastend zu verstehen sind Nutzer(-gruppen), die Dateien vom Netzwerk herun
 ##### BitSwap Protocol
 
 In IPFS wird das BitSwap-Protokoll genutzt, welches auf BitTorrent aufbaut. Dabei wird, umgangssprachlich gesprochen, ein Marktplatz realisiert. Jeder Peer signalisiert welche Blöcke er benötigt, als auch welche er anzubieten hat.
-Dieses System ist ausreichend, wenn jeder Peer die Blöcke die der andere Peer benötigt zur Verfügung stellen kann. Wenn dies nicht der Fall ist, sinkt die eingehende Datenübertragunsrate des Peers, der weniger Blöcke zur Verfügung stellen kann.
+Dieses System ist ausreichend, wenn jeder Peer die Blöcke, die der andere Peer benötigt zur Verfügung stellen kann. Wenn dies nicht der Fall ist, sinkt die eingehende Datenübertragungsrate des Peers, der weniger Blöcke zur Verfügung stellen kann.
 Das System belohnt Peers, die seltene Blöcke zur Verfügung stellen, auch wenn diese nicht vom Peer selbst benötigt werden [[BENE14]](#ref_BENE14).
 
 #### Git
@@ -175,7 +175,7 @@ Das Protokoll selbst ist in entsprechende Teilprotokolle, die jedoch nicht unabh
 2. **Network** - Verwaltung der Verbindung zwischen den Peers
 3. **Routing** - Informationsverwaltung zur Lokalisation von Peers und Objekten (siehe DHT)
 4. **Exchange** - Blockverteilungsprotokoll zum effizienten Austausch von Blöcken (siehe BitTorrent)
-5. **Objects** - Merkle DAG der inhaltsgebundene, unveränderlichen Objekte und Links inkludiert
+5. **Objects** - Merkle DAG der inhaltsgebundenen, unveränderlichen Objekte und Links inkludiert
 6. **Files** - Versionierung von Dateien, ähnlich der Git-Mechanik
 7. **Naming** - Selbst-Zertifizierung des Filesystems (SFS)
 
@@ -185,13 +185,13 @@ Zusammengefasst wurde IPFS konzipiert unter Berücksichtigung bekannter und bew�
 Ziel vom interplanetaren Filesystem ist es eine Alternative zum aktuellem HTTP-Standard zu bieten.
 So kann durch die Dezentralisierung eine Ersparnis der Bandbreitenkosten um bis zu 60% erzielt werden.
 Die Kopplung einer Internetseite mit einem Hostinganbieter kann abgebildet werden, wodurch die Lebensspanne von Internetseite theoretisch unbegrenzt ist. 
-Solange ein Peer im Netzwerk Dateien zur Verfügung stellt, ist eine gezielte Zensur unmöglich. Ebenso wird ein Dateiaustausch und das gemeinsame Bearbeiten von 
+Solange ein Peer im Netzwerk Dateien zur Verfügung stellt, ist eine gezielte Zensur unmöglich. Ebenso werden der Dateiaustausch und das gemeinsame Bearbeiten von 
 Objekten ermöglicht.
 
 Zusammengefasst ist IPFS ein Protokoll, das die Verteilung von Inhalten verwaltet, diese Inhalte werden inhaltsgebunden adressiert. 
 Es ist ein Dateisystem, dass aus Ordnern und Dateien besteht. Ebenso ist IPFS ein Netz, dass das Betrachten von Dokumenten, ähnlich HTTP, unterstützt. Auf Dateien kann ebenso mittels HTTP mit https://ipfs.io/`<path>` zugegriffen werden. 
 Dabei garantieren Hashverfahren die Authentizität von Objekten, ermöglichen die Versionierung und Adressierung von Inhalten, ebenso werden Duplikate zuverlässig erkannt. Durch den modularen Aufbau sind Routingverfahren als auch die genutzten verteilten Hashtabellen individualisierbar.
-Darüber hinaus ist IPFS ein P2P-System ohne einen "Central-Point-of-Failure" und vollständig dezentral, Dateien die lokal gespeichert werden sind weltweit abrufbar und nutzen die geteilte Bandbreite der Peers. Auch ist ein Nameservice gegeben, dieser verknüpft .onion, .bit etc. mit IPNS [[IPFS18]](#ref_IPFS18).
+Darüber hinaus ist IPFS ein P2P-System ohne einen "Central-Point-of-Failure" und vollständig dezentral. Dateien, die lokal gespeichert werden, sind weltweit abrufbar und nutzen die geteilte Bandbreite der Peers. Auch ist ein Nameservice gegeben, dieser verknüpft `.onion`, `.bit` etc. mit IPNS [[IPFS18]](#ref_IPFS18).
 
 
 ### Aktuelles
@@ -215,8 +215,8 @@ Auch existieren Spiegelungen der Wikipediaplattform in <a href="https://ipfs.io/
 #### Initialisierung
 Die grundsätzliche Nutzung von IPFS als Peer erfordert die Installation des IPFS-Command-Line-Interfaces (<a href="https://dist.ipfs.io/#go-ipfs">hier</a>).
 Nach der Installation ist im Kommandozeileinterfaces des Betriebssystems IPFS verfügbar. Um IPFS nutzen zu können, muss ein globales lokales Objektrepository angelegt werden. 
-Dazu muss einmalig der Befehl `ipfs init` genutzt werden.  In der Standardkonfiguration wird ein .ipfs-Order im Home-Verzeichnis angelegt. 
-Innerhalb des Verzeichnis befindet sich eine config-Datei im JSON-Format, diese dient zum Konfigurationen der IPFS-Repository, so beträgt z.B. die maximale des Storage 10-GB in der Standardkonfiguration. 
+Dazu muss einmalig der Befehl `ipfs init` genutzt werden.  In der Standardkonfiguration wird ein `.ipfs`-Ordner im Home-Verzeichnis angelegt. 
+Innerhalb des Verzeichnisses befindet sich eine `config`-Datei im JSON-Format, diese dient zum Konfigurationen der IPFS-Repository, so beträgt z.B. die maximale des Storage 10-GB in der Standardkonfiguration. 
 
 ![ref_ipfs_init](./images/ipfs_init.png "Initialisierung des IPFS-Repository")
 
@@ -247,11 +247,11 @@ Das Hinzufügen von Objekten erfolgt intuitiv mit den Befehlen `ipfs add <PATH>`
 
 Zum Löschen muss berücksichtigt werden, dass IPFS einen Garbagecollector nutzt.
 Der Garbagecollector löscht im vorgegebenen Intervall Objekte die nicht "gepinnt" wurden. Der `ipfs add`-Befehl führt ohne entsprechende Parameter intern den Befehl `ipfs pin add <PFAD>` aus, wodurch ein Objekten im lokalen Repository dauerhaft gespeichert wird.
-Gepinnte Objekte werden nicht vom Garbagecollector entfernt sondern befinden sich, sofern der Daemon auf dem Peer aktiv ist, dauerhaft im IPFS-Netz. Um das Löschen von "ungepinnten" Objekten zu forcieren wird der Befehl `ipfs repo gc` genutzt.
+Gepinnte Objekte werden nicht vom Garbagecollector entfernt, sondern befinden sich, sofern der Daemon auf dem Peer aktiv ist, dauerhaft im IPFS-Netz. Um das Löschen von "ungepinnten" Objekten zu forcieren wird der Befehl `ipfs repo gc` genutzt.
 Um das Pinnen der Objekte zu entfernen, muss `ipfs pin rm <HASH>` genutzt werden, anschließend wird der Garbagecollector beim nächsten Arbeitsintervall das Objekt entfernen. 
 Zum Anzeigen der gepinnten Objekte wird `ipfs pin ls` genutzt.
 
-Ein exemplarische Ablauf des beschriebenen Vorgangs:
+Ein exemplarischer Ablauf des beschriebenen Vorgangs:
 
 ```shell
 C:\> ipfs pin ls
@@ -288,25 +288,26 @@ C:\>
 
 #### IPFS-Gateway
 Für die Interaktion mit IPFS mittels HTTP-Protokoll stehen entsprechende Gatewayserver zur Verfügung, diese sind in der Lage mit `<GATEWAY>/ipfs/<HASH>` hinzugefügte Inhalte über jeden Browser zur Verfügung zu stellen.
-So ist die Wikipediaspiegelung im Browser über den Link `https://ipfs.io/ipfs/QmXoypizjW3WknFiJnKLwHCnL72vedxjQkDDP1mXWo6uco/wiki/` erreichbar, der Gateway ist in dem Fall ipfs.io. Jedoch kann das Abrufen eines IPFS-Objektes über einen Gateway beim erstmaligen Zugriff
+So ist die Wikipediaspiegelung im Browser über den Link `https://ipfs.io/ipfs/QmXoypizjW3WknFiJnKLwHCnL72vedxjQkDDP1mXWo6uco/wiki/` erreichbar, der Gateway ist in dem Fall ipfs.io. 
+Jedoch kann das Abrufen eines IPFS-Objektes über ein Gateway beim erstmaligen Zugriff
 mehrere Minuten dauern.
 
 ##### IPNS
-Das Inter-Planetary-Naming-System, kurz IPNS, ermöglicht es die PeerID mit einem Hashwerte eines Objektes zu referenzieren. Dazu wird der Befehl `ipfs name publish <HASH>` genutzt. So kann mittels `<GATEWAY>/ip**n**s/<PEERID>` auf den assoziierten Inhalt zuzugreifen.
-Jedoch ist der referenzierten Hash manuell anzupassen, dieser ändert sich aufgrund der unveränderlichen Datenstruktur nicht.
+Das Inter-Planetary-Naming-System, kurz IPNS, ermöglicht es die PeerID mit einem Hashwert eines Objektes zu referenzieren. Dazu wird der Befehl `ipfs name publish <HASH>` genutzt. So kann mittels `<GATEWAY>/ip**n**s/<PEERID>` auf den assoziierten Inhalt zuzugreifen.
+Jedoch ist der referenzierte Hash manuell anzupassen, dieser ändert sich aufgrund der unveränderlichen Datenstruktur nicht.
 
 
 ### WebUI
 
 Die Web-UserInterface von IPFS kann, sofern der Daemon aktiv ist und die Standardportkonfiguration genutzt wird, mit der URL `localhost:5001/webui` im jedem Browser geladen werden.
 Diese Applikation ist ein Beispiel für eine dezentrale Anwendung.
-So kann in der Verbindungsrepubrik bspw. eine Liste der verbundenene Peers angezeigt werden, inkl. der PeerID, dem Standort (insofern ermittelbar).
+So kann in der Verbindungsrubrik bspw. eine Liste der verbundenen Peers angezeigt werden, inkl. der PeerID, dem Standort (insofern ermittelbar).
 
 ![ref_ipfs_webui](./images/ipfs_webui.png "Verbundene Peers")
 
 Screenshot aus dem WebUI
 
-Auch ist es möglich Objekte hinzuzufügen oder nach einem Hash zu suchen, ebenso ist das Herunterladen der assoziierte Dateien möglich. Das WebUI bietet eine Vielzahl der notwendigen Operationen für den Basisumgang mit IPFS und visualisiert diese anschaulich.
+Auch ist es möglich Objekte hinzuzufügen oder nach einem Hash zu suchen, ebenso ist das Herunterladen der assoziierten Dateien möglich. Das WebUI bietet eine Vielzahl der notwendigen Operationen für den Basisumgang mit IPFS und visualisiert diese anschaulich.
 Darüber hinaus kann Einsicht in die Konfigurationen des eigenen Peers genommen werden, diese lassen sich ebenfalls modifizieren.
 
 
