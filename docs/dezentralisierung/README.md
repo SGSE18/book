@@ -93,12 +93,13 @@ IPFS kombiniert Eigenschaften bekannter Systeme, wie z.B. DHTs, BitTorrent, Git 
 Verteilte Hashtabellen sind Datenstrukturen, die in Peer-to-Peer-Systemen genutzt werden, um die Speicherorte von Dateien abzubilden. 
 So spiegelt jeder Speicherknoten einen Eintrag in der Hashtabelle wider. Diese vereinfachte Darstellung, dient als Vorlage für verschiedene Implementierungen und kann durch die generalisierte Schnittstelle
 *publish(key, content)* und *lookup(key)* angeboten werden. Im IPFS-Kontext werden die Implementierungen Coral DSHT, Kademlia DHT bzw. S/Kademlia DHT genutzt [[BENE14]](#ref_BENE14).
+
 ##### Kademlia DHT
 
 Einem Knoten wird ein 160-Bit Key zugeordnet, partizipierende Computer erhalten ebenso eine 160-Bit Knoten-ID, letztere ist einmalig und vergleichbar mit einer UUID. 
 So werden Key-Value-Paare einer "nahen" ID zugeordnet. Zum Lokalisieren eines nahen Knotens wird ein Routingalgorithmus vom Start zum Ziel genutzt.
 Kademlia betrachtet dabei Knoten als Blätter eines binären Baums, die Position eines Knoten wird anhand des kürzesten, einmaligen Präfix bspw. 0011 bestimmt.
-Der genutzte Präfix wird durch eine XOR-Verknüpfung von zwei Knoten-IDs generiert [[MAYM02]](#ref_MAYM02).
+Das genutzte Präfix wird durch eine XOR-Verknüpfung von zwei Knoten-IDs generiert [[MAYM02]](#ref_MAYM02).
 
 Für IPFS hervorzuheben Eigenschaften sind [[BENE14]](#ref_BENE14):
 
@@ -134,6 +135,12 @@ Als belastend zu verstehen sind Nutzer(-gruppen), die Dateien vom Netzwerk herun
 
 3. Die Belohnungs- und Bestrafungsstrategie ist anfällig gegenüber einem Exploit, in dem Angreifer ihre Bandbreite auf weitere Peers aufteilen [[ADAM15]](#ref_ADAM15).
 
+##### BitSwap Protocol
+
+In IPFS wird das BitSwap-Protokoll genutzt, welches auf BitTorrent aufbaut. Dabei wird, umgangssprachlich gesprochen, ein Marktplatz realisiert. Jeder Peer signalisiert welche Blöcke er benötigt, als auch welche er anzubieten hat.
+Dieses System ist ausreichend, wenn jeder Peer die Blöcke die der andere Peer benötigt zur Verfügung stellen kann. Wenn dies nicht der Fall ist, sinkt die eingehende Datenübertragunsrate des Peers, der weniger Blöcke zur Verfügung stellen kann.
+Das System belohnt Peers, die seltene Blöcke zur Verfügung stellen, auch wenn diese nicht vom Peer selbst benötigt werden [[BENE14]](#ref_BENE14).
+
 #### Git
 
 Das Versionsverwaltungssystem Git, dass häufig mit der Website github.com assoziiert wird, bietet ebenso wichtige Funktionalitäten für das IPFS-Protokoll.
@@ -168,7 +175,7 @@ Das Protokoll selbst ist in entsprechende Teilprotokolle, die jedoch nicht unabh
 2. **Network** - Verwaltung der Verbindung zwischen den Peers
 3. **Routing** - Informationsverwaltung zur Lokalisation von Peers und Objekten (siehe DHT)
 4. **Exchange** - Blockverteilungsprotokoll zum effizienten Austausch von Blöcken (siehe BitTorrent)
-5. **Objects** - Merkle DAG der inhaltsgebundenen, unveränderlichen Objekte und Links
+5. **Objects** - Merkle DAG der inhaltsgebundene, unveränderlichen Objekte und Links inkludiert
 6. **Files** - Versionierung von Dateien, ähnlich der Git-Mechanik
 7. **Naming** - Selbst-Zertifizierung des Filesystems (SFS)
 
@@ -205,9 +212,103 @@ Auch existieren Spiegelungen der Wikipediaplattform in <a href="https://ipfs.io/
  
 ### IPFS-CLI
 
-Die Nutzung von IPFS als Peer erfordert die Installation des IPFS-Command-Line-Interfaces (<a href="https://dist.ipfs.io/#go-ipfs">hier</a>).
+#### Initialisierung
+Die grundsätzliche Nutzung von IPFS als Peer erfordert die Installation des IPFS-Command-Line-Interfaces (<a href="https://dist.ipfs.io/#go-ipfs">hier</a>).
+Nach der Installation ist im Kommandozeileinterfaces des Betriebssystems IPFS verfügbar. Um IPFS nutzen zu können, muss ein globales lokales Objektrepository angelegt werden. 
+Dazu muss einmalig der Befehl `ipfs init` genutzt werden.  In der Standardkonfiguration wird ein .ipfs-Order im Home-Verzeichnis angelegt. 
+Innerhalb des Verzeichnis befindet sich eine config-Datei im JSON-Format, diese dient zum Konfigurationen der IPFS-Repository, so beträgt z.B. die maximale des Storage 10-GB in der Standardkonfiguration. 
 
-<!-- Beschreibung Deploymentprozess + nützliche IPFS-Befehle wenn Demo fertig -->
+![ref_ipfs_init](./images/ipfs_init.png "Initialisierung des IPFS-Repository")
+
+Abbildungen entnommen von [[PROT18]](#ref_PROT18)
+
+Wie in der Abbildung zu sehen ist, wird nach der Initialisierung das Öffnen einer readme-Datei mit dem Befehl `ipfs cat /ipfs/<HASH>/readme` zum Starten angezeigt. 
+Der Hash referenziert in diesem Beispiel ein Verzeichnis, während die readme eine Datei innerhalb des Verzeichnisses widerspiegelt. 
+Folglich muss die Datei ebenfalls einen gültigen Hash besitzen, sonst wäre diese kein Teil vom IPFS-Netz.
+So ermöglicht der Funktion `ipfs ls <HASH>` die Möglichkeit eine Auflistung der Dateien und ihrer Hashwerte innerhalb des Verzeichnisses. Jedoch ist zu berücksichtigen, dass nur eine Ausgabe erfolgt, wenn der Hash ein Verzeichnis und keine Datei referenziert.
+Folglich ist die Ausgabe von `ipfs cat <HASH_DER_DATEI>` identisch zum Beispiel oben.
+
+Die Ausgabe von `ipfs ls` spiegelt den Merkle DAG von IPFS wider, d.h. wenn eine Datei größer als die maximale Chunksize ist (256 kb), wird diese entsprechend im Merkle DAG dargestellt. 
+So wird eine 512-KB Datei mit einem Hash repräsentiert und die jeweiligen Chunks als Knoten die dem Graphen des Objektes zugeordnet.
+
+![ref_ipfs_graph](./images/ipfs_graph.png "IPFS Merkle DAG")
+
+Abbildung entnommen von [[PROT18]](#ref_PROT18)
+
+#### Daemon
+
+Nach der Initialisierung wurde zwar ein Repository angelegt, jedoch ist dieser nicht mit dem IPFS-Netz verbunden. Zur Verbindung mit dem IPFS-Netz wird ein Daemon benötigt, welcher mit dem Befehl `ipfs daemon` erstellt werden kann.
+Anschließend kann mit dem Befehl `ipfs swarm peers` eine Liste der verbundenen Peers, in der Form `<TRANSPORT_ADRESSE>/ipfs/<PUBLIC_KEY_HASH>` angezeigt werden. 
+Nachdem Starten des Daemon, ist man in der Lage mit dem Netzwerk zu interagieren, in dem Objekte zur Verfügung gestellt und auch angefragt werden können.
+
+#### Hinzufügen und Löschen von Objekten
+
+Das Hinzufügen von Objekten erfolgt intuitiv mit den Befehlen `ipfs add <PATH>`. 
+
+Zum Löschen muss berücksichtigt werden, dass IPFS einen Garbagecollector nutzt.
+Der Garbagecollector löscht im vorgegebenen Intervall Objekte die nicht "gepinnt" wurden. Der `ipfs add`-Befehl führt ohne entsprechende Parameter intern den Befehl `ipfs pin add <PFAD>` aus, wodurch ein Objekten im lokalen Repository dauerhaft gespeichert wird.
+Gepinnte Objekte werden nicht vom Garbagecollector entfernt sondern befinden sich, sofern der Daemon auf dem Peer aktiv ist, dauerhaft im IPFS-Netz. Um das Löschen von "ungepinnten" Objekten zu forcieren wird der Befehl `ipfs repo gc` genutzt.
+Um das Pinnen der Objekte zu entfernen, muss `ipfs pin rm <HASH>` genutzt werden, anschließend wird der Garbagecollector beim nächsten Arbeitsintervall das Objekt entfernen. 
+Zum Anzeigen der gepinnten Objekte wird `ipfs pin ls` genutzt.
+
+Ein exemplarische Ablauf des beschriebenen Vorgangs:
+
+```shell
+C:\> ipfs pin ls
+QmS4ustL54uo8FzR9455qaxZwuMiUhyvMcX9Ba8nUH4uVv recursive
+QmXgqKTbzdh83pQtKFb19SpMCpDDcKR2ujqk3pKph9aCNF indirect
+...
+
+C:\> echo "ipfs text" | ipfs add -q
+QmZEUJSwomVx3XQzwjHVPKiwmDtYcE1PbyoTf8wjAhTLwe
+
+C:\> ipfs pin ls
+QmZEUJSwomVx3XQzwjHVPKiwmDtYcE1PbyoTf8wjAhTLwe recursive
+...
+
+C:\> ipfs cat QmZEUJSwomVx3XQzwjHVPKiwmDtYcE1PbyoTf8wjAhTLwe
+ipfs text
+
+C:\> ipfc repo gc
+...
+
+C:\> ipfs cat QmZEUJSwomVx3XQzwjHVPKiwmDtYcE1PbyoTf8wjAhTLwe
+ipfs text
+
+C:\> ipfs pin rm QmZEUJSwomVx3XQzwjHVPKiwmDtYcE1PbyoTf8wjAhTLwe
+unpinned QmZEUJSwomVx3XQzwjHVPKiwmDtYcE1PbyoTf8wjAhTLwe
+
+C:\> ipfs repo gc
+QmZEUJSwomVx3XQzwjHVPKiwmDtYcE1PbyoTf8wjAhTLwe
+...
+
+C:\> ipfs cat QmZEUJSwomVx3XQzwjHVPKiwmDtYcE1PbyoTf8wjAhTLwe
+C:\>
+```
+
+#### IPFS-Gateway
+Für die Interaktion mit IPFS mittels HTTP-Protokoll stehen entsprechende Gatewayserver zur Verfügung, diese sind in der Lage mit `<GATEWAY>/ipfs/<HASH>` hinzugefügte Inhalte über jeden Browser zur Verfügung zu stellen.
+So ist die Wikipediaspiegelung im Browser über den Link `https://ipfs.io/ipfs/QmXoypizjW3WknFiJnKLwHCnL72vedxjQkDDP1mXWo6uco/wiki/` erreichbar, der Gateway ist in dem Fall ipfs.io. Jedoch kann das Abrufen eines IPFS-Objektes über einen Gateway beim erstmaligen Zugriff
+mehrere Minuten dauern.
+
+##### IPNS
+Das Inter-Planetary-Naming-System, kurz IPNS, ermöglicht es die PeerID mit einem Hashwerte eines Objektes zu referenzieren. Dazu wird der Befehl `ipfs name publish <HASH>` genutzt. So kann mittels `<GATEWAY>/ip**n**s/<PEERID>` auf den assoziierten Inhalt zuzugreifen.
+Jedoch ist der referenzierten Hash manuell anzupassen, dieser ändert sich aufgrund der unveränderlichen Datenstruktur nicht.
+
+
+### WebUI
+
+Die Web-UserInterface von IPFS kann, sofern der Daemon aktiv ist und die Standardportkonfiguration genutzt wird, mit der URL `localhost:5001/webui` im jedem Browser geladen werden.
+Diese Applikation ist ein Beispiel für eine dezentrale Anwendung.
+So kann in der Verbindungsrepubrik bspw. eine Liste der verbundenene Peers angezeigt werden, inkl. der PeerID, dem Standort (insofern ermittelbar).
+
+![ref_ipfs_webui](./images/ipfs_webui.png "Verbundene Peers")
+
+Screenshot aus dem WebUI
+
+Auch ist es möglich Objekte hinzuzufügen oder nach einem Hash zu suchen, ebenso ist das Herunterladen der assoziierte Dateien möglich. Das WebUI bietet eine Vielzahl der notwendigen Operationen für den Basisumgang mit IPFS und visualisiert diese anschaulich.
+Darüber hinaus kann Einsicht in die Konfigurationen des eigenen Peers genommen werden, diese lassen sich ebenfalls modifizieren.
+
 
 ## DAT
 
@@ -245,7 +346,7 @@ Die Gewährleistung der Datenintegrität ist eines der Schlüsselkritieren der d
 Es muss sichergestellt werden, dass die empfangene Daten exakt die angeforderten Daten sind.
 Wenn beispielsweise ein HTTP-Hyperlink eine Datei referenziert, kann ein Nutzer oft nur durch erneutes Herunterladen herausfinden, ob es eine Änderung des Inhaltes gab. 
 Dies ist zu begründen, dass im HTTP-Protokoll ein Hyperlink eine Adresse referenziert, im Gegensatz dazu wird in DAT (ebenso in IPFS) ein Hyperlink den Inhalt referenzieren. 
-Um den Inhalt korrekt referenzieren zu können wir ein kryptografischer Hash, der die Datei eindeutig beschreibt, berechnet. Diese Hashes werden in einem Merkletree angeordnet (siehe [Git](#git)) [[OGDE18]](#ref_OGDE18).
+Um den Inhalt korrekt referenzieren zu können wir ein kryptografischer Hash, der die Datei eindeutig beschreibt, berechnet. Diese Hashes werden in einem Merkle Tree angeordnet (siehe [Git](#git)) [[OGDE18]](#ref_OGDE18).
 
 #### DAT Links
 
@@ -257,20 +358,22 @@ Da DAT über keine Authentifikationsmechanismen verfügt, kann der Dateizugriff 
 #### Hypercore
 
 Ist ein Modul von DAT das die Speicherung, die Datenintegrität und die Protokolle zur Netzwerknutzung implementiert. 
-Aufbauend auf Hypercore ist das Dateisystem Hyperdrive, letzteres ist als Abstraktionsschicht um Daten des Dateisystem, dem Hauptanwendungsfall von DAT, zu repräsentieren. 
-Beim Hinzufügen von Dateien wird eine Datei in Chunks unterteilt und in einem Merkle Tree angeordnet, dieser Baum kann anschließend für Versionskontrolle und dem Replikationsprozess genutzt werden. Der Replikationsprozess wird ausgelöst, wenn mit weiteren Peers synchronisiert wird.
+Aufbauend auf Hypercore ist das Dateisystem Hyperdrive, letzteres ist als Abstraktionsschicht um Daten des Dateisystems, dem Hauptanwendungsfall von DAT, zu repräsentieren. 
+Beim Hinzufügen von Dateien wird eine Datei in Chunks unterteilt und in einem Merkle Tree angeordnet, dieser Baum kann anschließend für Versionskontrolle und dem Replikationsprozess genutzt werden.
+Der Replikationsprozess wird ausgelöst, wenn mit weiteren Peers synchronisiert wird.
 Dazu werden Hypercore Register genutzt, die eine binäre Datenstruktur, die ausschließlich erweitert werden kann und aus signierten kryptografischen Hashes besteht. Die Validierung erfolgt durch den Public-Key des Erstellers [[OGDE18]](#ref_OGDE18).
 
 #### Zusammenfassung
 
 Viele Komponenten vom DAT-Protokoll des DAT-Protokolls sind identisch mit IPFS. Jedoch erfolgt eine Unterscheidung im Anwendungsfall.
-Während DAT auf die Versionierung von Dateien spezialisiert ist, liegt der Fokus beim IPFS eher auf der Verteilung von Dateien. Durch die Merkle Tree Struktur kann eine komplette Synchronisation vermieden werden, es müssen lediglich abweichende Komponenten (Deltas) zwischen des Peers ausgetauscht werden.
+Während DAT auf die Versionierung von Dateien spezialisiert ist, liegt der Fokus beim IPFS eher auf der Verteilung von Dateien. 
+Durch die Merkle Tree Struktur kann eine komplette Synchronisation vermieden werden, es müssen lediglich abweichende Komponenten (Deltas) zwischen den Peers ausgetauscht werden.
 Diese Funktionalität ist im IPFS-System per se nicht gegeben, jedoch ist eine manuelle Implementierung ebenso möglich. 
 Verglichen mit IPFS ist DAT ein spezialisiertes Protokoll, jedoch mit vielen parallelen Eigenschaften [[DATP18]](#ref_DATP18).
 
 ### Aktuelles
 
-Während IPFS in vielen Teilaspekten noch technisch unausgereift (bezogen auf das Entwicklungsstadium), ist das DAT-Protokoll weiter entwickelt.
+Während IPFS in vielen Teilaspekten noch technisch unausgereift (bezogen auf das Entwicklungsstadium), ist das DAT-Protokoll weiterentwickelt.
 
 ![ref_npm_trends](./images/npm_trends.png "NPM-Trends DAT vs IPFS")
 
