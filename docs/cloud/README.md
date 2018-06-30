@@ -30,9 +30,10 @@ Autor: Björn Böing
         - [Systemfehler](#systemfehler)
         - [Privatsphäre](#privatsphäre)
         - [Inflexibilität & geringere Kontrolle](#inflexibilität)
-- [Amazon Web Service (AWS)](#aws)
-    - [Einführung & Grundlagen](#einführung-grundlagen)
-    - [Elastic Compute Cloud (EC2)](#elastic-compute-cloud)
+- [Amazon Web Services (AWS)](#aws)
+    - [Grundlagen](#grundlagen)
+    - [Identity and Access Management (IAM)](#iam)
+    - [Elastic Compute Cloud (EC2)](#ec2)
     - [Simple Storage Service (S3)](#s3)
     - [AWS Lambda](#aws-lambda)
 - [Cloud Design Pattern](#cloud-design-pattern)
@@ -353,21 +354,94 @@ Zusammenfassend ist zu sagen, dass viele Unternehmen durch die Skalierbarkeit, A
 
 <a name="aws"></a>
 
-## Amazon Web Service (AWS)
+## Amazon Web Services (AWS)
+
+Mit _"Amazon Web Services"_ (AWS) hat Amazon im März 2006 eine Plattform für die Öffentlichkeit gestartet, mit der Cloud Computing Dienste flexibel und nach Bedarf von Einzelpersonen, Unternehmen und Regierungen bezogen werden können. Mit 34% Marktanteil konnte Amazon 2017 allein durch AWS einen Umsatz von 17,4 Milliarden US-Dollar verbuchen. [[RAMA17]](#ref_rama17)
+
+Die Dienste können zentral über die _"AWS Management Console"_ erreicht und konfiguriert werden. Dabei reicht ein Internet Browser als Client aus oder sogar eine AWS spezifische Smartphone App, die allerdings nur lesenden Zugriff ermöglicht. Über die Management Konsole kann auf alle der über 90 Dienste zugegriffen werden, die in die folgenden Bereiche aufgeteilt sind [[AWS18a]](#ref_aws18a):
+
+- Datenverarbeitung
+- Speicherung
+- Datenbank
+- Migration
+- Netzwerk und Bereitstellung von Inhalten
+- Developer-Tools
+- Verwaltungs-Tools
+- Medienservices
+- Maschinelles Lernen
+- Analysen
+- Sicherheit, Identität und Compliance
+- Services für Mobilgeräte
+- AR und VR
+- Anwendungsintegration
+- Customer Engagement
+- Unternehmensproduktivität
+- Desktop- und App-Streaming
+- Internet of Things
+- Entwicklung von Spielen
+- Software
+- AWS-Kostenmanagement
+
+Wie auch bei anderen Cloud Computing Anbietern, ergeben sich die Kosten für den Nutzer durch eine Kombination von Verbrauch, den Spezifikationen zu Hardware/Betriebssystem/Software/Netwerk, der benötigten Erreichbarkeit, Redundanz, Sicherheit und dem gewünschten Kundenservice. Dabei setzt auch Amazon auf das _"Pay per us"_ Prinzip und rechnet Kosten monatlich ab. Viele Dienste wie [EC2](#ec2), [S3](#s3), [AWS Lambda](#aws-lambda) und Amazon RDS können auf einer kostenlosen Basis, mit eingeschränktem Kontingent, genutzt werden. Darüberhinaus können Institutionen, Lehrbeauftragte und Studenten sich über _"AWS Educate"_ zusätzlich einem Netzwerk anschließen, welches bei der Ausbildung der _"nächsten Generation von IT und Cloud Experten"_ beitragen soll und die nötigen Ressourcen zum cloudbezogenen Lernen bereitstellen. AWS Educate ermöglicht es außerdem Studenten sich ein Kontingent von 40 US-Dollar zu sichern, das frei für die AWS-Dienste verwendet werden kann. [[AWS18b]](#ref_aws18b) [[AWS18c]](#ref_aws18c) [[AWS18d]](#re_aws18d)
+
+In den nachfolgenden Abschnitten sollen zum einen einige Grundlagen und allgemeine Hinweise zur Verwendung von AWS erläutert und zum anderen die bekanntesten Dienste vorgestellt werden.
 
 - Static file deployment
 - Container deployment
 - Eventverarbeitung
+
+
+<a name="grundlagen"></a>
+
+### Grundlagen
+
+Durch einen erfolgreichen Login zur AWS Management Console gelangt man zu einer Art Dashboard, wie es die [Abbildung 3](#img_aws_console) zeigt. In rot wurden die wichtigsten Menüoptionen markiert und kurz beschrieben.
+
+Der Menüpunkt __Services__ öffnet die Gesamtübersicht zu allen Diensten die AWS anbietet und erlaubt eine weitere Navigation zu den jeweiligen Diensten.
+
+Über einen Klick auf den eigenen __Nutzernamen__ (in diesem Fall "User") sind alle Einstellungen zu erreichen, die mit dem eigenen Account zusammenhängen. Dazu gehören persönliche Informationen, die Organisationen der man unter Umständen angehört, die aktuelle Kostenübersicht und die Einsicht zu sicherheitsrelevanten Informationen wie Passwort, Multi-Faktor-Authentifizierung und privaten Schlüsseln.
+
+Der letzte Menüpunkt erlaubt es die Region zu wechseln in der Aktionen ausgeführt werden sollen. Die [Abbildung 3](#img_aws_console) zeigt "Ohio" an, es können aber verschiedene Regionen aus den östlichen USA, den westlichen USA, Asien/Pazifik, der EU und auch Südamerika gewählt werden. Dieser Menüpunkt ist von besonderer Wichtigkeit, wenn es darum geht sicherzustellen, dass Dienste unter anderem datenschutzrechtlich richtig gestartet werden. Außerdem ist anzumerken, dass zum aktuellen Zeitpunkt (Juni 2018) die Verwendung des kostenlosen Kontingents auf die vier Regionen in den USA beschränkt sind.
+
+<a name="img_aws_console"></a>
+<div style="text-align:center">
+    <img alt="AWS Management Console" src="./images/aws_management_console.png"/>
+    <br>
+
+Abb. 3: AWS Management Console - Quelle (verändert): [[AWS18e]](#ref_aws18e)
+
+</div>
+
+Die Erstellung eines AWS Accounts ist prinzipiell vollkommen kostenlos. Für eine standardmäßige Registrierung ist allerdings die Angabe einer Kreditkarte notwendig. Studenten können dies über AWS Educate umgehen.
+
+In den USA hat Amazon zwei sogenannte _"Pop-up Lofts"_ eröffnet, in denen AWS Kunden, Start-Up Unternehmen oder eigenständige Entwickler komplett kostenfrei professionelle Hilfestellung zu den AWS Infrastrukturen erhalten können. Dabei können vor Ort 60-minütige Sitzungen angenommen werden, in denen speziell geschultes Personal alle Fragen in Bezug auf AWS beantwortet und individuelle Hinweise gibt. Außerdem finden in diesen Pop-up Lofts in regelmäßigen Abständen Events statt, die in drei Kategorien unterteilt sind, um Anfänger, Fortgeschrittene und Experten zusätzliche Schulungsmöglichkeiten anzubieten. [[AWS18f]](#ref_aws18f) [[AWS18g]](#ref_aws18g)
+
 - Generelle Erläuterung und kleinere Anleitungen
-- AWS API gateway (Skalierbare APIs) ?
+
+
+<a name="iam"></a>
+
+### Identity and Access Management (IAM)
+
+Unternehmen und Organistationen, die AWS-Dienste nutzen, können durch die Verwendung von Amazons Accountsverwaltung _"Identity and Access Management"_ (IAM) ein individuelles Rechtesystem auf die AWS Infrastruktur abbilden. Dabei bietet IAM die Möglichkeit verschiedene Benutzer, Benutzergruppen und Rollen zu definieren und diesen sehr detailliert den Zugriff auf Ressourcen erlauben oder verbieten. Diese Benutzerverwaltung wird von Amazon kostenfrei angeboten und soll unter anderem mittels [Best Practices](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html) (externer Link) eine sichere Verwendung der AWS-Dienste innerhalb von Unternehmen und Organistationen bieten.
+
+Die Granularität in denen Rechte vergeben werden können reicht dabei von einem vollen Zugriff auf die AWS Management Console, über den Zugriff auf vereinzelte Dienste und Einstellungsmöglichkeiten bis zur Beschränkung darauf, dass nur einzelne Funktionen eines Dienstes aufgerufen werden können. Hinzu kommt, dass Zugriffe auf bestimmte Uhrzeiten und Zeiträume beschränkt werden können und Nutzern auch die Verwendung von Multi-Faktor-Authentifizierung vorgeschrieben werden kann.
+
+<a name="img_aws_iam"></a>
+<div style="text-align:center">
+    <img alt="AWS IAM Dashboard" src="./images/aws_iam.png"/>
+    <br>
+
+Abb. 3: AWS IAM Dashboard - Quelle: [[AWS18h]](#ref_aws18h)
+
+</div>
+
+Bei der Erstellung von neuen IAM-Benutzern können unter anderem Passwörter und Zugangsschlüssel vordefiniert werden, aber auch temporäre Anmeldedaten erzeugt werden. Temporäre Zugangsdaten können auch IAM-Benutzer und AWS-Dienste erhalten, die normalerweise keinen Zugriff auf AWS-Ressourcen einer Organisation haben. Hierbei kommen die IAM-Rollen ins Spiel die einer AWS-Ressource zugewiesen werden müssen. IAM-Benutzer und AWS-Dienste können diese definierten Rollen annehmen und anschließend temporäre Anmeldeinformationen erhalten, mit denen Aufrufe von AWS-APIs erfolgen können.
+
 - IAM erläutern
 
 
-<a name="einführung-grundlagen"></a>
-
-### Einführung & Grundlagen
-
-<a name="elastic-compute-cloud"></a>
+<a name="ec2"></a>
 
 ### Elastic Compute Cloud (EC2)
 
@@ -409,6 +483,62 @@ Zusammenfassend ist zu sagen, dass viele Unternehmen durch die Skalierbarkeit, A
     </tr>
     <tr>
         <td>URL: <a>https://www.infoq.com/news/2016/06/faas-serverless-architecture</a> (abgerufen am 27.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_aws18a">[AWS18a]</a></td>
+        <td style="width:90%">Amazon AWS: Produkte</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://aws.amazon.com/de/?nc2=h_lg</a> (abgerufen am 30.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_aws18b">[AWS18b]</a></td>
+        <td style="width:90%">Amazon AWS: AWS Free Tier</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://aws.amazon.com/free/</a> (abgerufen am 30.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_aws18c">[AWS18c]</a></td>
+        <td style="width:90%">Amazon AWS: AWS Customer Agreement</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://aws.amazon.com/agreement/</a> (abgerufen am 30.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_aws18d">[AWS18d]</a></td>
+        <td style="width:90%">Amazon AWS ; AWS Educate: Teach Tomorrow's Cloud Workforce Today</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://aws.amazon.com/education/awseducate/</a> (abgerufen am 30.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_aws18e">[AWS18e]</a></td>
+        <td style="width:90%">Amazon AWS: AWS Management Console</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://us-east-2.console.aws.amazon.com/console/home?region=us-east-2</a> (abgerufen am 30.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_aws18f">[AWS18f]</a></td>
+        <td style="width:90%">Amazon AWS: AWS Pop-up Loft</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://aws.amazon.com/start-ups/loft/</a> (abgerufen am 30.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_aws18g">[AWS18g]</a></td>
+        <td style="width:90%">Amazon AWS: AWS Pop-up Loft FAQ</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://aws.amazon.com/start-ups/loft/faq</a> (abgerufen am 30.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_aws18h">[AWS18h]</a></td>
+        <td style="width:90%">Amazon AWS: AWS IAM Dashboard</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://console.aws.amazon.com/iam/home?region=us-east-2#/users</a> (abgerufen am 30.06.2018)</td>
     </tr>
     <tr>
         <td rowspan="2" style="width:10%"><a name="ref_bian20">[BIAN20]</a></td>
@@ -612,6 +742,13 @@ Zusammenfassend ist zu sagen, dass viele Unternehmen durch die Skalierbarkeit, A
     </tr>
     <tr>
         <td>URL: <a>http://info.opto22.com/fog-vs-edge-computing</a> (abgerufen am 29.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_rama17">[RAMA17]</a></td>
+        <td style="width:90%">Rama, Galdys ; AWS insider, 01.08.2017: Report: AWS Market Share Is Triple Azure's</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://awsinsider.net/articles/2017/08/01/aws-market-share-3x-azure.aspx</a> (abgerufen am 30.06.2018)</td>
     </tr>
     <tr>
         <td rowspan="2" style="width:10%"><a name="ref_rega11">[REGA11]</a></td>
