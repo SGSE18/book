@@ -370,9 +370,6 @@ Zusammenfassend ist zu sagen, dass viele Unternehmen durch die Skalierbarkeit, A
 - IAM erläutern
 
 
-<<<<<<< HEAD
-<a name="einführung-grundlagen"></a>
-=======
 <a name="iam"></a>
 
 ### Identity and Access Management (IAM)
@@ -391,7 +388,6 @@ Abb. 3: AWS IAM Dashboard - Quelle: [[AWS18h]](#ref_aws18h)
 </div>
 
 Bei der Erstellung von neuen IAM-Benutzern können unter anderem Passwörter und Zugangsschlüssel vordefiniert werden, aber auch temporäre Anmeldedaten erzeugt werden. Temporäre Zugangsdaten können auch IAM-Benutzer und AWS-Dienste erhalten, die normalerweise keinen Zugriff auf AWS-Ressourcen einer Organisation haben. Hierbei kommen die IAM-Rollen ins Spiel die einer AWS-Ressource zugewiesen werden müssen. IAM-Benutzer und AWS-Dienste können diese definierten Rollen annehmen und anschließend temporäre Anmeldeinformationen erhalten, mit denen Aufrufe von AWS-APIs erfolgen können. [Abbildung 4](#img_aws_iam) zeigt beispielhaft ein IAM Dashboard, in dem mehrere Benutzer und Gruppen verwaltet werden können.
->>>>>>> Fix small letters on pictures
 
 ### Einführung & Grundlagen
 
