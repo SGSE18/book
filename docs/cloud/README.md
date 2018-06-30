@@ -382,7 +382,7 @@ Die Dienste können zentral über die _"AWS Management Console"_ erreicht und ko
 - Software
 - AWS-Kostenmanagement
 
-Wie auch bei anderen Cloud Computing Anbietern, ergeben sich die Kosten für den Nutzer durch eine Kombination von Verbrauch, den Spezifikationen zu Hardware/Betriebssystem/Software/Netwerk, der benötigten Erreichbarkeit, Redundanz, Sicherheit und dem gewünschten Kundenservice. Dabei setzt auch Amazon auf das _"Pay per us"_ Prinzip und rechnet Kosten monatlich ab. Viele Dienste wie [EC2](#ec2), [S3](#s3), [AWS Lambda](#aws-lambda) und Amazon RDS können auf einer kostenlosen Basis, mit eingeschränktem Kontingent, genutzt werden. Darüberhinaus können Institutionen, Lehrbeauftragte und Studenten sich über _"AWS Educate"_ zusätzlich einem Netzwerk anschließen, welches bei der Ausbildung der _"nächsten Generation von IT und Cloud Experten"_ beitragen soll und die nötigen Ressourcen zum cloudbezogenen Lernen bereitstellen. AWS Educate ermöglicht es außerdem Studenten sich ein Kontingent von 40 US-Dollar zu sichern, das frei für die AWS Dienste verwendet werden kann. [[AWS18b]](#ref_aws18b) [[AWS18c]](#ref_aws18c) [[AWS18d]](#re_aws18d)
+Wie auch bei anderen Cloud Computing Anbietern, ergeben sich die Kosten für den Nutzer durch eine Kombination von Verbrauch, den Spezifikationen zu Hardware/Betriebssystem/Software/Netwerk, der benötigten Erreichbarkeit, Redundanz, Sicherheit und dem gewünschten Kundenservice. Dabei setzt auch Amazon auf das _"Pay per us"_ Prinzip und rechnet Kosten monatlich ab. Viele Dienste wie [EC2](#ec2), [S3](#s3), [AWS Lambda](#aws-lambda) und Amazon RDS können auf einer kostenlosen Basis, mit eingeschränktem Kontingent, genutzt werden. Darüberhinaus können Institutionen, Lehrbeauftragte und Studenten sich über _"AWS Educate"_ zusätzlich einem Netzwerk anschließen, welches bei der Ausbildung der _"nächsten Generation von IT und Cloud Experten"_ beitragen soll und die nötigen Ressourcen zum cloudbezogenen Lernen bereitstellen. AWS Educate ermöglicht es außerdem Studenten sich ein Kontingent von 40 US-Dollar zu sichern, das frei für die AWS-Dienste verwendet werden kann. [[AWS18b]](#ref_aws18b) [[AWS18c]](#ref_aws18c) [[AWS18d]](#re_aws18d)
 
 In den nachfolgenden Abschnitten sollen zum einen einige Grundlagen und allgemeine Hinweise zur Verwendung von AWS erläutert und zum anderen die bekanntesten Dienste vorgestellt werden.
 
@@ -423,8 +423,20 @@ In den USA hat Amazon zwei sogenannte _"Pop-up Lofts"_ eröffnet, in denen AWS K
 
 ### Identity and Access Management (IAM)
 
+Unternehmen und Organistationen, die AWS-Dienste nutzen, können durch die Verwendung von Amazons Accountsverwaltung _"Identity and Access Management"_ (IAM) ein individuelles Rechtesystem auf die AWS Infrastruktur abbilden. Dabei bietet IAM die Möglichkeit verschiedene Benutzer, Benutzergruppen und Rollen zu definieren und diesen sehr detailliert den Zugriff auf Ressourcen erlauben oder verbieten. Diese Benutzerverwaltung wird von Amazon kostenfrei angeboten und soll unter anderem mittels [Best Practices](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html) (externer Link) eine sichere Verwendung der AWS-Dienste innerhalb von Unternehmen und Organistationen bieten.
 
+Die Granularität in denen Rechte vergeben werden können reicht dabei von einem vollen Zugriff auf die AWS Management Console, über den Zugriff auf vereinzelte Dienste und Einstellungsmöglichkeiten bis zur Beschränkung darauf, dass nur einzelne Funktionen eines Dienstes aufgerufen werden können. Hinzu kommt, dass Zugriffe auf bestimmte Uhrzeiten und Zeiträume beschränkt werden können und Nutzern auch die Verwendung von Multi-Faktor-Authentifizierung vorgeschrieben werden kann.
 
+<a name="img_aws_iam"></a>
+<div style="text-align:center">
+    <img alt="AWS IAM Dashboard" src="./images/aws_iam.png"/>
+    <br>
+
+Abb. 3: AWS IAM Dashboard - Quelle: [[AWS18h]](#ref_aws18h)
+
+</div>
+
+Bei der Erstellung von neuen IAM-Benutzern können unter anderem Passwörter und Zugangsschlüssel vordefiniert werden, aber auch temporäre Anmeldedaten erzeugt werden. Temporäre Zugangsdaten können auch IAM-Benutzer und AWS-Dienste erhalten, die normalerweise keinen Zugriff auf AWS-Ressourcen einer Organisation haben. Hierbei kommen die IAM-Rollen ins Spiel die einer AWS-Ressource zugewiesen werden müssen. IAM-Benutzer und AWS-Dienste können diese definierten Rollen annehmen und anschließend temporäre Anmeldeinformationen erhalten, mit denen Aufrufe von AWS-APIs erfolgen können.
 
 - IAM erläutern
 
@@ -520,6 +532,13 @@ In den USA hat Amazon zwei sogenannte _"Pop-up Lofts"_ eröffnet, in denen AWS K
     </tr>
     <tr>
         <td>URL: <a>https://aws.amazon.com/start-ups/loft/faq</a> (abgerufen am 30.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_aws18h">[AWS18h]</a></td>
+        <td style="width:90%">Amazon AWS: AWS IAM Dashboard</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://console.aws.amazon.com/iam/home?region=us-east-2#/users</a> (abgerufen am 30.06.2018)</td>
     </tr>
     <tr>
         <td rowspan="2" style="width:10%"><a name="ref_bian20">[BIAN20]</a></td>
