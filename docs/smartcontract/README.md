@@ -264,7 +264,7 @@ Contract zu lokalisieren.
 
 ### Mythril
 Dieses Tool ist spezialisiert auf die formale Verifikation von Smart Contracts
-und bietet dazu sowohl eine API um eigene Spezifikationen zu definieren, als
+und bietet dazu sowohl eine Schnittstelle um eigene Spezifikationen zu definieren, als
 auch ein CLI (Command Line Interface) um typische Fehler im Smart Contract
 nachzuweisen. Angewandt auf das [Re-Entrency Beispiel](#re-entrency-und-cross-function-race-conditions)
 aus dem vorherigen Abschnitt, wird unteranderem folgender Hinweis generiert.
@@ -436,7 +436,7 @@ um die Bedingungen für alle möglichen Pfade zu analysieren.
 
 Beide Tools sind kaum dokumentiert und nur Mythril besitzt eine Github-Wiki-Seite
 mit den grundlegenden Informationen zur Installation und Nutzung. Die
-Verifikation-API von Mythril ist auch ohne Dokumentation noch gut verständlich,
+Verifikation-Schnittstelle von Mythril ist auch ohne Dokumentation noch gut verständlich,
 während MAIAN undokumentierte globale Variablen für die Kommunikation zwischen
 den einzelnen Komponenten nutzt, dessen Verantwortlichkeiten sich erst nach dem
 Einlesen in den Quellcode der einzelnen Komponenten offenbaren.
