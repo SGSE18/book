@@ -2,10 +2,9 @@
 ## React.js
 *Autor: Patrick Vogt*
 
-*Stand: Version 16.4.1*
+*Stand: React-Version 16.4.1*
 
-React ist eine komponentenbasierte JavaScript Bibliothek zur Erstellung von User-Interfaces. Die Bibliothek wurde 2013 von Facebook veröffentlicht. Sie ist plattformunabhängig und unter der MIT-Lizenz kostenfrei verfügbar.
-
+*Präsentation und SW-Demo: [Hier](https://github.com/p-vogt/react-dashboard-demo)*
 
 - [Grundlagen](#grundlagen)
   - [Single Page Applications](#single-page-applications)
@@ -51,9 +50,9 @@ Die folgende Mind-Map visualisiert den Zusammenhang der Inhalte:
 
 
 ### Grundlagen
-
 Als grundlegende Einführung soll im Folgenden zunächst ein Überblick über einige Basics bezüglich der Entwicklung von modernen Frontend-Applikationen geschaffen werden. Hierzu werden die Begriffe "Single Page Application" und "Progressive Web App" vorgestellt.
 Im Anschluss des Kapitels werden Konzepte, Technologien und Architekturen im Frontend vorgestellt sowie spezielle React Technologien und Konzepte erläutert.
+React ist eine komponentenbasierte JavaScript Bibliothek zur Erstellung von User-Interfaces und wurde 2013 von Facebook veröffentlicht. Sie ist plattformunabhängig und unter der MIT-Lizenz kostenfrei verfügbar.
 
 #### Single Page Applications
 
