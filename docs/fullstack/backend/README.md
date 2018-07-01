@@ -451,5 +451,4 @@ Lightweight, Event driven I/O web development, 2014 [Online](http://informatics.
 
 <a name="ref_SLDS16">[SLDS16]</a>: ElAchèche, Bedis, Node.js essentials, abgerufen am 30.06.2018 [Online](https://www.slideshare.net/elachechebedis/nodejs-essentials)
 
-
 <a name="ref_ZIM17">[ZIM17]</a>: Zimmermann, T. et al: How HTTP/2 pushes the web: An empirical study of HTTP/2 server push, 2017 IFIP Networking Conference (IFIP Networking) and Workshops, Stockholm, 2017, pp. 1-9. [Online](https://ieeexplore.ieee.org/document/8264830/)
