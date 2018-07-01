@@ -190,7 +190,7 @@ Dieser Ablauf erlaubt die effizientere Übertragung und Speicherung über Kafka.
 
 #### Schema Evolution
 Wie im ersten Kapitel dargestellt, sind BigData-Infrastrukturen schnelllebig. Ihre Komponenten verändern sich, genauso wie ihre Schnittstellen. Dies stellt bei einer direkt vernetzten Architektur ein großes Problem für die Erweiterbarkeit dar und selbst mit Kafka als Zwischenschicht muss der Konsument noch immer so entworfen sein, dass er die Messages, die er empfängt, auch verarbeiten kann. Wenn also Datenfelder zu einer Kommunikation hinzugefügt werden oder wegfallen, würde der Konsument sie nicht mehr fehlerfrei parsen können. Andersrum könnte ein Produzent keine Messages absetzen, wenn seine Konsumenten ein neueres Schema erwarten, als er selbst nutzt. Die Schema Registry verhindert dies. Weiterhin müssten also alle Schnittstellen von allen Parteien angepasst werden – ein Problem. 
-Um auch diesen Sachverhalt zu lösen, wurde die Schema Registry mit Unterstützung für Avro Schema Evolution entworfen[CONF18]. Mit folgendem Beispiel soll das Prinzip anschaulich gemacht werden. Avro Schemata werden in JSON festgehalten und können Objekte sehr einfach definieren. Gegeben ist ein "fahrzeug" beschrieben durch die Felder "modell" und "farbe" mit den Datentypen "string" und "int". Kafkas Producer/Consumer-Libraries können diesen Avro String nutzen um den Payload einer Kafka Message zu (de-)serialisieren und die Information mit der Struktur eines Plain Old Java Objects zu knüpfen.
+Um auch diesen Sachverhalt zu lösen, wurde die Schema Registry mit Unterstützung für Avro Schema Evolution entworfen<a>[[CONF18]](#ref_conf18)</a>. Mit folgendem Beispiel soll das Prinzip anschaulich gemacht werden. Avro Schemata werden in JSON festgehalten und können Objekte sehr einfach definieren. Gegeben ist ein "fahrzeug" beschrieben durch die Felder "modell" und "farbe" mit den Datentypen "string" und "int". Kafkas Producer/Consumer-Libraries können diesen Avro String nutzen um den Payload einer Kafka Message zu (de-)serialisieren und die Information mit der Struktur eines Plain Old Java Objects zu knüpfen.
 ```json
 {"namespace": "beispiel.fahrzeug",
 "version":"v1",
@@ -241,14 +241,100 @@ Full Compatibility ist dann die Kombination aus den beiden vorgenannten Strategi
 3.	Felder sollten nicht umbenannt werden. Ist dies doch zwingend nötig, existieren auch Aliasfunktionen im Avro Standard.
 
 ### Kafka Connect
+Augenscheinlich handelt es sich beim Kafka Ökosystem um einen verhältnismäßig komplexen Verbund von wichtigen Komponenten. Die Eigenheiten dieser Komponenten sind beschrieben worden und somit sollte der Eindruck entstanden sein, dass die Integration bestehender Systeme mit Kafka unter Beachtung all dieser Eigenheiten eine Hürde für den Entwickler darstellen kann. Der Sinn Kafkas ist aber der möglichst einfache Austausch von Informationen zwischen beliebigen Parteien. Damit dieser Designanspruch weiterhin erhalten bleiben kann, wurde das Kafka Connect Framework mit in die Plattform aufgenommen. 
+
+Mit Kafka Connect wird ein System geliefert, welches den einfachen Import/Export von Informationen aus anderen Systemen garantiert. Der Grundgedanke ist, dass bestimmte Aufgaben immer die gleichen Producer und Consumer benötigen. Sollen beispielsweise Events aus einem Topic in eine Datei geschrieben werden, ist der Code zur Realisierung dieses Consumers wie Boilerplate zu verstehen. Der Code würde für alle Anwendungsfälle nahezu identisch aussehen und sich lediglich durch Konfigurationsmerkmale (z.B. der Dateiname) unterscheiden. Dies gilt natürlich auch für das Lesen aus einer Datei. Kafka Connect stellt für solche repetitiven Entwicklungsaufgaben eine Kombination aus Producer und Consumer bereit, die sogenannten Connector. Sie müssen nur über eine Konfigurationsdatei nötige Einstellungen erhalten und bilden dann die Brücke zwischen Kafka und anderen Systemen. Also anstatt händisch eine Applikation zu entwickeln, die den Consumer/Producer Code enthält und FileReader/Writer anspricht um das Dateisystem einzubeziehen, kann auch einfach ein File Connector gestartet werden, dem mitgeteilt wird, welches Topic er in welche Datei schreiben soll – oder andersherum. Diese Vereinfachung erlaubt es, deutlich schneller mit Kafka in Kontakt zu treten. Es sollte also immer erst geprüft werden, ob für den vorliegenden Anwendungsfall bereits ein fertiger Connector existiert. Da diese auch dem Open Source Prinzip folgen, werden von der Kafka Community dauerhaft neue Connectoren angeboten, zusätzlich zu den bereits enthaltenen. So sind auch sehr komplexe Anbindungen äußerst einfach realisierbar. Beispielsweise wurden Connector entwickelt, die relationale Datenbanksysteme an Kafka anschließen können oder sogar Twitter Feeds einbinden. Teilweise werden diese Community Lösungen auch durch Confluent – dem Unternehmen hinter Kafka - zertifiziert und dann offiziell unterstützt. Die nachstehende Grafik gibt eine Übersicht über aktuell verfügbare Connector Projekte.
+
+<img src="./images/connect.png">
+
+Eigene Grafik.
+
+Diese Connector arbeiten als Zwischenschicht zwischen Kafka und dem externen System. Sie sind für genau einen Verbindungsfall entwickelt. Ein RDBMS Connector wäre also auch nur für diesen Einsatz spezialisiert und kann für keine andere Verbindung eingesetzt werden. Der Vorteil der Spezialisierung ergibt sich durch das im Connector abgebildete Domainwissen bezüglich des Verbundsystems. Würde ein SQL Update im RDBMS ausgeführt werden, führt der Connector automatisch das gleiche Update im korrespondierenden Kafka Topic aus. Eine derart komfortable Integration erfordert natürlich einen hohen Entwicklungsaufwand im Connector. Ist dieser aber einmal implementiert worden, kann er mit der Community geshared werden. Nach diesem Prinzip werden immer mehr Systeme anbindbar und der Nutzer profitiert davon, dass mit Kafka wiederkehrende Verbindungsprobleme einfacher zu lösen sind.
+
+<img src="./images/connect2.png">
+
+Connect im Kafka Verbund. Quelle: https://de.slideshare.net/KaufmanNg/data-pipelines-with-kafka-connect
 
 ## Stream Processing
+Ein wichtiger Bestandteil der informationszentrischen Streaming Architektur ist neben dem reinen Informationsaustausch auch das eigentliche Arbeiten *mit* der Information. Dies wird im Falle strömender Daten als Stream Processing bezeichnet. Das Konzept ist aber nicht unterschiedlich zu typischer Datenverarbeitung mit Eingabe, Verarbeitung und Ausgabe. In diesem Kontext redet man vom Konsumieren, Transformieren und Produzieren (ETL: Extract, Transform, Load).  Lediglich der Aspekt der Zeitinformation einer potentiell unendlichen Datenmenge muss bedacht werden.
+
+Kafka beherrscht drei Ansätze zur Transformation von Streams.
+
+Grundsätzlich kann eine Applikation einfach als Producer und Consumer gleichzeitig auftreten und im Zwischenschritt eine Transformation auf einem Kafka Eventfluss ausführen. Tatsächlich wäre dieser Ansatz nicht unüblich und er erlaubt auch das größte Maß an Flexibilität. Um aber typische Anwendungsfälle mit weniger Code abbilden zu können, wurden spezialisierte Lösungen in Kafka integriert.
 
 ### Kafka Streams API
+Die Streams API liefert typische Funktionen, die häufig auf Eventströmen angewendet werden. Dazu zählen Aggregationen, Windowing und Filteroperationen. Diese sind in einer eigenen Domain Specific Language definiert und arbeiten auf den Datentypen KStream und KTable, die einen schnellen Zugang zu Streams aus Kafka ermöglichen. Das nachstehende Beispiel zeigt den Syntax, der nötig ist, um die Nachrichten eines Topics in Großbuchstaben zu "transformieren".
+```java
+// Daten deserialisieren und aus Kafka lesen
+KStream<byte[], String> text = builder.stream("topic", Consumed.with(Serdes.ByteArray(), Serdes.String()));
+// Daten transformieren
+KStream<byte[], String> textGross= text.mapValues(String::toUpperCase)); 
+// Daten in anderes Topic zurueckschreiben 
+textGross.to("topicGross", Produced.with(Serdes.ByteArray(), Serdes.String()));
+```
+
+Das Besondere an der Kafka Streams API ist ihre Architektur. Es wurde darauf verzichtet, die Streamtransformation in das Kafka Cluster aufzunehmen.  Stattdessen werden sie von einfachen Java Applikationen abgebildet, die, wie jede andere Java Applikation, gepackt und deployed werden können. Die dafür genutzte Streamsbibliothek ist mit allen vorgestellten Kafka Komponenten integriert und unterliegt den gleichen Vorzügen. Da eine Streamtransformation auf diese Weise die Rolle eines Consumers einnimmt, kann ZooKeeper das Grouping steuern. So werden alle über die Streams API definierten Applikationen implizit beliebig skalierbar und erhalten zusätzlich auch ein Loadbalancing. Ist eine Transformation sehr raum- oder zeitkomplex, kann sie einfach ein weiteres Mal gestartet werden. Über ZooKeeper werden beide Instanzen automatisch in eine Consumergroup aufgenommen und die zu verarbeitenden Daten werden zwischen den Instanzen geteilt. Zeitgleich wird durch den ZooKeeper Heartbeatcheck Ausfallsicherheit und Recoveryfähigkeit erlaubt. Für den Entwickler ist es dann nicht mehr gefordert, Parallelisierung und Clusterorganisation explizit in den Softwareentwurf aufzunehmen. Das Kafka Ökosystem erledigt diesen diffizilen Schritt selbstständig.
+
+<img src="./images/streams.png">
+
+Streams API Architektur. Quelle: https://docs.confluent.io/current/streams/introduction.html
+
+Die beiden Datentypen KStream und KTable spiegeln zwei unterschiedliche Betrachtungen eines Eventstroms wieder und erlauben verschiedene Einblicke. An diesem Punkt ist es förderlich, die Dualität von Strömen und Tabellen zu verstehen. Bisher wurden Eventfolgen als die Zukunft der skalierbaren Datenverarbeitung beschrieben und Tabellen – mit Batchprocessing assoziiert – als zu ersetzen proklamiert. Es sollte betont werden, dass Events aus den im ersten Abschnitt genannten Gründen ein wichtiger Schritt zu einer besseren Architektur repräsentieren, Tabellen aber weiterhin ihre anschauliche Daseinsberechtigung haben. Gegen sie wurde lediglich als zu persistierende Datenstruktur argumentiert. 
+
+Streams und Tabellen stehen keineswegs im Gegensatz zueinander und tatsächlich verbindet sie eine gemeinsame Dualität. Eine Folge von Ereignissen kann als Veränderungshistorie einer Tabelle verstanden werden, sodass jedes Event eine Zustandsveränderung der Tabelle darstellt. Wird also der Stream von Anfang bis Ende "abgespielt" und akkumuliert, erhält man den aktuellen Zustand einer Tabelle. In umgekehrter Interpretation ist eine Tabelle die Momentanbeobachtung eines Streams und seiner temporal komprimierten Vergangenheit:
+
+<img src="./images/stream_table.jpg">
+
+Stream-Table-Dualität. Quelle: https://docs.confluent.io/current/streams/concepts.html#streams-concepts-kstream
+
+KStream und KTable stehen für genau diese beiden Sichtweisen, also einen Eventstrom und dessen Akkumulation. Es obliegt dem Nutzer sich für eine Variante zu entscheiden. Intuitiv kann eine KTable die Transformation unter Umständen einfacher machen. Der konkrete Anwendungsfall sollte die Wahl bestimmen.
 
 ### KSQL
+Die dritte und neueste Möglichkeit zum Interagieren mit Kafkas Streams ist KSQL Die Grundidee ist, eine Abstraktionsschicht auf Kafka aufzubringen, die sich nach außen verhält wie ein regulärer SQL-Server. Der Unterschied liegt natürlich in der strömenden Datenbasis. Diese erlaubt Ansichten in Tabellenform und zusätzlich kontinuierliche Window-Abfragen. Es wird also auch in KSQL mit den beiden im vorherigen Abschnitt genannten Sichtweisen auf Informationsflüsse gearbeitet. Statt KStream- und KTable-Objekten kommen STREAM- und TABLE-Views zum Einsatz. Auf ihnen können im SQL-Syntax aus RDMS bekannte Queries ausgeführt werden. 
+
+Um KSQL nutzen zu können, ist der KSQL Server nötig. Er ist ein weiteres, skalierbareres Cluster, welches mit Kafka verbunden wird und die KSQL-Abfragen ausführt. Fällt ein KSQL-Server Node aus, wird seine zu verrichtende Arbeit automatisch auf die verbleibenden Nodes neu verteilt. Nodes können dementsprechend dynamisch hinzugefügt oder entfernt werden: 
+
+<img src="./images/ksql_cluster.png">
+
+KSQL-Architektur. Quelle: https://www.confluent.io/wp-content/uploads/ksql_cluster-min.png
+
+Das eigentliche Userinterface wird durch die KSQL-CLI gebildet. Für den Nutzer verhält sie sich wie andere SQL-CLIs. Sie übersetzt die eingegebenen Anweisungen in REST-Calls an die API des KSQL-Clusters. Darüber hinaus können laufende, kontinuierliche Queries administriert werden.  
+
+Gegenüber der Streams API ist der Zugang zu den in Kafka persistierten Events äußerst niederschwellig. Um alle Ereignisse eines Streams zu erhalten, die eine Bedingung erfüllen, genügt der nachstehende, simple Befehl.
+```sql
+SELECT * FROM kafka-topic WHERE memberfield > 0.8;
+```
+
+Mit KSQL sind dann keine Programmierkenntnisse mehr nötig. Solange ein grundlegendes Verständnis von Abfragesprachen vorhanden ist, kann mit Kafka gearbeitet werden. Zeitgleich sind diese Queries aber durch ein möglicherweise hochskaliertes Cluster gestützt. Sehr umfangreiche oder komplexe Statements werden performant ausgeführt, ohne dass der Nutzer sich explizit um SQL-Tuning kümmern müsste.
+
+Ein weiterer, nicht sofort offensichtlicher Aspekt ist die indirekte Anbindung an Kafka Connect. Werden beispielsweise durch einen entsprechenden Connector Twitterfeeds in Kafka eingeleitet, kann mit KSQL auf diesen Feeds gearbeitet werden. Die Integration der Komponenten erlaubt also das SQL-artige Abfragen von Informationspools, die anderweitig nicht auf diesem Niveau durchsuchbar wären. 
+
+Zusammenfassend können die drei Varianten des Stream Processings in Kafka folgendermaßen eingeteilt werden:
+
+<img src="./images/streams_comp.png">
+
+Eigene Grafik.
+
+Die größten Freiheiten erlaubt eine Kombination aus Consumer und Producer. In diesem Fall findet kein Eingriff durch Kafka-Tools statt und der Entwickler hat die freie Entscheidung, wie mit dem Datenstrom umzugehen ist. Hier liegt aber auch der größte Aufwand bei der Verwendung. Es ist fundiertes Wissen der Architektur des Clusters mit seinen Partitionen und Log-Offsets nötig, um eine robuste Transformation auf diese Weise programmieren zu können. 
+Die Streams API abstrahiert typische Anwendungsfälle und vereinfacht die Entwicklung und das Deployment von Transformationen. 
+KSQL ermöglicht den einfachsten Zugang zur analytischen Arbeit mit Kafka, stellt aber auch die meisten Constraints im Funktionsumfang bei größtem Overhead, schließlich ist ein weiterer Server nötig.
+Informatiker sollten mit dem Wissen aus dieser Ausarbeitung in der Lage sein, die Logik hinter Kafkas Producern und Consumern in Kombination mit deren Dokumentation in Code umzusetzen.
 
 ## Fazit
+Im Rahmen der Erstellung dieser Ausarbeitung haben sich zwei Beurteilungsebenen herauskristallisiert. Zum Ersten muss Kafka als Umsetzung einer Streaming Architektur gesehen werden. Dies war der ursprüngliche Designantrieb. Erst danach sind Tools zur Analytik hinzugekommen, die den informationszentrischen Workflow erleichtern sollten.
+
+### Kafka als Streaming Architektur
+Im ersten Kapitel ist umfangreich geschildert worden, welche Probleme sich mit der Zukunft von BigData ergeben. Diese Probleme können durch die Streaming Architektur gelöst werden. Kafka greift die Idee der strömungsbasierten Infrastruktur auf und setzt sie in einem hochskalierbaren System um. Dank des Connect Frameworks ist diese neuartige Plattform auch mit Legacy- und Batch-Systemen nahtlos integrierbar. Kafka wurde zur Erstellung dieser Arbeit umfangreich getestet und es ist nachhaltig der Eindruck entstanden, dass es ein ideales System für den Eventdatenaustausch darstellt. Insbesondere Microservices können von dem Konzept profitieren. Die von ihnen emittierten Informationen sind meist als Zustandsänderung interpretierbar, also analog zu einem Event. Wird die Kommunikation eines Microservice-Applikationsverbundes mit Kafka realisiert und dabei das Prinzip des commit logs von Anfang an als treibender Aspekt des Softwaredesigns etabliert, resultiert eine beliebig horizontal skalierbare Gesamtplattform, die gegen die im ersten Kapitel geschilderten Negativeinflüsse immun zu sein scheint. Grundsätzlich lässt sich der Vorteil auf alle Einsatzzwecke übertragen, deren Kommunikationsbedürfnisse in Events übersetzbar sind, beispielsweise Function-as-a-Service oder Command-Query-Responsibility-Segregation.
+
+Als Nachteil ist aber zu nennen, dass Kafka in seiner bei Erstellung dieses Textes aktuellen Version eine unverhältnismäßige Administrationshürde aufweist. Das fehlerfreie Deployment der Plattform war in Anbetracht der Vielzahl von beteiligten Komponenten eher entwicklerunfreundlich. Das Management der Interaktion zwischen essentiellen Modulen, wie dem Broker und der Schema Registry, gestaltete sich schwierig. Konfigurationen erfolgen grundsätzlich über eine Vielzahl von Shellskripten und REST-Schnittstellen, die entweder schlecht oder veraltet dokumentiert sind. Mit dem Confluent Control Center existiert eine kostenpflichtige Lösung, die Administration und Monitoring von ganzen Kafka Clustern erlaubt. Es wirkt allerdings befremdlich, dass der Anbieter Kafkas dessen Open-Source Bemühungen betont und dann die für einen Masseneinsatz essentiellsten Module nur unter Preisbildung auf Großkundenebene bereitstellt.
+
+### Kafka für Analytik
+Nachdem Kafka einen massiven Zuspruch der Entwicklercommunity erhielt und in die Apache Foundation aufgenommen wurde, folgten nach und nach auch Erweiterungen im Bereich der Analytik. Zuerst wurde die Streams API eingebracht und danach folgte KSQL. Diese Werkzeuge sollen es ermöglichen, dass Kafka nicht nur als "Rohrsystem" unterhalb komplexer Applikationen wahrgenommen wird, sondern auch ein Informationsmehrwert aus dem Datenfluss generiert werden kann. Nach dem Test dieser Werkzeuge muss resümiert werden, dass dieses Ziel noch lange nicht erreicht scheint. 
+Der Leistungsumfang der Streams API ist noch stark eingeschränkt gegenüber ihrer versprochenen Funktionalität. Darüber hinaus ist die API nur bei einfachsten Transformationen intuitiv. Sobald komplexere Vorhaben umgesetzt werden sollen, stellt der oft implizit formulierte Syntax eine Barriere dar. Die Entwicklung von strömungsbasierten Endlosanwendungen erfordert vom Entwickler bereits ein fundamentales Umdenken bei der Strukturierung der Software. Eine zusätzlich hinderlich formulierte API kann dann die Begeisterung für die neue Technologie schmählern.
+Im Falle von KSQL ist dieses Problem wunderbar gelöst. Man setzt auf den bekannten SQL-Syntax und die Arbeit mit den Datenströmen ist transparent, niederschwellig und auch in komplexen Fällen zügig. Hier liegt der große Nachteil beim zusätzlich benötigten KSQL-Server. Dieser beansprucht unüblich viele Ressourcen und ist mit gängiger Heimanwenderhardware kaum angenehm nutzbar. Allerdings muss gesagt werden, dass er bei Erstellung dieser Schrift nur in einer Previewversion vorlag und Optimierungen bis zum Release zu erwarten sind.
+
+Neben diesen technischen Beurteilungen sollten Kafkas Analytikfähigkeiten auch im Kontext von vergleichbaren Produkten betrachtet werden. Dank Connect ist die Anbindung an Systeme, die auf Analytik und Complex-Event-Processing auf Streams spezialisiert sind, hürdenfrei möglich. Apache Samza und Apache Storm kommen aus dem gleichen Projektverbund und sind in diesem Bereich weitaus leistungsfähiger. Es scheint sinnvoll, innerhalb Kafkas die Möglichkeit zur einfachen Steuerung von Informationsflüssen und deren schnellen Manipulation zu haben, aber warum nach und nach der Fokus immer mehr Richtung komplexer Analyse verlagert wird, obwohl bereits eine Integration mit Tools existiert, die auf dem Gebiet erprobt sind, wirft Fragen auf. Hier sollte verstärkt auf Kooperation gesetzt werden, anstatt das "Rad neu zu erfinden".
+
 
 ## Quellen
 <a name="ref_conf18">[CONF18]</a>: Confluent. Data Serialization and Evolution. Retrieved from https://docs.confluent.io/current/avro.html. 2018. Version 4.1.1
