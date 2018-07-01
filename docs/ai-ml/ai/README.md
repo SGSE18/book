@@ -28,8 +28,3 @@ Ungeachtet der themenspezifischen Unterteilung werden die Methodiken die aus dem
 In den folgenden Kapiteln wird genauer auf die Teilgebiete der _Künstlichen Intelligenz_ eingegangen, die schließlich zu aktuellen Entwicklungen wie Deep Learning / Neuralen Netzwerken führen. Diese sind themenspezifisch Teilmengen von _machine learning_, welches wiederum eine Teilmenge des ganzen Themenkomplexes _Künstliche Intelligenz_ ist.
 
 <img src="./images/ai-overview.png" width="500" style="margin:20px">
-
-## Literaturverzeichnis
-<a>[[RUSS16]](#ref_russ16)</a>
-
-<a name="ref_russ16">[RUSS16]</a>:Russell, Stuart J., and Peter Norvig. Artificial intelligence: a modern approach. Malaysia; Pearson Education Limited,, 2016.

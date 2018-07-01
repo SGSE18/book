@@ -13,7 +13,7 @@ In anderen Worten: Eine Blockchain ist eine Datenstruktur von anhängbaren und u
 
 Der Aufbau einer Blockchain ist eine Blocksequenz in denen die komplette Transaktionshistorie festgehalten wird, wie zum Beispiel einem öffentlichen Konto. Jeder Block zeigt auf den Vorgänger die ganze Blockkette entlang bis auf den ersten Block einer Blockchain, den sogenannten "Genesisblock".   
 Er ist der erste und älteste Block der Blockchain. Als Ursprungsblock kann nur er alleine keinen sogenannten „parent block“, frei übersetzt Elternblock, haben. Jeder andere Block der Blockchain verweist jeweils auf den vorherigen Block. Die Blockchain ähnelt somit der Datenstruktur einer einfach verketteten Liste.  
-Die Aufgabe von Blöcken ist es Transaktionen innerhalb der Blockchain zu bündeln. Diese Blöcke werden dann mit unterschiedlichsten Verfahren auf alle Netzwerkknoten verteilt. Ein Block lässt sich in einen „block header“ und den „block body“ unterteilen. Der Block header enthält Metainformationen über den Block selbst, Elternblock und die Transaktionen. <a>[[ZHENG17]](#ref_Zheng17)</a>, [Björn Enders-Müller"]
+Die Aufgabe von Blöcken ist es Transaktionen innerhalb der Blockchain zu bündeln. Diese Blöcke werden dann mit unterschiedlichsten Verfahren auf alle Netzwerkknoten verteilt. Ein Block lässt sich in einen „block header“ und den „block body“ unterteilen. Der Block header enthält Metainformationen über den Block selbst, Elternblock und die Transaktionen. <a>[[ZHENG17]](#ref_Zheng17)</a>, [Björn E.-M."]
 
 Die Abbildung "Blockchain Architektur" zeigt, dass eine zufällige Zeichenkette (Nonce) solange iteriert wird, bis ihr Hashwert den Zielvorgaben des Netzwerkes entspricht. Ist dies der Fall, kommt der Block in die Blockchain. <a>[[ANDE16]](#ref_Ande16)</a>
 
@@ -116,7 +116,7 @@ Während oben die Merkmale der öffentlichen und privaten Blockchain aufgezählt
 
 ## Eigenschaften einer Blockchain 
 
-Autor: Björn Enders-Müller
+Autor: Björn E.-M.
 
 ### Immutability
 

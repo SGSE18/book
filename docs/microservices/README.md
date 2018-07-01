@@ -1,4 +1,5 @@
 # Microservices
+Autor: Sebastian Janzen
 
 - [Einführung](#einführung)
 - [Charakteristiken einer Microservice-Architektur](#charakteristiken-einer-microservice-architektur)
@@ -13,7 +14,7 @@
     - [Evolutionäres Design](#evolutionäres-design)
     - [Client-Kommunikation mit Microservices](#client-kommunikation-mit-microservices)
     - [Humane Registries](#humane-registries)
-    - [Serverless](#serverless)
+- [Serverless](#serverless)
 - [Unterschiede zu monolithischen Anwendungen](#unterschiede-zu-monolithischen-anwendungen)
     - [Vorteile](#vorteile)
     - [Nachteile](#nachteile)
@@ -25,6 +26,7 @@
 ## Einführung
 
 Diese Mindmap soll einen Überblick darüber erschaffen, welche Themen in der Ausarbeitung angesprochen werden und wie sie anzuordnen sind.
+
 ![Übersicht](./images/overview.png)
 
 Ein Microservice ist ein leichtgewichtiger autonomer Dienst, der eine einzige Aufgabe erfüllt und mit anderen ähnlichen Diensten über eine gut definierte Schnittstelle kollaboriert. Eine der Hauptaufgaben von Microservices ist eine Minimierung von Einflüssen im Falle einer möglichen Schnittstellenänderung. <a>[[NAMI14]](#ref_Nami14)</a>
@@ -43,7 +45,7 @@ Ein Vergleich einer monolithischen Anwendung in Microservices kann in der nächs
 
 _Microservices vs Monolith_, Abbildung entnommen aus <a>[[TATV16]](#ref_Tatv16)</a>
 
-Um die Nachteile von monolithischen Anwendungen zu umgehen, werden diese aufgeteilt in einzelne Dienste oder Services. Eine der weit verbreitenden Illustration der verschiedenen Ansätze der Partitionierung von Monolithen ist der Skalierungswürfel. Auf der horizontalen Ebene geht es um Skalierbarkeiteines Systems durch mehrere Instanzen einer Applikation. Diese können unter anderem hinter einem Load-Balancer laufen. Auf diese Weise wird versucht die Last umzuverteilen und konstante Antwortzeiten zu erzielen. Die Z-Achse der Skalierung würden mehrere Server eine identische Kopie an Code unterhalten. Hier unterhält jeder Server nur eine Untermenge der Daten. Auftretende Probleme wären Datenkonsistenz, Datenverteilung und Datenverfügbarkeit. Die X-Achse und die Z-Achse verbessern die Skalierbarkeit und Verfügbarkeit, jedoch auch die Komplexität des Systems. Um die Komplexität zu verringern wird auf der Y-Achse skaliert. Die Skalierung nach der Y-Achse setzt voraus, dass ein System logisch und physisch in funktionale Bereich zerlegt werden kann. Dies kann zum höheren Kommunikationsaufwand führen, bringt aber mehr Flexibilität mit sich. <a>[[PIEN16]](#ref_Pien16)</a>, <a>[[NAMI14]](#ref_Nami14)</a>
+Um die Nachteile von monolithischen Anwendungen zu umgehen, werden diese aufgeteilt in einzelne Dienste oder Services. Eine der weit verbreitenden Illustration der verschiedenen Ansätze der Partitionierung von Monolithen ist der Skalierungswürfel. Auf der horizontalen Ebene geht es um Skalierbarkeiteines Systems durch mehrere Instanzen einer Applikation. Diese können unter anderem hinter einem Load-Balancer laufen. Auf diese Weise wird versucht die Last umzuverteilen und konstante Antwortzeiten zu erzielen. Die Z-Achse der Skalierung würden mehrere Server eine identische Kopie an Code unterhalten. Hier unterhält jeder Server nur eine Untermenge der Daten. Auftretende Probleme wären Datenkonsistenz, Datenverteilung und Datenverfügbarkeit. Die X-Achse und die Z-Achse verbessern die Skalierbarkeit und Verfügbarkeit, jedoch auch die Komplexität des Systems. Um die Komplexität zu verringern wird auf der Y-Achse skaliert. Die Skalierung nach der Y-Achse setzt voraus, dass ein System logisch und physisch in funktionale Bereiche zerlegt werden kann. Dies kann zum höheren Kommunikationsaufwand führen, bringt aber mehr Flexibilität mit sich. <a>[[PIEN16]](#ref_Pien16)</a>, <a>[[NAMI14]](#ref_Nami14)</a>
 
 ![Skalierungswürfel](./images/scale_cube.png)
 
@@ -189,17 +191,17 @@ Humane Registry ist eine automatisierte Dokumentation für Microservices, design
 
 Solch ein Dokumentationswerkzeug durchsucht den Quellcode des Systems und stellt detaillierte Informationen darüber bereit, welcher entwickler wann und wieviel zum Microservices beigetragen hat. So können Mitarbeiter sehen an wem sie sich in bestimmten Fällen wenden können. Mithilfe von Daten aus verschiedensten Systemen, wie Continuous-Integration-Servern, von Versionsverwaltungsprogrammen und Issue-Tracking-Systemen, wird eine übergreifende Dokumentation erschaffen. <a>[[FOWL08]](#ref_Fowl08)</a>
 
-### Serverless
+## Serverless
 
 Serverless steht für Serverless computing und wird in zwei Bereichen eingesetzt:
-1. Es wird komplett auf die serverseitige Logik verzichtet und stattdessen werden Cloud-Services von Drittanbietern integriert. Übliche Anwender sind sogenannte "Rich Clients" - Single-Page-Webanwendungen und mobile Apps. Zu solchen Cloud-Services zählen Datenbanken, Authentifizierungsmechanismen und so weiter. Weshalb dieser Typ von Microservices auch "Backend as a Service" genannt wird.
-2. Ein anderer Bereich von Serverless ist "Function as a Service" (FaaS). In diesem Szenario wird serverseitige Logik immer noch vom Entwickler geschrieben, jedoch verpackt in Container und von einer Cloud gemanagt. Diese Container sind zustandslos, ereignisgesteuert und kurzlebig. Der bekannteste Beispiel ist AWS Lambda von Amazon.
+1. Es wird komplett auf die serverseitige Logik verzichtet und stattdessen werden Cloud-Services von Drittanbietern integriert. Übliche Anwender sind Single-Page-Webanwendungen und mobile Apps. Zu solchen Cloud-Services zählen Datenbanken, Authentifizierungsmechanismen und so weiter. Weshalb dieser Typ von Microservices auch __Backend as a Service__ genannt wird.
+2. Ein anderer Bereich von Serverless ist __Function as a Service__ (FaaS). In diesem Szenario wird serverseitige Logik immer noch vom Entwickler geschrieben, jedoch verpackt in Container und von einer Cloud gemanagt. Diese Container sind zustandslos, ereignisgesteuert und kurzlebig.
 
-Die folgende Abbildung zeigt die Unterschiede zwischen der üblichen Architektur und Serverless. Die Authentifizierung erfolgt über den Cloud-Service. Der Client hat Zugriff auf die Produkt-Datenbank, welche von Drittanbietern gehostet wird. Ein Teil der früheren Serverlogik der alten Architektur kann in den Client implementiert werden, siehe Single-Page-Webanwendung. Mit HTTP-Anfragen kann über die API eine Suche in der Datenbank getriggert werden - es ist nicht nötig, dass ständig ein Server am laufen sein muss. Es ist möglich Teile von eigenem Quellcode in Plattformen wie AWS Lambda zu verwenden, falls die Programmiersprache unterstützt wird. Die Funktionalität "Kaufen" kann ebenfalls durch "Function as a Service" ersetzt werden. Zum einen, um den Client leichtgewichtiger zu halten, zum anderen aus Sicherheit. <a>[[ROBE18]](#ref_Robe18)</a>
+Die folgende Abbildung zeigt die Unterschiede zwischen der üblichen Architektur und Serverless. Die Authentifizierung erfolgt über den Cloud-Service. Der Client hat Zugriff auf die Produkt-Datenbank, welche von Drittanbietern gehostet wird. Ein Teil der früheren Serverlogik der alten Architektur kann in den Client implementiert werden, siehe Single-Page-Webanwendung. Mit HTTP-Anfragen kann über die API eine Suche in der Datenbank getriggert werden - es ist nicht nötig, dass ständig ein Server am laufen sein muss. Es ist möglich Teile von eigenem Quellcode zu verwenden, falls die Programmiersprache unterstützt wird. Die Funktionalität "Kaufen" kann ebenfalls durch "Function as a Service" ersetzt werden. Zum einen, um den Client leichtgewichtiger zu halten, zum anderen aus Sicherheit. <a>[[ROBE18]](#ref_Robe18)</a>
 
 ![Serverless](./images/serverless.png)
 
-_Serverless_, Abbildung angepasst aus <a>[[ROBE18]](#ref_Robe18)</a>
+_Drei Schichten-Architektur und Serverless_, Abbildung angepasst aus <a>[[ROBE18]](#ref_Robe18)</a>
 
 Vereinfacht ausgedrückt - FaaS ist eine Ausführung von Backend-Quellcode ohne dabei einen eigenen Server oder dauerhaft arbeitende Serverprogramme laufen zu haben. FaaS ist darauf ausgelegt innerhalb kürzester Zeit (Millisekunden) je nach Anfrage benötigte Anwendungen zu starten und zu beenden. Die Vorteile sind eine Vereinfachung der Architektur durch den Wegfall einer Schicht und Übergabe der serverseitigen Logik an die Cloud-Services. Die Einsparung von Entwicklungs-, Installations- und Instandhaltungsaufwänden zählt ebenfalls zu den Vorteilen gegenüber der üblichen Drei-Schichten-Architektur. <a>[[ROBE18]](#ref_Robe18)</a>
 
