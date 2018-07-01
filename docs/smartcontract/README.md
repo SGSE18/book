@@ -253,11 +253,15 @@ Theorembeweisern, gemessen an der bereits formalisierten
 [HOL Light](http://www.cl.cam.ac.uk/~jrh13/hol-light/) und
 [Isabelle/HOL](https://isabelle.in.tum.de/).
 
+![Formale Verifikation](./formal_verification.png "Formale Verifikation")
+
+Abbildung 2.1.3 - Formale Verifikation
+
 Um für die Formalisierung eines Smart Contracts, nicht die gesamte Ethereum
 Virtual Machine formalisieren zu müssen, existiert bereits ein Model der EVM für
 diverse Theorembeweiser [[HIRA17](#ref_hira17)] zu denen auch der Isabelle/HOL
 zählt. Basierend auf diesem Modell der EVM, kann nun vielmehr nur der Smart
-Contract formalisiert und gegen eine gegebe Spezifikation geprüft werden.
+Contract formalisiert und gegen eine gegebene Spezifikation geprüft werden.
 Darüber hinaus gibt es noch weitere Ansätze die EVM zu formalisieren
 [[HILD17](#ref_hild17)] und folgende Werkzeuge, um Schwachstellen im Smart
 Contract zu lokalisieren.
