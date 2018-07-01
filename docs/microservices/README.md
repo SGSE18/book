@@ -260,7 +260,7 @@ Für Webanwendungen gewinnt Front-End immer mehr an Bedeutung, während Back-End
 | Hohe Testbarkeit                | Schlechtere Performance                                |
 | Unabhängige Technologiestacks   | Restrukturierung kann sehr komplex werden              |
 | Unabhängig im Fehlerfall        |                                                        |
-| Parallele entwicklung möglich   |                                                        |
+| Parallele Entwicklung möglich   |                                                        |
 
 Tabelle angepasst aus <a>[[LECH17]](#ref_Lech17)</a>
 
