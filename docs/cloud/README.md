@@ -8,9 +8,9 @@ Autor: Björn Böing
 - [Einleitung](#einleitung)
     - [Definition](#definition)
     - [Geschichtliches](#geschichtliches)
-- [Architektur](#architektur)
+- [Grundlagen & weiterführende Konzepte](#grundlagen)
     - [Charakteristika](#charakteristika)
-    - [Service Modelle](#service-modelle)
+    - [Servicemodelle](#servicemodelle)
         - [Infrastructure as a Service (IaaS)](#iaas)
         - [Platform as a Service (PaaS)](#paas)
         - [Software as a Service (SaaS)](#saas)
@@ -21,7 +21,6 @@ Autor: Björn Böing
         - [Private](#private)
         - [Community](#community)
         - [Hybrid](#hybrid)
-    - [Vergleich zu anderen Modellen](#vergleich-zu-anderen-modellen)
     - [Edge Computing](#edge-computing)
     - [Fog Computing](#fog-computing)
     - [Nachteile & Begrenzungen](#nachteile-begrenzungen)
@@ -31,7 +30,7 @@ Autor: Björn Böing
         - [Systemfehler](#systemfehler)
         - [Privatsphäre](#privatsphäre)
         - [Inflexibilität & geringere Kontrolle](#inflexibilität)
-- [Amazon Web Service (AWS)](#aws)
+- [Amazon Web Services (AWS)](#aws)
     - [Grundlagen](#grundlagen)
     - [Identity and Access Management (IAM)](#iam)
     - [Elastic Compute Cloud (EC2)](#ec2)
@@ -48,16 +47,185 @@ Autor: Björn Böing
 
 ## Abkürzungsverzeichnis
 
-- TODO
+<table style="width:100%">
+    <tr>
+        <td style="width:20%">AMI</td>
+        <td style="width:80%">Amazon Machine Image</td>
+    </tr>
+    <tr>
+        <td style="width:20%">API</td>
+        <td style="width:80%">Application Programming Interface</td>
+    </tr>
+    <tr>
+        <td style="width:20%">ARN</td>
+        <td style="width:80%">Amazon Resource Name</td>
+    </tr>
+    <tr>
+        <td style="width:20%">ASP</td>
+        <td style="width:80%">Application Service Provider</td>
+    </tr>
+    <tr>
+        <td style="width:20%">AWS</td>
+        <td style="width:80%">Amazon Web Services</td>
+    </tr>
+    <tr>
+        <td style="width:20%">BSI</td>
+        <td style="width:80%">Bundesamt für Sicherheit in der Informationstechnik</td>
+    </tr>
+    <tr>
+        <td style="width:20%">CSA</td>
+        <td style="width:80%">Cloud Security Alliance</td>
+    </tr>
+    <tr>
+        <td style="width:20%">DbaaS</td>
+        <td style="width:80%">Database as a Service</td>
+    </tr>
+    <tr>
+        <td style="width:20%">DDoS</td>
+        <td style="width:80%">Distributed-Denial-of-Service</td>
+    </tr>
+    <tr>
+        <td style="width:20%">DNS</td>
+        <td style="width:80%">Domain Name System</td>
+    </tr>
+    <tr>
+        <td style="width:20%">EC2</td>
+        <td style="width:80%">Elastic Compute Cloud</td>
+    </tr>
+    <tr>
+        <td style="width:20%">EULA</td>
+        <td style="width:80%">End-User Licence Agreement</td>
+    </tr>
+    <tr>
+        <td style="width:20%">EU-DSGVO</td>
+        <td style="width:80%">EU-Datenschutz-Grundverordnung</td>
+    </tr>
+    <tr>
+        <td style="width:20%">FaaS</td>
+        <td style="width:80%">Function as a Service</td>
+    </tr>
+    <tr>
+        <td style="width:20%">GaaS</td>
+        <td style="width:80%">Games as a Service</td>
+    </tr>
+    <tr>
+        <td style="width:20%">HPE</td>
+        <td style="width:80%">Hewlett Packard Enterprise</td>
+    </tr>
+    <tr>
+        <td style="width:20%">HTTP</td>
+        <td style="width:80%">Hypertext Transport Protocol</td>
+    </tr>
+    <tr>
+        <td style="width:20%">IaaS</td>
+        <td style="width:80%">Infrastructure as a Service</td>
+    </tr>
+    <tr>
+        <td style="width:20%">IAM</td>
+        <td style="width:80%">Identity and Access Management</td>
+    </tr>
+    <tr>
+        <td style="width:20%">IdP</td>
+        <td style="width:80%">Identity Provider</td>
+    </tr>
+    <tr>
+        <td style="width:20%">IMAP</td>
+        <td style="width:80%">Internet Message Access Protocol</td>
+    </tr>
+    <tr>
+        <td style="width:20%">IoT</td>
+        <td style="width:80%">Internet of Things</td>
+    </tr>
+    <tr>
+        <td style="width:20%">IoTaaS</td>
+        <td style="width:80%">IoT as a Service</td>
+    </tr>
+    <tr>
+        <td style="width:20%">IIoT</td>
+        <td style="width:80%">Industrial Internet of Things</td>
+    </tr>
+    <tr>
+        <td style="width:20%">KI</td>
+        <td style="width:80%">Künstliche Intelligenz</td>
+    </tr>
+    <tr>
+        <td style="width:20%">NASA</td>
+        <td style="width:80%">National Aeronautics and Space Administration</td>
+    </tr>
+    <tr>
+        <td style="width:20%">NIST</td>
+        <td style="width:80%">National Institute of Standards and Technology</td>
+    </tr>
+    <tr>
+        <td style="width:20%">MIT</td>
+        <td style="width:80%">Massachusetts Institute of Technology</td>
+    </tr>
+    <tr>
+        <td style="width:20%">MQTT</td>
+        <td style="width:80%">Message Queuing Telemetry Transport</td>
+    </tr>
+    <tr>
+        <td style="width:20%">OAuth</td>
+        <td style="width:80%">Open Authentication</td>
+    </tr>
+    <tr>
+        <td style="width:20%">OPC</td>
+        <td style="width:80%">Open Platform Communication</td>
+    </tr>
+    <tr>
+        <td style="width:20%">OSI</td>
+        <td style="width:80%">Open Systems Interconnection</td>
+    </tr>
+    <tr>
+        <td style="width:20%">PaaS</td>
+        <td style="width:80%">Platform as a Service</td>
+    </tr>
+    <tr>
+        <td style="width:20%">QoS</td>
+        <td style="width:80%">Quality of Service</td>
+    </tr>
+    <tr>
+        <td style="width:20%">REST</td>
+        <td style="width:80%">Representational State Transfer</td>
+    </tr>
+    <tr>
+        <td style="width:20%">SaaS</td>
+        <td style="width:80%">Software as a Service</td>
+    </tr>
+    <tr>
+        <td style="width:20%">SOA</td>
+        <td style="width:80%">Service orientierte Architektur</td>
+    </tr>
+    <tr>
+        <td style="width:20%">SSH</td>
+        <td style="width:80%">Secure Shell</td>
+    </tr>
+    <tr>
+        <td style="width:20%">STS</td>
+        <td style="width:80%">Security Token Service</td>
+    </tr>
+    <tr>
+        <td style="width:20%">S3</td>
+        <td style="width:80%">Simple Storage Service</td>
+    </tr>
+    <tr>
+        <td style="width:20%">VM</td>
+        <td style="width:80%">Virtuelle Maschine</td>
+    </tr>
+    <tr>
+        <td style="width:20%">XaaS</td>
+        <td style="width:80%">Everything as a Service</td>
+    </tr>
+</table>
 
 
 ## Einleitung
 
-- Ursprung in Semesterarbeit
+In diesem Kapitel werden eine Vielzahl von Facetten und Themengebieten vorgestellt und teils detailliert betrachtet, die zu dem Oberbegriff _"Cloud Computing"_ gehören. Entstanden ist dieses Kapitel als Ausarbeitung für das Modul _"Spezielle Gebiete zum Software Engineering"_ des Master Studiengangs Informatik, an der Fachhochschule Minden - Campus Minden, im Sommersemester 2018.
 
 ### Definition
 
-Für den Begriff "Cloud Computing" gibt es keine Definition, die sich zu diesem Zeitpunkt allgemeingültig durchsetzen konnte, jedoch ähneln sich die meisten häufig in den Kernpunkten. Die Definition der US-amerikanischen Standardisierungsstelle NIST (National Institute of Standards and Technology) wird in vielen Publikationen und Vorträgen verwendet und lautet:
+Für den Begriff "Cloud Computing" gibt es keine Definition, die sich zu diesem Zeitpunkt allgemeingültig durchsetzen konnte, jedoch ähneln sich die meisten häufig in den Kernpunkten. Die Definition des US-amerikanischen National Institute of Standards and Technology (NIST) wird in vielen Publikationen und Vorträgen verwendet und lautet:
 
 _"Cloud computing is a model for enabling ubiquitous, convenient, on-demand network access to a shared pool of configurable computing resources (e.g., networks, servers, storage, applications, and services) that can be rapidly provisioned and released with minimal management effort or service provider interaction."_ [[NIST11]](#ref_nist11)
 
@@ -68,38 +236,56 @@ Neben dem Kernpunkt aller Definitionen, dass Rechnerressourcen über ein Netzwer
 
 Die Bedeutung von "Cloud Computing" wie sie heute existiert und was damit verbunden wird, hat sich seit der ersten Verwendung nicht viel verändert. Die Compaq, Weltmarktführer für PC-Systeme der 1990er, verwendete den Begriff 1996 in einem internen Dokument. Schon davor wurde der Begriff "Cloud" und die dazugehörige Abbildung verwendet, um unter anderem das Internet, Telekommunikation und verteilte Anwendungen darzustellen. [[REGA11]](#ref_rega18)
 
-Populär wurde der Begriff "Cloud Computing", als Amazon 2006 ihre [Elastic Compute Cloud](#ec2) (EC2) auf den Markt brachte. In den anschließenden Jahren brachten auch Unternehmen wie Google, Microsoft, IBM und auch Oracle vergleichbare Produkte auf den Markt, um den neu erzeugten Bedarf nach externer und mietbarer Rechenleistung zu bedienen. Das erste open-source Projekt, welches das Erstellen von [privaten](#private) und [hybrid](#hybrid) Clouds ermöglichte, war das OpenNebula Projekt der NASA und wurde 2008 veröffentlicht. [[FOOT17]](#ref_foot17) [[IBMJ09]](#ref_ibmj09)
+Populär wurde der Begriff "Cloud Computing", als Amazon 2006 ihre [Elastic Compute Cloud](#ec2) (EC2) auf den Markt brachte. In den anschließenden Jahren brachten auch Unternehmen wie Google, Microsoft, IBM und auch Oracle vergleichbare Produkte auf den Markt, um den neu erzeugten Bedarf nach externer und mietbarer Rechenleistung zu bedienen. Das erste open-source Projekt, welches das Erstellen von [privaten](#private) und [hybrid](#hybrid) Clouds ermöglichte, war das OpenNebula Projekt der National Aeronautics and Space Administration (NASA) und wurde 2008 veröffentlicht. [[FOOT17]](#ref_foot17) [[IBMJ09]](#ref_ibmj09)
 
 
-## ?? Architektur / Konzept
+<a name="grundlagen"></a>
+
+## Grundlagen & weiterführende Konzepte
+
+In diesem Abschnitt werden zum einen grundlegende Informationen wie die [Service-](#servicemodelle) und [Bereitstellungsmodelle](#bereitstellungsmodelle) im Cloud Bereich vorgestellt, aber andererseits auch auf weiterführende Konzepte wie [Edge Computing](#edge-computing) eingegangen. Darüberhinaus werden verschiedene [Nachteile & Begrenzungen](#nachteile-begrenzungen) betrachtet, die Cloud Computing mit sich bringt.
 
 
 ### Charakteristika
 
-NIST Charakteristika:
+Das NIST der USA, stellt für einen Großteil von IT-Bereichen Definitionen bereit und kümmert sich hauptsächliche darum, Standards vorzuschlagen und auszuarbeiten, die in einem breitgefächerten Spektrum von Industrien und staatlichen Einrichtungen eingesetzt werden sollen. In der Definition des NIST zu Cloud Computing werden die folgenden fünf Kern-Charakteristika beschrieben [[NIST11]](#ref_nist11):
 
-- __On-demand self-service__: Ein Nutzer kann ohne menschliche Interaktion (also eigenständig) die zugänglichen Ressourcen, wie Serverinstanzen und Speicher, verwalten.
-- __Broad network access__: Die angebotenen Funktionen sind über das Netzwerk und mittels standardisierter Mechanismen zu erreichen und darauf ausgerichtet Client-Plattformen wie Smartphones, Tablets oder Laptops zu unterstützen.
-- __Resource pooling__: Die Ressourcen des Anbieters sind darauf ausgelegt von mehreren Kunden parallel genutzt zu werden. Dies wird erreicht, indem sowohl die physischen als auch die virtuellen Ressourcen einem Kunden automatisiert zugewiesen und entzogen werden.
-- __Rapid elasticity__: Funktionen können elastisch bereitgestellt und freigegeben werden, um eine Skalierung zu ermöglichen, die sich (manchmal auch automatisiert) den Umständen entsprechenden anpasst. Dem Nutzer erscheinen die Ressourcen häufig als unbegrenzt und können dadurch zu beliebigen Zeitpunkten in beliebigen Mengen angefordert werden.
-- __Measured service__: Die Nutzung von Cloud Systemen wird automatisiert überwacht, um beispielsweise den genutzten Speicher, die genutzte Bandbreite oder die Anzahl der aktiven Benutzer zu messen. Diese können sowohl von Seiten des Nutzers, als auch vom Anbieter aus transparent überwacht, kontrolliert und bekanntgegeben werden.
+- __On-demand self-service__<br>
+Ein Nutzer kann ohne menschliche Interaktion (also eigenständig) die zugänglichen Ressourcen, wie Serverinstanzen und Speicher, verwalten.
 
-[[NIST11]](#ref_nist11)
+- __Broad network access__<br>
+Die angebotenen Funktionen sind über das Netzwerk und mittels standardisierter Mechanismen zu erreichen und darauf ausgerichtet Client-Plattformen wie Smartphones, Tablets oder Laptops zu unterstützen.
 
-- https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-145.pdf
+- __Resource pooling__<br>
+Die Ressourcen des Anbieters sind darauf ausgelegt von mehreren Kunden parallel genutzt zu werden. Dies wird erreicht, indem sowohl die physischen als auch die virtuellen Ressourcen einem Kunden automatisiert zugewiesen und entzogen werden.
 
-Weitere Charakteristika:
+- __Rapid elasticity__<br>
+Funktionen können elastisch bereitgestellt und freigegeben werden, um eine Skalierung zu ermöglichen, die sich (manchmal auch automatisiert) den Umständen entsprechenden anpasst. Dem Nutzer erscheinen die Ressourcen häufig als unbegrenzt und können dadurch zu beliebigen Zeitpunkten in beliebigen Mengen angefordert werden.
 
-- https://en.wikipedia.org/wiki/Cloud_computing
+- __Measured service__<br>
+Die Nutzung von Cloud Systemen wird automatisiert überwacht, um beispielsweise den genutzten Speicher, die genutzte Bandbreite oder die Anzahl der aktiven Benutzer zu messen. Diese können sowohl von Seiten des Nutzers, als auch vom Anbieter aus transparent überwacht, kontrolliert und bekanntgegeben werden.
 
-- https://www.bsi.bund.de/DE/Themen/DigitaleGesellschaft/CloudComputing/Grundlagen/Grundlagen_node.html
+Eine Definition der _"Cloud Security Alliance"_ (CSA) nennt neben der Beschreibung zur "rapid elasticity" und "on-demand self-service" die folgenden Eigenschaften:
+
+- __Service orientierte Architektur__ (SOA)<br>
+Eine der Grundvoraussetzungen für Cloud Computing. Die Cloud-Dienste werden in der Regel über sogenannte Representational State Transfer (REST)-Schnittstellen angeboten.
+
+- __Mandantenfähigkeit__<br>
+Nutzer teilen sich in einer Cloud-Umgebung gemeinsame Ressourcen, weshalb diese mandantenfähig sein müssen.
+
+- __Pay per Use__<br>
+Es müssen nur Ressourcen bezahlt werden, die auch tatsächlich in Anspruch genommen werden. Ausnahmen bilden Flatrate-Modelle.
+
+Zu diesen verbreiteten Charakteristika sind über die Jahre weitere Faktoren hinzugekommen, die je nach Anwendungsfall mehr oder weniger bedeutsam sind.
+
+[[BSI18]](#ref_bsi18) [[NIST11]](#ref_nist11)
 
 
-### Service Modelle
+### Servicemodelle
 
 Auf Basis von Cloud Computing Technologien sind in den vergangenen Jahren eine Vielzahl verschiedener Projekte und Produkte entstanden, die vor allem darauf abzielen dem Nutzer Funktionalitäten flexibel und skalierbar zur Verfügung zu stellen. Da Nutzer in der Regel keine Funktionalitäten wirklich kaufen, sondern eher mieten, wird in diesem Zusammenhang von "Services" gesprochen. In diesem Zusammenhang ist auch die Begrifflichkeit "as a Service" entstanden, mit denen Cloud Computing Produkte häufig betitelt werden. Die finanzielle Abrechnung läuft bei Cloud Services in der Regel über das _"Pay as you go"_ Prinzip ab, welches in Verbindung mit genauen Messungen zur tatsächlichen Nutzung der Funktionalitäten und anbieterabhängigen Schwerpunkten die Kosten kalkuliert.
 
-Die [Abbildung 1](#img_service_models) zeigt den Zusammenhang der drei verbreitetsten Service Modelle _"[Infrastructure as a Service](#iaas)" (IaaS)_, _"[Plattform as a Service](#paas)" (PaaS)_ und _"[Software as a Service](#saas)" (SaaS)_ in Form eines Mengendiagramms. In den nächsten Abschnitten sollen diese drei Modelle und weitere vorgestellt und deren Anwendungsfälle betrachtet werden.
+Die [Abbildung 1](#img_service_models) zeigt den Zusammenhang der drei verbreitetsten Servicemodelle _"[Infrastructure as a Service](#iaas)" (IaaS)_, _"[Plattform as a Service](#paas)" (PaaS)_ und _"[Software as a Service](#saas)" (SaaS)_ in Form eines Mengendiagramms. In den nächsten Abschnitten sollen diese drei Modelle und weitere vorgestellt und deren Anwendungsfälle betrachtet werden.
 
 <a name="img_service_models"></a>
 <div style="text-align:center">
@@ -115,17 +301,17 @@ Abb. 1: IaaS vs PaaS vs SaaS - Quelle: [[GASS16]](#ref_gass16)
 
 #### Infrastructure as a Service (IaaS)
 
-Mit IaaS wird das Bereitstellen von IT-Infrastrukturen mittels high-level APIs beschrieben, welche Details und Funktionen auf eine höhere Abstraktionsebene anheben, um deren Benutzung zu vereinfachen. Typische Infrastrukturen, die als Service bereitgestellt werden sind Rechenleistung und Speicherplatz.
+Mit IaaS wird das Bereitstellen von IT-Infrastrukturen mittels high-level Application Programming Interfaces (APIs) beschrieben, welche Details und Funktionen auf eine höhere Abstraktionsebene anheben, um deren Benutzung zu vereinfachen. Typische Infrastrukturen, die als Service bereitgestellt werden sind Rechenleistung und Speicherplatz.
 
 Über sogenannte "Hypervisor" oder "Virtual Machine Monitor" (VMM) werden auf einem Computer eine oder mehrere virtuelle Maschinen (VMs) gestartet und verwaltet. Der Computer, auf dem die VMs laufen wird "Host" genannt, während die laufenden VMs als "Guest" bezeichnet werden. Anzumerken ist, dass das Betriebssystem des Host-Systems nicht einschränkt, welche Betriebssysteme auf den VMs genutzt werden können. Im Bereich von Cloud Computing werden Orchestrierungs Technologien genutzt, um unter anderem die Entscheidung auf welchem Host eine VM laufen soll und auch das Verknüpfen von neuen VMs und freiem Speicher zu automatisieren. Dadurch wird ermöglicht, dass eine Vielzahl von Nutzer neue VMs eigenständig aufsetzen und nutzen können, ohne dass Interaktionen mit einem Dritten notwendig sind. In der Regel stellen Anbieter von IaaS ein Webportal zur Verfügung, über das neue Maschinen mit ein paar Klicks erzeugt werden können und dabei sowohl das Betriebssystem als auch die Rechen- und Speicherleistung festgelegt werden. [[SHAW17]](#ref_shaw17) [[ROUS17a]](#ref_rous17a)
 
-Die NIST hat bereits 2011 standardisierte Definitionen zu den weitverbreitesten Service Modellen veröffentlicht. Das IaaS Modell wird wie folgt definiert:
+Die NIST hat bereits 2011 standardisierte Definitionen zu den weitverbreitesten Servicemodellen veröffentlicht. Das IaaS Modell wird wie folgt definiert:
 
 <span style="display:block;text-align:center">_"The capability provided to the consumer is to provision processing, storage, networks, and other fundamental computing resources where the consumer is able to deploy and run arbitrary software, which can include operating systems and applications. The consumer does not manage or control the underlying cloud infrastructure but has control over operating systems, storage, and deployed applications; and possibly limited control of select networking components (e.g., host firewalls)."_ [[NIST11]](#ref_nist11)</span>
 
 Auch diese Definition beinhaltet, dass die grundlegende Infrastruktur vom Anbieter verwaltet und bereitgestellt wird und der Nutzer trotzdem die Kontrolle über das Betriebssystem, den Speicher und installierte Software hat. Die NIST merkt allerdings an, dass häufig die Kontrolle über Netzwerkkomponenten beschränkt sind und nennt dazu Einstellungen an der Firewall als Beispiel.
 
-Im späteren Verlauf dieses Kapitels wird auf AWS EC2 eingegangen, was eine IaaS Lösung von Amazon darstellt.
+Im späteren Verlauf dieses Kapitels wird auf Amazon EC2 eingegangen, was eine IaaS Lösung von Amazon darstellt.
 
 
 <a name="paas"></a>
@@ -153,9 +339,9 @@ Die NIST definierte 2011 SaaS wie folgt:
 
 <span style="display:block;text-align:center">_"The capability provided to the consumer is to use the provider’s applications running on a cloud infrastructure. The applications are accessible from various client devices through either a thin client interface, such as a web browser (e.g., web-based email), or a program interface.The consumer does not manage or control the underlying cloud infrastructure including network, servers, operating systems, storage, or even individual application capabilities, with the possible exception of limited user-specific application configuration settings."_ [[NIST11]](#ref_nist11)</span>
 
-Die Grundidee, dass einem Kunden die Aufgaben zur Wartung und Bezahlung von IT-Infrastrukturen und Plattformen abgenommen werden, ist nicht erst mit SaaS entstanden. Bereits in den 1990ern sind sogenannte _"Application Service Providers" (ASP)_ entstanden, die Softwareanwendungen über Netzwerke bereitstellten. Auch ASPs sahen ein Geschäftsmodell darin, dem Kunden die Arbeit abzunehmen, die abseits von der eigentliche Bedienung und Verwendung einer Softwarelösung notwendig ist. Stattdessen war es nur notwendig Client-Software zu installieren, was gerade für kleine und mittelständische Unternehmen eine enorme Kostenersparnis darstellte. [[BIAN20]](#ref_bian20)
+Die Grundidee, dass einem Kunden die Aufgaben zur Wartung und Bezahlung von IT-Infrastrukturen und Plattformen abgenommen werden, ist nicht erst mit SaaS entstanden. Bereits in den 1990ern sind sogenannte _"Application Service Provider"_ (ASP) entstanden, die Softwareanwendungen über Netzwerke bereitstellten. Auch ASPs sahen ein Geschäftsmodell darin, dem Kunden die Arbeit abzunehmen, die abseits von der eigentliche Bedienung und Verwendung einer Softwarelösung notwendig ist. Stattdessen war es nur notwendig Client-Software zu installieren, was gerade für kleine und mittelständische Unternehmen eine enorme Kostenersparnis darstellte. [[BIAN20]](#ref_bian20)
 
-Im Vergleich zu ASPs stellen SaaS Anbieter in der Regel ihre eigene Software über die Cloud bereit, anstatt Software von Dritten anzubieten. Darüber hinaus wird für SaaS-Lösungen in den meisten Fällen einzig ein Browser benötigt und keine separat installierte Clientanwendung. Was den Unterschied in Wartung und Betrieb betrifft, so stellten ASPs für jeden ihrer Kunden eine eigene Instanz der gewünschten Anwendung zur Verfügung, während modere SaaS Lösungen, mit einem multimandantenfähiges System, mehrere Kunden über eine einzige Instanz versorgen können. Sowohl ASP als auch SaaS unterstützen, durch die Zentralisierung der laufenden Softwareanwendungen, das Prinzip von Continuous Delivery. Dies bedeutet, dass die Anwendungen, die über das Netzwerk bereitgestellt werden, in deutlich höherer Frequenz Updates erhalten können, ohne dabei den Endnutzer mit einbeziehen zu müssen. Anzumerken ist, dass SaaS Continuous Delivery stärker unterstützt, da dort die Client-Software in der Regel keine Updates benötigt. [[BIAN20]](#ref_bian20)
+Im Vergleich zu ASPs stellen SaaS Anbieter in der Regel ihre eigene Software über die Cloud bereit, anstatt Software von Dritten anzubieten. Darüber hinaus wird für SaaS-Lösungen in den meisten Fällen einzig ein Browser benötigt und keine separat installierte Clientanwendung. Was den Unterschied in Wartung und Betrieb betrifft, so stellten ASPs für jeden ihrer Kunden eine eigene Instanz der gewünschten Anwendung zur Verfügung, während modere SaaS Lösungen, mit einem mandantenfähiges System, mehrere Kunden über eine einzige Instanz versorgen können. Sowohl ASP als auch SaaS unterstützen, durch die Zentralisierung der laufenden Softwareanwendungen, das Prinzip von Continuous Delivery. Dies bedeutet, dass die Anwendungen, die über das Netzwerk bereitgestellt werden, in deutlich höherer Frequenz Updates erhalten können, ohne dabei den Endnutzer mit einbeziehen zu müssen. Anzumerken ist, dass SaaS Continuous Delivery stärker unterstützt, da dort die Client-Software in der Regel keine Updates benötigt. [[BIAN20]](#ref_bian20)
 
 
 <a name="faas"></a>
@@ -175,7 +361,7 @@ Mit FaaS werden mittlerweise vor allem Microservices realisiert, die durch eine 
 
 #### Everything as a Service (XaaS)
 
-Nachdem die vorangehend beschriebenen Service Modelle immer weiter an Bekanntheit und Beliebtheit gewannen, kamen weitere Technologien die mittels Cloud Computing _"as a Service"_ angeboten wurden. All diese verschiedenen Modelle und Technologien werden unter _"Everything as a Service"_ oder kurz _"XaaS"_ zusammen gefasst. Heutzutage werden die verschiedensten Anwendungen und Technologien über die Cloud als Service bereitgestellt wie beispielsweise:
+Nachdem die vorangehend beschriebenen Servicemodelle immer weiter an Bekanntheit und Beliebtheit gewannen, kamen weitere Technologien die mittels Cloud Computing _"as a Service"_ angeboten wurden. All diese verschiedenen Modelle und Technologien werden unter _"Everything as a Service"_ oder kurz _"XaaS"_ zusammen gefasst. Heutzutage werden die verschiedensten Anwendungen und Technologien über die Cloud als Service bereitgestellt wie beispielsweise:
 
 - Internet of Things as a Service (IoTaaS)
 - Database as a Service (DbaaS)
@@ -199,12 +385,12 @@ Eine _"Public Cloud"_ beschreibt eine öffentlich zugängliche Cloud-Infrastrukt
 
 #### Private
 
-Unternehmen, die die Cloud-Infrastruktur eines Dritten allein nutzen oder die die Bereitstellung Wartung selbstständig erledigen wollen, greifen häufig auf eine _"Private Cloud"_ zurück. Dies erlaubt es ihnen die vorhergehend beschriebenen [Service Modelle](#service-modelle) zentral zu warten und bereitzustellen und müssen so nicht zwingendauf einen Dritten vertrauen. Ein Unternehmen kann somit sowohl Betreiber als auch Nutzer einer Cloud sein und auch darüberhinaus aus Zweigstellen Zugriff auf die Private Cloud ermöglichen. [[INNO17]](#ref_inno17) [[NIST11]](#ref_nist11)
+Unternehmen, die die Cloud-Infrastruktur eines Dritten allein nutzen oder die die Bereitstellung Wartung selbstständig erledigen wollen, greifen häufig auf eine _"Private Cloud"_ zurück. Dies erlaubt es ihnen die vorhergehend beschriebenen [Servicemodelle](#servicemodelle) zentral zu warten und bereitzustellen und müssen so nicht zwingendauf einen Dritten vertrauen. Ein Unternehmen kann somit sowohl Betreiber als auch Nutzer einer Cloud sein und auch darüberhinaus aus Zweigstellen Zugriff auf die Private Cloud ermöglichen. [[INNO17]](#ref_inno17) [[NIST11]](#ref_nist11)
 
 
 #### Community
 
-Eine _"Community Cloud"_ siedelt sich zwischen Public und Private Clouds an. Die genutzte Infrastruktur wird sich zwischen mehreren Unternehmen oder Teilnehmern geteilt, sind aber nicht öffentlich zugänglich. In der Regel schließen sich Unternehmen zusammen, die beispielsweise die gleichen Vorraussetzungen an Privatsphäre, Performanz und Sicherheit stellen und durch den Zusammenschluss die entstehenden Kosten aufteilen wollen. Community Clouds können innerhalb des Zusammenschlusses bereitgestellt, aber auch durch einen Dritten bezogen werden. Über ein multimandantenfähiges System können einzelne Unternehmen separat von einander agieren, es lassen sich aber trotzdem zentrale Datenquellen erzeugen, auf die mehrere Teilnehmer Zugriff haben. Ein Beispiel für einen Zusammenschluss sind Banken, bei denen mehrere Tochterfirmen eigenständig arbeiten, aber trotzdem zentrale Datenquellen mit einbeziehen. [[INNO17]](#ref_inno17) [[NIST11]](#ref_nist11)
+Eine _"Community Cloud"_ siedelt sich zwischen Public und Private Clouds an. Die genutzte Infrastruktur wird sich zwischen mehreren Unternehmen oder Teilnehmern geteilt, sind aber nicht öffentlich zugänglich. In der Regel schließen sich Unternehmen zusammen, die beispielsweise die gleichen Vorraussetzungen an Privatsphäre, Performanz und Sicherheit stellen und durch den Zusammenschluss die entstehenden Kosten aufteilen wollen. Community Clouds können innerhalb des Zusammenschlusses bereitgestellt, aber auch durch einen Dritten bezogen werden. Über ein mandantenfähiges System können einzelne Unternehmen separat von einander agieren, es lassen sich aber trotzdem zentrale Datenquellen erzeugen, auf die mehrere Teilnehmer Zugriff haben. Ein Beispiel für einen Zusammenschluss sind Banken, bei denen mehrere Tochterfirmen eigenständig arbeiten, aber trotzdem zentrale Datenquellen mit einbeziehen. [[INNO17]](#ref_inno17) [[NIST11]](#ref_nist11)
 
 
 #### Hybrid
@@ -212,24 +398,28 @@ Eine _"Community Cloud"_ siedelt sich zwischen Public und Private Clouds an. Die
 Beim Einsatz von _"Hybrid Clouds"_ werden zwei oder mehr Clouds miteinander verbunden, die unterschiedliche Bereitstellungsmodelle besitzen können. Unternehmen können dadurch beispielsweise sensible Daten mit einer Private Cloud schützen und gleichzeit andere Daten durch eine Public Cloud öffentlich zugänglich machen. Außerdem ermöglichen Hybrid Clouds einen schritt- oder teilweisen Umstieg von on premise Anwendungen zur Cloud. Dies wird vor allem von Unternehmen genutzt, die einen Umstieg zur Cloud nicht in einem einzigen Schritt stemmen können. Das unter [Geschichtliches](#geschichtliches) erwähnte Projekt OpenNebula der NASA ist ein Beispiel für die gleichzeitige Nutzung von Private und Public Cloud. Ersteres nutzt die NASA, um Forschung und Entwicklung unter Verschluss zu halten, während letzteres dazu genutzt wird, um Datensätze mit anderen Unternehmen und der Öffentlichkeit auszutauschen. [[INNO17]](#ref_inno17) [[NIST11]](#ref_nist11)
 
 
-### ??? Vergleich zu anderen Modellen
-
 ### Edge Computing
 
 Mit dem Begriff "Edge Computing" wird der Ansatz beschrieben, mit dem die Intelligenz eines Netzwerkes zur Datenquelle verschoben wird. Gemeint ist, dass Rechenleistung und Speicher an die "Edge", also die Kante, eines Netzwerkes gebracht werden, um vor Ort die dort entstehenden Daten zu verarbeiten. Edge Computing befindet sich derzeit auf dem aufsteigenden Ast und wird immer häufiger eingesetzt, um vor allem im IoT-Bereich eine bessere Kontrolle und Performanz zu erreichen. Einige wichtige Entitäten und Begriffe für Edge Computing sind:
 
-- __Edge device__: Geräte, die Daten erzeugen, wie beispielsweise Sensoren und industrielle Maschinen.
-- __Edge__: Der _"Rand"_ des betrachteten Netzwerkes, der je nach Anwendungsgebiet völlig unterschiedlich ist. In der Telekommunikation könnte es ein Sendemast oder Handy sein, im Automobilbereich ein Auto.
-- __Edge gateway__: Eine zentrale Stelle, von der die Verbindung zu Bereichen außerhalb eines Edge Netzwerkes ermöglicht wird.
-- __Fat client__: Im Bereich von Edge Computing ist Software gemeint, die auf den Edge devices Daten verarbeiten können. Das Gegenstück zu _"thin clients"_, die Daten nur versenden können.
-- __Edge computing equipment__: Edge Computing nutzt Hardware und Technologien, die bereits in anderen Bereichen eingesetzt wird, als auch welche, die speziell für diese und ähnliche Szenarien entwickelte wurde. Hersteller wie Cisco produzieren gezielt Netzwerk-Hardware, die besonders zuverlässig und belastbar sind (sowohl die Technik als auch das Gehäuse).
-- __Mobile edge computing__: Der Ausbau von Edge computing im Bereich der Telekommunikation, speziell in 5G Szenarien.
+- __Edge device__<br>
+Geräte, die Daten erzeugen, wie beispielsweise Sensoren und industrielle Maschinen.
+- __Edge__<br>
+Der _"Rand"_ des betrachteten Netzwerkes, der je nach Anwendungsgebiet völlig unterschiedlich ist. In der Telekommunikation könnte es ein Sendemast oder Handy sein, im Automobilbereich ein Auto.
+- __Edge gateway__<br>
+Eine zentrale Stelle, von der die Verbindung zu Bereichen außerhalb eines Edge Netzwerkes ermöglicht wird.
+- __Fat client__<br>
+Im Bereich von Edge Computing ist Software gemeint, die auf den Edge devices Daten verarbeiten können. Das Gegenstück zu _"thin clients"_, die Daten nur versenden können.
+- __Edge computing equipment__<br>
+Edge Computing nutzt Hardware und Technologien, die bereits in anderen Bereichen eingesetzt wird, als auch welche, die speziell für diese und ähnliche Szenarien entwickelte wurde. Hersteller wie Cisco produzieren gezielt Netzwerk-Hardware, die besonders zuverlässig und belastbar sind (sowohl die Technik als auch das Gehäuse).
+- __Mobile edge computing__<br>
+Der Ausbau von Edge computing im Bereich der Telekommunikation, speziell in 5G Szenarien.
 
 Der Wandel, der durch Edge Computing vollzogen wird, ist in mehreren Bereichen sehr vielversprechend und bringt einige Vorteile mit sich.
 
 Zum einen senkt es die Latenz, die eine Anwendung oder ein Gerät für eine Entscheidungsfindung oder ein Ergebnis braucht. Eine Anfrage quer über den Globus zu schicken, wo eventuell weitere Anfragen entstehen, ehe eine Antwort zurück kommt, dauert deutlich länger als auf alle benötigten Mittel vor Ort zugreifen zu können. Laut Matthew Lynley von "techcrunch.com" [[LYNL18]](#ref_lynl18) entwickelt Amazon möglicherweise Chips für Amazon Echo, um genau diesem Latenz-Problem entgegen zu wirken. Diese Chips sollen die Informationen und Anfragen, die in die Cloud geschickt werden müssen, senken, um so die Antwortzeit drastisch zu reduzieren.
 
-Zum anderen bietet Edge Computing die Möglichkeit über ein richtiges Management die Sicherheit, beispielsweise von Nutzern und deren Geräten, zu steigern. Spätestens nach den Distributed Denial of Service (DDOS) Angriff auf die Dyn im Oktober 2016 [[STAT16]](#ref_stat16) ist die Sicherheit von Edge Geräten, wie sie häufig für Internet of Things (IoT) Netzwerke benutzt werden, ein großes Thema. Damals konnte ein riesiges Botnetz, das zum Großteil aus IoT-Geräten bestand, die Verwendung des Internets dramatisch stören. Die Mirai Malware übernahm die Kontrolle von Geräten, die statische Nutzernamen und Passwörter besaßen oder diese den Werkseinstellungen entsprachen und nutzte die so gesammelte Rechenleistung für eine DDOS Attacke gegen den DNS-Betreiber der USA.
+Zum anderen bietet Edge Computing die Möglichkeit über ein richtiges Management die Sicherheit, beispielsweise von Nutzern und deren Geräten, zu steigern. Spätestens nach dem Distributed-Denial-of-Service (DDoS) Angriff auf die Dyn im Oktober 2016 [[STAT16]](#ref_stat16) ist die Sicherheit von Edge Geräten, wie sie häufig für Internet of Things (IoT) Netzwerke benutzt werden, ein großes Thema. Damals konnte ein riesiges Botnetz, das zum Großteil aus IoT-Geräten bestand, die Verwendung des Internets dramatisch stören. Die Mirai Malware übernahm die Kontrolle von Geräten, die statische Nutzernamen und Passwörter besaßen oder diese den Werkseinstellungen entsprachen und nutzte die so gesammelte Rechenleistung für eine DDoS Attacke gegen den DNS-Betreiber der USA.
 
 Ebenso wie Werkseinstellungen von Nutzernamen und Passwörter, bringen auch veraltete Betriebssysteme und Software Sicherheitsrisiken mit sich. Laufende IoT-Geräte werden nur selten mit aktuellen Updates ausgestattet und beinhalten wenige Sicherheitsmechanismen. Statt händisch einzelne Geräte zu updaten sollte stattdessen ein zentrales Management diese Aufgabe übernehmen und für mehr Sicherheit am Netzwerkrand sorgen. Genauso wie Webbrowser meist verdeckt Updates erhalten oder Smartphone-Besitzer auf neue Versionen hingewiesen werden, sollte es auch bei Edge-Geräten der Fall sein.
 
@@ -274,7 +464,7 @@ Im Vergleich zu Edge Computing, wo die Endgeräte (z.B. IoT-Dinge) eine stärker
 Bei Fog Computing sind mehrere Schritte nötig, ehe Daten an die Cloud gesendet werden, werden sie:
 
 1. über standardmäßig I/O Mechanismen ausgelesen.
-2. von einem Open Platform Communication (OPC)-Server oder einer IoT-Node in ein Internet Protokoll wie MQTT oder HTTP konvertiert.
+2. von einem Open Platform Communication (OPC)-Server oder einer IoT-Node in ein Internet Protokoll wie Message Queuing Telemetry Transport (MQTT) oder Hypertext Transfer Protocol(HTTP) konvertiert.
 3. an eine Fog-Node im Netzwerk verschickt, wo sie gefiltert und/oder verarbeitet werden.
 
 Ebenso wie Edge Computing kann auch Fog Computing unabhängig von Cloud Computing umgesetzt werden. In der Praxis wird aber auch Fog Computing lediglich als Ergänzung zur Cloud genutzt, um vor allem Endnutzern eine erhöhte _"Quality of Service"_ (QoS) zu bieten.
@@ -324,7 +514,7 @@ Ein weiterer Sicherheitsaspekt, der zu betrachten gilt, ist die Wichtigkeit von 
 
 #### Systemfehler
 
-Wird beim Entwickeln von Softwareanwendungen nicht ein gewisser Qualitätsstandard eingehalten, kann dies zu Sicherheitslücken führen. Da bilden Anwendungen in der Cloud, beziehungsweise Anwendungen die für das Bereitsstellen in der Cloud verwendet werden, keine Ausnahme. Möchte ein Anbieter beispielsweise mehrere Kunden mit der selben Instanz versorgen, so setzt dieser auf ein multimandantenfähiges System. Fehler innerhalb solchen Anwendungen können allerdings dafür sorgen, dass die Daten der Kunden nicht sauber von einander getrennt sind und unbefugte Zugriffe ermöglicht werden. [[UTLE18]](#ref_utle18)
+Wird beim Entwickeln von Softwareanwendungen nicht ein gewisser Qualitätsstandard eingehalten, kann dies zu Sicherheitslücken führen. Da bilden Anwendungen in der Cloud, beziehungsweise Anwendungen die für das Bereitsstellen in der Cloud verwendet werden, keine Ausnahme. Möchte ein Anbieter beispielsweise mehrere Kunden mit der selben Instanz versorgen, so setzt dieser auf ein mandantenfähiges System. Fehler innerhalb solchen Anwendungen können allerdings dafür sorgen, dass die Daten der Kunden nicht sauber von einander getrennt sind und unbefugte Zugriffe ermöglicht werden. [[UTLE18]](#ref_utle18)
 
 Entscheiden sich Unternehmen ihre Cloud Systeme bei einem Dritten online zu stellen, machen diese sich auch automatisch abhängig. Bei der Wahl des Anbieters sollten sich Unternehmen Gedanken machen, was für Auswirkungen es hat, sollte ein System mal nicht erreichbar sein. Vor allem die großen Cloud Anbieter können sich allerdings damit rühmen eine Erreichbarkeit von über 99% vorweisen zu können. [[CLOU18]](#ref_clou18)
 
@@ -356,7 +546,7 @@ Darüber hinaus werden Cloud Anwendungen in der Regel nur in einer einzigen Vers
 
 Ein weiterer Nachteil von Cloud Computing ist das sogenannte _"Vendor Lock-In"_. Damit ist gemeint, dass der Wechsel von einem Cloud Anbieter zum nächsten häufig nicht problemlos möglich ist, was zu zusätzlichen Kosten führt. Cloud Architekturen, die auf die Infrastruktur eines speziellen Anbieters zugeschnitten ist, könnte beim Wechsel zu einem anderen Anbieter nur mit Kompromissen oder zusätzlichen Entwicklungsaufwand übernommen werden. Dies kann zu zusätzlichen Sicherheitsrisiken führen.
 
-Zusammenfassend ist zu sagen, dass viele Unternehmen durch die Skalierbarkeit, Agilität und dem pay-per-use Prinzip von Cloud Computing profitieren können. Jedoch sollte für jeden Anwendungsfalls das geeignete [Service Modell](#service-modelle) gewählt, die Risiken stetig abgewägt und ausreichend Sicherheitsmaßnahmen getroffen werden.
+Zusammenfassend ist zu sagen, dass viele Unternehmen durch die Skalierbarkeit, Agilität und dem pay-per-use Prinzip von Cloud Computing profitieren können. Jedoch sollte für jeden Anwendungsfalls das geeignete [Servicemodell](#servicemodelle) gewählt, die Risiken stetig abgewägt und ausreichend Sicherheitsmaßnahmen getroffen werden.
 
 [[LARK18]](#ref_lark18) [[WARD18]](#ref_ward18)
 
@@ -498,10 +688,10 @@ Die nachfolgende [Abbildung 5](#img_aws_ec2) gibt einen Überblick über den dri
 
 <a name="img_aws_ec2"></a>
 <div style="text-align:center">
-    <img alt="AWS EC2 Configure Instance Details" src="./images/aws_ec2_instance.png"/>
+    <img alt="Amazon EC2 Configure Instance Details" src="./images/aws_ec2_instance.png"/>
     <br>
 
-Abb. 5: AWS EC2 Configure Instance Details - Quelle: [[AWS18k]](#ref_aws18k)
+Abb. 5: Amazon EC2 Configure Instance Details - Quelle: [[AWS18k]](#ref_aws18k)
 
 </div>
 
@@ -519,7 +709,7 @@ Um bei einer größeren Anzahl von EC2 Instanzen nicht den Überblick zu verlier
 
 __6. Sicherheitsgruppen konfigurieren__
 
-Die Sicherheitsgruppen beschrieben die Firewall Einstellungen, die zu einer EC2 Instanz gehören. Hier können fertige Verbindungstypen hinzugefügt werden, um gängige Verbindungen wie SSH, HTTP und IMAP zu erlauben. Es können aber auch gezielt Konfigurationen zu bestimmten Protokollen und Ports gemacht werden sowie IP-Adressen beziehungsweise IP-Adressräume festgelegt werden die auf die Instanz zugreifen dürfen.
+Die Sicherheitsgruppen beschrieben die Firewall Einstellungen, die zu einer EC2 Instanz gehören. Hier können fertige Verbindungstypen hinzugefügt werden, um gängige Verbindungen wie Secure Shell (SSH), HTTP und Internet Message Access Protocol (IMAP) zu erlauben. Es können aber auch gezielt Konfigurationen zu bestimmten Protokollen und Ports gemacht werden sowie IP-Adressen beziehungsweise IP-Adressräume festgelegt werden die auf die Instanz zugreifen dürfen.
 
 
 __7. Übersicht und Starten der Instanz__
@@ -622,8 +812,8 @@ Da Cloudanwendungen in der Regel in einem externen Rechenzentrum laufen und/oder
 - __Performanz und Skalierbarkeit__<br>
 Performanz stellt einen Indikator für die Reaktionsfähigkeit eines Systems dar, die für die Ausführung einer Aufgabe erreicht wird. Skalierbarkeit hingegen ist der Indikator dafür, wieviel Last ein System verträgt, ohne, dass die Performanz darunter leidet. Vor allem im Cloud Computing Bereich müssen Systeme automatisch hoch- und herunterskalieren können, um unvorhergesehenen Lastpitzen entgegen zu wirken, aber auch, um bei geringer Last Kosten zu sparen.
 
-- __Elastizität__<br>
-Die Elastizität eines Systems beschreibt die Fähigkeit, Ausfälle zu erkennen und diese abzufangen. Die Vernetzung von Cloudanwendungen bringt viele Abhängigkeiten mit sich, sodass Systemausfälle von zentralen Diensten zu ernsthaften Problemen und Inkonsistenzen führen kann. Elastische Systeme erkennen Ausfälle frühzeitig und wirken diesen schnell und effektiv entgegen.
+- __Stabilität__<br>
+Die Stabilität eines Systems beschreibt die Fähigkeit, Ausfälle zu erkennen und diese abzufangen. Die Vernetzung von Cloudanwendungen bringt viele Abhängigkeiten mit sich, sodass Systemausfälle von zentralen Diensten zu ernsthaften Problemen und Inkonsistenzen führen kann. Elastische Systeme erkennen Ausfälle frühzeitig und wirken diesen schnell und effektiv entgegen.
 
 - __Sicherheit__<br>
 Die öffentliche Zugänglichkeit von Cloudanwendungen, über das Internet, bringt eine Vielzahl von Gefahren mit sich, die durch geeigneten Sicherheitmaßnahmen abgewendet werden müssen. Diese Maßnahmen müssen schadhafte Angriffe unterbinden, Ungefugten den Zugriff verweigern und sensible Daten schützen.
@@ -660,7 +850,7 @@ Darüberhinaus müssen Regeln festgelegt werden, wann Daten aus dem Cache entfer
 
 Die Cloud vernetzt häufig eine ganze Reihe von dezentralen Anwendungen und Dienste miteinander, die vor allem Daten verändern. Dabei werden in der Regel eine ganze Reihe von Operationen ausgeführt und miteinander gekoppelt. Transaktions-Mechanismen werden dazu genutzt, um die Konsistenz in Systemen zu erhalten, indem bereits ausgeführte Aktionen rückgängig gemacht werden, sollte eine Operation innerhalb einer Transaktion fehlschlagen. Die Besonderheiten von Cloud-Infrastrukturen sorgen allerdings dafür, dass sehr strenge Transaktionen zu Verlusten in Performanz führen können. Müssen Dienste auf eine Rückmeldung warten, dass eine Transaktion mit X Operationen bei Y anderen Diensten erfolgreich durchgeführt werden konnte, gehen einige der bisherigen Cloud-Vorteile verloren. Darüberhinaus können Operationen häufig nicht einfach rückgängig gemacht werden, da die Informationen schon von weiteren Anwendungen verwendet oder wieder verändert worden sein. Außerdem könnte sich der Zustand von Diensten in einer Service orientierten Architektur (SOA) durch Teiltransaktionen bereits geändert haben.
 
-Das Compensating Transaction Pattern setzt auf dem _"Eventual Consistency Modell"_ auf und stärkt die Elastizität eines Systems. Die Transaktion in diesem Pattern überschreiben nicht einfach den aktuellen Status eines Dienstes oder eines Datenspeichers mit den Informationen wie sie vorher waren, sondern bilden einen intelligenten Prozess, der alle Operationen der betroffenen Instanzen mit einbezieht.
+Das Compensating Transaction Pattern setzt auf dem _"Eventual Consistency Modell"_ auf und stärkt die Stabilität eines Systems. Die Transaktion in diesem Pattern überschreiben nicht einfach den aktuellen Status eines Dienstes oder eines Datenspeichers mit den Informationen wie sie vorher waren, sondern bilden einen intelligenten Prozess, der alle Operationen der betroffenen Instanzen mit einbezieht.
 
 Ein weitverbreitetes Verfahren zur Implementierung von eventuell konsistenten Operationen, basiert auf der Verwendung von sogenannten _"Workflows"_. In diesen Workflows werden Informationen gespeichert, die abbilden, was getan werden muss, um die Ausführung einer Operation wieder rückgängig zu machen. Im Endeffekt sind Workflows die Transaktionen um tieferliegende Transaktionen herum. Somit ist es auch möglich, dass die Workflow Transaktionen fehlschlagen. In solchen Fällen muss das System dazu in der Lage sein von den fehlschlagenden Operationen erneut zu starten und diese wiederholt zu versuchen. In extremen Fällen, in denen keine automatische Wiederherstellung eines konsistenten Zustanden möglich ist, muss das System Alarm schlagen und möglichst viele Informationen zu dem Vorfall liefern.
 
@@ -724,7 +914,7 @@ Bei der Wahl der richtigen Sharding Strategie ist vor allem eine genaue Betracht
 
 Obwohl der Cloud Computing Bereich schon viele Jahre produktiv im Einsatz ist, sind die Ideen und Konzepte noch nicht ausgeschöpft. Immer neue Technologien und Dienste ermöglichen vollkommen neue Einsatzgebiete und Anwendungsansätze für die Cloud. Anbieter wie Amazon erlauben es immer mehr Unternehmen ihre digitalen Prozesse und Softwareanwendungen in die Cloud zu verlagern, um dabei die immer schwerer wiegenden Vorteile von Cloud-Infrastrukturen zu nutzen.
 
-Nachteile und Begrenzungen der Cloud können in manchen Fällen durch "neue" Bereiche wie Edge und Fog Computing ausgebessert werden. Viele anfängliche Probleme sind seit der ersten Cloud Dienste wie [Amazon EC2](#ec2) längst gelöst und durch Best Practices und [Design Patterns](#cloud-design-patterns) können viele Risiken schon durch Designentscheidungen umgangen werden.
+Nachteile und Begrenzungen der Cloud können in manchen Fällen durch "neue" Bereiche wie Edge und Fog Computing ausgebessert werden. Viele anfängliche Probleme sind seit der ersten Cloud-Dienste wie [Amazon EC2](#ec2) längst gelöst und durch Best Practices und [Design Patterns](#cloud-design-patterns) können viele Risiken schon durch Designentscheidungen umgangen werden.
 
 
 ### Neuheiten und aktuelle Trends
@@ -994,9 +1184,9 @@ Ein neues Buzzword im Bereich Cloud Computing stellt der Begriff _"Cloud Native 
         <td style="width:90%">Gordon, Whitson ; lifehacker, 13.06.2012: Understanding OAuth: What Happens When You Log Into a Site with Google, Twitter, or Facebook</td>
     </tr>
     <tr>
-        <td>URL: <a>https://www.technologyreview.com/s/609641/six-cyber-threats-to-really-worry-about-in-2018/</a> (abgerufen am 29.06.2018)</td>
+        <td>URL: <a>https://lifehacker.com/5918086/understanding-oauth-what-happens-when-you-log-into-a-site-with-google-twitter-or-facebook</a> (abgerufen am 01.07.2018)</td>
     </tr>
-    <tr>https://lifehacker.com/5918086/understanding-oauth-what-happens-when-you-log-into-a-site-with-google-twitter-or-facebook
+    <tr>
         <td rowspan="2" style="width:10%"><a name="ref_gree18">[GREE18]</a></td>
         <td style="width:90%">Greenberg, Andy ; WIRED, 27.06.2018: Marketing firm Exactis leaked a personal info database with 340 million records</td>
     </tr>
@@ -1141,9 +1331,9 @@ Ein neues Buzzword im Bereich Cloud Computing stellt der Begriff _"Cloud Native 
         <td style="width:90%">Robinson, Paul ; JBossDeveloper, 19.04.2013: Compensating Transactions: When ACID is too much</td>
     </tr>
     <tr>
-        <td>URL: <a>https://www.technologyreview.com/s/425970/who-coined-cloud-computing/</a> (abgerufen am 27.05.2018)</td>
+        <td>URL: <a>https://developer.jboss.org/wiki/CompensatingTransactionsWhenACIDIsTooMuch</a> (abgerufen am 01.07.2018)</td>
     </tr>
-    <tr>https://developer.jboss.org/wiki/CompensatingTransactionsWhenACIDIsTooMuch
+    <tr>
         <td rowspan="2" style="width:10%"><a name="ref_rous17a">[ROUS17a]</a></td>
         <td style="width:90%">Rouse, Margaret ; TechTarget, 09.2017: Infrastructure as a Service (IaaS)</td>
     </tr>
