@@ -2,12 +2,28 @@
 
 In den letzten Jahren hat eine Verbreitung von künstlicher Intelligenz in vielen Bereichen des modernen Lebens stattgefunden. Durch die steigende Verfügbarkeit von Rechenleistung, auch durch Auslagerung in die Cloud, können immer größere Datenmengen verarbeitet werden, sodass Methoden aus dem Bereich der KI immer mehr Anwendung finden. Neben Gebieten der Wirtschaft wie der Werbeindustrie oder dem Bank- und Versicherungswesen steigt das Interesse am Einsatz von künstlicher Intelligenz auch von staatlicher Seite, z.B. als Hilfsmittel für die Polizei zur Verbrechensbekämpfung, zur Steigerung der Effektivität der Geheimdienste oder auch zur Entwicklung moderner Waffensysteme für das Militär. 
 
+## Bekannte Einsatzszenarien
+
+### SKYNET
+Bei Skynet handelt es sich um ein Überwachungsprogramm des amerikanischen Geheimdienstes NSA, bei dem Methoden aus dem Bereich der Künstlichen Intelligenz dazu eingesetzt werden in Pakistan anhand von Bewegungsdaten, die über das GSM-Netz gewonnen werden, mögliche Angehörige von Terrororganisationen zu bestimmen. [[THEG16]](#ref_theg16)
+Da das SKYNET Programm jedoch sehr nah mit dem amerikanischen Dronenprogramm verbunden ist, hat sich eine öffentliche Diskussion um die Frage entwickelt, ob Algorithmen eingesetzt werden, um Ziele für Drohnenangriffe festzulegen und somit über das Leben von Menschen entscheiden. Diese ethischen Bedenken wurden zusätzlich durch geleakte, von der NSA als "Top Secret" eingestufte Dokumente verschärft, in denen klar wird, dass zum Training der eingesetzten KI nur ein sehr kleiner Datensatz eingesetzt wurde. Dies könnte bedeuten, dass obwohl unter Testbedingungen gute Ergebnisse erzielt werden konnten, es durch Probleme wie Overfitting in der Anwendung zu hohen false positive Raten kommen könnte. Jedoch  auch mit der von der NSA in internen Dokumenten mit 0.008% angegebenen false positive Wahrscheinlichkeit ergeben sich für ein gesammtes Land wie Pakistan mit rund 200 Millionen Einwohnern immer noch 16.000 Personen, die fälschlicherweise als Terroristen klassifiziert werden und somit Ziel eines Drohnenangriffs werden könnten.
+
+### Project Maven
+Bei dem Projekt Maven handelt es sich um eine Kooperation zwischen dem US-Verteidigungsministerium und Google zur Verbesserung der automatisierten Auswertungsmöglichkeiten von Bildmaterial, welches von Überwachungsdrohnen gesammelt wird.[[ZEIT18]](#ref_zeit18) Ziel des Projektes ist es, eine künstliche Intelligenz zu entwickeln, die selbstständig militärische Ziele in Bildmaterial klassifizieren kann. Bekannt geworden ist Project Maven durch den Wiederstand von Google Mitarbeitern gegen die Verwendung ihrer Arbeit für militärische Zwecke, was letztendlich im Juni 2018 dazu führte, dass Google bekannt gab, den Vertrag über die Zusammenarbeit mit dem Pentagon 2019 auslaufen zu lassen. Ein Stop der Beteiligung von Google an  Project Maven wird aber laut dem US-Sicherheitsexperten Paul Scharre nicht dazu führen, dass das Projekt eingestellt wird, da nicht nur Google sondern auch andere Unternehmen aus dem Bereich der KI beteiligt sind.
+Kritiker der Kooperation befürchten, dass derartige Forschung zu einer neuen Art von Kriegsführung beitragen könnte, in der Maschienen selbstständig Ziele für Angriffe auswählen und damit ohne Beteiligung des Menschen über Leben und Tod entscheiden.
+
+
 ## Positionen
 
-Die starke Verbreitung von KI zum Erreichen unterschiedlichster Ziele hat dazu beigetragen, dass sich eine Vielzahl von verschiedenen Meinungen und Zukunftsvisionen bezüglich der Chancen und Gefahren dieser Technologie gebildet haben.
-Im folgenden werden einige dieser Positionen von bekannten Personen und Gruppen vorgestellt.
+Die starke Verbreitung von KI zum Erreichen unterschiedlichster Ziele hat dazu beigetragen, dass sich eine Vielzahl von verschiedenen Meinungen und Zukunftsvisionen bezüglich der Chancen und Gefahren dieser Technologie gebildet haben. Im folgenden werden einige dieser Positionen von bekannten Personen vorgestellt.
 
 ### Befürworter
+
+Eric Schmidt:
+Der ehemalige CEO von Google Eric Schmidt ist einer der bekanntesten Befürworter der Verbreitung von künstlicher Intelligenz. Schmidt arbeitet seit 2009 als Berater des US-Verteidigungsministeriums und ist unter anderem an Project Maven beteiligt. Er vertritt die Meinung, dass künstliche Intelligenz vom US-Militär sowohl defensiv als auch offensiv eingesetzt werden können sollte. [[THEV18]](#ref_thev18)
+
+Ronald Arkin:
+Ronald Arkin ist ein us-amerikanischer Wissenschaftler, der auf dem Gebiet der Robotik forscht und lehrt.[[DEUT13]](#ref_deut13) In den vergangenen Jahren hat sich Arkin mit der Forschung an autonomen Waffensystemen und dem Gebiet der Roboterethik beschäftigt. Er ist der Ansicht, dass durch den Einsatz von Robotern in der Kriegsführung Probleme wie zivile Verluste eingeschränkt werden können, da Maschienen keine Gefühle wie Hass oder Rache haben. Diese Eigenschaft kann laut Arkin dazu benutzt werden, um Waffensysteme zu erschaffen, die menschliche Soldaten ersetzten können. Obwohl eine vollständige Vermeidung von Kollateralschäden nicht möglich sei, könnten Roboter dennoch ethischer handeln und so zumindestens ungewollte Schäden minimieren. Arkin legt nach eigener Aussage jedoch Wert darauf, dass trotz des Einsatzes von autonomen Waffensystemen für Kampfeinsätze stets der Mensch die Prinzipien festlegt, nach denen ein Roboter handelt und auch die Verantwortung für die einzelnen Einsätze trägt.
 
 
 ### Kritiker
@@ -58,11 +74,15 @@ Auf Basis dieser fünf Quellen für (gefährliches) Fehlverhalten von künstlich
 
 ## Fazit
 
+Das Thema Ethik in der künstlichen Intelligenz hat in den letzten Jahren stark an Bedeutung gewonnen. Nicht zuletzt durch die Veröffentlichung von Geheimdokumenten des amerikanischen Geheimdienstes NSA durch Edward Snowden ist der breiten Öffentlichkeit die Bedeutung und die Gefahren des Einsatzes von KI in der modernen Welt bekannt geworden. Obwohl schon lange an den Techniken des maschinellen Lernens geforscht wird, hat sich erst durch die zunehmende Verfügbarkeit von Rechenleistung und Speicherplatz und der damit einhergehenden weitflächigen Anwendung zur Lösung unterschiedlichster Probleme die Notwendigkeit ergeben, auch an der Sicherheit und Ethik im Bereich der KI zu forschen. Aus diesem Grund steht die Wissenschaft auf dem Gebiet allerdings noch in den Anfängen, aber sollte sich der aktuelle Trend zur immer stärkeren Verbreitung von künstlicher Intelligenz in allen Bereichen fortsetzen, wird auch die Problematik der Sicherheit und Ethik an Bedeutung gewinnen müssen, um zukünftig dafür sorgen zu können, dass keine Pannen auftreten, die zu Szenarien führen könnten, wie sie Elon Musk vorhergesagt hat.
 
 
 <a name="ref_daam16">[DAAM16]</a>: Dario Amodei et al. ; 15.07.2016: Concrete Problems in AI Safety ; URL: <a>https://arxiv.org/abs/1606.06565</a> (abgerufen am 15.06.2018)
+<a name="ref_deut13">[DEUT13]</a>: Deutschlandfunk Kultur ; 05.09.2013: Roboter fühlen nichts ; URL: <a>https://www.deutschlandfunkkultur.de/roboter-fuehlen-nichts.954.de.html?dram:article_id=260526</a> (abgerufen am 14.06.2018)
 <a name="ref_faz17">[FAZ17]</a>: Frankfurter Allgemeine Zeitung ; 04.09.2017: Elon Musk warnt vor 3. Weltkrieg durch Künstliche Intelligenz ; URL: <a>http://www.faz.net/aktuell/wirtschaft/kuenstliche-intelligenz/elon-musk-tesla-chef-warnt-vor-kuenstlicher-intelligenz-15182958.html</a> (abgerufen am 09.06.2018)
 <a name="ref_heis16a">[HEIS16a]</a>: Heise online ; 19.01.2016: Stephen Hawking warnt Menschheit vor selbstverschuldetem Untergang ; URL: <a>https://www.heise.de/newsticker/meldung/Stephen-Hawking-warnt-Menschheit-vor-selbstverschuldetem-Untergang-3075237.html</a> (abgerufen am 16.06.2018)
 <a name="ref_heis16b">[HEIS16b]</a>: Heise online ; 03.12.2016: Stephen Hawking: Künstliche Intelligenz und Automation bedrohen Arbeitsplätze ; URL: <a>https://www.heise.de/newsticker/meldung/Stephen-Hawking-Kuenstliche-Intelligenz-und-Automation-bedrohen-Arbeitsplaetze-3549557.html</a> (abgerufen am 16.06.2018)
 <a name="ref_heis18">[HEIS18]</a>: Heise online ; 12.03.2018: "Viel gefährlicher als Atomwaffen": Elon Musk erneuert seine Warnung vor KI ; URL: <a>https://www.heise.de/newsticker/meldung/Viel-gefaehrlicher-als-Atomwaffen-Elon-Musk-erneuert-seine-Warnung-vor-KI-3990782.html</a> (abgerufen am 09.06.2018)
-
+<a name="ref_theg16">[THEG16]</a>: The Guardian ; 18.02.2016: Has a rampaging AI algorithm really killed thousands in Pakistan?  ; URL: <a>https://www.theguardian.com/science/the-lay-scientist/2016/feb/18/has-a-rampaging-ai-algorithm-really-killed-thousands-in-pakistan</a> (abgerufen am 03.06.2018)
+<a name="ref_thev18">[THEV18]</a>: The Verge ; 18.04.2018:Alphabet’s Eric Schmidt says Silicon Valley will need ‘AI principles’ before working with US military ; URL: <a>https://www.theverge.com/2018/4/18/17252036/alphabet-google-ai-military-pentagon-eric-schmidt</a> (abgerufen am 05.06.2018)
+<a name="ref_zeit18">[ZEIT18]</a>: Zeit online ; 05.06.2018: Google wird einfach ersetzt ; URL: <a>https://www.zeit.de/digital/internet/2018-06/maven-militaerprojekt-google-ausstieg-ruestungsexperte-paul-scharre</a> (abgerufen am 05.06.2018)
