@@ -420,13 +420,13 @@ Ein weiterer wichtiger Vorteil ist, dass bei einer solchen Infrastruktur immer a
 
 ## Herausforderungen
 
-Der Bereich der Digitalisierung ist enorm groß. Die Anwendungsfelder und Möglichkeiten wachsen stetig und der technische Fortschritt scheint nicht mehr zu stoppen. Aktuell führt die Digitalisierung noch mehr Jobs ein als wegfallen. Die Aufgabenbereiche der Menschen verschieben sich, jedoch, je länger dieser Prozess anhält, umso wahrscheinlicher wird es, dass die Anzahl von benötigten Mitarbeitern für eine bestimmte Aufgabe sinkt. Grade KI und Automatisierung könnten und werden vermutlich auch Milliarden von Arbeitsplätzen gefährden und schlussendlich größtenteils ersetzen. Aktuell sind Automatisierungs-Technologien und KI-Systeme sehr spezialisiert. Es existieren aber jetzt schon so viele Daten, die als Grundlage für KI genutzt werden können, dass Maschinen ausreichend gut lernen können. Durch verstärkte Digitalisierung wird dieser Prozess weiter vorangetrieben. So können Systeme auf den Daten von jetzigen Experten und Fachleuten lernen um deren Aufgaben anschließend zu übernehmen.
+Der Bereich der Digitalisierung ist enorm groß. Die Anwendungsfelder und Möglichkeiten wachsen stetig. Der technische Fortschritt scheint nicht mehr zu stoppen. Aktuell führt die Digitalisierung noch mehr Jobs ein als durch sie wegfallen. Die Aufgabenbereiche der Menschen verschieben sich. Je länger jedoch dieser Prozess anhält, umso wahrscheinlicher wird es, dass die Anzahl von benötigten Mitarbeitern für eine bestimmte Aufgabe sinkt. Gerade KI und Automatisierung könnten und werden vermutlich auch Milliarden von Arbeitsplätzen gefährden und schlussendlich größtenteils ersetzen. Aktuell sind Automatisierungs-Technologien und KI-Systeme sehr spezialisiert. Es existieren aber jetzt schon so viele Daten, die als Grundlage für KI genutzt werden können, sodass Maschinen ausreichend gut lernen können. Durch verstärkte Digitalisierung wird dieser Prozess weiter vorangetrieben. So können Systeme auf den Daten von jetzigen Experten und Fachleuten lernen, um deren Aufgaben anschließend zu übernehmen.
 
-Wie schon jeweils bei vielen Abschnitten angemerkt bringt die Digitalisierung auch viele Herausforderungen mit sich. Beispielsweise ist theoretisch der Besitzt und die Verbreitung der Bitcoin-Blockchain in praktisch allen Ländern verboten, da diese dazu missbraucht wurde um permanent illegale Inhalte abzuspeichern <a name="ref_MATZ18">[MATZ18]</a>. Der Sinn und das Prinzipe einer Blockchain ist, dass keine Inhalte gelöscht werden können und somit liegen diese Daten redundant auf der ganzen Welt verteilt. 
+Wie schon jeweils bei vielen Abschnitten angemerkt, bringt die Digitalisierung auch viele Herausforderungen mit sich. Beispielsweise ist theoretisch der Besitz und die Verbreitung der Bitcoin-Blockchain in praktisch allen Ländern verboten, da diese dazu missbraucht wurde, um permanent illegale Inhalte abzuspeichern <a name="ref_MATZ18">[MATZ18]</a>. Der Sinn und das Prinzipe einer Blockchain ist, dass keine Inhalte gelöscht werden können. Somit liegen diese Daten redundant auf der ganzen Welt verteilt. 
 
-Die Kommunikation verändert sich stark und die Menschen schauen lieber auf ihr Smartphone als Smalltalk zu führen. Obwohl jederzeit Kontakt zur ganzen modernen Welt möglich ist vereinsamen viele. Die sogenannte „fear of missing out“, bringt ebenso viele dazu von sozialen Medien und dem Internet abhängig zu werden. Der aktuelle Jugendschutz im Internet kann im Grunde nur als katastrophal beschrieben werden. Ein „Yes, i am 18 or older.“-Button reicht aus um auf jugendgefährdende Inhalte zuzugreifen. Datenmissbrauch, Identitätsdiebstal, illegaler Verkauf von Waffen, Munition, Drogen, Menschenhandel, Urheberrechtsverletzungen, Stalking und Mobbing wird durch Technik erleichtert oder effizient möglich gemacht. In dieser Hinsicht ist die Anonymität, die das Internet bietet zu gleich ein Segen und ein Fluch. In diesen Bereichen Lösungen und eine Balance zu finden ist die Aufgabe der nächsten Jahrzehnte.
+Die Kommunikation verändert sich stark und die Menschen schauen lieber auf ihr Smartphone, als Smalltalk zu führen. Obwohl jederzeit Kontakt zur ganzen modernen Welt möglich ist vereinsamen viele. Die sogenannte „fear of missing out“, bringt ebenso viele dazu, von sozialen Medien und dem Internet abhängig zu werden. Der aktuelle Jugendschutz im Internet kann im Grunde nur als katastrophal beschrieben werden. Ein „Yes, i am 18 or older.“-Button reicht aus, um auf jugendgefährdende Inhalte zuzugreifen. Datenmissbrauch, Identitätsdiebstal, illegaler Verkauf von Waffen, Munition, Drogen, Menschenhandel, Urheberrechtsverletzungen, Stalking und Mobbing wird durch Technik erleichtert oder effizient möglich gemacht. In dieser Hinsicht ist die Anonymität, die das Internet bietet, zugleich ein Segen und ein Fluch. In diesen Bereichen Lösungen und eine Balance zu finden, ist die Aufgabe der nächsten Jahrzehnte.
 
-Voraussichtlich sind Digitalisierung, KI und Automatisierung allgemein betrachtet etwas Gutes für die Menschheit. So wie auch schon durch die anderen Industriellen Revolutionen könnte der durchschnittliche Lebensstandard der Weltbevölkerung angehoben werden. Welchen Tätigkeiten die Menschen nachgehen, wenn z.B. 5% der Bevölkerung ausreicht um die Grundbedürfnisse aller zu decken ist die eigentliche Frage. Auch sollte die gerechte Verteilung von Ressourcen eine starke Rolle spielen. Zusätzlich müssen wir natürlich darauf achten, dass der Planet bei dem ganzen „Fortschritt“ nicht unbewohnbar wird. Der gesamte Fortschritt und Wohlstand nützt wenig, wenn dieser bei groß Teile der Weltbevölkerung nicht daran teilhaben können. Während sich in der modernen Welt die Bevölkerung mit vergleichsweise trivialen Problemen beschäftigt, werden in anderen Ecken der Welt immer noch Kinder zur Arbeit gezwungen und verhungern.
+Voraussichtlich sind Digitalisierung, KI und Automatisierung allgemein betrachtet etwas Gutes für die Menschheit. So wie auch schon durch die anderen industriellen Revolutionen kann der durchschnittliche Lebensstandard der Weltbevölkerung angehoben werden. Welchen Tätigkeiten die Menschen nachgehen, wenn z.B. 5% der Bevölkerung ausreicht, um die Grundbedürfnisse aller zu decken, ist die eigentliche Frage. Auch sollte die gerechte Verteilung von Ressourcen eine starke Rolle spielen. Zusätzlich müssen wir natürlich darauf achten, dass der Planet bei dem ganzen „Fortschritt“ nicht unbewohnbar wird. Der gesamte Fortschritt und Wohlstand nützt wenig, wenn ein Großteil der Weltbevölkerung nicht daran teilhaben kann. Während sich in der modernen Welt die Bevölkerung mit vergleichsweise trivialen Problemen beschäftigt, werden in anderen Ecken der Welt immer noch Kinder zur Arbeit gezwungen und verhungern.
 
 Humanität und Solidarität bringen eben kein Profit.
 
@@ -434,7 +434,7 @@ Humanität und Solidarität bringen eben kein Profit.
 
 ## Literaturverzeichnis
 
-<a name="ref_MARW07">[MARW07]</a>: Marwedel, Peter : Eingebettete Systeme. Deutschland 2007, Springer-Verlag Berlin Heidelberg , ISBN 978-3-540-34048-5
+<a name="ref_MARW07">[MARW07]</a>: Marwedel, Peter : Eingebettete Systeme. Deutschland 2007, Springer-Verlag Berlin Heidelberg, ISBN 978-3-540-34048-5
 
 <a name="ref_MATZ18">[MATZ18]</a>: Matzutt, Roman ; Hiller, Jens ; Henze, Martin ; Ziegeldorf, Jan ; Müllmann, Dirk ; Hohlfeld, Oliver ; Wehrle, Klaus. : A Quantitative Analysis of the Impact of Arbitrary Blockchain Content on Bitcoin. Deutschland 2018, https://fc18.ifca.ai/preproceedings/6.pdf
 
@@ -452,37 +452,4 @@ Humanität und Solidarität bringen eben kein Profit.
 
 <a name="ref_WIKI18d">[WIKI18d]</a>: Wikipedia : High Efficiency Video Coding. https://en.wikipedia.org/wiki/High_Efficiency_Video_Coding (abgerufen am 01.07.2018)
 
-<a name="ref_WOLF17">[WOLF17]</a>: Wolf, Thomas , Strohschen, Jacqueline-Helena : Digitalisierung: Definition und Reife. Deutschland 2017, Springer Berlin Heidelberg, JH. Informatik Spektrum 41:56. https://doi.org/10.1007/s00287-017-1084-8
-
-<!-- COMMENT!
-
-<a>[[MATZ18]](#ref_MATZ18)</a> illigal stuff in BC
-
-<a>[[MICR18]](#ref_MICR18)</a> hololens
-
-<a>[[SPIE13]](#ref_SPIE13)</a> waffe drucker
-
-<a>[[WIKI18d]](#ref_WIKI18d)</a> High Efficiency Video Coding (HEVC), also known as H.265
-
-<a>[[WIKI18c]](#ref_WIKI18c)</a> EA
-
-<a>[[WIKI18b]](#ref_WIKI18b)</a> transistor count
-
-<a>[[WIKI18a]](#ref_WIKI18a)</a> mixed reality
-
-<a>[[MARW07]](#ref_MARW07)</a> ES buch
-
-<a>[[NEUG18]](#ref_NEUG18)</a> Digi. Buch
-
-<a>[[WOLF17]](#ref_WOLF17)</a> Definition und Reife
-
-
-Ein Bild Beschreibung hier.
-
-<img src="./images/merkle_tree.png" width="400">
-
-Aufbau eines einzelnen Blocks.
-Abbildung entnommen und angepasst aus
-<a>[[VUJI18]](#ref_VUJI18)</a>
-
--->
+<a name="ref_WOLF17">[WOLF17]</a>: Wolf, Thomas ; Strohschen, Jacqueline-Helena : Digitalisierung: Definition und Reife. Deutschland 2017, Springer Berlin Heidelberg, JH. Informatik Spektrum 41:56. https://doi.org/10.1007/s00287-017-1084-8
