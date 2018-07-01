@@ -14,7 +14,7 @@ Autor: Sebastian Janzen
     - [Evolutionäres Design](#evolutionäres-design)
     - [Client-Kommunikation mit Microservices](#client-kommunikation-mit-microservices)
     - [Humane Registries](#humane-registries)
-    - [Serverless](#serverless)
+- [Serverless](#serverless)
 - [Unterschiede zu monolithischen Anwendungen](#unterschiede-zu-monolithischen-anwendungen)
     - [Vorteile](#vorteile)
     - [Nachteile](#nachteile)
@@ -191,7 +191,7 @@ Humane Registry ist eine automatisierte Dokumentation für Microservices, design
 
 Solch ein Dokumentationswerkzeug durchsucht den Quellcode des Systems und stellt detaillierte Informationen darüber bereit, welcher entwickler wann und wieviel zum Microservices beigetragen hat. So können Mitarbeiter sehen an wem sie sich in bestimmten Fällen wenden können. Mithilfe von Daten aus verschiedensten Systemen, wie Continuous-Integration-Servern, von Versionsverwaltungsprogrammen und Issue-Tracking-Systemen, wird eine übergreifende Dokumentation erschaffen. <a>[[FOWL08]](#ref_Fowl08)</a>
 
-### Serverless
+## Serverless
 
 Serverless steht für Serverless computing und wird in zwei Bereichen eingesetzt:
 1. Es wird komplett auf die serverseitige Logik verzichtet und stattdessen werden Cloud-Services von Drittanbietern integriert. Übliche Anwender sind Single-Page-Webanwendungen und mobile Apps. Zu solchen Cloud-Services zählen Datenbanken, Authentifizierungsmechanismen und so weiter. Weshalb dieser Typ von Microservices auch __Backend as a Service__ genannt wird.
