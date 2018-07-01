@@ -42,7 +42,7 @@ Um die Problematik dieser Fragestellung zu betrachten, ist ins Gedächtnis zu ru
 Dennoch bedarf die Abschaltung und Kontrolle diverser Angebot des Internets keine Katastrophe, sondern ist kontrollierbar.
 Ebenso werden Webhostingangebote oder Cloudlösungen häufig von den großen Internetdienstleistern angeboten, somit konzentriert sich der Datenverkehr an diversen zentralen Knotenpunkten. 
 So hat beispielsweise das soziale Netzwerk Facebook im ersten Quartal 2018 monatlich rund 2,2 Mrd. aktive Nutzer zu verzeichnen [[STAT18a]](#ref_STAT18a).
-Zusätzlich ist zu beobachten, dass  (u.a.) die genannten Unternehmen sich längst über ihre ursprüngliche Kernkompetenz hinaus entwickelt haben.
+Zusätzlich ist zu beobachten, dass die (und andere) genannten Unternehmen sich längst über ihre ursprüngliche Kernkompetenz hinaus entwickelt haben.
 An dieser Stelle ist die Expansionsstrategie der Unternehmen Microsoft, Apple, Facebook, Alphabet und Amazon hervorzuheben. In den folgenden Abbildungen sind die Fusionen und Akquisitionen pro Jahr,
 sowie die kumulierten Übernahmen dargestellt:
 
@@ -92,7 +92,7 @@ IPFS kombiniert Eigenschaften bekannter Systeme, wie z.B. DHTs, BitTorrent, Git 
 
 Verteilte Hashtabellen sind Datenstrukturen, die in Peer-to-Peer-Systemen genutzt werden, um die Speicherorte von Dateien abzubilden. 
 So spiegelt jeder Speicherknoten einen Eintrag in der Hashtabelle wider. Diese vereinfachte Darstellung, dient als Vorlage für verschiedene Implementierungen und kann durch die generalisierte Schnittstelle
-*publish(key, content)* und *lookup(key)* angeboten werden. Im IPFS-Kontext werden die Implementierungen Coral DSHT, Kademlia DHT bzw. S/Kademlia DHT genutzt [[BENE14]](#ref_BENE14).
+`publish(key, content)` und `lookup(key)` angeboten werden. Im IPFS-Kontext werden die Implementierungen Coral DSHT, Kademlia DHT bzw. S/Kademlia DHT genutzt [[BENE14]](#ref_BENE14).
 
 ##### Kademlia DHT
 
@@ -116,7 +116,7 @@ Für IPFS hervorzuheben Eigenschaften sind [[BENE14]](#ref_BENE14):
 
 Coral ist eine Erweiterung des Kademlia Algorithmus, die die XOR-Verknüpfung zur Distanzermittlung verändert.
 Resultierend werden Adressen der Peers, die Datenblöcke zur Verfügung stellen gespeichert. 
-Außerdem wird die Funktion *get_value(key)* in *get_any_values(key)* geändert, um das Bilden von Hot-Spots zu minimieren.
+Außerdem wird die Funktion `get_value(key)` in `get_any_values(key)` geändert, um das Bilden von Hot-Spots zu minimieren.
 Letztendlich werden in Abhängigkeit von Größe und Region, hierarchische Hashtabellen gebildet [[BENE14]](#ref_BENE14).
 
 ##### S/Kademlia DHT
@@ -147,7 +147,7 @@ Das Versionsverwaltungssystem Git, dass häufig mit der Website github.com assoz
 Als Randnotiz sei an dieser Stelle zu erwähnen, dass GitHub seit dem 04.06.2018 ebenfalls ein Bestandteil der Liste der Fusionen und Akquisitionen der Firma Microsoft geworden ist [[WIKI18c]](#ref_WIKI18c).
 Für IPFS hervorzuheben sind die folgenden Funktionalitäten [[BENE14]](#ref_BENE14):
 
-1. Unveränderbare Objekte die durch Dateien (blobs), Verzeichnisse (tree) und Veränderungen (commits) repräsentiert werden.
+1. Unveränderliche Objekte die durch Dateien (blobs), Verzeichnisse (tree) und Veränderungen (commits) repräsentiert werden.
 
 2. An den Inhalt gebundene Adressierung durch kryptografischen Hash der Inhalte.
 
@@ -162,7 +162,7 @@ Für IPFS hervorzuheben sind die folgenden Funktionalitäten [[BENE14]](#ref_BEN
 #### SFS
 
 Zuletzt wird das Konzept von Self-Certified Filesystems genutzt, dass das Schema
-<br/> **/sfs/`<Location>`:`<HostId>`** nutzt.
+<br/> `/sfs/<Location>:<HostId>` nutzt.
 Die Location wird durch die Servernetzwerkadresse generiert während die **HostID = hash(public_key || Location)** definiert ist [[BENE14]](#ref_BENE14).
 
 #### Architekturdesign
@@ -189,7 +189,7 @@ Solange ein Peer im Netzwerk Dateien zur Verfügung stellt, ist eine gezielte Ze
 Objekten ermöglicht.
 
 Zusammengefasst ist IPFS ein Protokoll, das die Verteilung von Inhalten verwaltet, diese Inhalte werden inhaltsgebunden adressiert. 
-Es ist ein Dateisystem, dass aus Ordnern und Dateien besteht. Ebenso ist IPFS ein Netz, dass das Betrachten von Dokumenten, ähnlich HTTP, unterstützt. Auf Dateien kann ebenso mittels HTTP mit https://ipfs.io/`<path>` zugegriffen werden. 
+Es ist ein Dateisystem, dass aus Ordnern und Dateien besteht. Ebenso ist IPFS ein Netz, dass das Betrachten von Dokumenten, ähnlich HTTP, unterstützt. Auf Dateien kann ebenso mittels HTTP durch ein Gateway `https://ipfs.io/<path>` zugegriffen werden. 
 Dabei garantieren Hashverfahren die Authentizität von Objekten, ermöglichen die Versionierung und Adressierung von Inhalten, ebenso werden Duplikate zuverlässig erkannt. Durch den modularen Aufbau sind Routingverfahren als auch die genutzten verteilten Hashtabellen individualisierbar.
 Darüber hinaus ist IPFS ein P2P-System ohne einen "Central-Point-of-Failure" und vollständig dezentral. Dateien, die lokal gespeichert werden, sind weltweit abrufbar und nutzen die geteilte Bandbreite der Peers. Auch ist ein Nameservice gegeben, dieser verknüpft `.onion`, `.bit` etc. mit IPNS [[IPFS18]](#ref_IPFS18).
 
@@ -197,7 +197,8 @@ Darüber hinaus ist IPFS ein P2P-System ohne einen "Central-Point-of-Failure" un
 ### Aktuelles
 
 Aktuell ist jedoch das Ersetzen von HTTP ein weit entferntes Ziel, da sich IPFS aktuell (Stand 27.06.2018) im Zustand "Work in Progress" befindet.
-Momentan existieren Implementierungen in Go und weniger weit entwickelt in JavaScript, Python und C, alle genannten Distributionen befinden sich in der Alpha-Entwicklungsphase [[IPFS18]](#ref_IPFS18).
+Momentan existieren Implementierungen in <a href="https://github.com/ipfs/go-ipfs"> Go </a> und weniger weit entwickelt in <a href="https://github.com/ipfs/js-ipfs"> JavaScript </a> und
+<a href="https://github.com/ipfs/py-ipfs-api"> Python </a>, alle genannten Distributionen befinden sich in der Alpha-Entwicklungsphase [[IPFS18]](#ref_IPFS18).
 
 > The IPFS protocol and its implementations are still in heavy development. This means that there may be problems in our protocols, or there may be mistakes in our implementations.
  And -- though IPFS is not production-ready yet -- many people are already running nodes in their machines. So we take security vulnerabilities very seriously.
@@ -419,7 +420,66 @@ Zur Nutzung in einem aktuellen Browser kann ein Repository via HTTP, durch `dat 
 
 ### Beakerbrowser
 
-## DAT vs. IPFS vs. HTTP
+Aufbauend auf dem DAT-Protokoll wurde der Beakerbrowser entwickelt [[BEAK18]](#ref_BEAK18). Mit dem Browser kann zusätzlich zum HTTP-Protokoll eine Interaktion mit DAT-Repositories stattfinden.
+Zusätzlich zu bekannten Features von modernen Webbrowsern, besteht die Möglichkeit Inhalte durch implementierte Werkzeuge zu generieren.
+
+![ref_beaker_new](./images/beaker_new.png "Beakerbrowser - Erstellen neuer DAT-Repository")
+
+Eigene Grafik
+
+Imm Menü steht die Funktion zum Erstellen neuer Internetseiten zur Verfügung, wodurch ein 
+DAT-Repository mit vordefinierten Inhalten erstellt wird:
+- .datignore
+- dat.json
+- index.html
+- script.js
+- styles.css
+
+Diese Inhalte werden, entsprechend der DAT Funktionalitäten, mit einem öffentlichen Schlüssel generiert, wodurch ein Zugriff via Browser stattfinden kann.
+Eine weitere Möglichkeit zum Erstellen von Repositories, im Zusammenhang mit Webapplikationen, ist die `Make editable copy`-Funktion im Browser. Wenn ein DAT-Repository, wie bspw. die zuvor beschriebene neu erstellte Webseite,
+geöffnet wird, steht diese Funktion zur Verfügung.
+
+![ref_beaker_fork](./images/beaker_fork.png "Beakerbrowser - das Forken einer DAT-Anwendung")
+
+Eigene Grafik
+
+Diese löst den Klonprozess des DAT-Protokolls aus und generiert ein Repository inkl. öffentlichen Schlüssel wodurch die Inhalte ebenfalls im DAT-Netzwerk erscheinen.
+Nach dem Klonen können Konfigurationen wie das Festlegen des Zielverzeichnisses festgelegt werden.
+
+![ref_beaker_fork2](./images/beaker_fork2.png "Beakerbrowser - DAT-Repository")
+
+Eigene Grafik
+
+## Fazit
+
+Zusammenfassend ist die Dezentralisierung des Internets und die Entwicklung dezentraler Anwendungen nicht weit genug fortgeschritten, um als echte Alternative zum HTTP-Standard gesehen zu werden.
+Ein direkter Vergleich der Protokolle DAT und IPFS gleicht dem Vergleich von Äpfel und Birnen, da die Protokolle jeweils andere Anwendungsgebiete haben. 
+Während mit dem IPFS-Protokoll versucht wird ein breiteres Spektrum von Funktionalitäten zu erfüllen, ist die Stärke des DAT-Protokolls die Kollaboration.
+ 
+Da die Entwicklung von dezentralen Anwendungen stark angetrieben von der Blockchaintechnologie (siehe <a href=https://itnext.io/build-a-simple-ethereum-interplanetary-file-system-ipfs-react-js-dapp-23ff4914ce4e>hier</a>) ist, scheint die Entwicklung von und mit IPFS
+erfolgreicher zu sein. So existieren bereits viele IPFS-Applikationen, die etablierte Internetdienste wie z.B. Chats oder Wikis kopieren [[IPFS18a]](#ref_IPFS18a). Ebenso ist durch die Möglichkeit von Gateways eine Verbindung des IPFS-Protokolls und erfolgreichen Webbrowsern möglich.  
+Gegensätzlich bietet DAT eine Interaktionsmöglichkeit mit dem DAT-Netzwerk und HTTP durch den Beakerbrowser und einige wenige 3rd-Party Anwendungen [[DATP18a]](#ref_DATP18a).
+
+Damit die Technologien in naher Zukunft erfolgreich sein können, ist vermutlich eine Integration innerhalb zentralisierter Anwendungen ein Schritt in Richtung des enthusiastischen Ziels: "Dezentralisierung des Internets". 
+Auch ist abzuwarten, ob IPFS oder DAT sich durchsetzt oder ob die Protokolle koexistent sein werden.
+
+Zusammenfassend betrachtet ist ein Vergleich zwischen IPFS/DAT und HTTP folglich:
+
+|    Eigenschaft    |IPFS/DAT      | HTTP  |
+| ------------- |:-------------:| :-----:|
+| Typ   | dezentralisiert | zentralisiert |
+| Zensur     | kaum möglich      |   möglich |
+| Bandbreite | verteilt auf Peers    |    zentraler Server |
+| DDOS-Risiko | nein | ja |
+| Etabliert | nein | ja |
+
+Jedoch spiegelt die Übersicht weiterführende Funktionalitäten wie Filesharing-Aspekte nicht wider.
+
+Kritisch zu beurteilen ist, inwiefern Peerbetreiber für Inhalte bzw. Blöcke haftbar gemacht werden können. So kann ungewollt dazu beigetragen werden illegale Inhalte zu verbreiten. 
+Um Inhalte bestimmten Nutzer vorenthalten zu können, wie bspw. privaten Daten, besteht lediglich die Möglichkeit Inhalte ausschließlich verschlüsselt innerhalb der dezentralen Netze zu verteilen, da aktuell keine Zugriffsrechte spezifiziert werden können.
+Folglich ist, bedingt durch die Entwicklungsstadien von IPFS und DAT, abzuwarten, wie die Entwicklung weiterer Sicherheitsaspekte und Authentifikationsmechanismen stattfinden wird.
+
+
 
 ## Literaturverzeichnis
 
@@ -427,11 +487,17 @@ Zur Nutzung in einem aktuellen Browser kann ein Repository via HTTP, durch `dat 
 Adamsky, Florian et al., P2P File-Sharing in Hell: Exploiting BitTorrent Vulnerabilities to Launch
 Distributed Reflective DoS Attacks, 2015
 
+<a name="ref_BEAK18">[BEAK18]</a>:
+Beakerm, URL: https://beakerbrowser.com/docs/using-beaker/ (abgerufen am 30.06.2018)
+
 <a name="ref_BENE14">[BENE14]</a>:
 Benet, Juan: IPFS - Content Addressed, Versioned, P2P File System, 2014
 
 <a name="ref_DATP18">[DATP18]</a>
 Dat Project, URL: https://datproject.org/ (abgerufen am 29.06.2018)
+
+<a name="ref_DATP18a">[DATP18a]</a>:
+Dat Project, Dat awesome, URL: http://awesome.datproject.org/ (abgerufen am 01.07.2018)
 
 <a name="ref_GART17">[GART17]</a>:
 Gartner, Inc., Gartner Says 8.4 Billion Connected "Things" Will Be in Use in 2017, Up 31 Percent From 2016, URL: https://www.gartner.com/newsroom/id/3598917 (abgerufen am 26.06.2018)
@@ -439,11 +505,17 @@ Gartner, Inc., Gartner Says 8.4 Billion Connected "Things" Will Be in Use in 201
 <a name="ref_IPFS18">[IPFS18]</a>:
 Github-Repository IPFS, URL: https://github.com/ipfs/ipfs 2018 (abgerufen 27.06.2018)
 
+<a name="ref_IPFS18a">[IPFS18a]</a>:
+Github-Repository Awesome IPFS, URL: https://github.com/ipfs/awesome-ipfs 2018 (abgerufen am 01.07.2018)
+
 <a name="ref_MAYM02">[MAYM02]</a>:
 Maymounkov, Petar und Mazières, David, Kademlia: A Peer-to-peer information system based on the XOR Metric, 2002
 
 <a name="ref_NPMT17">[NPMT17]</a>:
 npm trends, URL: http://www.npmtrends.com/ 2017 (abgerufen am 30.06.2018)
+
+<a name="ref_PABL18">[PABL18]</a>:
+Pablo, Juan: Peer-to-peer slideshow with Beakerbrowser, Dat and remark, URL: https://peer-to-peer-slideshow-juanpablo.hashbase.io/#1 (abgerufen am 30.06.2018)
 
 <a name="ref_PROT18">[PROT18]</a>:
 Protocol Labs, URL: https://ipfs.io/ (abgerufen am 26.06.2018)
