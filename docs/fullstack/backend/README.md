@@ -275,11 +275,15 @@ GraphQL ist eine von Facebook entwickelte Query-Sprache und Runtime, die 2015 ve
 Um GraphQL einzusetzen, wird ein Client, sowie ein Backend benötigt, welche beide mit der Query-Sprache umgehen können. Implementierungen der Technologie stehen auf beiden Seiten in vielen verschiedenen Programmier- und Skriptsprachen zur Verfügung.
 
 GraphQL stellt zwischen Client und Server eine zusätzliche Schicht dar, welche die Aufgabe der Kommunikation übernimmt. Es geschieht schnell, dass man die Technologie mit einer Datenbank-Technologie verwechselt. Tatsächlich handelt es sich aber um eine Query-Sprache für APIs, nicht für Datenbanken. <a>[[RITS17]](#ref_RITS17)</a>
-GraphQL kann hierbei auf Backend-Logik aufgesetzt werden und so Query-Operationen auf den vom Backend gelieferten Daten, bereitstellen.
-
-#### GraphiQL
+GraphQL kann hierbei auf Backend-Logik aufgesetzt werden und so Query-Operationen auf den vom Backend gelieferten Daten, bereitstellen. Die Lese-Operationen werden von GraphQL nur "Queries" genannt und die Erstell- und Bearbeitungs-Operationen nennen sich "Mutationen".
 
 #### Vorteile
+
+#### GraphiQL
+GraphiQL ist eine von GraphQL mitgelieferte Oberfläche, um schnell und simpel bereitgestellte Funktionalität auszuprobieren.
+Auf der Oberfläche kann ein Nutzer automatisch die Dokumentation der Schnittstelle einsehen. Anhand dieser Dokumentation weiß der Nutzer welche Queries er ausführen kann und kann diese direkt testen.
+Die Oberfläche nimmt sowohl dem Client-, als auch dem Server-Entwickler somit viel Arbeit ab, indem direkt in der Oberfläche gedebugged werden kann. Der Server-Entwickler kann Fehler in der Ausgabe aufdecken und der Client-Entwickler kann den in der Oberfläche getesteten Code in seine Client-Applikation übernehmen.
+GraphiQL hilft somit immens die Entwicklung zu vereinfachen.  
 
 ##### Effiziente Datenabfrage
 Der Grund, warum Facebook GraphQL entwickelt hat, war, dass durch die große und stark steigende Nutzeranzahl der Datenverkehr über das Netzwerk immer größer wurde und aktuelle Lösungen die Anfragen nur ineffizient abarbeiten konnte.
@@ -370,11 +374,9 @@ Die Auswahl der Technologie liegt dementsprechend ganz bei dem Entwickler des Cl
 
 Zur Einarbeitung in GraphQL auf Basis einer bestimmten Technologie stellt die Webseite <a href="https://howtographql.com">https://howtographql.com</a> einen guten Einstiegspunkt dar.
 
-Eine simple Implementierung zur serverseitigen Umsetzung von GraphQL mit NodeJS stellt GraphQL-Express zur Verfügung.
+Auf der Seite werden verschiedene Software-Stacks für Backend und Frontend vorgestellt und kurze Tutorials für einen ersten Einstieg präsentiert.
 
-...
-Eine beliebte clientseitige Umsetzung von GraphQL besteht aus einer Kombination von Apollo und React.  
-...
+Eine beliebte Umsetzung von GraphQL bietet [Apollo](https://www.apollographql.com/), da Apollo einen Client "Apollo Client", eine Bibliothek zur Servererstellung "Apollo Server" und einen Gateway "Apollo Engine" bereitstellt. Mithilfe dieser drei Komponenten und den von Apollo gestellten Dokumentationen und Tutorials kann schnell eine End-To-End GraphQL-Anwendung implementiert werden, die dank Apollo Gateway sogar Caching-Funktionalitäten bietet, die mit GraphQL standardmäßig eher problematisch sind.  
 
 ##### Schnelle Funktionalitäts-Erweiterung
 Die so durch GraphQL geschaffene Schnittstelle ist dementsprechend leicht anzupassen. Der Server kann an der Schnittstelle zusätzliche Informationen bereitstellen, ohne dass der Client dazu gezwungen ist seine Anfrage an die zusätzlichen Informationen anzupassen, da er sie einfach ignorieren kann. Ebenso kann der Client sich dazu entscheiden zuvor ungenutzte Daten mit abzurufen und somit neue Funktionalitäten implementieren ohne eine Schnittstellen-Änderung am Server anzufordern. Die Entwicklung von Client und Server ist somit voneinander entkoppelt, was für eine individuellere und schnellere Entwicklung sorgt, die durch kleine Anpassungen in den Queries geregelt werden kann.  
