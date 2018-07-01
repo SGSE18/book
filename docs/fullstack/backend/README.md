@@ -275,7 +275,9 @@ GraphQL ist eine von Facebook entwickelte Query-Sprache und Runtime, die 2015 ve
 Um GraphQL einzusetzen, wird ein Client, sowie ein Backend benötigt, welche beide mit der Query-Sprache umgehen können. Implementierungen der Technologie stehen auf beiden Seiten in vielen verschiedenen Programmier- und Skriptsprachen zur Verfügung.
 
 GraphQL stellt zwischen Client und Server eine zusätzliche Schicht dar, welche die Aufgabe der Kommunikation übernimmt. Es geschieht schnell, dass man die Technologie mit einer Datenbank-Technologie verwechselt. Tatsächlich handelt es sich aber um eine Query-Sprache für APIs, nicht für Datenbanken. <a>[[RITS17]](#ref_RITS17)</a>
-GraphQL kann hierbei auf Backend-Logik aufgesetzt werden und so Query-Operationen auf den vom Backend gelieferten Daten, bereitstellen.  
+GraphQL kann hierbei auf Backend-Logik aufgesetzt werden und so Query-Operationen auf den vom Backend gelieferten Daten, bereitstellen.
+
+#### GraphiQL
 
 #### Vorteile
 
@@ -393,14 +395,50 @@ Da GraphQL an einem einzigen POST-Endpunkt arbeitet, ist es schwer Netzwerk-Cach
 ##### Datei-Upload
 Die GraphQL-Spezifikation beinhaltet aktuell standardmäßig leider keine Möglichkeit um Dateien hochzuladen, da nur mit serialisierbaren Daten gearbeitet werden kann. Als Lösung können Dateien Base64-Decodiert und als String übermittelt werden, was allerdings mehr Speicher und Rechenleistung benötigt oder es muss auf eine Erweiterung in Form einer zusätzlichen REST-API oder GraphQL-Bibliothek, wie beispielsweise <a>[[GQLM18]](#ref_GQLM18)</a>, gesetzt werden.  
 
-#### Weitere Codebeispiele
-Queries
-Mutationen
-Fragmente
-
 ### Vergleich der Technologien
+Aus den vorangegangenen Kapiteln wird ersichtlich, dass alle Technologien ihre Vor- und Nachteile haben, sowie Spezialisierungen auf bestimmte Anwendungsfälle vorgesehen wurden.
+Innerhalb dieses Abschnittes wird noch einmal ein Vergleich zwischen den Technologien gezogen, um ersichtlich zu machen, welche Technologie für welchen Anwendungsfall besser und welche weniger gut geeignet ist.
+
+#### Geschwindigkeit und Kompression
+Das RPC Framework gRPC legt seinen Fokus auf schnelle Kommunikation. HTTP/2 und ProtoBuffer gewähren gRPC einen Geschwindigkeits- und Datenkompressions-Vorteil gegenüber REST, welches mit dem Overhead durch seine Prinzipien, HTTP/1 und dem JSON-Format zu kämpfen hat. Problematisch an REST ist ebenfalls, dass durch generalisierte Schnittstellen große Payloads versendet werden und oft mehrere Anfragen abgesendet werden müssen, um an die Daten zu kommen, die gebraucht werden. GraphQL löst dieses Problem, indem der Client dank Queries nur die Daten zurückgeliefert bekommt, die er auch benötigt, was den Payload und die Anzahl der Anfragen gering hält. Dies geht allerdings mit dem Entfall der Cacheability einher, welche REST nutzt.
+
+gRPC bietet somit die meisten Vorteile in Punkto Geschwindigkeit und Kompression. GraphQL bietet den Vorteil des "optimalen Payload" für effiziente Datenübertragung und REST liefert Cacheability auf Client und Serverseite, die die Anzahl der Anfragen reduzieren kann.  
+
+#### Flexibilität
+GraphQL's Queries ermöglichen es den Clients genau die Daten anzufordern, die benötigt werden und auch mehrere Queries in einer Anfrage zu kombinieren. Mit dieser Eigenschaft schafft es GraphQL mit einer einzigen  Schnittstelle die Anforderungen vieler verschiedenen Clientarten zu erfüllen, welches der Grund für die Entwicklung durch Facebook und deren Wechsel von einer RESTful API zu GraphQL war. REST bietet zwar die Möglichkeit über Parameter die Rückgabewerte flexibel zu halten, doch ist dies in der Nutzung und Implementierung keineswegs optimal. gRPC ist in diesem Aspekt REST noch ein Stück voraus, da es sich nicht an Prinzipien, wie die Zustandslosigkeit halten muss und somit an Flexibilität gewinnt.     
+
+#### Architektur
+Mithilfe von REST's Layered-Prinzip und der expliziten Trennung von Client und Server fällt die unabhängige Weiterentwicklung der einzelnen System-Komponenten leicht, da die Komponenten nicht ineinander gekoppelt sind. Ebenso können die Funktionen und Daten von GraphQL angepasst werden ohne dass der Client diese Neuerungen direkt nutzen muss. Zusätzlich setzt GraphQL meist auf einer vorhandenen Backend-Komponente auf, wodurch der Name "A query language for your API" entstanden ist. Beide Technologien sind dementsprechend innerhalb der Komponenten entkoppelt. Bei gRPC besteht eine stärkere Kopplung innerhalb der Komponenten, da die Clients und Server dieselben Methoden implementieren, um die Methodenaufrufe lokal wirken zu lassen.
+
+#### Dokumentation
+Eine API, die sich an die Prinzipien von REST hält, benötigt dank HATEOAS nur wenig oder sogar keine Dokumentation, um genutzt zu werden. HATEOAS bietet "Discoverability", wodurch der Client nach Aufruf einer Methode eine Auflistung seiner nächsten möglichen Operationen bekommt und somit durch die API navigiert wird. Dementsprechend dokumentiert sich REST mehr oder weniger von selbst.
+
+Ebenso kann bei einer GraphQL-Schnittstelle GraphiQL eingesetzt werden, welche zum Testen und Einarbeiten in die Schnittstelle hilfreich ist. GraphiQL generiert automatisch eine Dokumentation der Queries, Mutationen und der Query-Objekte, welche auf der Schnittstelle oder direkt in der Oberfläche genutzt werden können und bietet so einen guten Startpunkt zur Einarbeitung in die API.
+
+gRPC hängt in diesem Aspekt den anderen Technologien leider nach und beinhaltet keine Discoverability oder einen Einstiegspunkt, wie die anderen beiden Technologien, weshalb eine Client-Entwicklung ein ausreichendes Wissen über die Server-Methoden voraussetzt.  
+
+#### Verlässlichkeit
+Im Punkt Verlässlichkeit glänzt REST durch seine jahrelange Nutzung und der dementsprechenden Reife. Während die moderenen Technologien GraphQL und gRPC noch Probleme aufweisen, wie GraphQL's Probleme mit Datei-Handling und gRPC's Browserinkompatibilität, ist REST nach jahrelanger Nutzung wesentlich ausgereifter.
+
+#### Überblick   
 | __gRPC__                |__REST__                     | __GraphQL__|
-|---------------------------------|--------------------------------------|-------------------------------------|
+|-------------------------|-----------------------------|------------|
+|+ Schnelle Datenübertragung|+ Bewährte Technologie |+ Effiziente Rückgabedaten|
+|+ weniger Anfragen durch HTTP/2|+ Discoverability durch HATEOAS |+ weniger Anfragen durch Dynamik|
+|- Browsersupport|- Overhead durch Prinzipien|+ Dynamisch für viele verschiedene Clientarten|
+||- große Payloads oder viele spezielle Methoden|- Kein Fileupload|
+||- viele Aufrufe| - Kein Caching|
+
+#### Anwendungsfälle
+Aufgrund dieser verschiedenen Eigenschaften ist jede Technologie für verschiedene Arten von Anwendungsfällen geeignet.
+
+__gRPC__ eignet sich für Mikroservices, bei denen eine hohe Anzahl an Anfragen versendet werden, da gRPC den Overhead der einzelnen Anfragen gering hält und somit effizient und schnell arbeiten kann.
+
+__REST__ eignet sich für API's, die komplexe Methoden und Prozesse abbilden und ansonsten schwer navigierbar wären.
+
+__GraphQL__ eignet sich für API's, die viele verschiedene Client-Arten mit verschiedenen Anforderungen unterstützen müssen oder für Anwendungsfälle, bei denen komplexe Datenstrukturen genutzt werden müssen.
+
+Zusammengefasst kann man sagen, dass keine Technologie perfekt ist und je nach Projekt die Anforderungen und Use-Cases analysiert werden müssen, um zu schauen, welche API-Technologie sich am besten für das Projekt eignet.  
 
 
 # Literaturverzeichnis
