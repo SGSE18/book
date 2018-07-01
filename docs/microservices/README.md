@@ -148,13 +148,6 @@ Ein Service ist nicht gegen Ausfälle und Fehler geschützt, deshalb sollte er i
 
 Eine Software sollte so entworfen werden, dass statt es bei größeren Änderungen zu verwerfen, diese weiterentwickelt werden kann. Die wichtigsten Eigenschaften eines Komponenten sind Austauschbarkeit und Erweiterungsfähigkeit - wie kann eine Komponente überarbeitet werden, ohne dass andere Komponenten davon betroffen sind. Oftmals wird ein Service verworfen anstatt auf lange Sicht überarbeitet zu werden. Manchmal macht es Sinn mehrere Dienste zu gruppieren, falls diese immer wieder Abhängigkeiten während Änderungen zeigen. <a>[[LEWI14]](#ref_Lewi14)</a>
 
-In dieser Liste sind die Vorraussetzungen für Microservices zusammengefasst: <a>[[NAMI14]](#ref_Nami14)</a>
-1. Request/Response calls mit willkürlich strukturierten Daten
-2. Asynchrone Events in Echtzeit
-3. Bidirektionale Requests und Responses
-4. Requests und Responses können willkürlich geschachtelt sein
-5. Nachrichtenformat: wie JSON, XML
-
 ### Client-Kommunikation mit Microservices
 
 __Direct Client-to-Microservice Communication__
