@@ -209,7 +209,7 @@ wird geteilt.
 
 Im gegensatz dazu gibt es in RxJS auch "Cold Observables". Hier erhalten Observer durch den subscribe intern eine eigene Instanz des
 Observables, wodurch es vorkommen kann, dass Observer unterschiedliche Werte erhalten, obwohl sie das selbe Observable abonnieren. 
- 
+
 ### Das Observable
 Das Observable ist ein Konstrukt mit der Aufgabe, die abonnierten Observer über neu erzeugte Werte zu informieren. Die Werte
 selbst stammen dabei von einem Producer, welcher im inneren des Observables Werte generiert.
@@ -418,7 +418,7 @@ Second Sub: 2
 Second Sub: 3
 ```
 
-In diesem Fall teilen sich die beiden Observer nicht einen Stream, sondern jeder für jeden Observer wird ein gesonderter Stream
+In diesem Fall teilen sich die beiden Observer nicht einen Stream, sondern für jeden Observer wird ein gesonderter Stream
 erzeugt. Der Stream emittet keinen Wert solange nicht mindestens ein Observer den Stream abonniert hat. Ob ein Stream Hot oder Cold
 ist hängt davon hab mit welchem Konstruktor das Observable erzeugt wurde.
 
