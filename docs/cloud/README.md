@@ -15,7 +15,7 @@ Autor: Björn Böing
         - [Platform as a Service (PaaS)](#paas)
         - [Software as a Service (SaaS)](#saas)
         - [Function as a Service (FaaS)](#faas)
-        - [Everything as a Service (XaaS)](#everything-as-a-service)
+        - [Everything as a Service (XaaS)](#xaas)
     - [Bereitstellungsmodelle](#bereitstellungsmodelle)
         - [Public](#public)
         - [Private](#private)
@@ -37,9 +37,11 @@ Autor: Björn Böing
     - [Elastic Compute Cloud (EC2)](#ec2)
     - [Simple Storage Service (S3)](#s3)
     - [AWS Lambda](#aws-lambda)
-- [Cloud Design Pattern](#cloud-design-pattern)
-    - [Event Sourcing](#event-sourcing)
-    - ...
+- [Cloud Design Patterns](#cloud-design-pattern)
+    - [Cache-aside](#cache-aside)
+    - [Compensating Transaction](#compensating-transaction)
+    - [Federated Identity](#federated-identity)
+    - [Sharding](#sharding)
 - [Zusammenfassung](#zusammenfassung)
     - [Aktuelle Trends](#aktuelle-trends)
 
@@ -169,7 +171,7 @@ Mit FaaS werden mittlerweise vor allem Microservices realisiert, die durch eine 
 [[AVRA16]](#ref_avra16) [[HAN17]](#ref_han17)
 
 
-<a name="everything-as-a-service"></a>
+<a name="xaas"></a>
 
 #### Everything as a Service (XaaS)
 
@@ -474,19 +476,19 @@ __2. Instanz Typ wählen__
 
 Der Instanz Type gibt an, mit welcher Hardware eine Instanz ausgestattet ist. Diese sind in die folgenden fünf "Familien" unterteilt:
 
-- _General Purpose_:<br>
+- _General Purpose_<br>
 Instanzen dieser Familie haben eine gute Balance zwischen CPUs, RAM, Speicher und Netzwerkleitung dar und ist für viele Anwendungen eine gute Wahl, die wenig bis moderaten Speicher und Rechenleistung benötigen.
 
-- _Compute optimized_:<br>
+- _Compute optimized_<br>
 Namensgeben sind diese Instanzen darauf ausgelegt Aufgaben mit hoher CPU Last zu erledigen, da sie eine hohes Verhältnis von CPUs zu RAM haben. Im Durchschnitt stehen pro CPU 2 GB RAM zur Verfügung, was hochskaliert bis zu maximal 72 CPUs und 144 GB RAM. Nicht außer Acht zu lassen ist die Netzwerkanbindung dieser Instanzen, die bis zu 25 Gigabit betragen kann.
 
-- _GPU graphics_:<br>
+- _GPU graphics_<br>
 Mit den GPU graphics Instanzen bietet AWS virtuelle Rechner an, die für Aufgaben im Grafikbereich gedacht sind. Diese sind mit starken GPUs, hohem RAM und starker Netzwerkverbindung ausgestattet. Die GPU graphics Instanzen können mit bis zu 64 CPUs, 976 GB RAM und 8 NVIDIA K80-Hochleistungs-GPUs ausgestattet werden. Letzte besitzen pro Einheit 2.496 parallele Verarbeitungskerne und 12 GB GPU-Speicher.
 
-- _Memory optimized_:<br>
+- _Memory optimized_<br>
 Die Memory fokussierten EC2 Instanzen richten sich an Kunden, die große Datenbanksysteme, Cachingmechanismen oder große Systeme wie beispielsweise SAP umsetzen wollen. Instanzen dieser Familie zeichnen sich durch sehr hohen RAM aus, der bis zu 1952 GB betragen kann.
 
-- _Storage optimized_:<br>
+- _Storage optimized_<br>
 Für Anwendungen, die bestimmte Anforderungen an I/O Operationen und Speicherkapazitäten haben, sind die Speicher optimierten Instanzen von AWS geeignet. Je nach Instanz Typ können bis zu 24 HDDs zu je 2048 GB Speicher oder 8 SSDs zu je 1900 GB Speicher ausgewählt werden.
 
 
@@ -596,13 +598,126 @@ Die [Abbildung 7](#img_aws_lambda_example) zeigt das beispielhafte Zusammespiel 
 [[AWS18q]](#ref_aws18q) [[AWS18r]](#ref_aws18r)
 
 
-## Cloud Design Pattern
+## Cloud Design Patterns
 
-- Siehe Microsoft PDF
+Wie in allen Bereichen der Softwareentwicklung, gibt es auch für Cloud Computing Leitfäden für die Verwendung und Implementierung von Anwendungen, genannt _"Design Patterns"_. Diese Patterns sind in der Regel so gestaltet, dass sie die Lösung zu einem konkreten Problem darstellen oder aber als generelle Hinweise zu sehen sind, die die Entwicklung und den Betrieb von Softwareanwendungen vereinfachen sollen.
 
-### Event Sourcing
+Das Buch _"Cloud Design Patterns"_ der Microsoft patterns & practive group ([[HOME14]](#ref_home14)) beinhaltet insgesamt 24 Design Patterns, die jeweils ein oder mehrere Problemfelder im Bereich Cloud Computing beschreiben und Lösungen erläutern. Die Problemfelder sind:
 
-### ...
+- __Erreichbarkeit__<br>
+Indikator für den Zeitraum, in dem ein System oder eine Anwendung erreichbar ist und funktioniert. Wird in der Regel in Prozent der Uptime eines System angegeben. Systemfehler, Angriffe und Auslastungen sind unter anderem Faktoren, die die Erreichbarkeit beeinflussen. 
+
+- __Daten Management__<br>
+Stellt einen Kernfaktor im Cloud Bereich dar und beeinflusst viele Qualitätsmerkmale. Typischerweise werden Daten dezentral gelagert, um eine gute Performanz, Skalierbarkeit und Erreichbarkeit zu erreichen. Dies bringt allerdings Herausforderungen mit sich, wie beispielsweise Datenkonsistenz und Synchronisierung.
+
+- __Design und Implementierung__<br>
+Beim Designen und Implementieren von Cloudanwendungen müssen eine Vielzahl von Entscheidungen getroffen werden, die unter anderem Wartbarkeit, Wiederverwendbarkeit und Bereitstellung betreffen. Diese Entscheidungen haben enorme Auswirkungen auf die Gesamtkosten und Qualität eines Produktes
+
+- __Benachrichtigungen__<br>
+Durch die Dezentralisierung der Cloud wird eine Infrastruktur benötigt, die Benachrichtigungen und Kommunikation zwischen einzelnen Komponenten, Diensten und Anwendungen erlaubt. Dies wird häufig über asynchrone Nachrichten abgewickelt, was sehr vorteilhaft ist, aber auch Aufgaben zu Themen wie Idempotenz mit sich bringt.
+
+- __Management und Überwachung__<br>
+Da Cloudanwendungen in der Regel in einem externen Rechenzentrum laufen und/oder auf Basis von IaaS/PaaS von Drittanbieter, können Probleme zum Management und zur Überwachung der bezogenen Ressourcen enstehen. Es müssen Informationen bereitgestellt werden, anhand derer der Status von laufenden Systemen überwacht werden kann.
+
+- __Performanz und Skalierbarkeit__<br>
+Performanz stellt einen Indikator für die Reaktionsfähigkeit eines Systems dar, die für die Ausführung einer Aufgabe erreicht wird. Skalierbarkeit hingegen ist der Indikator dafür, wieviel Last ein System verträgt, ohne, dass die Performanz darunter leidet. Vor allem im Cloud Computing Bereich müssen Systeme automatisch hoch- und herunterskalieren können, um unvorhergesehenen Lastpitzen entgegen zu wirken, aber auch, um bei geringer Last Kosten zu sparen.
+
+- __Elastizität__<br>
+Die Elastizität eines Systems beschreibt die Fähigkeit, Ausfälle zu erkennen und diese abzufangen. Die Vernetzung von Cloudanwendungen bringt viele Abhängigkeiten mit sich, sodass Systemausfälle von zentralen Diensten zu ernsthaften Problemen und Inkonsistenzen führen kann. Elastische Systeme erkennen Ausfälle frühzeitig und wirken diesen schnell und effektiv entgegen.
+
+- __Sicherheit__<br>
+Die öffentliche Zugänglichkeit von Cloudanwendungen, über das Internet, bringt eine Vielzahl von Gefahren mit sich, die durch geeigneten Sicherheitmaßnahmen abgewendet werden müssen. Diese Maßnahmen müssen schadhafte Angriffe unterbinden, Ungefugten den Zugriff verweigern und sensible Daten schützen.
+
+
+In den nachfolgenden Abschnitten sollen einige der von Microsoft veröffentlichen Design Pattern vorgestellt werden und dabei auch externe Quellen und Anregungen mit einfließen.
+
+[[HOME14]](#ref_home14)
+
+
+### Cache-aside
+
+Anwendungen nutzen Cachingmechanismen, um wiederholte Anfragen auf einen Datenspeicher abzufangen und dadurch die Performanz zu steigern. Allerdings muss sichergestellt werden, dass gecachte Daten immer möglichst aktuell sind und veraltete Daten automatisch erneuert werden.
+
+Das Cache-aside Pattern stellt die Lösung zu diesem Problem dar und befasst sich deshalb mit den Problemfelder "Daten Management" und "Performanz und Skalierbarkeit". Durch die Implementierung eines _"write through"_ Caches werden I/O Operationen direkt auf dem Cache ausgeführt. Die [Abbildung 8](#img_cache) verbildlicht das Cache-aside Pattern, welches auf drei Schritten basiert. Als erstes wird versucht, die gewünschten Daten aus dem Cache zu lesen beziehungsweise dort zu verändern (__1__). Sind die Daten dort nicht hinterlegt, werden sie aus dem Datenspeicher geholt (__2__) und gleichzeitig im Cache hinterlegt (__3__).
+
+<a name="img_cache"></a>
+<div style="text-align:center">
+    <img alt="Cache-aside Pattern" src="./images/pattern_cache.png"/>
+    <br>
+
+Abb. 8: Das Cache-aside Pattern - Quelle: [[HOME14]](#ref_home14)
+
+</div>
+
+Bei der Implementierung müssen passende Entscheidungen dazu getroffen werden, wie lange Daten im Cache verweilen können. Dieses Zeitintervall sollte auf den jeweiligen Anwendungsfall zugeschnitten sein, sodass der Datenspeicher entlastet wird, aber auch gleichzeitig Daten im Cache nicht veralten. Caching ist am effektivsten für relativ statische Daten oder häufige Leseoperationen.
+
+Darüberhinaus müssen Regeln festgelegt werden, wann Daten aus dem Cache entfernt werden, sollte dieser an seine Speicherkapazität gelangen. Häufig werden hier die Daten entfernt deren letzer Zugriff am weitesten her ist. Wichtig ist außerdem geeignete Aktionen einzuleiten, sollten externe Prozesse den Datenspeicher verändern können, um Inkonsistenzen zu vermeiden.
+
+[[EVAN14]](#ref_evan14) [[HOME14]](#ref_home14)
+
+
+### Compensating Transaction
+
+Die Cloud vernetzt häufig eine ganze Reihe von dezentralen Anwendungen und Dienste miteinander, die vor allem Daten verändern. Dabei werden in der Regel eine ganze Reihe von Operationen ausgeführt und miteinander gekoppelt. Transaktions-Mechanismen werden dazu genutzt, um die Konsistenz in Systemen zu erhalten, indem bereits ausgeführte Aktionen rückgängig gemacht werden, sollte eine Operation innerhalb einer Transaktion fehlschlagen. Die Besonderheiten von Cloud-Infrastrukturen sorgen allerdings dafür, dass sehr strenge Transaktionen zu Verlusten in Performanz führen können. Müssen Dienste auf eine Rückmeldung warten, dass eine Transaktion mit X Operationen bei Y anderen Diensten erfolgreich durchgeführt werden konnte, gehen einige der bisherigen Cloud-Vorteile verloren. Darüberhinaus können Operationen häufig nicht einfach rückgängig gemacht werden, da die Informationen schon von weiteren Anwendungen verwendet oder wieder verändert worden sein. Außerdem könnte sich der Zustand von Diensten in einer Service orientierten Architektur (SOA) durch Teiltransaktionen bereits geändert haben.
+
+Das Compensating Transaction Pattern setzt auf dem _"Eventual Consistency Modell"_ auf und stärkt die Elastizität eines Systems. Die Transaktion in diesem Pattern überschreiben nicht einfach den aktuellen Status eines Dienstes oder eines Datenspeichers mit den Informationen wie sie vorher waren, sondern bilden einen intelligenten Prozess, der alle Operationen der betroffenen Instanzen mit einbezieht.
+
+Ein weitverbreitetes Verfahren zur Implementierung von eventuell konsistenten Operationen, basiert auf der Verwendung von sogenannten _"Workflows"_. In diesen Workflows werden Informationen gespeichert, die abbilden, was getan werden muss, um die Ausführung einer Operation wieder rückgängig zu machen. Im Endeffekt sind Workflows die Transaktionen um tieferliegende Transaktionen herum. Somit ist es auch möglich, dass die Workflow Transaktionen fehlschlagen. In solchen Fällen muss das System dazu in der Lage sein von den fehlschlagenden Operationen erneut zu starten und diese wiederholt zu versuchen. In extremen Fällen, in denen keine automatische Wiederherstellung eines konsistenten Zustanden möglich ist, muss das System Alarm schlagen und möglichst viele Informationen zu dem Vorfall liefern.
+
+[[HOME14]](#ref_home14) [[ROBI13]](#ref_robi13)
+
+
+### Federated Identity
+
+Typischerweise müssen Mitarbeiter eines Unternehmens mit mehr als nur einer Anwendung arbeiten, die von verschiedenen Anbietern bezogen werden. Es ist keine Seltenheit, dass die benötigten Anmeldeinformationen sich bei diesen Anwendungen unterscheiden, weil die Anbieter unterschiedliche Richtlinien umsetzen. Für Nutzer hat dies zur Folge, dass sie sich verschiedene Informationen merken und diese auch in Verbindung mit den richtigen Anwendungen verwenden müssen. Da Zugangsdaten innerhalb eines Unternehmens häufig von zentralen Positionen aus verwaltet werden, muss dafür gesorgt werden, dass diese den Überblick behalten und unter anderem auch Nutzerdaten löschen, wenn ein Mitarbeiter das Unternehmen verlassen. In größeren Firmen kann die Nutzer- und Zugangsdatenverwaltung zu einer enormen Aufgabe heranwachsen, die bei fehlerhafter Ausführung zu Sicherheitsrisiken führen kann.
+
+Eine mögliche Lösung zu diesen Problemen bildet das Federated Identity Pattern. Hierbei werden Authentifizierungsmechanismen implementiert, die getrennt vom eigentlichen Quellcode abstrahiert und die eigentliche Authentifizierung an eine vertrauenswürdige dritte Instanz abgibt. Durch diese Trennung wird die Entwicklung vereinfacht, ermöglicht es Nutzern zwischen mehrerer _"Identity Providers"_ (IdPs) wählen zu können und verringert außerdem die administrativen Tätigkeiten der Nutzerverwaltung.
+
+<a name="img_identity"></a>
+<div style="text-align:center">
+    <img alt="Federated Identity Pattern" src="./images/pattern_identity.png"/>
+    <br>
+
+Abb. 9: Das Federated Identity Pattern - Quelle: [[HOME14]](#ref_home14)
+
+</div>
+
+Die [Abbildung 9](#img_identity) zeigt den Ablauf einer Authentifizierung eines Benutzers gegenüber eines IdPs, um Zugriff zu einem Dienst zu erhalten. Dabei bildet das Vertrauen eines Dienstes zu einem IdP die Basis (__1__). Möchte ein Nutzer nun einen Dienst nutzen, so authentifiziert dieser sich gegenüber dem IdP und fordert ein Token an (__2__). Sofern die Authentifizierung erfolgreich ist, übergibt der IdP dem Nutzer ein Token (__3__) mit dem dieser Zugang zu dem angefragten Dienst erhält.
+
+Die Funktion eines IdPs können auch Security Token Services (STSs) übernehmen. Heutzutage wird Authentifizierung auch häufig mittels _"Open Authentication"_ (OAuth) umgesetzt. Dies ermöglicht es Nutzern mit der Verwendung eines Bestehenden Kontos von Facebook, Microsoft, Google und Amazon zur Identifizeriung und Authentifizierung gegenüber einem Dritten zu verwenden. Ansätze wie OAuth steigern die Sicherheit für den Nutzer, da sensible Informationen zu Nutzername und Passwort nicht für neue Dienste eingegeben werden müssen und dadurch im Netz verteilt werden würden.
+
+[[GORD12]](#ref_gord12) [[HOME14]](#ref_home14)
+
+
+### Sharding
+
+Das Speichern von Daten auf einem einzigen zentralen Server kann, vor allem bei großen Cloudanwendungen, von folgenden Einschränkungen betroffen werden:
+
+- __Mangelnder Speicherplatz__<br>
+Gerade bei großen Anwendungen kann die Datenmenge in kurzer Zeit enorm anwachsen. Zwar kann mit weiteren Festplatten der verfügbare Speicher erhöht werden, dies stellt aber auf langfristiger Sicht nicht immer eine endgültige Lösung dar.
+
+- __Fehlende Rechenleistung__<br>
+Wird ein Datenspeicher von einer Vielzahl von Nutzern gleichzeitig abgefragt, kann vor allem bei großen Datenmengen die Antwortzeit drastisch sinken und in Extremfällen auch zu Timeouts führen. Die Steigerung dieser Kapazitäten ist nur in manchen Anwendungsszenarien eine langfristige Lösung.
+
+- __Netzwerk Bandbreite__<br>
+Reicht auch die Rechenleistung eines Systems aus, so kann sich der Flaschenhals auf die Bandbreite eines Netzwerkes verschieben. In diesem Fall reichen die Kapazitäten der Netzwerk Hardware nicht aus, um die angeforderten Daten in akzeptabler Zeit zu übermitteln.
+
+- __Geographische Anforderungen__<br>
+Es kann notwendig sein, dass beispielsweise aus rechtlichen Gründen oder zur Steigerung der Performanz, die Datenspeicher in der selben Region angesiedelt sind, von denen der Nutzer auf diese zugreifen will. Die EU-DSGVO beispielsweise legt fest, dass personenbezogene Informationen von Bürgern der EU nur auf Servern innerhalb der EU gespeichert werden dürfen.
+
+Das Aufteilen eines Datenspeichers in horizontale Partionen oder _"Shards"_, stellt eine Lösung zu den genannten Problemen dar. Jeder dieser Shards besitzt den selben Aufbau, hält aber unterschiedliche Datensätze. Welche Daten ein Shard enthalten soll, muss im Voraus, zum Beispiel anhand von Attributes der Daten, festgelegt werden. Aus diesen Attributen bildet sich der _"Shard Key"_ mit dem ein Shard eindeutig adressiert werden kann. Hierbei ist es wichtig, dass die Schlüssel auf den jeweiligen Anwendungsfall zugeschnitten sind, um eine höhere Performanz bei häufig verwendeten Abfrage-Typen zu erreichen.
+
+Der Zugriff auf Daten wird über eine zentrale Sharding Logik abgewickelt, die Anfragen von Anwendungen entgegen nimmt und über verschiedene Strategien herausfindet, welcher Shard die geforderten Daten besitzt:
+
+- Die __Lookup Strategie__ nutzt den Shard Key für ein direkten Mapping zu virtuellen oder physischen Partitionen auf denen die Daten gespeichert sind.
+
+- Bei der __Range Strategie__ werden verwandte Datensätze zusammen auf den Shards gespeichert und dem Shard Key entsprechend sortiert. Diese Strategie kann vor allem für häufigen Anfragen sinnvoll sein, die Datensätze über einen bestimmten Bereich, zum Beispiel alle Bestellungen eines Monats, anfordern.
+
+- Namensgebend nutzt die __Hash Strategie__ ein Hashverfahren, um zu bestimmten, auf welchem Shard ein Datensatz gespeichert werden soll. Dieser Ansatz zielt darauf ab die Daten gleichmäßig zu verteilen und so Hot Spots zu vermeiden. Häufig werden dafür zufällige Elemente mit in das Hashverfahren eingebunden.
+
+Bei der Wahl der richtigen Sharding Strategie ist vor allem eine genaue Betrachtung des Anwendungsfalles notwendig, um darauf basierend die passende Strategie und verwendeten Attribute festzulegen. In einem multimandantenfähigen System könnten, bei der Range Strategie, beispielsweise die Shards so genutzt werden, dass jeder Shard eine bestimmte Anzahl an Mandanten enthält. Wenn diese Grenze erreicht ist wird ein neuer Shard hinzugeschaltet. Sind die ersten Mandanten des Systems gleichzeitig auch die aktivsten, so könnte dies zu Hot Spots auf den jeweiligen Shards führen. Wird stattdessen die Mandanten ID gehasht und zur differenzierten Speicherung genutzt, so können frühzeitig schon mehrere Shards aktiv sein und die Last somit besser verteilt sein.
+
+[[HOME14]](#ref_home14) [[KERS18]](#ref_kers18)
 
 
 ## Zusammenfassung
@@ -613,6 +728,7 @@ Die [Abbildung 7](#img_aws_lambda_example) zeigt das beispielhafte Zusammespiel 
 - https://www.golem.de/news/hpe-greenlake-hybrid-cloud-software-automatisiert-die-ressourcen-in-der-cloud-1806-135051.html
 
 - Cloud native application (FaaS mit Microservices immer zentraler in Sachen Cloud) https://www.cncf.io/blog/2017/05/15/developing-cloud-native-applications/ 
+
 
 ## Literaturverzeichnis
 
@@ -814,18 +930,18 @@ Die [Abbildung 7](#img_aws_lambda_example) zeigt das beispielhafte Zusammespiel 
         <td>URL: <a>https://forestgiant.com/articles/fog-vs-edge/</a> (abgerufen am 26.06.2018)</td>
     </tr>
     <tr>
-        <td rowspan="2" style="width:10%"><a name="ref_rama17">[RAMA17]</a></td>
-        <td style="width:90%">Rama, Galdys ; AWS insider, 01.08.2017: Report: AWS Market Share Is Triple Azure's</td>
-    </tr>
-    <tr>
-        <td>URL: <a>https://awsinsider.net/articles/2017/08/01/aws-market-share-3x-azure.aspx</a> (abgerufen am 30.06.2018)</td>
-    </tr>
-    <tr>
         <td rowspan="2" style="width:10%"><a name="ref_euds18">[EUDS18]</a></td>
         <td style="width:90%">Intersoft Consulting: Datenschutz-Grundverordnung DSGVO</td>
     </tr>
     <tr>
         <td>URL: <a>https://dsgvo-gesetz.de/</a> (abgerufen am 29.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_evan14">[EVAN14]</a></td>
+        <td style="width:90%">Evans, Chris ; ComputerWeekly, 04.2014: Write-through, write-around, write-back: cache explained</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://www.computerweekly.com/feature/Write-through-write-around-write-back-Cache-explained</a> (abgerufen am 01.07.2018)</td>
     </tr>
     <tr>
         <td rowspan="2" style="width:10%"><a name="ref_feld17">[FELD17]</a></td>
@@ -870,6 +986,13 @@ Die [Abbildung 7](#img_aws_lambda_example) zeigt das beispielhafte Zusammespiel 
         <td>URL: <a>https://www.technologyreview.com/s/609641/six-cyber-threats-to-really-worry-about-in-2018/</a> (abgerufen am 29.06.2018)</td>
     </tr>
     <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_gord12">[GORD12]</a></td>
+        <td style="width:90%">Gordon, Whitson ; lifehacker, 13.06.2012: Understanding OAuth: What Happens When You Log Into a Site with Google, Twitter, or Facebook</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://www.technologyreview.com/s/609641/six-cyber-threats-to-really-worry-about-in-2018/</a> (abgerufen am 29.06.2018)</td>
+    </tr>
+    <tr>https://lifehacker.com/5918086/understanding-oauth-what-happens-when-you-log-into-a-site-with-google-twitter-or-facebook
         <td rowspan="2" style="width:10%"><a name="ref_gree18">[GREE18]</a></td>
         <td style="width:90%">Greenberg, Andy ; WIRED, 27.06.2018: Marketing firm Exactis leaked a personal info database with 340 million records</td>
     </tr>
@@ -891,6 +1014,13 @@ Die [Abbildung 7](#img_aws_lambda_example) zeigt das beispielhafte Zusammespiel 
         <td>URL: <a>https://www.npr.org/sections/thetwo-way/2017/03/03/518322734/amazon-and-the-150-million-typo?t=1529930367722</a> (abgerufen am 29.06.2018)</td>
     </tr>
     <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_home14">[HOME14]</a></td>
+        <td style="width:90%">Homer, Alex; Sharp, John; Brader, Larry; Narumoto, Masashi; Swanson, Trent ; Microsoft, 04.03.2014: Cloud Design Patterns</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://www.microsoft.com/en-us/download/details.aspx?id=42026</a> (abgerufen am 01.07.2018)</td>
+    </tr>
+    <tr>
         <td rowspan="2" style="width:10%"><a name="ref_ibmj09">[IBMJ09]</a></td>
         <td style="width:90%">IBM Journal of Research and Development, 07.2009: The Reservoir model and architecture for open federated cloud computing</td>
     </tr>
@@ -903,6 +1033,13 @@ Die [Abbildung 7](#img_aws_lambda_example) zeigt das beispielhafte Zusammespiel 
     </tr>
     <tr>
         <td>URL: <a>https://dzone.com/articles/cloud-computing-deployment-models</a> (abgerufen am 28.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_kers18">[KERS18]</a></td>
+        <td style="width:90%">Kerstiens, Craig ; Citrusdata, 10.01.2018: Database sharding explained in plain English</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://www.citusdata.com/blog/2018/01/10/sharding-in-plain-english/</a> (abgerufen am 01.07.2018)</td>
     </tr>
     <tr>
         <td rowspan="2" style="width:10%"><a name="ref_lark18">[LARK18]</a></td>
@@ -961,6 +1098,13 @@ Die [Abbildung 7](#img_aws_lambda_example) zeigt das beispielhafte Zusammespiel 
         <td>URL: <a>http://info.opto22.com/fog-vs-edge-computing</a> (abgerufen am 29.06.2018)</td>
     </tr>
     <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_rama17">[RAMA17]</a></td>
+        <td style="width:90%">Rama, Galdys ; AWS insider, 01.08.2017: Report: AWS Market Share Is Triple Azure's</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://awsinsider.net/articles/2017/08/01/aws-market-share-3x-azure.aspx</a> (abgerufen am 30.06.2018)</td>
+    </tr>
+    <tr>
         <td rowspan="2" style="width:10%"><a name="ref_rega11">[REGA11]</a></td>
         <td style="width:90%">Regalado, Antonio ; MIT Technology Review, 31.10.2011: Who Coined 'Cloud Computing'?</td>
     </tr>
@@ -968,6 +1112,13 @@ Die [Abbildung 7](#img_aws_lambda_example) zeigt das beispielhafte Zusammespiel 
         <td>URL: <a>https://www.technologyreview.com/s/425970/who-coined-cloud-computing/</a> (abgerufen am 27.05.2018)</td>
     </tr>
     <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_robi13">[ROBI13]</a></td>
+        <td style="width:90%">Robinson, Paul ; JBossDeveloper, 19.04.2013: Compensating Transactions: When ACID is too much</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://www.technologyreview.com/s/425970/who-coined-cloud-computing/</a> (abgerufen am 27.05.2018)</td>
+    </tr>
+    <tr>https://developer.jboss.org/wiki/CompensatingTransactionsWhenACIDIsTooMuch
         <td rowspan="2" style="width:10%"><a name="ref_rous17a">[ROUS17a]</a></td>
         <td style="width:90%">Rouse, Margaret ; TechTarget, 09.2017: Infrastructure as a Service (IaaS)</td>
     </tr>
