@@ -1,4 +1,5 @@
 # Ethik
+Autor: Matthias Kersting
 
 In den letzten Jahren hat eine Verbreitung von künstlicher Intelligenz in vielen Bereichen des modernen Lebens stattgefunden. Durch die steigende Verfügbarkeit von Rechenleistung, auch durch Auslagerung in die Cloud, können immer größere Datenmengen verarbeitet werden, sodass Methoden aus dem Bereich der KI immer mehr Anwendung finden. Neben Gebieten der Wirtschaft wie der Werbeindustrie oder dem Bank- und Versicherungswesen steigt das Interesse am Einsatz von künstlicher Intelligenz auch von staatlicher Seite, z.B. als Hilfsmittel für die Polizei zur Verbrechensbekämpfung, zur Steigerung der Effektivität der Geheimdienste oder auch zur Entwicklung moderner Waffensysteme für das Militär. 
 
@@ -77,6 +78,7 @@ Auf Basis dieser fünf Quellen für (gefährliches) Fehlverhalten von künstlich
 Das Thema Ethik in der künstlichen Intelligenz hat in den letzten Jahren stark an Bedeutung gewonnen. Nicht zuletzt durch die Veröffentlichung von Geheimdokumenten des amerikanischen Geheimdienstes NSA durch Edward Snowden ist der breiten Öffentlichkeit die Bedeutung und die Gefahren des Einsatzes von KI in der modernen Welt bekannt geworden. Obwohl schon lange an den Techniken des maschinellen Lernens geforscht wird, hat sich erst durch die zunehmende Verfügbarkeit von Rechenleistung und Speicherplatz und der damit einhergehenden weitflächigen Anwendung zur Lösung unterschiedlichster Probleme die Notwendigkeit ergeben, auch an der Sicherheit und Ethik im Bereich der KI zu forschen. Aus diesem Grund steht die Wissenschaft auf dem Gebiet allerdings noch in den Anfängen, aber sollte sich der aktuelle Trend zur immer stärkeren Verbreitung von künstlicher Intelligenz in allen Bereichen fortsetzen, wird auch die Problematik der Sicherheit und Ethik an Bedeutung gewinnen müssen, um zukünftig dafür sorgen zu können, dass keine Pannen auftreten, die zu Szenarien führen könnten, wie sie Elon Musk vorhergesagt hat.
 
 
+# Quellen
 <a name="ref_daam16">[DAAM16]</a>: Dario Amodei et al. ; 15.07.2016: Concrete Problems in AI Safety ; URL: <a>https://arxiv.org/abs/1606.06565</a> (abgerufen am 15.06.2018)
 <a name="ref_deut13">[DEUT13]</a>: Deutschlandfunk Kultur ; 05.09.2013: Roboter fühlen nichts ; URL: <a>https://www.deutschlandfunkkultur.de/roboter-fuehlen-nichts.954.de.html?dram:article_id=260526</a> (abgerufen am 14.06.2018)
 <a name="ref_faz17">[FAZ17]</a>: Frankfurter Allgemeine Zeitung ; 04.09.2017: Elon Musk warnt vor 3. Weltkrieg durch Künstliche Intelligenz ; URL: <a>http://www.faz.net/aktuell/wirtschaft/kuenstliche-intelligenz/elon-musk-tesla-chef-warnt-vor-kuenstlicher-intelligenz-15182958.html</a> (abgerufen am 09.06.2018)
