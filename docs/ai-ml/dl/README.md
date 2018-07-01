@@ -1,5 +1,5 @@
 # Deep Learning
-Der Begriff _deep learning_ wird verwendet, sobald mindestens zwei Schichten (hidden layer) zwischen Ein- und Ausgabeschicht eines neuronalen Netzwerkes vorhanden sind.
+Der Begriff _deep learning_ wird verwendet, sobald mindestens zwei Schichten (hidden layer) zwischen Ein- und Ausgabeschicht eines neuronalen Netzwerkes vorhanden sind. In der Praxis 
 
 Die explizite Nutzung des Begriffs _deep learning_ bzw. _deep neural networks_ hat sich etabliert, da Netzwerke mit vielen verdeckten Schichten, auf bedeutend komplexere Problemstellungen angewandt werden können. Um diese Möglichkeiten optimal auszuschöpfen, haben sie allerdings hohe Hardware-Anforderungen bezüglich Speicher und Rechenleistung.
 <img src="./images/dl.png" width="500" style="margin:20px">
@@ -41,7 +41,9 @@ Quelle: <a>[[SUN14]](#ref_sun14)</a>
 Quelle: Fjodor van Veen, Asimov Institute 
 
 
-Im Gegensatz zu _feed-forward_ Netzen, sind RNNs in der Lage, Gewichte in vorhergehenden Schichten zu beeinflussen und sich somit selber zu regulieren. Somit muss für eine Veränderung der Gewichte nicht das komplette neurale Netzwerk bis zum Ausgangsneuron durchschritten werden, was eine Art Abkürzung darstellt.
+Im Gegensatz zu _feed-forward_ Netzen, sind RNNs in der Lage, unmittelbar vorhergehende Entscheidungen zu speichern und in die Berechnung miteinzubeziehen. Daher finden RNNs vorallem Anwendung bei sequenziellen Datenströmen, dazu zählen beispielsweise Sensordaten, Spracherkennung oder Maschinenübersetzung.
+
+## Long short-term memory (LSTM)
 
 # Quellen:
 
