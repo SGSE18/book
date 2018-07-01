@@ -26,6 +26,7 @@ Autor: Björn E.-M.
 	- [Anforderungen an Mixed-Reality](#Anforderungen_an_Mixed-Reality)
 	- [Virtual-Reality](#Virtual-Reality)
 	- [Augmented-Reality](#Augmented-Reality)
+- [Herausforderungen](#Herausforderungen)
 - [Literaturverzeichnis](#Literaturverzeichnis)
 
 <a name="Einleitung_und_Definition"></a>
@@ -415,11 +416,28 @@ Ein weiterer wichtiger Vorteil ist, dass bei einer solchen Infrastruktur immer a
 
 <a>[[NEUG18]](#ref_NEUG18)</a> 
 
+<a name="Herausforderungen"></a>
+
+## Herausforderungen
+
+Der Bereich der Digitalisierung ist enorm groß. Die Anwendungsfelder und Möglichkeiten wachsen stetig und der technische Fortschritt scheint nicht mehr zu stoppen. Aktuell führt die Digitalisierung noch mehr Jobs ein als wegfallen. Die Aufgabenbereiche der Menschen verschieben sich, jedoch, je länger dieser Prozess anhält, umso wahrscheinlicher wird es, dass die Anzahl von benötigten Mitarbeitern für eine bestimmte Aufgabe sinkt. Grade KI und Automatisierung könnten und werden vermutlich auch Milliarden von Arbeitsplätzen gefährden und schlussendlich größtenteils ersetzen. Aktuell sind Automatisierungs-Technologien und KI-Systeme sehr spezialisiert. Es existieren aber jetzt schon so viele Daten, die als Grundlage für KI genutzt werden können, dass Maschinen ausreichend gut lernen können. Durch verstärkte Digitalisierung wird dieser Prozess weiter vorangetrieben. So können Systeme auf den Daten von jetzigen Experten und Fachleuten lernen um deren Aufgaben später zu übernehmen.
+
+Wie schon jeweils bei vielen Abschnitten angemerkt bringt die Digitalisierung auch viele Herausforderungen mit sich. Beispielsweise ist theoretisch der Besitzt und die Verbreitung der Bitcoin-Blockchain in praktisch allen Ländern verboten, da diese dazu missbraucht wurde um permanent illegale Inhalte abzuspeichern <a>[[MATZ18]](#ref_MATZ18)</a>. Der Sinn und das Prinzipe einer Blockchain ist, dass keine Inhalte gelöscht werden können und somit liegen diese Daten redundant auf der ganzen Welt verteilt.
+
+Die Kommunikation verändert sich stark und die Menschen schauen lieber auf ihr Smartphone als Smalltalk zu führen. Obwohl jederzeit Kontakt zur ganzen modernen Welt möglich ist vereinsamen viele. Die sogenannte „fear of missing out“, bringt ebenso viele dazu von sozialen Medien und dem Internet abhängig zu werden. Der aktuelle Jugendschutz im Internet kann im Grunde nur als katastrophal beschrieben werden. Ein „Yes, i am 18 or older.“-Button reicht aus um auf jugendgefährdende Inhalte zuzugreifen. Datenmissbrauch, Identitätsdiebstal, illegaler Verkauf von Waffen, Munition, Drogen, Menschenhandel, Urheberrechtsverletzungen, Stalking und Mobbing wird durch Technik erleichtert oder effizient möglich gemacht. In dieser Hinsicht ist die Anonymität, die das Internet bietet zu gleich ein Segen und ein Fluch. In diesen Bereichen Lösungen und eine Balance zu finden ist die Aufgabe der nächsten Jahrzehnte.
+
+Digitalisierung, KI und Automatisierung sind vermutlich etwas Gutes für die Menschheit. So wie auch schon durch die anderen Industriellen Revolutionen kann der durchschnittliche Lebensstandard der Weltbevölkerung angehoben werden. Welchen Tätigkeiten die Menschen nachgehen, wenn z.B. 10% der Bevölkerung ausreicht um die Grundbedürfnisse aller zu decken ist die eigentliche Frage. Auch sollte die gerechte Verteilung von Ressourcen eine starke Rolle spielen. Zusätzlich müssen wir natürlich darauf achten, dass der Planet bei dem ganzen „Fortschritt“ nicht unbewohnbar wird. Der gesamte Fortschritt und Wohlstand nützt wenig, wenn dieser bei große Teile der Weltbevölkerung nicht daran teilhaben. Während sich in der modernen Welt die Bevölkerung mit vergleichsweise trivialen Problemen beschäftigt, werden in anderen Ecken der Welt immer noch Kinder zur Arbeit gezwungen und verhungern.
+
+Humanität bringt eben kein Profit.
+
+
 <a name="Literaturverzeichnis"></a>
 
 ## Literaturverzeichnis
 
 <a name="ref_MARW07">[MARW07]</a>: Marwedel, Peter : Eingebettete Systeme. Deutschland 2007, Springer-Verlag Berlin Heidelberg , ISBN 978-3-540-34048-5
+
+<a name="ref_MATZ18">[MATZ18]</a>: Matzutt, Roman ; Hiller, Jens ; Henze, Martin ; Ziegeldorf, Jan ; Müllmann, Dirk ; Hohlfeld, Oliver ; Wehrle, Klaus. : A Quantitative Analysis of the Impact of Arbitrary Blockchain Content on Bitcoin. Deutschland 2018, https://fc18.ifca.ai/preproceedings/6.pdf
 
 <a name="ref_MICR18">[MICR18]</a>: Microsoft : Microsoft HoloLens Commercial Suite. https://www.microsoft.com/de-de/p/microsoft-hololens-commercial-suite/944xgcf64z5b?activetab=pivot%3aoverviewtab (abgerufen am 01.07.2018)
 
@@ -439,7 +457,9 @@ Ein weiterer wichtiger Vorteil ist, dass bei einer solchen Infrastruktur immer a
 
 <!-- COMMENT!
 
-<a>[[MICR18]](#ref_MICR18)</a>
+<a>[[MATZ18]](#ref_MATZ18)</a> illigal stuff in BC
+
+<a>[[MICR18]](#ref_MICR18)</a> hololens
 
 <a>[[SPIE13]](#ref_SPIE13)</a> waffe drucker
 
@@ -451,11 +471,11 @@ Ein weiterer wichtiger Vorteil ist, dass bei einer solchen Infrastruktur immer a
 
 <a>[[WIKI18a]](#ref_WIKI18a)</a> mixed reality
 
-<a>[[MARW07]](#ref_MARW07)</a>
+<a>[[MARW07]](#ref_MARW07)</a> ES buch
 
-<a>[[NEUG18]](#ref_NEUG18)</a>
+<a>[[NEUG18]](#ref_NEUG18)</a> Digi. Buch
 
-<a>[[WOLF17]](#ref_WOLF17)</a>
+<a>[[WOLF17]](#ref_WOLF17)</a> Definition und Reife
 
 
 Ein Bild Beschreibung hier.
