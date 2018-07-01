@@ -2,7 +2,35 @@
 
 Autor: Björn E.-M.
 
-## Einleitung und Definition
+## Inhaltsverzeichnis
+
+- [Einleitung und Definition](#Einleitung_und_Definition)
+	- [Die DNA der Maschinen](#Die_DNA_der_Maschinen)
+	- [Der digitale Alltag](#Der_digitale_Alltag)
+	- [Anforderungen an Digitaltechnik (Verlässlichkeit und Effizienz)](#Anforderungen_an_Digitaltechnik_(Verlässlichkeit_und_Effizienz))
+- [Anwendungsbereiche der Digitalisierung](#Anwendungsbereiche_der_Digitalisierung)
+	- [Der Universalübersetzer im Einsatz](#Der_Universalübersetzer_im_Einsatz)
+	- [Verbesserung der Medizin](#Verbesserung_der_Medizin)
+	- [Datenkomprimierung und digitaler Rundfunk](#Datenkomprimierung_und_digitaler_Rundfunk)
+	- [Je schneller, desto besser! (Bandbreite und Latenz)](#Je_schneller_desto_besser_(Bandbreite_und_Latenz))
+- [Arbeit und Produktion](#Arbeit_und_Produktion)
+	- [Digitale Arbeits- und Produktionswelt](#Digitale_Arbeits-_und_Produktionswelt)
+	- [Generative Fertigung](#Generative_Fertigung)
+	- [Künstliche Intelligenz und kognitive Maschinen als Freund und Helfer](#Künstliche_Intelligenz_und_kognitive_Maschinen_als_Freund_und_Helfer)
+- [Safety und Security](#Safety_und_Security)
+	- [Daten - der Treibstoff der modernen Welt](#Daten_-_der_Treibstoff_der_modernen_Welt)
+	- [Industrial Data Space](#Industrial_Data_Space)
+	- [Datenintegrität](#Datenintegrität)
+	- [Cyber-Security](#Cyber-Security)
+- [Mixed-Reality (Augmented-Reality und Virtual-Reality)](#Mixed-Reality_(Augmented-Reality_und_Virtual-Reality))
+	- [Anforderungen an Mixed-Reality](#Anforderungen_an_Mixed-Reality)
+	- [Virtual-Reality](#Virtual-Reality)
+	- [Augmented-Reality](#Augmented-Reality)
+- [Literaturverzeichnis](#Literaturverzeichnis)
+
+<a name="Einleitung_und_Definition"></a>
+
+## Einleitung und Definition 
 
 „Digitalisierung“ - Das aktuelle Hype-Thema in der Politik und Wirtschaft. Sie reicht dabei von digitalen Sprachassistenten für Zuhause über Wearables und Satellitentechnik zu vollautomatisierten Fertigungsstraßen in der Industrie. In so gut wie allen Bereichen des Lebens lässt sie sich finden. Inzwischen existieren vollständige digitale Währungen wie z.B. „Bitcoin“, man kann während eines Ausflugs per Smartphone-App mit einem internetfähigen Futterspender die Katze in der Heimat füttern und sie dabei sogar noch über eine Kamera im Livestream beobachten. 
 
@@ -74,6 +102,8 @@ Als ein weiteres Beispiel für die Digitalisierung wird häufig die Fotografie v
 
 [Informatik Spektrum]
 
+<a name="Die_DNA_der_Maschinen"></a>
+
 ### Die DNA der Maschinen
 
 Immer mehr Maschinen werden programmiert. Nur für die wenigsten Anwendungsfälle ist eine rein manuelle Bedienung noch ausreichend. Das liegt zum Teil daran das z.B. in großen Fertigungsstraßen die Abläufe so schnell und eng getaktet sind, dass ein Mensch gar nicht mehr mithalten könnte. Zusätzlich wird eine Vielzahl von gesammelten Sensordaten genutzt, um die Umwelt zu erfassen. Des Weiteren werden im Quelltext hinterlegte Direktiven genutzt, um auf die Umwelt zu reagieren. In der Umwelt agieren kann eine Maschine durch einen sogenannten Aktor z.B. einem Elektromotor, der ein Förderband beschleunigt. Die gesammelten Daten werden entsprechend abgespeichert und dienen als Grundlage für die Entwicklung zukünftiger Maschinen.
@@ -90,6 +120,8 @@ Durch die gemeinsamen Eigenschaften können beide Systeme vorhandenes Wissen anp
 
 [Quelle Buch]
 
+<a name="Der_digitale_Alltag"></a>
+
 ### Der digitale Alltag
 
 Im Jahr 2007 wurde vom Technologieunternehmen Apple das erste massentaugliche Smartphone auf den Markt gebracht. Das Konzept hat in den darauffolgenden Jahren das Leben der Menschen stark gewandelt. Auch Live-Streaming-Videoportal wie „Twitch“ und „YouTube“ und Instant-Messaging-Dienste wie „Discord“ und „TeamSpeak“ erlauben es uns, von überall auf der Welt aus per Video oder Sprachkonferenzen Kontakte zu Mitmenschen aufzunehmen. Dies wirkt sich natürlich nicht nur auf das Privatleben, sondern auch auf das Berufsleben aus. Extra entwickelte Enterprise Produkte wie „Skype for Business“ prägen die Berufswelt. Derartige Technologie hat sogar Auswirkungen auf das Mobilitätsverhalten der Menschen. Warum für ein Meeting treffen, wenn stattdessen ein „Web-Seminar“ gehalten werden kann. Dies spart Kosten und Zeit für alle Beteiligten. Selbst das Migrationsverhalten der Menschen beeinflusst die Digitalisierung. Wenn man immer und von überall aus all seine Verwandten und Bekannten kontaktieren kann, fällt die Entscheidung, ob man für ein lukratives Jobangebot umzieht, deutlich leichter. Eine solche Entscheidung muss sogar immer seltener getroffen werden. Viele Leute betreiben „Home-Office“ und verlassen so zum Verdienen ihres Lebensunterhalts nicht einmal mehr ihr getrautes Heim. Informationen zu allem und jedem sind großenteils kostenlos im Internet verfügbar. Jeder kann selbst Fakten überprüfen und in Sekunden fehlendes Wissen nachschlagen. „Guides“ und „Tutorials“ helfen dabei, ganz neue Fertigkeiten und Fähigkeiten für das Hobby oder Berufsleben zu erlangen. Zusätzlich werden durch die Digitalisierung sämtliche technischen Geräte so schneller weiterentwickelt und optimiert, dass man nur noch als Fachmann eine informierte Kaufentscheidung treffen kann. Somit kann gesagt werden, dass durch die Digitalisierung das gesamte Umfeld des Menschen im Umbruch ist. 
@@ -103,6 +135,8 @@ Vorteile bringt dies jedoch auch mit sich. Die Digitalisierung übt eine antreib
 Dies setzt natürlich verschiedenste Eigenschaften bei den Mitarbeitern voraus. Dazu gehört das lebenslange Lernen, das in diesem Zusammenhang für all jene, welche am Wertschöpfungsprozess beteiligt sind zur unvermeidlichen Realität geworden ist. Dies haben wir der Dynamisierung der Entwicklung durch die Digitalisierung zu verdanken.
 
 [Quelle Buch]
+
+<a name="Anforderungen_an_Digitaltechnik_(Verlässlichkeit_und_Effizienz)"></a>
 
 ### Anforderungen an Digitaltechnik (Verlässlichkeit und Effizienz)
 
@@ -134,11 +168,15 @@ Daraus folgt, dass Mitarbeiter und Fachleute in solchen Bereichen das schon ange
 
 [Quelle Buch]
 
+<a name="Anwendungsbereiche_der_Digitalisierung"></a>
+
 ## Anwendungsbereiche der Digitalisierung 
 
 Wie in der Einleitung für dieses Kapitel bereits klar geworden ist, gehört die Digitalisierung bereits zum alltäglichen Leben. Im Grunde steht die Digitalisierung für die digitale Repräsentierung von Informationen und Aspekten von physischen Objekten sowie deren Analyse, Kreierung und Verarbeitung. Dabei fällt auf, dass sie als eine Art „Universalübersetzer“ genutzt wird, um Daten und Informationen unterschiedlichsten Ursprungs für Maschinen bearbeitbar zu machen. Dadurch entstehen vorher undenkbare Möglichkeiten für z.B. Simulationen von Maschinen, Prozessen, Objekten und sogar ganzen Systemen. In Verbindung mit komplexen Analysen können Problemstellungen ganz anders angegangen werden. Bei einem sogenannten Brain-Computer-Interface (BCI) z.B. werden menschliche Gehirnsignale mit Sensoren auf der Kopfhaut erfasst und können so dazu genutzt werden, um mit Computern und Robotern zu interagieren. Auch anders herum ist es möglich. Haptische Empfindungen können an Prothesen mit digitalen Signalen erzeugt werden. Solche Technologien sind heutzutage für körperlich behinderte Personen ein Segen und in Zukunft wird der Anwendungsbereich sicherlich nicht kleiner. Beim BCI wird die Digitalisierung als direkte Verbindung zwischen dem Körper (biologisch) und Computern, Maschinen und Prothesen (cyber-physisch) genutzt.
 
 [Quelle Buch]
+
+<a name="Der_Universalübersetzer_im_Einsatz"></a>
 
 ### Der Universalübersetzer im Einsatz
 
@@ -152,6 +190,8 @@ Google-Street-View ist ein perfektes Beispiel für die Digitalisierung der mater
 
 Währen der Erstellung dieses Buches wurden von dessen Autoren zwei Projekte umgesetzt. Eines von diesen ist ebenfalls ein gutes Beispiel für die Digitalisierung der materiellen Welt. Das andere wird in Verbindung mit zusätzlichen Themen im nächsten Abschnitt erläutert. Bei dem Projekt „VINI – Vehicle Identification Number Index“ handelt es sich um die Digitalisierung des klassischen gedruckten und händisch geführten Scheckheftes für Kraftfahrzeuge. Ziele sind unter anderem, die Manipulation von Tachoständen und Scheckhefteinträgen zu verhindern. Dafür werden einige Eigenschaften einer Blockchain verwendet, um Daten zu einem Kfz dauerhaft, unveränderlich und dezentral zu speichern. Wichtig ist dabei auch, dass nachvollziehbar wird, wer wann welchen Eintrag erstellt hat und so eventuelle Manipulationsversuche offensichtlich werden. Mehr zu dem Projekt ist unter (https://github.com/SGSE18/VINI/blob/master/pflichtenheft/VINI%20Pflichtenheft.pdf) zu finden.
 
+<a name="Verbesserung_der_Medizin"></a>
+
 ### Verbesserung der Medizin
 
 In der Medizin fallen riesige Datenmengen über die Patienten an. Dazu gehören z.B. Bildaufnahmen, Textinformationen, Elektrokardiogramme (EKG), Röntgenaufnahmen und MRT-Scans. Diese effizient, sicher und effektiv zu analysieren, ist eine Herausforderung und in menschlicher Zeit kaum noch möglich. Dazu kommen dann sogar noch Laborbefunde und Informationen aus der Fachliteratur, die berücksichtig werden sollten. Um dieses Problem zu lösen, wird inzwischen an KI-unterstützten Diagnosetechniken geforscht. Systeme, die mit Scans von tausenden von Patienten trainiert werden, können schon jetzt in vielen Bereichen hilfreich sein und übertreffen sogar in einigen Bereichen die Erkennungsraten der Ärzte. In der Chirurgie werden inzwischen ferngesteuerte Roboter genutzt, damit Fachärzte sich lange und kostspielige Reisen queer über den Globus ersparen können. Dabei wir die „Telerobotik“ verwendet um eine „Teleoperation“ durchzuführen. Dabei bedeutet dies lediglich „Arbeit auf Distanz“. Derartige Telerobotik wird auch zur Erforschung der Tiefsee genutzt oder um Bohrinseln zu reparieren. So können auch Bomben aus großer Entfernung sicher entschärft oder radioaktive Stoffe verarbeitet werden, ohne das Leben von Menschen zu gefährden.
@@ -159,6 +199,8 @@ In der Medizin fallen riesige Datenmengen über die Patienten an. Dazu gehören 
 [Quelle Buch] 
 
 Wie im vorherigen Abschnitt schon angeschnitten, wurde von den Autoren dieses Buch ein weiteres Projekt umgesetzt. Dieses ist eng mit den oben genannten Daten eines Patienten verbunden. Genauer dreht es sich bei dem Projekt namens „Health Ledger: Die digitale Patientenakte“ um die Krankenakte von Patienten. Das Projektteam hat erkannt, dass die Krankenakte einen besonders hohen Schutz benötigt. Die Krankenakte als Informationssammlung bietet tiefe Einblicke in die Privatssphäre und ist im jetzigen Gesundheitssystem häufig nicht ausreichend geschützt und der Patient selbst besitzt zu wenig Kontrolle über diese empfindlichen Informationen. Es ist für Patienten häufig nicht nachvollziehbar, wer wann und wie lange Einsicht bzw. Zugriff hat. Das Projekt versucht diese Mängel zu beheben, indem der Patient selbst die vollständige Kontrolle über seine eigenen Krankendaten besitzt und anderen Zugriff und Einsicht gewähren kann, wenn dies erwünscht ist. Das System ist dezentral über eine Blockchain organisiert und mit kryptographischen Verfahren wird die Integrität der Daten sichergestellt. Das Projekt ist unter (https://github.com/SGSE18/health-ledger/blob/master/pflichtenheft/README.md) zu finden.
+
+<a name="Datenkomprimierung_und_digitaler_Rundfunk"></a>
 
 ### Datenkomprimierung und digitaler Rundfunk
 
@@ -172,7 +214,9 @@ Auch der digitale Rundfunk profitiert von solcher Technologie. Der digitale Rund
 
 [Quelle Buch]
 
-### Je schneller, desto besser! (Bandbreite vs. Latenz)
+<a name="Je_schneller_desto_besser_(Bandbreite_und_Latenz)"></a>
+
+### Je schneller, desto besser! (Bandbreite und Latenz)
 
 Eine schnelle Datenübertragung ist in vielen Anwendungsfällen wünschenswert. Häufig wird jedoch der Begriff „schnell“ mit hoher Bandbreite gleichgesetzt. Die Menschen reden davon, dass sie „schnelles Internet“ besitzen, wenn sie jedoch eigentlich davon sprechen, dass die Bandbreite hoch ist. Das „schnell“ sollte sich jedoch auf die Latenzzeit (umgangssprachlich „ping“) der Verbindung beziehen. Die Bandbreite beschreibt, wie hoch der Datendurchsatz ist, und die Latenz die Wartezeit auf eine Antwort nach einer Anfrage. Wer schon einmal einen Internetzugang über Satellit genutzt hat, weiß, dass die Bandbreite durchaus akzeptabel ist, jedoch die Latenzzeit viele Anwendungsfäll unmöglich macht. Die hohe Latenzzeit stammt in dem Fall natürlich daher, dass bei jeder Anfrage das Signal von der Erdoberfläche bis zum Satelliten geschickt werden muss. Die Entfernung ist so groß, dass obwohl das Signal mit Lichtgeschwindigkeit transportiert wird, die Verzögerungen deutlich spürbar ist. Der Unterschied wird noch klarer, wenn das Internet zur Zeit der 56k-Modems betrachtet wird. In zeitkritischen Anwendungen wie z.B. einem Onlinespiel entscheidet die Latenz darüber, wie lang es dauert, bis ein Gegenspieler angezeigt wird. Also wie schnell auf eine Aktion z.B. durch einen Server reagiert wird. Wenn der Server des Spiels nicht tausende von Kilometern entfernt stand, waren auch früher geringe Latenzzeiten möglich. Bei zu hoher Latenz werden Onlinespiele unspielbar und die geringe Bandbreite der alten Modems hat eine Datenübertragung von mehreren Gigabyte zu einer tagelangen Aufgabe gemacht. Somit war z.B. Streaming von Videos und Musik unmöglich, weil die Bandbreite schlichtweg nicht vorhanden war. Von der Fraunhofer-Gesellschaft wird der Bereich des Internets, welcher von minimalen Verzögerungszeiten abhängig ist als „Taktiles Internet“ bezeichnet.
 
@@ -180,7 +224,11 @@ Wichtig ist diese Unterscheidung, da eine geringe Latenzzeit die Grundlage für 
 
 [Quelle Buch]
 
+<a name="Arbeit_und_Produktion"></a>
+
 ## Arbeit und Produktion
+
+<a name="Digitale_Arbeits-_und_Produktionswelt"></a>
 
 ### Digitale Arbeits- und Produktionswelt
 
@@ -194,6 +242,8 @@ Ein beliebtes Konzept ist dabei der „digitale Zwilling“ oder auch „digital
 
 [Quelle Buch]
 
+<a name="Generative_Fertigung"></a>
+
 ### Generative Fertigung
 
 Das Gegenstück zur Digitalisierung der materiellen Welt ist die generative Fertigung bei der Daten in Materie umgewandelt werden. Das offensichtlichste Beispiel ist der „3D-Druck“. Digital gestaltete Objekte können damit in die reale Welt „materialisiert“ werden. Einer der Vorteile ist, dass die Daten vorher nach Belieben bearbeitet und dann verschickt werden können. In der Einleitung wurde ein Vergleich von DAN und Daten geschaffen, der hier auch genutzt werden kann. Die Daten bzw. Informationen zu einem Objekt bestimmen wie die DNA die physische Erscheinung. 
@@ -204,6 +254,8 @@ Inzwischen wird sogar mit 3D-Druckern auf der Internationalen Raumstation (ISS) 
 
 [Quelle Buch)
 
+<a name="Künstliche_Intelligenz_und_kognitive_Maschinen_als_Freund_und_Helfer"></a>
+
 ### Künstliche Intelligenz und kognitive Maschinen als Freund und Helfer
 
 Künstliche Intelligenz spielt jetzt schon in vielen Bereichen eine große Rolle. Der nächste Schritt ist jedoch die sogenannte „artificial general intelligence“ (AGI) oder „kognitive Maschine“. Diese Systeme sollen über Interaktionsfähigkeit, Erinnerungsvermögen, Kontexterfassung, Anpassungsfähigkeit und Lernfähigkeit verfügen. Derartige Maschinen würden den Turing-Test bestehen und es damit für den Menschen nicht mehr unterscheidbar machen, ob es sich um eine Maschine oder Menschen handelt, mit der er grade kommuniziert. Solche Maschinen sind, wenn sie nicht korrekt funktionieren bzw. wenn sie nicht den Erwartungen entsprechen, auch eine große Gefahr. Es gibt ganze Forschungsbereiche (AI-Safety) die sich mit der sicheren Entwicklung von AGI beschäftigen. Für die Entwicklung von kognitiven Maschinen gilt das maschinelle Lernen als eine Schlüsseltechnologie. Die Maschinen sollen dabei aus großen Datenmengen, die zum Trainieren genutzt werden selbst Muster erkennen und daraus Verhaltensregeln ableiten. Somit können Maschinen vielseitiger eingesetzt werden und ihre Leistung verbessern. Eine Voraussetzung für eine derartige Entwicklung sind die großen Datenmengen die mit dem nächsten Schlagwort „Big Data“ in Verbindung stehen, zusätzlich sind natürlich auch noch entsprechend schnelle Prozessoren nötig, um effektiv zu lernen. Daher auch der jetzige Hype dieses Themas. Das Konzept des maschinellen Lernens ist schon lange bekannt, aber früher haben die Datenmengen und die schnellen Prozessoren der heutigen Grafikkarten gefehlt, die es heute jedem möglichmachen, seine eigne KI zu trainieren. Mit solchen Techniken können Maschinen die menschliche Sprache verarbeiten, Prozesse optimieren, indem diese exakt analysiert werden, hochkomplexe Anlagen steuern und wie schon genannt in der Medizin Krankheitsbilder und Muster erkennen, die selbst Fachleuten nicht auffallen. 
@@ -212,7 +264,11 @@ Die Auswirkungen und Einsatzmöglichkeiten von KI sind so groß und universell, 
 
 [Quelle Buch]
 
+<a name="Safety_und_Security"></a>
+
 ## Safety und Security
+
+<a name="Daten_-_der_Treibstoff_der_modernen_Welt"></a>
 
 ### Daten - der Treibstoff der modernen Welt
 
@@ -222,6 +278,8 @@ Die Komplexität von Systemen steigt und somit auch die Angriffsoberfläche, die
 
 [Quelle Buch]
 
+<a name="Industrial_Data_Space"></a>
+
 ### Industrial Data Space
 
 Integrität von Daten und Informationen spielt eine immer wichtigere Rolle. Die Grundlage des Informationszeitalter stellt der Austausch von Informationen dar. Dies ist wichtig, da diese wiederum Grundlage für Forschung und bedarfsgerechte Dienstleistungen sind. Beim Austausch oder Transport von Informationen bestehen immer mehrere Risiken. Die Daten können abgefangen, manipuliert, verfälscht oder blockiert werden. Je stärker Prozesse von Daten abhängig sind umso größer sind die Auswirkungen bei fehlerhaften oder verfälschten Daten. Die steigende Cyberkriminalität stellt hier ein großes Problem dar.
@@ -230,11 +288,15 @@ Von der Fraunhofer-Gesellschaft wurde daher eine Initiative für den sogenannten
 
 [Quelle Buch]
 
+<a name="Datenintegrität"></a>
+
 ### Datenintegrität
 
 Die hohe Verletzlichkeit von Daten stammt daher, dass diese wesentlich leichter und schneller manipuliert werden können als physische Objekte. Daten können einfach kopiert und vervielfältigt werden und in der Regel lassen sich mit kleinsten Änderungen im Quelltext einer Software gravierende Veränderungen provozieren. Neben der Verschlüsselung und Signierung von Dokumenten gehört auch die Sicherstellung von Einträgen und Transaktionen zu den Themen der Digitalisierung. Für letzteres wird die Tauglichkeit von Blockchain-Technologien überprüft. Für das aktuelle Hype-Thema Blockchain wurde in diesem Buch ein ganzes Kapitel reserviert, welches sehr ausführlich die Funktionsweise, Anwendungsfelder und unterschiedliche Blockchain-Technologien darstellt. 
 
 [Quelle Buch]
+
+<a name="Cyber-Security"></a>
 
 ### Cyber-Security
 
@@ -247,6 +309,8 @@ Von Sicherheitsexperten wird daher der Mensch als unsicherstes Glied in sicherhe
 Wie oben beschrieben sollten die Menschen und die Usability im Mittelpunkt stehen und nicht wie es bisher war, dass die Menschen sich der Technik anpassen mussten. Daraus können auch ganze neue Konzepte für die Entwicklung und Forschung entstehen. Die Verschmelzung von biologischen und digitalen Konzepten wäre möglich, da wie schon gezeigt DAN und Maschinencode ähnlich und somit auch in gewisser Weise kompatibel sind. Beispielsweise Schwarmintelligenz für die Logistik, lernende Roboter, Biosensorik, der schon angesprochene 3D-Druck und programmierbare Materialien zeigen in die beschriebene Richtung.
 
 [Quelle Buch]
+
+<a name="Mixed-Reality_(Augmented-Reality_und_Virtual-Reality)"></a>
 
 ## Mixed-Reality (Augmented-Reality und Virtual-Reality)
 
@@ -262,6 +326,8 @@ Es fällt dabei auf derartige Anstrengungen primär auf 2D Objekte beschränkt s
 
 [Quelle Buch]
 
+<a name="Anforderungen_an_Mixed-Reality"></a>
+
 ### Anforderungen an Mixed-Reality
 
 Die Umsetzung von Mixed-Reality ist stark unterschiedlich. Diese reichen von Cloud-Infrastrukturen bis hin zum schon genannten Head-Mounted-Display, die in Verbindung mit unterschiedlichsten Rechenkapazitäten, Betriebssystemen und Ein- und Ausgabemöglichkeiten arbeiten. Diese Systeme sollen skalierbar sein. Bei der hohen Plattformdiversität bringen gerade die mobilen Systeme wieder den Security-Aspekt in den Fokus. Vertrauliche Daten wie z.B. das CAD-Modell des neuen Prototyps kabellos an das Ausgabegerät zu übertragen, ohne dieses dort aus Sicherheitsgründen zu speichern, stellt eine Herausforderung dar. Ähnliche Anforderungen lassen sich bei Web-Technologien finden. Daher werden VR/AR in Zukunft eng mit Web-Technologien verbunden sein, um im puncto Sicherheit glänzen zu können und ihre Einsetzbarkeit und Akzeptanz in der Industrie zu erhöhen.
@@ -271,6 +337,8 @@ Die Umsetzung von Mixed-Reality ist stark unterschiedlich. Diese reichen von Clo
 In der folgenden Abbildung werden Mixed-Reality Medien wie z.B. Spiele und Filme mit den Anforderungen an Integrierbarkeit und Konfigurierbarkeit des Industriebereiches verglichen. 
 
 [Bild: anforderungen_vr_ar.png] [Quelle Buch]
+
+<a name="Virtual-Reality"></a>
 
 ### Virtual-Reality 
 
@@ -287,6 +355,8 @@ Da in der Industrie die Datensätze so groß sind, reicht der Hauptspeicher (RAM
 Um tatsächlich die Echtzeitanforderungen zu erfüllen, muss die räumliche und zeitliche Kohärenz ausgenutzt werden. Die hierarchischen Datenstrukturen, die oben beschrieben wurden, liefern die räumliche Kohärenz. Die zeitliche Kohärenz also der frame-übergreifende zeitliche Zusammenhang muss durch den gewählten Render-Algorithmus gelöst werden. Zusätzlich muss eine Verdeckungsberechnungen („Occlusion-Culling“) von mehreren überlappenden Szenen-Elementen durchgeführt werden. Dazu kann z.B. der „Coherent-Hierarchical-Culling“ Algorithmus eingesetzt werden.
 
 [Quelle Buch]
+
+<a name="Augmented-Reality"></a>
 
 ### Augmented-Reality
 
@@ -316,6 +386,8 @@ Wenn das System auf eine Client-Server-Infrastruktur umgestellt werden würde, k
 Ein weiterer wichtiger Vorteil ist, dass bei einer solchen Infrastruktur immer auf die aktuellsten Daten zugegriffen werden kann. Dies ist besonders wichtig, wenn der schon so häufig angesprochene SOLL-IST-Abgleich durchgeführt werden soll. Für Planungs- und Entwicklungsprozesse ist es ebenso wichtig auf den aktuellsten Daten zu arbeiten.
 
 [Quelle Buch]
+
+<a name="Literaturverzeichnis"></a>
 
 ## Literaturverzeichnis
 
