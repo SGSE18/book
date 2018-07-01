@@ -1,15 +1,16 @@
 
 # Internet of Things
 
-Author: Lukas Stuckstette
+Autor: Lukas Stuckstette
 
+[Präsentation und SW-Demo](https://github.com/lstuckstette/SGSE_IOT_DEMO)
 
 ![ref_traditional_vs_spa](./images/title.jpg "Mirai in AlphayBay, einem Darknet Marktplatz")
 
 [[VEC]](#VEC)
 
 ## Einleitung
-Internet Of Things (IoT), zu deutsch ‘Internet der Dinge’, beschreibt ein Netzwerk physikalischer Dinge wie Smart-Home-Geräte, Autos oder generell eingebettete Systeme. Das Netzwerk ermöglicht es diesen mit Sensoren und Akteuren ausgestatteten Dingen sich miteinander zu verbinden und zu kommunizieren, um Daten auszutauschen.[[QUS18]](#QUS18)
+Internet Of Things (IoT), zu Deutsch ‘Internet der Dinge’, beschreibt ein Netzwerk physikalischer Dinge wie Smart-Home-Geräte, Autos oder generell eingebettete Systeme. Das Netzwerk ermöglicht es diesen mit Sensoren und Akteuren ausgestatteten Dingen sich miteinander zu verbinden,zu kommunizieren und Daten auszutauschen.[[QUS18]](#QUS18)
 
 Historisch gesehen basieren die Grundlagen des IoT auf verschiedenen Disziplinen wie zum Beispiel Echtzeit Analysen, maschinelles Lernen, Big Data, eingebetteten Systemen und vielen mehr[[ROU18]](#ROU18). Bereits 1982 wurde an der Carnegie Mellon University in den USA ein modifizierter Getränkeautomat entwickelt, welcher in der Lage war über das Internet den Füllstand und die Getränketemperatur mitzuteilen [[PAL14]](#PAL14). Der Begriff “Internet of Things” wurde wahrscheinlich erstmals 1999 in einer Präsentation des Unternehmens Procter & Gamble von Kevin Ashton genannt.[[ASH09]](#ASH09)
 
