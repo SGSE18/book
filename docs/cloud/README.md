@@ -428,7 +428,7 @@ In den USA hat Amazon zwei sogenannte _"Pop-up Lofts"_ eröffnet, in denen AWS K
 
 Unternehmen und Organistationen, die AWS-Dienste nutzen, können durch die Verwendung von Amazons Accountsverwaltung _"Identity and Access Management"_ (IAM) ein individuelles Rechtesystem auf die AWS Infrastruktur abbilden. Dabei bietet IAM die Möglichkeit verschiedene Benutzer, Benutzergruppen und Rollen zu definieren und diesen sehr detailliert den Zugriff auf Ressourcen erlauben oder verbieten. Diese Benutzerverwaltung wird von Amazon kostenfrei angeboten und soll unter anderem mittels [Best Practices](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html) (externer Link) eine sichere Verwendung der AWS-Dienste innerhalb von Unternehmen und Organistationen bieten.
 
-Die Granularität in denen Rechte vergeben werden können reicht dabei von einem vollen Zugriff auf die AWS Management Console, über den Zugriff auf vereinzelte Dienste und Einstellungsmöglichkeiten bis zur Beschränkung darauf, dass nur einzelne Funktionen eines Dienstes aufgerufen werden können. Hinzu kommt, dass Zugriffe auf bestimmte Uhrzeiten und Zeiträume beschränkt werden können und Nutzern auch die Verwendung von Multi-Faktor-Authentifizierung vorgeschrieben werden kann.
+Die Granularität in denen Rechte vergeben werden können reicht dabei von einem vollen Zugriff auf die AWS Management Console, über den Zugriff auf vereinzelte Dienste und Einstellungsmöglichkeiten bis zur Beschränkung darauf, dass nur einzelne Funktionen eines Dienstes aufgerufen werden können. Hinzu kommt, dass Zugriffe auf bestimmte Uhrzeiten und Zeiträume beschränkt werden können und Nutzern auch die Verwendung von Multi-Faktor-Authentifizierung vorgeschrieben werden kann. [Abbildung 4](#img_aws_iam) zeigt beispielhaft ein IAM Dashboard, in dem mehrere Benutzer und Gruppen verwaltet werden können.
 
 <a name="img_aws_iam"></a>
 <div style="text-align:center">
@@ -439,9 +439,23 @@ Abb. 4: AWS IAM Dashboard - Quelle: [[AWS18h]](#ref_aws18h)
 
 </div>
 
-Bei der Erstellung von neuen IAM-Benutzern können unter anderem Passwörter und Zugangsschlüssel vordefiniert werden, aber auch temporäre Anmeldedaten erzeugt werden. Temporäre Zugangsdaten können auch IAM-Benutzer und AWS-Dienste erhalten, die normalerweise keinen Zugriff auf AWS-Ressourcen einer Organisation haben. Hierbei kommen die IAM-Rollen ins Spiel die einer AWS-Ressource zugewiesen werden müssen. IAM-Benutzer und AWS-Dienste können diese definierten Rollen annehmen und anschließend temporäre Anmeldeinformationen erhalten, mit denen Aufrufe von AWS-APIs erfolgen können. Dabei ist zu beachten, dass ein AWS-Dienst nur eine IAM-Rolle zugewiesen bekommen kann, aber mehrere andere Dienste und Anwendungen diese Rolle einnehmen können. [Abbildung 4](#img_aws_iam) zeigt beispielhaft ein IAM Dashboard, in dem mehrere Benutzer und Gruppen verwaltet werden können.
+Bei der Erstellung von neuen IAM-Benutzern können unter anderem Passwörter und Zugangsschlüssel vordefiniert werden, aber auch temporäre Anmeldedaten erzeugt werden. Temporäre Zugangsdaten können auch IAM-Benutzer und AWS-Dienste erhalten, die normalerweise keinen Zugriff auf AWS-Ressourcen einer Organisation haben. Hierbei kommen die IAM-Rollen ins Spiel die einer AWS-Ressource zugewiesen werden müssen. IAM-Benutzer und AWS-Dienste können diese definierten Rollen annehmen und anschließend temporäre Anmeldeinformationen erhalten, mit denen Aufrufe von AWS-APIs erfolgen können. Dabei ist zu beachten, dass ein AWS-Dienst nur eine IAM-Rolle zugewiesen bekommen kann, aber mehrere andere Dienste und Anwendungen diese Rolle einnehmen können. AWS-Ressourcen können über sogenannte _"Amazon Resource Names"_ (ARNs) eindeutig über alle AWS-Kunden hinaus identifiziert werden. Diese ARNs werden unter anderem dafür verwendet, dass in den IAM Einstellungen Dienste hinterlegt werden können, die eine IAM-Rolle einnehmen dürfen. ARNs können beispielsweise das folgende Format besitzen:
 
-[[AWS18i]](#ref_aws18i) [[AWS18j]](#ref_aws18j)
+```HTML
+<!-- Elastic Beanstalk application version -->
+arn:aws:elasticbeanstalk:us-east-1:123456789012:environment/My App/MyEnvironment
+
+<!-- IAM user name -->
+arn:aws:iam::123456789012:user/David
+
+<!-- Amazon RDS instance used for tagging -->
+arn:aws:rds:eu-west-1:123456789012:db:mysql-db
+
+<!-- Object in an Amazon S3 bucket -->
+arn:aws:s3:::my_corporate_bucket/exampleobject.png
+```  
+
+[[AWS18i]](#ref_aws18i) [[AWS18j]](#ref_aws18j) [[AWS18n]](#ref_aws18n)
 
 
 <a name="ec2"></a>
@@ -485,7 +499,7 @@ Die nachfolgende [Abbildung 5](#img_aws_ec2) gibt einen Überblick über den dri
     <img alt="AWS EC2 Configure Instance Details" src="./images/aws_ec2_instance.png"/>
     <br>
 
-Abb. 5: AWS Configure Instance Details - Quelle: [[AWS18k]](#ref_aws18k)
+Abb. 5: AWS EC2 Configure Instance Details - Quelle: [[AWS18k]](#ref_aws18k)
 
 </div>
 
@@ -516,6 +530,32 @@ Im letzten Schritt können alle vorher getätigten Einstellungen nochmal in übe
 <a name="s3"></a>
 
 ### Simple Storage Service (S3)
+
+Amazon _"Simple Storage Service"_ (S3) ist ein Dienst, um beliebige Mengen von Daten zu speichern und abzurufen. Dabei können alle Daten im nativen Format gesichert und direkt im S3, mit leistungsstarke Analysen, verarbeitet werden. AWS selbst sagt über S3, dass _"selbst die strengsten rechtlichen Anforderungen"_ erfüllt werden und er _"von Grund auf für eine Beständigkeit von 99,999999999% entwickelt"_ wurde.
+
+Durch Dienste wie Amazon Athena oder Amazon Redshift Spectrum können komplexe Abfragen auf unterschiedlich großen Datenmengen ausgeführt werden. Ersteres ermöglicht Abfragen mit Standard-SQL, ohne, dass eine zusätzliche Infrastruktur verwaltet werden muss. Letzteres ist gezielt für Analysen von riesigen, unstrukturierten Datenmengen optimiert, wie sie beispielsweise im Data-Warehouse Bereich auftreten. Selbst Abfragen auf Datensätze im Exabyte-Bereich, also über 1000 Petabyte, liefern laut AWS schnelle Ergebnis und sind möglich, ohne dass Daten extrahiert werden müssen. Die Geschwindigkeit wird vor allem durch Abfrageoptimierung erreicht, mit der die Abfragen auf Tausenden Knoten parallel ausgeführt werden.
+
+In vielen Preiskategorieren von S3 und auch beim Dienst Amazon Glacier, werden gespeicherte Daten automatisch auf mindestens drei physischen Einrichtungen repliziert. AWS unterscheidet dabei zwischen _"Regionen"_ und _"Availability Zones"_ (Verfügbarkeitszonen, AZs). Die [Abbildung 6](#img_aws_global) zeigt dabei die schon existierende Regionen mit gelben Kreisen und die geplanten Regionen mit türkisen Kreisen. Die Zahl zu einer Region gibt an, wieviele AZs in dieser Regionen zur Verfügung stehen. Diese Zonen sind physisch von anderen isoliert (mindestens 10km Entfernung) und über leistungsstarke Netzwerke miteineinander verbunden. Insgesamt bietet die AWS-Cloud derzeit 55 AZs an, die auf 18 Regionen aufgeteilt sind und plant vier weitere Regionen mit zusammen 12 AZs.
+
+<a name="img_aws_global"></a>
+<div style="text-align:center">
+    <img alt="Globale AWS-Infrastruktur" src="./images/aws_global.png"/>
+    <br>
+
+Abb. 6: Globale AWS-Infrastruktur - Quelle: [[AWS18m]](#ref_aws18m)
+
+</div>
+
+Bei der Nutzung von S3, werden sogenannte _"Buckets"_ erzeugt, die als Datentöpfe zu sehen sind. Das heißt es müssen keine Datenbanken händisch angelegt, konfiguriert und verwaltet werden. S3 kann ähnlich wie Google Drive über den Browser genutzt werden, um Daten hochzuladen, zu suchen und zu verwalten. Es können Ordner und Tags angelegt werden, um die Daten zu sortieren und klassifizieren. Darüberhinaus können Buckets und auch einzelende Order/Daten sowohl öffentlich als auch privat sein oder für spezielle AWS Accounts freigegeben werden. Die ARNs der Buckets oder auch von einzelnen Ressourcen innerhalb eines Buckets ermöglichen es außerdem, dass Anwendungen und andere AWS-Dienste diese gezielt verwenden können.
+
+Amazon S3 kann einerseits in die meisten AWS-Dienste integriert werden, aber auch durch eine Großzahl von Systemintegratoren und unabhängigen Softwarelieferanten mit weiteren Softwareanwendungen zusammengeführt werden. Diese helfen dabei _"gängige Sicherungs-, Wiederherstellungs- und Archivierungslösungen, die besten Big Data-Lösungen und innovative Lösungen zur Notfallwiederherstellung"_ umzusetzen.
+
+Gartner, Inc. äußert sich wie folgt zu Amazon S3:
+
+<span style="display:block;text-align:center">_"Amazon S3 ist gemessen an den verwalteten Daten der größte Objektspeicherservice, der auf einer öffentlichen Cloud basiert. AWS weiß besser als jeder andere Anbieter, wie Kunden groß angelegte Speicherservices in der öffentlichen Cloud einsetzen."_</span>
+
+[[AWS18m]](#ref_aws18m) [[AWS18o]](#ref_aws18o) [[AWS18p]](#ref_aws18p)
+
 
 ### AWS Lambda
 
@@ -632,6 +672,34 @@ Im letzten Schritt können alle vorher getätigten Einstellungen nochmal in übe
     </tr>
     <tr>
         <td>URL: <a>https://aws.amazon.com/de/ec2/</a> (abgerufen am 30.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_aws18m">[AWS18m]</a></td>
+        <td style="width:90%">Amazon AWS: Globale AWS-Infrastruktur</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://aws.amazon.com/de/about-aws/global-infrastructure/</a> (abgerufen am 01.07.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_aws18n">[AWS18n]</a></td>
+        <td style="width:90%">Amazon AWS: Amazon Resource Names (ARNs) and AWS Service Namespaces</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html</a> (abgerufen am 01.07.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_aws18o">[AWS18o]</a></td>
+        <td style="width:90%">Amazon AWS: Was ist ein Cloud-Objektspeicher?</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://aws.amazon.com/de/what-is-cloud-object-storage/</a> (abgerufen am 01.07.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_aws18p">[AWS18p]</a></td>
+        <td style="width:90%">Amazon AWS: Amazon S3</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://aws.amazon.com/de/s3/</a> (abgerufen am 01.07.2018)</td>
     </tr>
     <tr>
         <td rowspan="2" style="width:10%"><a name="ref_bian20">[BIAN20]</a></td>
