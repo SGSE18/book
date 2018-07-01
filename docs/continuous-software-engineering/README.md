@@ -52,7 +52,7 @@ Viele Build-Tools sind Programmiersprachen-spezifisch. Für Java gibt es unter a
 * Ant
 
 Bei Ant muss sich der Entwickler selbst um alle Aspekte des Builds kümmern und beispielsweise Ablageorte für kompilierten Sourcecode selbst festlegen. Dadurch kann Ant aber auch auf fast jede Build-Umgebung angepasst werden.
-Ant orientiert sich stark an dem Unix-Build-Tool make.
+Ant orientiert sich stark an dem Unix-Build-Tool make, wird aber im Gegenstz zu diesem in XML geschrieben.
 
 * Maven
 
@@ -61,6 +61,8 @@ Maven verfolgt einen anderen Ansatz und definiert 'Konventionen' für beispielsw
 * Gradle
 
 Gradle versucht, einen Mittelweg zu finden. Ähnlich wie bei Maven wird vieles über Konventionen abgebildet. Weicht das Projekt von den Konventionen ab, müssen die Abweichungen mit einer Gradle-spezifischen Skriptsprache definiert werden.
+
+Anders als bei Ant können bei Maven und Gradle (und einigen anderen Build-Tools) Abhängigkeiten definiert werden. Das Build-Tool kümmert sich dann um das managen der Abhängigkeiten, wohingegen diese Aufgabe bei Build-Tools wie Ant dem Entwickler überlassen bleibt.
 
 ## Continuous Delivery
 
