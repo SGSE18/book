@@ -112,6 +112,10 @@ Beim explorativen Test wird die Anwendung mit Fokus auf neue Features und unvorh
 
 Bei der Einführung in die Produktion geht es darum, die Anwendung in einer neuen Umgebung zu installieren. Durch die hohe Zahl an vorher ausgeführten Tests, die teilweise in einer der Produktionsumgebung ähnlichen Umgebung erfolgt sind, kann das Risiko an dieser Stelle verringert werden.
 
+#### Dokumentation
+
+Soweit die Dokumentation des Sourcecodes mit einem geeigneten Tool (wie JavaDoc für Java) erfolgt ist, kann auch die automatische Erstellung einer Sourcecode-Dokumentation Teil der Continuous Integration sein.
+
 ## Continuous Testing
 
 Continuous Testing baut auf der Continuous Delivery auf und wird häufig als deren Teil betrachtet. Teil vom Continuous Testing sind manuelle Tests, wie beispielsweise explorative Tests und manuelle Akzeptanztests, aber auch alle anderen Test, die entweder nicht automatisiert werden können oder effizienter von einem dedizierten Testteam durchgeführt werden können. Auch eine vom Entwicklerteam unabhängige Qualitätskontrolle kann vom Continuous Testing abgedeckt sein.
@@ -236,17 +240,16 @@ RUN apt-get install -y openjdk-8-jdk-headless
 VOLUME ["/var/hellojavadocker"]
 COPY HelloDocker.jar /var/hellojavadocker/
 CMD java -jar /var/hellojavadocker/HelloDocker.jar
+
 ```
 
 Listing 1 - Beispiel eines Dockerfile
 
 Listing 1 zeigt den Aufbau eines einfachen Dockerfile. Mit dem Befehl ```FROM``` wird festgelegt, auf Basis welchen Images das neue Image gebaut werden soll. Wird hier kein *tag* angegeben (nach dem ':'), wird standardmäßig der Tag latest verwendet und die neueste Version des Image verwendet.
 Soll das Image ohne Inhalt initialisiert werden, also 'from scratch', so ist genau das der Befehl - ```FROM scratch```. *scratch* ist ein spezielles leeres Image, welches von Docker bereitgestellt wird.
-Mit den Befehlen RUN und CMD können Befehle im Container ausgeführt werden. Die Ausgabe von RUN wird nicht in die Konsole geschrieben, die Ausgabe von CMD schon.
+Die Befehle RUN und CMD dienen zum ausführen von Befehlen innerhalb des Containers. RUN-Befehle werden bei der Erstellung des Containers ausgeführt. Der Befehl CMD wird ausgeführt, wenn das fertige Image in einem Container gestartet wird. Jedes Dockerfile kann nur einen Befehl mit CMD ausführen.
 Der Befehl VOLUME stellt einen bestimmten Pfad zur Verfügung, der vom Host-Betriebssystem gemountet werden kann. Er ist in diesem Beispiel nicht unbedingt nötig.
 Der Befehl COPY kopiert eine Datei vom Host in den Container, wo diese dann verwendet werden kann. Ein alternativer Befehl zu COPY ist ADD. Dies ist nur eine Auswahl von Befehlen, die in einem Dockerfile verwendet werden können. 
-
-
 
 
 #### Containerisierung vs. Virtualisierung
