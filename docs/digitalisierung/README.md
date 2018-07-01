@@ -220,7 +220,7 @@ Die Menge an jährlich erzeugten digitalen Daten wächst schnell an. Die Digital
 
 Streaming von Musik und Video nehmen einen großen Teil der Bandbreite in Anspruch. Entsprechend wichtig wird die Datenkomprimierung, um den Traffic zu reduzieren. Natürlich kommt dies auch dem Heimcomputer oder Smartphone zu gute. Besonders wichtig sollte die verlustfreie Datenkompression sein. 
 
-Beim Video-Kodierer „H.265“ war es z.B. das Ziel die Qualität von H.264 beizubehalten aber die Kompression zu verdoppeln. Die weltbekannte und weit verbreitete mp3-Kodierung von Audiodateien kann bei gleicher Klangqualität die Dateigröße von bis zu um einen Faktor Zehn reduzieren. Ohne derartige Verfahren würde das Anschauen eines einzelnen YouTube-Videos praktisch unmöglich sein. Die benötigte Bandbreite wäre gigantisch, was Netzwerke und Datenvolumen vollständig auslasten würde.
+Beim Video-Encoder „H.265“ war es z.B. das Ziel die Qualität von H.264 beizubehalten aber die Kompression zu verdoppeln <a>[[WIKI18d]](#ref_WIKI18d)</a>. Die weltbekannte und weit verbreitete mp3-Kodierung von Audiodateien kann bei gleicher Klangqualität die Dateigröße von bis zu um einen Faktor Zehn reduzieren. Ohne derartige Verfahren würde das Anschauen eines einzelnen YouTube-Videos praktisch unmöglich sein. Die benötigte Bandbreite wäre gigantisch, was Netzwerke und Datenvolumen vollständig auslasten würde.
 
 Auch der digitale Rundfunk profitiert von solcher Technologie. Der digitale Rundfunk selbst bietet viele Vorteile. Zum einen kann er via Funk (terrestrisch) empfangen werden und ist abgesehen vom Rundfunkbeitrag kostenlos. Er ist dabei unabhängig vom Internet und bietet eine energieeffiziente Übertragung, die dazu auch noch störungsfrei und von hoher Klangqualität ist. Auch lassen sich so mehr Sender als vorher realisieren, da das Funksignal schlanker ist. Ein weiterer wichtiger Vorteil ist, dass über digitalen Rundfunk mit hoher Zuverlässigkeit und Reichweite Warnmeldungen über Katastrophen und Verkehrsprobleme verschickt werden können. Es ist davon auszugehen, dass in den kommenden Jahren immer mehr analoge Rundfunksysteme mit digitalen ersetzt werden. Dieser Trend ist schon in Schwellenländern wie z.B. Indien zu erkennen.
 
@@ -388,7 +388,15 @@ Genau dieser Anwendungsfall kann mit AR bedient werden. Somit werden solche Verf
 * AR-gestützte-Wartung: Ähnlich wie im vorherigen Punkt wird bei der AR-gestützten-Wartung ein Experte mit einbezogen. Über die AR-Systeme kann in der Regel ein Livestream gestartet werden, der dann via Internet an einen Fachmann übertragen werden kann. Dieser kann dann Tipps und weitere Hilfestellungen geben, die der herkömmlichen AR-Reparaturanleitung hinzugefügt werden. Bei der nächsten Reparatur sollte sichergestellt sein, dass diese Informationen Teil der Reparaturanleitung sind.
 * AR-Handbücher: Da eine AR-System graphisch ganz andere Möglichkeiten bietet als ein herkömmliches Buch, können so auch graphische Anleitung und Handbücher zu komplexen Systemen erstellt werden. Eine größtenteils graphische Benutzeranleitung ist praktisch sprachunabhängig und über den App-Store der entsprechenden Plattform leichter aktualisierbar.
 
-AR-Technologie ist eine wichtige Entwicklung, da durch die neuen Hardwaresysteme neue Interaktionsparadigmen ermöglich werden. Somit werden Prozesse wie Produktionsplanung und Qualitätskontrolle komplett revolutioniert. Wie oben schon genannt ist die Microsoft HoloLens eines dieser Systeme. Die HoloLens bietet multimodale Sensorik, welche direkt in das Gerät integriert ist. Zusätzlich bietet das System eine hohe Bildqualität. An der HoloLens lassen sich aber auch gut die Einschränkungen im Profibereich wie folgt erläutern:
+AR-Technologie ist eine wichtige Entwicklung, da durch die neuen Hardwaresysteme neue Interaktionsparadigmen ermöglich werden. Somit werden Prozesse wie Produktionsplanung und Qualitätskontrolle komplett revolutioniert. Wie oben schon genannt ist die Microsoft HoloLens eines dieser Systeme. Die HoloLens bietet multimodale Sensorik, welche direkt in das Gerät integriert ist. Zusätzlich bietet das System eine hohe Bildqualität. In der folgenden Abbildung ist das Produkt abgebildet.
+
+<img src="./images/hololens.png" width="550">
+
+Microsoft HoloLens Commercial Suite.
+Abbildung entnommen aus
+<a>[[MICR18]](#ref_MICR18)</a>
+
+An der HoloLens lassen sich aber auch gut die Einschränkungen im Profibereich wie folgt erläutern:
 
 * Aufwendige Content-Aufbereitung: 3D-Modelle müssen in der Regel händisch bearbeitet werden damit sie die Anzahl von empfohlenen Polygonen nicht überschreiten. Empfohlen werden 100.000 Polygone, wobei ein übliches PKW-CAD-Modell aus ca. 80 Millionen besteht. Es müssen also zusätzlich qualitativ schlechtere Modelle für die Anzeige genutzt werden, die ggf. erst erstellt werden müssen.
 * Tracking mit der HoloLens: Die HoloLens verwendet das sogenannte „Simultanous Localisation and Mapping“ (SLAM). Damit ist es möglich, Fenster und Apps in der Umgebung anzupinnen. Dies geschieht über eine spezielle Geste des Benutzers. Allerdings ist dies z.B. für den gewünschten SOLL-IST-Abgleich nicht ausreichend. 
@@ -413,6 +421,8 @@ Ein weiterer wichtiger Vorteil ist, dass bei einer solchen Infrastruktur immer a
 
 <a name="ref_MARW07">[MARW07]</a>: Marwedel, Peter : Eingebettete Systeme. Deutschland 2007, Springer-Verlag Berlin Heidelberg , ISBN 978-3-540-34048-5
 
+<a name="ref_MICR18">[MICR18]</a>: Microsoft : Microsoft HoloLens Commercial Suite. https://www.microsoft.com/de-de/p/microsoft-hololens-commercial-suite/944xgcf64z5b?activetab=pivot%3aoverviewtab (abgerufen am 01.07.2018)
+
 <a name="ref_NEUG18">[NEUG18]</a>: Neugebauer, Reimund : Digitalisierung Schlüsseltechnologien für Wirtschaft & Gesellschschaft. Deutschland 2018, Springer Berlin Heidelberg, ISBN 978-3-662-55890-4
 
 <a name="ref_SPIE13">[SPIE13]</a>: Spiegel : Die Pistole aus dem 3-D-Drucker schießt. http://www.spiegel.de/netzwelt/web/waffe-aus-dem-3-d-drucker-erste-schuesse-aus-der-gedruckten-pistole-a-898266.html (abgerufen am 01.07.2018)
@@ -423,11 +433,17 @@ Ein weiterer wichtiger Vorteil ist, dass bei einer solchen Infrastruktur immer a
 
 <a name="ref_WIKI18c">[WIKI18c]</a>: Wikipedia : Evolutionary algorithm. https://en.wikipedia.org/wiki/Evolutionary_algorithm (abgerufen am 01.07.2018)
 
+<a name="ref_WIKI18d">[WIKI18d]</a>: Wikipedia : High Efficiency Video Coding. https://en.wikipedia.org/wiki/High_Efficiency_Video_Coding (abgerufen am 01.07.2018)
+
 <a name="ref_WOLF17">[WOLF17]</a>: Wolf, Thomas , Strohschen, Jacqueline-Helena : Digitalisierung: Definition und Reife. Deutschland 2017, Springer Berlin Heidelberg, JH. Informatik Spektrum 41:56. https://doi.org/10.1007/s00287-017-1084-8
 
 <!-- COMMENT!
 
+<a>[[MICR18]](#ref_MICR18)</a>
+
 <a>[[SPIE13]](#ref_SPIE13)</a> waffe drucker
+
+<a>[[WIKI18d]](#ref_WIKI18d)</a> High Efficiency Video Coding (HEVC), also known as H.265
 
 <a>[[WIKI18c]](#ref_WIKI18c)</a> EA
 
