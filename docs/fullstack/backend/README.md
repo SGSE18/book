@@ -399,6 +399,9 @@ Mutationen
 Fragmente
 
 ### Vergleich der Technologien
+| __gRPC__                |__REST__                     | __GraphQL__|
+|---------------------------------|--------------------------------------|-------------------------------------|
+
 
 # Literaturverzeichnis
 <a name="ref_DAY14">[DAY14]</a>: Dayley, Brad: Node.js, MongoDB, and AngularJS Web Development, 2014, ISBN: 978-0-321-99578-0 [Online](https://books.google.de/books?hl=de&lr=&id=8kTCAwAAQBAJ&oi=fnd&pg=PR6&dq=nodejs&ots=Hg5ff4UIdE&sig=Tldw6TM8yJIq4utBZyXlSIz5mcg#v=onepage&q=nodejs&f=false)
