@@ -1,16 +1,8 @@
 ---
 home: true
-actionText: Jetzt lesen →
-actionLink: /kurs/
 ---
 
-[![Build Status](https://travis-ci.org/SGSE18/book.svg?branch=master)](https://travis-ci.org/SGSE18/book)
-
-
-
-## Alternatives Inhaltsverzeichnis
-
-Bleibt erstmal temporär hier, ansonsten reicht die Sidebar Navigation
+## Inhaltsverzeichnis
 
 ### Grundlagen
 
@@ -36,7 +28,7 @@ Bleibt erstmal temporär hier, ansonsten reicht die Sidebar Navigation
  * [Backend](/fullstack/backend/)
    * Node.js
 
-### [AI - Machine learning](/ai-ml/)
+### [AI - Machine learning](/ai-ml/ai/)
   * [Ethik](/ethik/)
 
 ### [Embedded Computing](/embedded/)

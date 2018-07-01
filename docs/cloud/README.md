@@ -4,15 +4,16 @@ Autor: Björn Böing
 
 ## Inhaltsverzeichnis
 
+- [Abkürzungsverzeichnis](#abkürzungen)
 - [Einleitung](#einleitung)
     - [Definition](#definition)
     - [Geschichtliches](#geschichtliches)
 - [Architektur](#architektur)
     - [Charakteristika](#charakteristika)
     - [Service Modelle](#service-modelle)
-        - [Infrastructure as a Service (IaaS)](#infrastructure-as-a-service)
-        - [Platform as a Service (PaaS)](#platform-as-a-service)
-        - [Software as a Service (SaaS)](#software-as-a-service)
+        - [Infrastructure as a Service (IaaS)](#iaas)
+        - [Platform as a Service (PaaS)](#paas)
+        - [Software as a Service (SaaS)](#saas)
         - [Function as a Service (FaaS)](#function-as-a-service)
         - [Everything as a Service (XaaS)](#everything-as-a-service)
     - [Bereitstellungsmodelle](#bereitstellungsmodelle)
@@ -23,18 +24,29 @@ Autor: Björn Böing
     - [Vergleich zu anderen Modellen](#vergleich-zu-anderen-modellen)
     - [Edge Computing](#edge-computing)
     - [Fog Computing](#fog-computing)
-    - [Sicherheitsaspekte](#sicherheitsaspekte)
     - [Nachteile & Begrenzungen](#nachteile-begrenzungen)
-- [Amazon Web Service (AWS)](#amazon-web-service)
-    - [Einführung & Grundlagen](#einführung-grundlagen)
-    - [Elastic Compute Cloud (EC2)](#elastic-compute-cloud)
-    - [Simple Storage Service (S3)](#simple-storage-service)
+        - [Distributed-Denial-of-Service (DDoS) Angriffe](#ddos)
+        - [Layer 8 Fehler](#layer-8-fehler)
+        - [Mangelhafte Backups](#mangelhafte-backups)
+        - [Systemfehler](#systemfehler)
+        - [Privatsphäre](#privatsphäre)
+        - [Inflexibilität & geringere Kontrolle](#inflexibilität)
+- [Amazon Web Service (AWS)](#aws)
+    - [Grundlagen](#grundlagen)
+    - [Identity and Access Management (IAM)](#iam)
+    - [Elastic Compute Cloud (EC2)](#ec2)
+    - [Simple Storage Service (S3)](#s3)
     - [AWS Lambda](#aws-lambda)
 - [Cloud Design Pattern](#cloud-design-pattern)
     - [Event Sourcing](#event-sourcing)
     - ...
 - [Zusammenfassung](#zusammenfassung)
     - [Aktuelle Trends](#aktuelle-trends)
+
+
+## Abkürzungsverzeichnis
+
+- TODO
 
 
 ## Einleitung
@@ -49,11 +61,12 @@ _"Cloud computing is a model for enabling ubiquitous, convenient, on-demand netw
 
 Neben dem Kernpunkt aller Definitionen, dass Rechnerressourcen über ein Netzwerk bereitgestellt und genutzt werden können, stellt das NIST mit dieser Definition eine schnelle und einfache Verwendung in den Fokus. Das Bundesamt für Sicherheit in der Informationstechnik (BSI) geht noch einen Schritt weiter und sagt, dass Angebote und Nutzung der Cloud Dienstleistungen ausschließlich über definierte technische Schnittstellen und Protokolle abläuft. Die direkte Interaktion mit den Anbietern ist nicht vorgesehen. [[BSI18]](#ref_bsi18)
 
+
 ### Geschichtliches
 
 Die Bedeutung von "Cloud Computing" wie sie heute existiert und was damit verbunden wird, hat sich seit der ersten Verwendung nicht viel verändert. Die Compaq, Weltmarktführer für PC-Systeme der 1990er, verwendete den Begriff 1996 in einem internen Dokument. Schon davor wurde der Begriff "Cloud" und die dazugehörige Abbildung verwendet, um unter anderem das Internet, Telekommunikation und verteilte Anwendungen darzustellen. [[REGA11]](#ref_rega18)
 
-Populär wurde der Begriff "Cloud Computing", als Amazon 2006 ihre Elastic Compute Cloud (EC2) auf den Markt brachte. In den anschließenden Jahren brachten auch Unternehmen wie Google, Microsoft, IBM und auch Oracle vergleichbare Produkte auf den Markt, um den neu erzeugten Bedarf nach externer und mietbarer Rechenleistung zu bedienen. Das erste open-source Projekt, welches das Erstellen von [privaten](#private) und [hybrid](#hybrid) Clouds ermöglichte, war das OpenNebula Projekt der NASA und wurde 2008 veröffentlicht. [[FOOT17]](#ref_foot17) [[IBMJ]](#ref_ibmj09)
+Populär wurde der Begriff "Cloud Computing", als Amazon 2006 ihre [Elastic Compute Cloud](#ec2) (EC2) auf den Markt brachte. In den anschließenden Jahren brachten auch Unternehmen wie Google, Microsoft, IBM und auch Oracle vergleichbare Produkte auf den Markt, um den neu erzeugten Bedarf nach externer und mietbarer Rechenleistung zu bedienen. Das erste open-source Projekt, welches das Erstellen von [privaten](#private) und [hybrid](#hybrid) Clouds ermöglichte, war das OpenNebula Projekt der NASA und wurde 2008 veröffentlicht. [[FOOT17]](#ref_foot17) [[IBMJ09]](#ref_ibmj09)
 
 
 ## ?? Architektur / Konzept
@@ -84,13 +97,19 @@ Weitere Charakteristika:
 
 Auf Basis von Cloud Computing Technologien sind in den vergangenen Jahren eine Vielzahl verschiedener Projekte und Produkte entstanden, die vor allem darauf abzielen dem Nutzer Funktionalitäten flexibel und skalierbar zur Verfügung zu stellen. Da Nutzer in der Regel keine Funktionalitäten wirklich kaufen, sondern eher mieten, wird in diesem Zusammenhang von "Services" gesprochen. In diesem Zusammenhang ist auch die Begrifflichkeit "as a Service" entstanden, mit denen Cloud Computing Produkte häufig betitelt werden. Die finanzielle Abrechnung läuft bei Cloud Services in der Regel über das _"Pay as you go"_ Prinzip ab, welches in Verbindung mit genauen Messungen zur tatsächlichen Nutzung der Funktionalitäten und anbieterabhängigen Schwerpunkten die Kosten kalkuliert.
 
-Die [Abbildung 1](#img_service_models) zeigt den Zusammenhang der drei verbreitetsten Service Modelle _"Infrastructure as a Service" (IaaS)_, _"Plattform as a Service" (PaaS)_ und _"Software as a Service" (SaaS)_ in Form eines Mengendiagramms. In den nächsten Abschnitten sollen diese drei Modelle und weitere vorgestellt und deren Anwendungsfälle betrachtet werden.
+Die [Abbildung 1](#img_service_models) zeigt den Zusammenhang der drei verbreitetsten Service Modelle _"[Infrastructure as a Service](#iaas)" (IaaS)_, _"[Plattform as a Service](#paas)" (PaaS)_ und _"[Software as a Service](#saas)" (SaaS)_ in Form eines Mengendiagramms. In den nächsten Abschnitten sollen diese drei Modelle und weitere vorgestellt und deren Anwendungsfälle betrachtet werden.
 
-<span style="display:block;text-align:center"/><a name="img_service_models"></a>![alt text](./images/iaas_paas_saas.jpg "IaaS vs PaaS vs SaaS")
-<span style="display:block;text-align:center"/>Abbildung entnommen aus: [[GASS16]](#ref_gass16)
+<a name="img_service_models"></a>
+<div style="text-align:center">
+    <img alt="IaaS vs PaaS vs SaaS" src="./images/iaas_paas_saas.jpg"/>
+    <br>
+
+Abb. 1: IaaS vs PaaS vs SaaS - Quelle: [[GASS16]](#ref_gass16)
+
+</div>
 
 
-<a name="infrastructure-as-a-service"></a>
+<a name="iaas"></a>
 
 #### Infrastructure as a Service (IaaS)
 
@@ -107,7 +126,7 @@ Auch diese Definition beinhaltet, dass die grundlegende Infrastruktur vom Anbiet
 Im späteren Verlauf dieses Kapitels wird auf AWS EC2 eingegangen, was eine IaaS Lösung von Amazon darstellt.
 
 
-<a name="platform-as-a-service"></a>
+<a name="paas"></a>
 
 #### Platform as a Service (PaaS)
 
@@ -120,7 +139,7 @@ Vorrangiges Ziel von PaaS ist es die Entwicklung von Softwareanwendungen zu vere
 Fotango, eine Tochterfirma von Canon Europe, brachte 2006 als weltweit erster Anbieter einen Dienst online, der das umsetzte, was später als PaaS bekannt wurde. Mit _"Zimki"_ wurde damals eine Plattform angeboten, die alle Nebenaufgaben für die Entwicklung von JavaScript automatisiert umsetzte und dabei das _"Pay as you go"_ Prinzip für die finanzielle Abrechnungen nutze. Obwohl Zimki Profit einspielte und sich einer wachsenden Nutzerzahl erfreuen konnte, entschied sich Canon den Dienst am 24.12.07 einzustellen. [[FORR06]](#ref_forr06) [[MARK07]](#ref_mark07)
 
 
-<a name="software-as-a-service"></a>
+<a name="saas"></a>
 
 #### Software as a Service (SaaS)
 
@@ -195,33 +214,37 @@ Beim Einsatz von _"Hybrid Clouds"_ werden zwei oder mehr Clouds miteinander verb
 
 ### Edge Computing
 
-Mit dem Begriff "Edge Computing" wird der Ansatz beschrieben, mit dem die Intelligenz eines Netzwerkes zur Datenquelle verschoben wird. Gemeint ist, dass Rechenleistung und Speicher an die "Edge", also die Kante, eines Netzwerkes gebracht werden, um vor Ort die dort entstehenden Daten zu verarbeiten. Der Wandel, der durch Edge Computing vollzogen wird, ist in mehreren Bereichen sehr vielversprechend und bringt einige Vorteile mit sich.
+Mit dem Begriff "Edge Computing" wird der Ansatz beschrieben, mit dem die Intelligenz eines Netzwerkes zur Datenquelle verschoben wird. Gemeint ist, dass Rechenleistung und Speicher an die "Edge", also die Kante, eines Netzwerkes gebracht werden, um vor Ort die dort entstehenden Daten zu verarbeiten. Edge Computing befindet sich derzeit auf dem aufsteigenden Ast und wird immer häufiger eingesetzt, um vor allem im IoT-Bereich eine bessere Kontrolle und Performanz zu erreichen. Einige wichtige Entitäten und Begriffe für Edge Computing sind:
+
+- __Edge device__: Geräte, die Daten erzeugen, wie beispielsweise Sensoren und industrielle Maschinen.
+- __Edge__: Der _"Rand"_ des betrachteten Netzwerkes, der je nach Anwendungsgebiet völlig unterschiedlich ist. In der Telekommunikation könnte es ein Sendemast oder Handy sein, im Automobilbereich ein Auto.
+- __Edge gateway__: Eine zentrale Stelle, von der die Verbindung zu Bereichen außerhalb eines Edge Netzwerkes ermöglicht wird.
+- __Fat client__: Im Bereich von Edge Computing ist Software gemeint, die auf den Edge devices Daten verarbeiten können. Das Gegenstück zu _"thin clients"_, die Daten nur versenden können.
+- __Edge computing equipment__: Edge Computing nutzt Hardware und Technologien, die bereits in anderen Bereichen eingesetzt wird, als auch welche, die speziell für diese und ähnliche Szenarien entwickelte wurde. Hersteller wie Cisco produzieren gezielt Netzwerk-Hardware, die besonders zuverlässig und belastbar sind (sowohl die Technik als auch das Gehäuse).
+- __Mobile edge computing__: Der Ausbau von Edge computing im Bereich der Telekommunikation, speziell in 5G Szenarien.
+
+Der Wandel, der durch Edge Computing vollzogen wird, ist in mehreren Bereichen sehr vielversprechend und bringt einige Vorteile mit sich.
 
 Zum einen senkt es die Latenz, die eine Anwendung oder ein Gerät für eine Entscheidungsfindung oder ein Ergebnis braucht. Eine Anfrage quer über den Globus zu schicken, wo eventuell weitere Anfragen entstehen, ehe eine Antwort zurück kommt, dauert deutlich länger als auf alle benötigten Mittel vor Ort zugreifen zu können. Laut Matthew Lynley von "techcrunch.com" [[LYNL18]](#ref_lynl18) entwickelt Amazon möglicherweise Chips für Amazon Echo, um genau diesem Latenz-Problem entgegen zu wirken. Diese Chips sollen die Informationen und Anfragen, die in die Cloud geschickt werden müssen, senken, um so die Antwortzeit drastisch zu reduzieren.
 
-Zum anderen bietet Edge Computing die Möglichkeit über ein richtiges Management die Sicherheit beispielsweise von Nutzern und deren Geräten zu steigern. Spätestens nach der Distributed Denial of Service (DDOS) Attacke auf die Dyn im Oktober 2016 [[STAT16]](#ref_stat16) ist die Sicherheit von Edge Geräten, wie sie häufig für Internet of Things (IoT) Netzwerke benutzt werden, ein großes Thema. Damals konnte ein riesiges Botnetz, das zum Großteil aus IoT-Geräten bestand, die Verwendung des Internets dramatisch stören. Die Mirai Malware übernahm die Kontrolle von Geräten, die statische Nutzernamen und Passwörter besaßen oder diese den Werkseinstellungen entsprachen und nutzte die so gesammelte Rechenleistung für eine DDOS Attacke gegen den DNS-Betreiber der USA.
+Zum anderen bietet Edge Computing die Möglichkeit über ein richtiges Management die Sicherheit, beispielsweise von Nutzern und deren Geräten, zu steigern. Spätestens nach den Distributed Denial of Service (DDOS) Angriff auf die Dyn im Oktober 2016 [[STAT16]](#ref_stat16) ist die Sicherheit von Edge Geräten, wie sie häufig für Internet of Things (IoT) Netzwerke benutzt werden, ein großes Thema. Damals konnte ein riesiges Botnetz, das zum Großteil aus IoT-Geräten bestand, die Verwendung des Internets dramatisch stören. Die Mirai Malware übernahm die Kontrolle von Geräten, die statische Nutzernamen und Passwörter besaßen oder diese den Werkseinstellungen entsprachen und nutzte die so gesammelte Rechenleistung für eine DDOS Attacke gegen den DNS-Betreiber der USA.
 
-Ebenso wie Werkseinstellungen von Nutzernamen und Passwörter, bringen auch veraltete Betriebssysteme und Software Sicherheitsrisiken mit sich. Laufende IoT-Geräte werden nur selten mit aktuellen Updates ausgestattet und beinhalten wenige Sicherheitsmechanismen. Statt händisch einzelne Geräte zu updaten sollte stattdessen ein zentrales Management diese Aufgabe übernehmen und für mehr Sicherheit am Netzwerkrand sorgen. Genauso wie Webbrowser meist verdeckt Updates erhalten oder Smartphone-Besitzer auf neue Versionen hingewiesen werden, sollte es auch bei anderen Edge-Geräten der Fall sein.
+Ebenso wie Werkseinstellungen von Nutzernamen und Passwörter, bringen auch veraltete Betriebssysteme und Software Sicherheitsrisiken mit sich. Laufende IoT-Geräte werden nur selten mit aktuellen Updates ausgestattet und beinhalten wenige Sicherheitsmechanismen. Statt händisch einzelne Geräte zu updaten sollte stattdessen ein zentrales Management diese Aufgabe übernehmen und für mehr Sicherheit am Netzwerkrand sorgen. Genauso wie Webbrowser meist verdeckt Updates erhalten oder Smartphone-Besitzer auf neue Versionen hingewiesen werden, sollte es auch bei Edge-Geräten der Fall sein.
 
 Neben den Sicherheitsaspekten kann Edge Computing auch dabei helfen ein weiteres Problem zu lösen, das durch IoT entstanden ist. Die enorme Menge an Daten, die durch IoT-Geräte anfallen und versendet werden sollen, bringen die Bandbreite eines Netzwerks an ihre Grenzen. Statt alle Daten zur Verarbeitung und Speicherung in die Cloud zu senden, können intelligente Edge Geräte dabei helfen die Daten zu filtern und nur bedeutsame Informationen über die Leitung zu senden. Zur Filterung sollen vor allem künstliche Intelligenzen (KIs) auf die Endgeräte gelangen.
 
 Getrieben wird der Wandel zum Edge Computing vor allem in der Industrie. Mit der Einführung von Industrial Internet of Things (IIoT) generieren, versenden und analysieren Unternehmen ihre Prozesse und senken so beispielsweise ihre unerwarteten Ausfallzeiten. Obwohl bei der riesigen Datenmenge die starke Rechenleistung und große Speicherkapazitäten der Cloud eine sehr zentrale Rolle spielen, so bietet Edge Computing weitere Möglichkeiten die Performanz des IIoT weiter zu verbessern. Möglich ist dies vor allem durch die niedrigen Preise von Geräten und Sensoren zur Herstellung von Edge Geräten, die darüber hinaus immer weniger Platz benötigen. Ebenso dient die steigende Anzahl an Anwendungsgebieten von IIoT und die modernen Technologien für maschinelles Lernen und Analysen als treibende Kraft für den Einsatz von Edge Computing in der Industrie.
 
-Die Zentralisierung, auf der Cloud Computing aufbaut, wird durch Edge Computing etwas aufgelockert. Das heißt nicht, dass erstes überflüssig wird, sondern vielmehr, dass Aufgaben an den Rand des Netzwerkes abgeben werden. Je nach Anwendungszenario ist diese Verschiebung stärken oder schwächer ausgeprägt. In Extremfällen kann Edge Computing auch vollständig ohne die Anwendung von Cloud Computing stattfinden.
+Die Zentralisierung, auf der Cloud Computing aufbaut, wird durch Edge Computing etwas aufgelockert. Das heißt nicht, dass es überflüssig wird, sondern vielmehr, dass Aufgaben an den Rand des Netzwerkes abgeben werden. Je nach Anwendungszenario ist diese Verschiebung stärken oder schwächer ausgeprägt. In Extremfällen kann Edge Computing aber auch vollständig ohne die Anwendung von Cloud Computing stattfinden.
 
-[[GEDI18]](#ref_gedi18) [[MILL18]](#ref_mill18) [[FELD17]](#ref_feld17)
-
-- Technologien, die Edge Computing ermöglichen
-    - DigSig für Identifizierung und Signierung von Daten https://en.wikipedia.org/wiki/ISO/IEC_20248
-    - Edge Entitäten evtl. liste/beschreiben https://www.networkworld.com/article/3224893/internet-of-things/what-is-edge-computing-and-how-it-s-changing-the-network.html
-- Edge Computing eher von Telekomunikations Anbieter
+[[BUTL17]](#ref_butl17) [[GEDI18]](#ref_gedi18) [[MILL18]](#ref_mill18) [[FELD17]](#ref_feld17)
 
 
 ### Fog Computing
 
 Genau wie beim Edge Computing, wird auch beim Fog Computing Rechenleistung, Speicher und allgemein die digitale Intelligenz zurück zum Rand des Netzwerkes verschoben. Dies soll ebenfalls für geringere Latenzen, eine höhere Sicherheit und geringere Auslastung der Bandbreite sorgen.
 
-Der Begriff "Fog Computing" wurde 2013 erstmals von Cisco bei einer Pu­b­li­zie­rung verwendet und wird bis heute auch weitestgehend von Cisco geprägt. Am 19. November 2015 wurde das "OpenFog Consortium" gegründet, in welchem Unternehmen wie Cisco Systems, ARM Holdings, Dell, Intel, Microsoft und die Princeton University zusammen arbeiten, um Fog Computing zu verbreiten und zu standardisieren. Die bisherige Arbeit brachte die sogenannte "OpenFog Reference Architecture" hervor, welche die acht Säulen einer OpenFog Architektur detailliert betrachtet [[OPEN17]](#ref_open17): 
+Der Begriff "Fog Computing" wurde 2013 erstmals von Cisco bei einer Pu­b­li­zie­rung verwendet und wird bis heute auch vorrangig von Cisco geprägt. Am 19. November 2015 wurde das "OpenFog Consortium" gegründet, in welchem Unternehmen wie Cisco Systems, ARM Holdings, Dell, Intel, Microsoft und die Princeton University zusammen arbeiten, um Fog Computing zu verbreiten und zu standardisieren. Die bisherige Arbeit brachte die sogenannte "OpenFog Reference Architecture" hervor, welche die acht Säulen einer OpenFog Architektur detailliert betrachtet [[OPEN17]](#ref_open17): 
 
 - Sicherheit
 - Skalierbarkeit
@@ -232,56 +255,265 @@ Der Begriff "Fog Computing" wurde 2013 erstmals von Cisco bei einer Pu­b­li­z
 - Agilität
 - Hierarchie
 
-Die Unterschiede zu Cloud und Edge Computing sind die Nähe zum Endverbraucher, die dichte geografische Verteilung und die mobile Einsatzmöglichkeit. Das standardmäßige Prinzip von Cloud Computing wird dahingehend verändert, dass durch sogenannte Fog-Nodes mehrere Endgeräte verknüpft werden und die Fog-Nodes die Kommunikation zur Cloud übernehmen, statt die Endgeräte direkt. Durch die erhöhte Leistung sind die Fog-Nodes in der Lage Aufgaben der Cloud (z.B. Filterung von gesammelten Daten) zu übernehmen und darüberhinaus auch als eine Art von "vorgelagerter Cloud" betrachtet werden kann.
+Die Unterschiede zu Cloud und Edge Computing sind die Nähe zum Endverbraucher, die dichte geografische Verteilung und die mobile Einsatzmöglichkeit. Das standardmäßige Prinzip von Cloud Computing wird dahingehend verändert, dass durch sogenannte Fog-Nodes mehrere Endgeräte verknüpft werden und diese die Kommunikation zur Cloud übernehmen, statt die Endgeräte direkt. Durch die erhöhte Leistung sind die Fog-Nodes in der Lage Aufgaben der Cloud (z.B. Filterung von gesammelten Daten) zu übernehmen und darüberhinaus auch als eine Art von "vorgelagerter Cloud" betrachtet werden kann.
 
-<span style="display:block;text-align:center"/><a name="img_fog_vs_edge"></a>![alt text](./images/fog_vs_edge.png "Fog vs Edge Computing")
-<span style="display:block;text-align:center"/>Abbildung entnommen aus: [[ELLE17]](#ref_elle17)
+<a name="img_fog_vs_edge"></a>
+<div style="text-align:center">
+    <img alt="Fog vs Edge Computing" src="./images/fog_vs_edge.png"/>
+    <br>
 
-Im Vergleich zu Edge Computing, wo die Endgeräte (z.B. IoT-Dinge) eine stärkere Rechenleistung, Speicherkapazität und Intelligenz erhalten, bleiben die Endgeräte im Fog-Computing meist "leistungsschwach". Stattdessen sind Gateways oder Fog-Nodes mit starker Leistung ausgestattet, um die bereits genannten Vorteile auszuspielen. Die [Abbildung 2](#img_fog_vs_edge) zeigt genau diesen Unterschied.
+Abb. 2: Edge vs Fog Computing - Quelle: [[ELLE17]](#ref_elle17)
 
-- http://info.opto22.com/fog-vs-edge-computing
-- Besteht aus einem "control plane" und einem "data plane" https://en.wikipedia.org/wiki/Fog_computing
-- https://web.archive.org/web/20140922061044/http://www.cisco.com/web/about/ac50/ac207/crc_new/university/RFP/rfp13078.html
-- https://www.openfogconsortium.org/wp-content/uploads/OpenFog_Reference_Architecture_2_09_17-FINAL.pdf
+</div>
 
-- https://forestgiant.com/articles/fog-vs-edge/
 
-### Sicherheitsaspekte
+Im Vergleich zu Edge Computing, wo die Endgeräte (z.B. IoT-Dinge) eine stärkere Rechenleistung, Speicherkapazität und Intelligenz erhalten, bleiben die Endgeräte im Fog-Computing meist leistungsschwach. Stattdessen sind Gateways oder Fog-Nodes mit starker Leistung ausgestattet, um die bereits genannten Vorteile auszuspielen. Die [Abbildung 2](#img_fog_vs_edge) zeigt genau diesen Unterschied, in einer vereinfachten Darstellung.
 
-- Provider Zugriff
-- Datenschutzrechtlich in DE (Kundendaten nicht auf Server im Ausland)
+Bei Fog Computing sind mehrere Schritte nötig, ehe Daten an die Cloud gesendet werden, werden sie:
+
+1. über standardmäßig I/O Mechanismen ausgelesen.
+2. von einem Open Platform Communication (OPC)-Server oder einer IoT-Node in ein Internet Protokoll wie MQTT oder HTTP konvertiert.
+3. an eine Fog-Node im Netzwerk verschickt, wo sie gefiltert und/oder verarbeitet werden.
+
+Ebenso wie Edge Computing kann auch Fog Computing unabhängig von Cloud Computing umgesetzt werden. In der Praxis wird aber auch Fog Computing lediglich als Ergänzung zur Cloud genutzt, um vor allem Endnutzern eine erhöhte _"Quality of Service"_ (QoS) zu bieten.
+
+Die schrittweise Verarbeitung und Konvertierung von gesammelten Daten stellt einen komplexeren Ansatz dar, als es bei Edge Computing der Fall ist. Darüberhinaus entstehen durch Fog Computing weitere potenzielle _"Points of Failure"_.
+
+[[CISC13]](#cisc13) [[ELLE17]](#ref_elle17) [[OPEN17]](#ref_open17) [[OPTO18]](#ref_opto18)
 
 
 <a name="nachteile-begrenzungen"></a>
 
 ### Nachteile & Begrenzungen
 
-- Geringere Individualisierungsmöglichkeiten
+Cloud Computing bietet durch die Erschwinglichkeit, Effektivität und Skalierbarkeit viele Vorteile für Unternehmen. Kosten, Arbeitsaufwand und auch Know-How können an einen Anbieter abgegeben werden und ermöglicht den Unternehmen dadurch sich auf das eigene Tagesgeschäft zu fokussieren. Trotz alle dem birgt der Umstieg zur Cloud auch Sicherheitsrisiken, die bei mangelnden Gegenmaßnahmen zu erheblichen Problemen führen können.
 
 
-<a name="amazon-web-service"></a>
+<a name="ddos"></a>
 
-## Amazon Web Service (AWS)
+#### Distributed-Denial-of-Service (DDoS) Angriffe
+
+Obwohl Cloud Anbieter über eine riesige Menge an Ressourcen verfügen und Kunden dadurch eine flexible Skalierung angeboten wird, so sind DDoS Angriffe auf Cloud Systeme mittlerweile durchaus denkbar. Dies wird vor allem durch die stetig steigende Menge von IoT Geräten ermöglicht, von denen viele über mangelhafte Sicherheitsmechanismen verfügen.
+
+Der bereits im Abschnitt [Edge Computing](#edge-computing) angesprochene Angriff auf den amerikanischen DNS-Betriber Dyn im Jahr 2016 zeigt, dass auch große Organisationen nicht immer vor DDoS sicher sind. Ganz davon abgesehen, dass Kunden die Option zur automatischen Skalierung zusätzlich buchen müssen, können Cloud Server trotzdem mit genügend Traffic in die Knie gehen oder zumindest eine geringere QoS bieten.
+
+Unternehmen, die ihre eigene Cloud Infrastruktur aufbauen, können einerseits durch geringere Ressourcen deutlich angreifbarer sein, andererseits können Angriffe auf Cloud Systeme wie beispielsweise [AWS](#aws) oder Azure dazu führen, dass viele Kunden gleichzeitig von einem DDoS Angriff betroffen sind.
+
+Und selbst, wenn der Cloud Anbieter die geeigneten Maßnahmen gegen solche Angriffe trifft, können auch weitere, unglücklichen Ereignisse dafür sorgen, dass der Dienst eines Unternehmens nicht erreichbar ist. Im April 2017 waren große Teile des [Simple Storage Service (S3)](#s3) von Amazon für kurze Zeit nicht erreichbar, was in dieser Zeit zu einem Schaden von ca. 150 Millionen US-Dollar führte. Ursache war laut Amazon ein Tippfehler beim Entfernen von S3 Server, der dazu führte, dass deutlich mehr Server heruntergefahren wurden, als geplant. Cloud Nutzer sollten die Risiken von offline Zeiten kalkulieren und Ausfallpläne bereithalten, um Verluste möglichst gering zu halten.
+
+[[BRAD16]](#ref_brad16) [[UTLE18]](#ref_utle18)
+
+
+#### Layer 8 Fehler
+
+Der Nutzer wird häufig als achte Schicht über dem OSI-Netzwerk-Modell bezeichnet und genau wie in allen anderen Systemen können Fehler von Nutzern erhebliche Folgen haben. Viele Cloud Anbieter ermöglichen den Zugriff zur Cloud über beinahe jedes Endgerät wie PC, Laptops, Tablets und Smartphones. Der Verlust oder die Kompromittierung dieser Geräte kann Unbefugten den Zugang zu gesicherten Cloud Systemen ermöglichen und stellt somit ein erhebliches Sicherheitsrisiko dar.
+
+Durch den großen Bekanntheitsgrad von Cloud Systemen sind diese seit einiger Zeit auch das Ziel von _"Phishing"_ und _"Social Engineering Angriffen"_. Ersteres kann beispielsweise in Form von Emails sein, die den Empfänger auf präparierte Webseiten locken, wo dann vertraulichen Informationen preisgeben werden sollen und dadurch in die Hände des Angreifers fallen. Bei Social Engineering Angriffen wird gezielt versucht Mitarbeiter von der Vertrauenswürdigkeit des Angreifers zu überzeugen, sodass der Angreifer sensible Informationen oder Zugänge erhält.
+
+Ein aktueller Fall von fehlerhaftem Nutzerverhalten stellt der Fall der Marketing Firma Exactis dar. Wie WIRED am 27.06.2018 veröffentlichte war eine Datenbank der Firma Exactis mit rund 340 Mil. sensiblen Datensätzen für eine längere vollkommen öffentlich und ungeschützt online erreichbar. Diese Datensätze beinhalten zwar keine Informationen zu Kreditkarten oder Sozialversicherungsnummern, dafür allerdings sehr private Charakteristika der Betroffenen. Enthalten sind unter anderem Informationen zu Telefonnummer und Adresse, aber auch zu Interessen, Angewohnheiten und die Geschlechter der Kinder einer Person. [[GREE18]](#gree18)
+
+[[UTLE18]](#ref_utle18) [[WOOD13]](#ref_wood13)
+
+
+#### Mangelhafte Backups
+
+Ein weiterer Sicherheitsaspekt, der zu betrachten gilt, ist die Wichtigkeit von Backups. Viele Cloud Betreiber bieten einen automatisierten Service an, der von den laufenden Systemen Backups macht. Dafür muss allerdings sichergestellt werden, dass auch alle relevanten Daten adäquat synchronisiert werden und nicht verloren gehen. Gerade für den Fall, dass ein System von Ransomware befallen und verschlüsselt wird sind Backups der einzige Weg, um dem Angreifer nicht ausgeliefert zu sein. Das Massachusetts Institute of Technology (MIT) sieht Ransomware als einer der sechs größten Gefahren, denen Unternehmen 2018 gegenüber stehen. Durch Cloud Computing sind in den vergangenen Jahren enorme Mengen an Daten zentralisiert worden und stellen dadurch interessante Ziele für Angreifer dar. Vor allem kleinere Cloud Anbieter könnten Opfer von Angriffen werden, da ihre Ressourcen weitaus eingeschränkter sind. [[GILE18]](#ref_gile18) [[UTLE18]](#ref_utle18)
+
+
+#### Systemfehler
+
+Wird beim Entwickeln von Softwareanwendungen nicht ein gewisser Qualitätsstandard eingehalten, kann dies zu Sicherheitslücken führen. Da bilden Anwendungen in der Cloud, beziehungsweise Anwendungen die für das Bereitsstellen in der Cloud verwendet werden, keine Ausnahme. Möchte ein Anbieter beispielsweise mehrere Kunden mit der selben Instanz versorgen, so setzt dieser auf ein multimandantenfähiges System. Fehler innerhalb solchen Anwendungen können allerdings dafür sorgen, dass die Daten der Kunden nicht sauber von einander getrennt sind und unbefugte Zugriffe ermöglicht werden. [[UTLE18]](#ref_utle18)
+
+Entscheiden sich Unternehmen ihre Cloud Systeme bei einem Dritten online zu stellen, machen diese sich auch automatisch abhängig. Bei der Wahl des Anbieters sollten sich Unternehmen Gedanken machen, was für Auswirkungen es hat, sollte ein System mal nicht erreichbar sein. Vor allem die großen Cloud Anbieter können sich allerdings damit rühmen eine Erreichbarkeit von über 99% vorweisen zu können. [[CLOU18]](#ref_clou18)
+
+2014 erhielt ein Angreifer Zugang zu der AWS Management Konsole des Softwareunternehmens Code Space. Dieses Unternehmen bot Quellcode Repositories und Projekt Management Dienste an und setzte dabei fast vollständig auf Infrastrukturen und Anwendungen von Amazon. Der Angreifer erpresste Code Space und löschte einen Großteil der Daten und Infrastruktur des Unternehmens, als dieses nicht kooperierte. Dabei gingen auch die Backups, die das Unternehmen für Notfälle erstellt hatte mit verloren, was das Unternehmen sehr schwer traf und wurde in den Medien mit dem _"Mord"_ an ein Unternehmen verglichen. [[VENE14]](#ref_vene14)
+
+
+#### Privatsphäre
+
+Die vorhergehend erläuterten Sicherheitsaspekte richten sich vor allem an Unternehmen, die ihre Cloud-Infrastruktur von einem Dritten beziehen. Aber auch auf Endnutzer und vor allem auf deren Privatsphäre, hat der Wandel zur Cloud Auswirkungen.
+
+Nutzer teilen, durch den steigenden Einsatz von Cloud-Anwendungen, viele private Informationen mit einem Dritten und wissen häufig gar nicht, wie diese Informationen verarbeitet werden und von wem sie eingesehen werden können. Dies wird, vor allem in den Medien, als _"gläsernden Bürgern"_ bezeichnet. Darüberhinaus können Cloud Anbieter, genau wie Provider von anderen IT-Services, gesammelte Daten weitergeben oder müssen dies teilweise sogar, wenn es von der Regierung eingefordert wird. Ein Auszug aus den AGBs von Dropbox zeigt, dass der Anbieter, ähnlich wie andere, sich vorbehält Daten mit Dritten auszutauschen:
+
+<span style="display:block;text-align:center">_"**Recht und Ordnung sowie öffentliches Interesse** – Wir können Ihre Daten auch Dritten offenlegen, wenn dies nach unserem Ermessen sinnvoll und notwendig scheint, um (a) geltenden Gesetzen, Vorschriften, rechtlichen Verfahren oder angemessenen Anfragen von Behörden Folge zu leisten, (b) einen Menschen vor dem Tod oder schwerer körperlicher Verletzung zu schützen, (c) Dropbox oder unsere Nutzer vor Betrug oder Missbrauch zu schützen, (d) die Rechte, das Eigentum, die Sicherheit oder die Interessen von Dropbox zu schützen oder (e) Aufgaben auszuführen, die im öffentlichen Interesse liegen."_ [[DROP18]](#ref_drop18)</span>
+
+Solche Regelungen geben Cloud Anbietern viel Handlungsfreiraum, sodass in extremen Situationen auch Informationen ohne Durchsuchungsbeschluss offen gelegt werden können. Auf der anderen Seite können Anbieter in den meisten Ländern nicht dazu gezwungen werden Informationen an staatliche Behörden weiter zu geben. So hat ein amerikanisches Gericht entschieden, dass Microsoft nicht dazu gezwungen werden kann, Emails eines Nutzer an den amerikanischen Staat weiterzugeben, wenn diese Emails auf einem Server im Ausland liegen. Microsoft hat sich damals geweigert die Daten von einem irischen Server frei zu geben. [[EDWA17]](#ref_edwa17)
+
+Die seit dem 25.05.2018 wirksame EU-Datenschutz-Grundverordnung (EU-DSGVO) hat großen Einfluss auf die zu leistenden Datenschutzmaßnahmen von Unternehmen. Diese Grundverordnung beinhaltet zum einen, dass Unternehmen der EU dazu verpflichtet werden, dass personenbezogene Daten künftig innerhalb der EU-Grenzen gespeichert und _"nach datenschutzrechtlichen Bestimmungen und Vorgaben"_ verarbeitet werden müssen. Ob diese Vorgaben eingehalten werden, wird von Datenschutzexperten geprüft und Verstöße können dabei mit bis zu vier Prozent des Jahreseinkommens verantwortet werden. Außerdem sind Unternehmen auch dafür verantwortlich, dass diese sicherstellen, dass die EU-DSGVO von Drittanbietern eingehalten wird, bei denen ein Unternehmen Daten speichert. Dabei sind vor allem Unternehmen, die Clouddienste nutzen betroffen. Des weiteren müssen Einzelpersonen über jede Datenerhebung ausdrücklich und ausführlich informiert werden, was die Transparenz zum Umgang mit persönlichen Daten steigern soll. Die EU-DSGVO sieht auch vor, dass Daten auf Verlangen hin, möglichst unverzüglich, gelöscht oder korrigiert werden müssen. [[EUDS18]](#ref_euds18) [[NETW18]](#ref_netw18)
+
+
+<a name="inflexibilität"></a>
+
+#### Inflexibilität und geringere Kontrolle
+
+Neben den bereits erläuterten Sicherheitsaspekten, bei denen vor allem Abhängigkeit zu einem Dritten, Risiken in Sachen Sicherheitlücken und Privatsphäre herausstechen, gibt es in Sachen Cloud Computing weitere Nachteile und auch Begrenzungen.
+
+Im Vergleich zu standardmäßigen on premise Anwendungen und selbstständig verwalteten IT-Infrastrukturen, schrenken Clouddienste die Kontrolle und Flexibilität ein. Über die end-user licence agreement (EULA) können Anbieter enorme Einschränkungen machen, was Kunden mit den genutzten Diensten machen können.
+
+Darüber hinaus werden Cloud Anwendungen in der Regel nur in einer einzigen Version zur Verfügung gestellt, um dem Kunden möglichst zeitnah Updates liefern zu können. Dies hat allerdings zur Folge, dass auf individuelle Probleme und Forderungen von Kunden kaum noch eingegangen werden kann. Bei on-premise Anwendungen ist es noch häufig der Fall, dass ein Unternehmen Wünschen von besonders treuen Kunden entgegen kommt und individuelle Lösungen entwickelt.
+
+Ein weiterer Nachteil von Cloud Computing ist das sogenannte _"Vendor Lock-In"_. Damit ist gemeint, dass der Wechsel von einem Cloud Anbieter zum nächsten häufig nicht problemlos möglich ist, was zu zusätzlichen Kosten führt. Cloud Architekturen, die auf die Infrastruktur eines speziellen Anbieters zugeschnitten ist, könnte beim Wechsel zu einem anderen Anbieter nur mit Kompromissen oder zusätzlichen Entwicklungsaufwand übernommen werden. Dies kann zu zusätzlichen Sicherheitsrisiken führen.
+
+Zusammenfassend ist zu sagen, dass viele Unternehmen durch die Skalierbarkeit, Agilität und dem pay-per-use Prinzip von Cloud Computing profitieren können. Jedoch sollte für jeden Anwendungsfalls das geeignete [Service Modell](#service-modelle) gewählt, die Risiken stetig abgewägt und ausreichend Sicherheitsmaßnahmen getroffen werden.
+
+[[LARK18]](#ref_lark18) [[WARD18]](#ref_ward18)
+
+
+<a name="aws"></a>
+
+## Amazon Web Services (AWS)
+
+Mit _"Amazon Web Services"_ (AWS) hat Amazon im März 2006 eine Plattform für die Öffentlichkeit gestartet, mit der Cloud Computing Dienste flexibel und nach Bedarf von Einzelpersonen, Unternehmen und Regierungen bezogen werden können. Mit 34% Marktanteil konnte Amazon 2017 allein durch AWS einen Umsatz von 17,4 Milliarden US-Dollar verbuchen. [[RAMA17]](#ref_rama17)
+
+Die Dienste können zentral über die _"AWS Management Console"_ erreicht und konfiguriert werden. Dabei reicht ein Internet Browser als Client aus oder sogar eine AWS spezifische Smartphone App, die allerdings nur lesenden Zugriff ermöglicht. Über die Management Konsole kann auf alle der über 90 Dienste zugegriffen werden, die in die folgenden Bereiche aufgeteilt sind [[AWS18a]](#ref_aws18a):
+
+- Datenverarbeitung
+- Speicherung
+- Datenbank
+- Migration
+- Netzwerk und Bereitstellung von Inhalten
+- Developer-Tools
+- Verwaltungs-Tools
+- Medienservices
+- Maschinelles Lernen
+- Analysen
+- Sicherheit, Identität und Compliance
+- Services für Mobilgeräte
+- AR und VR
+- Anwendungsintegration
+- Customer Engagement
+- Unternehmensproduktivität
+- Desktop- und App-Streaming
+- Internet of Things
+- Entwicklung von Spielen
+- Software
+- AWS-Kostenmanagement
+
+Wie auch bei anderen Cloud Computing Anbietern, ergeben sich die Kosten für den Nutzer durch eine Kombination von Verbrauch, den Spezifikationen zu Hardware/Betriebssystem/Software/Netwerk, der benötigten Erreichbarkeit, Redundanz, Sicherheit und dem gewünschten Kundenservice. Dabei setzt auch Amazon auf das _"Pay per us"_ Prinzip und rechnet Kosten monatlich ab. Viele Dienste wie [EC2](#ec2), [S3](#s3), [AWS Lambda](#aws-lambda) und Amazon RDS können auf einer kostenlosen Basis, mit eingeschränktem Kontingent, genutzt werden. Darüberhinaus können Institutionen, Lehrbeauftragte und Studenten sich über _"AWS Educate"_ zusätzlich einem Netzwerk anschließen, welches bei der Ausbildung der _"nächsten Generation von IT und Cloud Experten"_ beitragen soll und die nötigen Ressourcen zum cloudbezogenen Lernen bereitstellen. AWS Educate ermöglicht es außerdem Studenten sich ein Kontingent von 40 US-Dollar zu sichern, das frei für die AWS Dienste verwendet werden kann. [[AWS18b]](#ref_aws18b) [[AWS18c]](#ref_aws18c) [[AWS18d]](#re_aws18d)
+
+In den nachfolgenden Abschnitten sollen zum einen einige Grundlagen und allgemeine Hinweise zur Verwendung von AWS erläutert und zum anderen die bekanntesten Dienste vorgestellt werden.
 
 - Static file deployment
 - Container deployment
 - Eventverarbeitung
-- Generelle Erläuterung und kleinere Anleitungen
-- AWS API gateway (Skalierbare APIs) ?
 
 
-<a name="einführung-grundlagen"></a>
+### Grundlagen
 
-### Einführung & Grundlagen
+Durch einen erfolgreichen Login zur AWS Management Console gelangt man zu einer Art Dashboard, wie es die [Abbildung 3](#img_aws_console) zeigt. In rot wurden die wichtigsten Menüoptionen markiert und kurz beschrieben.
 
-<a name="elastic-compute-cloud"></a>
+Der Menüpunkt __Services__ öffnet die Gesamtübersicht zu allen Diensten die AWS anbietet und erlaubt eine weitere Navigation zu den jeweiligen Diensten.
+
+Über einen Klick auf den eigenen __Nutzernamen__ (in diesem Fall "User") sind alle Einstellungen zu erreichen, die mit dem eigenen Account zusammenhängen. Dazu gehören persönliche Informationen, die Organisationen der man unter Umständen angehört, die aktuelle Kostenübersicht und die Einsicht zu sicherheitsrelevanten Informationen wie Passwort, Multi-Faktor-Authentifizierung und privaten Schlüsseln.
+
+Der letzte Menüpunkt erlaubt es die Region zu wechseln in der Aktionen ausgeführt werden sollen. Die [Abbildung 3](#img_aws_console) zeigt "Ohio" an, es können aber verschiedene Regionen aus den östlichen USA, den westlichen USA, Asien/Pazifik, der EU und auch Südamerika gewählt werden. Dieser Menüpunkt ist von besonderer Wichtigkeit, wenn es darum geht sicherzustellen, dass Dienste unter anderem datenschutzrechtlich richtig gestartet werden. Außerdem ist anzumerken, dass zum aktuellen Zeitpunkt (Juni 2018) die Verwendung des kostenlosen Kontingents auf die vier Regionen in den USA beschränkt sind.
+
+<a name="img_aws_console"></a>
+<div style="text-align:center">
+    <img alt="AWS Management Console" src="./images/aws_management_console.png"/>
+    <br>
+
+Abb. 3: AWS Management Console - Quelle (verändert): [[AWS18e]](#ref_aws18e)
+
+</div>
+
+Die Erstellung eines AWS Accounts ist prinzipiell vollkommen kostenlos. Für eine standardmäßige Registrierung ist allerdings die Angabe einer Kreditkarte notwendig. Studenten können dies über AWS Educate umgehen.
+
+In den USA hat Amazon zwei sogenannte _"Pop-up Lofts"_ eröffnet, in denen AWS Kunden, Start-Up Unternehmen oder eigenständige Entwickler komplett kostenfrei professionelle Hilfestellung zu den AWS Infrastrukturen erhalten können. Dabei können vor Ort 60-minütige Sitzungen angenommen werden, in denen speziell geschultes Personal alle Fragen in Bezug auf AWS beantwortet und individuelle Hinweise gibt. Außerdem finden in diesen Pop-up Lofts in regelmäßigen Abständen Events statt, die in drei Kategorien unterteilt sind, um Anfänger, Fortgeschrittene und Experten zusätzliche Schulungsmöglichkeiten anzubieten. [[AWS18f]](#ref_aws18f) [[AWS18g]](#ref_aws18g)
+
+
+<a name="iam"></a>
+
+### Identity and Access Management (IAM)
+
+Unternehmen und Organistationen, die AWS-Dienste nutzen, können durch die Verwendung von Amazons Accountsverwaltung _"Identity and Access Management"_ (IAM) ein individuelles Rechtesystem auf die AWS Infrastruktur abbilden. Dabei bietet IAM die Möglichkeit verschiedene Benutzer, Benutzergruppen und Rollen zu definieren und diesen sehr detailliert den Zugriff auf Ressourcen erlauben oder verbieten. Diese Benutzerverwaltung wird von Amazon kostenfrei angeboten und soll unter anderem mittels [Best Practices](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html) (externer Link) eine sichere Verwendung der AWS-Dienste innerhalb von Unternehmen und Organistationen bieten.
+
+Die Granularität in denen Rechte vergeben werden können reicht dabei von einem vollen Zugriff auf die AWS Management Console, über den Zugriff auf vereinzelte Dienste und Einstellungsmöglichkeiten bis zur Beschränkung darauf, dass nur einzelne Funktionen eines Dienstes aufgerufen werden können. Hinzu kommt, dass Zugriffe auf bestimmte Uhrzeiten und Zeiträume beschränkt werden können und Nutzern auch die Verwendung von Multi-Faktor-Authentifizierung vorgeschrieben werden kann.
+
+<a name="img_aws_iam"></a>
+<div style="text-align:center">
+    <img alt="AWS IAM Dashboard" src="./images/aws_iam.png"/>
+    <br>
+
+Abb. 4: AWS IAM Dashboard - Quelle: [[AWS18h]](#ref_aws18h)
+
+</div>
+
+Bei der Erstellung von neuen IAM-Benutzern können unter anderem Passwörter und Zugangsschlüssel vordefiniert werden, aber auch temporäre Anmeldedaten erzeugt werden. Temporäre Zugangsdaten können auch IAM-Benutzer und AWS-Dienste erhalten, die normalerweise keinen Zugriff auf AWS-Ressourcen einer Organisation haben. Hierbei kommen die IAM-Rollen ins Spiel die einer AWS-Ressource zugewiesen werden müssen. IAM-Benutzer und AWS-Dienste können diese definierten Rollen annehmen und anschließend temporäre Anmeldeinformationen erhalten, mit denen Aufrufe von AWS-APIs erfolgen können. Dabei ist zu beachten, dass ein AWS-Dienst nur eine IAM-Rolle zugewiesen bekommen kann, aber mehrere andere Dienste und Anwendungen diese Rolle einnehmen können. [Abbildung 4](#img_aws_iam) zeigt beispielhaft ein IAM Dashboard, in dem mehrere Benutzer und Gruppen verwaltet werden können.
+
+[[AWS18i]](#ref_aws18i) [[AWS18j]](#ref_aws18j)
+
+
+<a name="ec2"></a>
 
 ### Elastic Compute Cloud (EC2)
 
-- IaaS
+Der _"Elastic Compute Cloud"_ (EC2) Dienst, stellt einen der ältesten und beliebtesten Dienste dar, den AWS anbietet und bildet das Service Modell PaaS dar. Über diesen Dienst können virtuelle Rechenkapazitäten auf einfache Weise erstellt, gestartet, gestoppt und verwaltet werden. Hierbei kann auf fertige Instanz-Templates, sogenannte Amazon Machine Images (AMIs), zurückgegriffen werden. Bezahlt werden müssen nur die Instanzen, die tatsächlich auch laufen. Das Erstellen einer EC2 Instanz ist in sieben Schritte aufgeteilt, die nachfolgend detailliert vorgestellt werden:
 
 
-<a name="simple-storage-service"></a>
+__1. Amazon Machine Image (AMI) wählen__
+
+Offiziell werden von Amazon 35 verschiedene AMIs unterstützt, die auf Linux oder Windows basieren. Diese unterscheiden sich, neben dem Betriebssystem, vor allem in der Software, die schon vorinstalliert ist. Außerdem können auch AMIs gewählt werden, die von der AWS-Community bereitgestellt werden. Hier stehen über 30.000 verschiedene Templates zur Verfügung, mit denen eine EC2 Instanz gestartet werden kann.
+
+
+__2. Instanz Typ wählen__
+
+Der Instanz Type gibt an, mit welcher Hardware eine Instanz ausgestattet ist. Diese sind in die folgenden fünf "Familien" unterteilt:
+
+- _General Purpose_:<br>
+Instanzen dieser Familie haben eine gute Balance zwischen CPUs, RAM, Speicher und Netzwerkleitung dar und ist für viele Anwendungen eine gute Wahl, die wenig bis moderaten Speicher und Rechenleistung benötigen.
+
+- _Compute optimized_:<br>
+Namensgeben sind diese Instanzen darauf ausgelegt Aufgaben mit hoher CPU Last zu erledigen, da sie eine hohes Verhältnis von CPUs zu RAM haben. Im Durchschnitt stehen pro CPU 2 GB RAM zur Verfügung, was hochskaliert bis zu maximal 72 CPUs und 144 GB RAM. Nicht außer Acht zu lassen ist die Netzwerkanbindung dieser Instanzen, die bis zu 25 Gigabit betragen kann.
+
+- _GPU graphics_:<br>
+Mit den GPU graphics Instanzen bietet AWS virtuelle Rechner an, die für Aufgaben im Grafikbereich gedacht sind. Diese sind mit starken GPUs, hohem RAM und starker Netzwerkverbindung ausgestattet. Die GPU graphics Instanzen können mit bis zu 64 CPUs, 976 GB RAM und 8 NVIDIA K80-Hochleistungs-GPUs ausgestattet werden. Letzte besitzen pro Einheit 2.496 parallele Verarbeitungskerne und 12 GB GPU-Speicher.
+
+- _Memory optimized_:<br>
+Die Memory fokussierten EC2 Instanzen richten sich an Kunden, die große Datenbanksysteme, Cachingmechanismen oder große Systeme wie beispielsweise SAP umsetzen wollen. Instanzen dieser Familie zeichnen sich durch sehr hohen RAM aus, der bis zu 1952 GB betragen kann.
+
+- _Storage optimized_:<br>
+Für Anwendungen, die bestimmte Anforderungen an I/O Operationen und Speicherkapazitäten haben, sind die Speicher optimierten Instanzen von AWS geeignet. Je nach Instanz Typ können bis zu 24 HDDs zu je 2048 GB Speicher oder 8 SSDs zu je 1900 GB Speicher ausgewählt werden.
+
+
+__3. Instanz detailliert konfigurieren__
+
+Die nachfolgende [Abbildung 5](#img_aws_ec2) gibt einen Überblick über den dritten Schritt der Erzeugung einer EC2 Instanz. Hier kann zum einen die Anzahl der Instanzen festgelegt werden, die mit den vorherigen Konfigurationen gestartet werden sollen. Zum anderen können Einstellungen zur Netzwerkanbindung, Verhalten beim Stoppen beziehungsweise Herunterfahren der Instanz gemacht werden und auch eine IAM-Rolle festgelegt werden, mit der andere Anwendungen automatisiert Anmeldedaten erhalten können (siehe [Identity and Access Management (IAM)](#iam)).
+
+<a name="img_aws_ec2"></a>
+<div style="text-align:center">
+    <img alt="AWS EC2 Configure Instance Details" src="./images/aws_ec2_instance.png"/>
+    <br>
+
+Abb. 5: AWS Configure Instance Details - Quelle: [[AWS18k]](#ref_aws18k)
+
+</div>
+
+Besonders hervorzuheben ist der letzte Menüpunkt _"T2 Unlimited"_. Diese Option ist nur für die T2 Instanzen der General Purpose Familie verfügbar und ermöglicht eine Skalierbarkeit der verfügbaren CPU-Leistung, sollten Anwendungen mehr Leistung benötigen als von der Instanz vorgesehen.
+
+
+__4. Speicher hinzufügen__
+
+Die Speichereinstellungen zu einer EC2 Instanz ermöglichen es die größen und Performanztypen der gewünschten Speicher festzulegen. Darüberhinaus kann festgelegt werden, ob Daten verschlüsselt gespeichert werden sollen und ob Speichermedien über die Lebenszeit einer EC2 Instanz hinaus existieren sollen. Außerdem können Speicherzustände von existierenden Snapshots wiederhergestellt werden, die in [S3](#s3) Buckets gelagert sind.
+
+
+__5. Tags hinzufügen__
+
+Um bei einer größeren Anzahl von EC2 Instanzen nicht den Überblick zu verlieren, können diese mit Tags versehen werden. Diese werden durch einfache Key-Value-Paare dargestellt und können somit beispielweise Auskünfte zu Besitzer, Verwendungszweck und zugehörigen Projekten direkt ersichtlich sein.
+
+__6. Sicherheitsgruppen konfigurieren__
+
+Die Sicherheitsgruppen beschrieben die Firewall Einstellungen, die zu einer EC2 Instanz gehören. Hier können fertige Verbindungstypen hinzugefügt werden, um gängige Verbindungen wie SSH, HTTP und IMAP zu erlauben. Es können aber auch gezielt Konfigurationen zu bestimmten Protokollen und Ports gemacht werden sowie IP-Adressen beziehungsweise IP-Adressräume festgelegt werden die auf die Instanz zugreifen dürfen.
+
+
+__7. Übersicht und Starten der Instanz__
+
+Im letzten Schritt können alle vorher getätigten Einstellungen nochmal in übersichtlicher Form geprüft werden, bevor sie gestartet wird. Tendenziell sind nur Schritt 1. und 2. notwendig, um zu Schritt 7. zu gelangen, da die anderen Schritte mit standardmäßig vorkonfiguriert sind. Es ist allerdings in der Regel sinnvoll eine Instanz für einen spezifischen Anwendungsfall zu individualisieren.
+
+[[AWS18k]](#ref_aws18k) [[AWS18l]](#ref_aws18l)
+
+
+<a name="s3"></a>
 
 ### Simple Storage Service (S3)
 
@@ -309,51 +541,383 @@ Im Vergleich zu Edge Computing, wo die Endgeräte (z.B. IoT-Dinge) eine stärker
 
 ## Literaturverzeichnis
 
-
-<a name="ref_avra16">[AVRA16]</a>: Avram, Abel ; InfoQ, 25.06.2016: FaaS, PaaS, and the Benefits of Serverless Architecture ; URL: <a>https://www.infoq.com/news/2016/06/faas-serverless-architecture</a> (abgerufen am 27.06.2018)
-
-<a name="ref_bian20">[BIAN20]</a>: Bianchi, Alessandra ; Inc., 01.04.2000: Say good-bye to software as we know it and hello to ASP start-up ; URL: <a>https://www.inc.com/magazine/20000401/18093.html</a> (abgerufen am 26.06.2018)
-
-<a name="ref_bsi18">[BSI18]</a>: Bundesamt für Sicherheit in der Informationstechnik (BSI): Cloud Computing Grundlagen ; URL: <a>https://www.bsi.bund.de/DE/Themen/DigitaleGesellschaft/CloudComputing/Grundlagen/Grundlagen_node.html</a> (abgerufen am 03.05.2018)
-
-<a name="ref_elle17">[ELLE17]</a>: Elle, Jessica ; Forestgiant, 05.04.2017: Fog VS Edge Computing ; URL: <a>https://forestgiant.com/articles/fog-vs-edge/</a> (abgerufen am 26.06.2018)
-
-<a name="ref_feld17">[FELD17]</a>: Felde, Christian ; Blog of Christian Felde, 20.12.2017´: On edge architecture ; URL: <a>https://blog.cfelde.com/2017/12/on-edge-architecture/</a> (abgerufen am 27.05.2018)
-
-<a name="ref_foot17">[FOOT17]</a>: Foote, Keith D. ; Dataversity, 22.06.2017: A Brief History of Cloud Computing ; URL: <a>http://www.dataversity.net/brief-history-cloud-computing/</a> (abgerufen am 27.05.2018)
-
-<a name="ref_forr06">[FORR06]</a>: Forrest, Brady ; O'Reilly Radar, 25.09.2006: Zimki, hosted JavaScript environment ; URL: <a>http://radar.oreilly.com/2006/09/zimki-hosted-javascript-enviro.html</a> (abgerufen am 26.06.2018)
-
-<a name="ref_gass16">[GASS16]</a>: Gassner, Heinz ; Smart Industry Forum, 02.12.2016: What Do We Actually Mean By: IaaS, PaaS, SaaS? ; URL: <a>https://smartindustryforum.org/what-do-we-actually-mean-by-iaas-paas-saas/</a> (abgerufen am 21.06.2018)
-
-<a name="ref_gedi18">[GEDI18]</a>: GE Digital: What is Edge Computing? ; URL: <a>https://www.ge.com/digital/blog/what-edge-computing#edge-computing-vs-cloud-computing-3</a> (abgerufen am 27.05.2018)
-
-<a name="ref_han17">[HAN17]</a>: Han, Bowei ; Medium, 05.11.2017: An Introduction to Serverless and FaaS (Function as a Service) ; URL: <a>https://medium.com/@BoweiHan/an-introduction-to-serverless-and-faas-functions-as-a-service-fb5cec0417b2</a> (abgerufen am 27.06.2018)
-
-<a name="ref_ibmj09">[IBMJ09]</a>: IBM Journal of Research and Development, 07.2009: The Reservoir model and architecture for open federated cloud computing ; URL: <a>https://ieeexplore.ieee.org/document/5429058/</a> (abgerufen am 19.06.2018)
-
-<a name="ref_inno17">[INNO17]</a>: Innocent, Johnson ; DZone / Cloud Zone, 09.03.2017: Cloud Computing Deployment Models ; URL: <a>https://dzone.com/articles/cloud-computing-deployment-models</a> (abgerufen am 28.06.2018)
-
-<a name="ref_lynl18">[LYNL18]</a>: Lynley, Matthew ; techcruch.com: Amazon may be developing AI chips for Alexa ; URL: <a>https://techcrunch.com/2018/02/12/amazon-may-be-developing-ai-chips-for-alexa/</a> (abgerufen am 27.05.2018)
-
-<a name="ref_mark07">[MARK07]</a>: Markham, Gervase ; Hacking for Christ, 25.09.2007: Zimki Shuts Down ; URL: <a>http://blog.gerv.net/2007/09/zimki_shuts_down/</a> (abgerufen am 26.06.2018)
-
-<a name="ref_mill18">[MILL18]</a>: Miller, Paul ; The Verge, 07.05.2018: What is edge computing? ; URL: <a>https://www.theverge.com/circuitbreaker/2018/5/7/17327584/edge-computing-cloud-google-microsoft-apple-amazon</a> (abgerufen am 27.05.2018)
-
-<a name="ref_nist11">[NIST11]</a>: National Institute of Standards and Technology (NIST) - The NIST Definition of Cloud Computing 2011 ; URL: <a>https://csrc.nist.gov/publications/detail/sp/800-145/final</a> (abgerufen am 03.05.2018)
-
-<a name="ref_open17">[OPEN17]</a>: OpenFog, 09.02.2017: OpenFog Reference Architecture for Fog Computing ; URL: <a>https://www.openfogconsortium.org/wp-content/uploads/OpenFog_Reference_Architecture_2_09_17-FINAL.pdf</a> (abgerufen am 10.06.2018)
-
-<a name="ref_rega11">[REGA11]</a>: Regalado, Antonio ; MIT Technology Review, 31.10.2011: Who Coined 'Cloud Computing'? ; URL: <a>https://www.technologyreview.com/s/425970/who-coined-cloud-computing/</a> (abgerufen am 27.05.2018)
-
-<a name="ref_rous17a">[ROUS17a]</a>: Rouse, Margaret ; TechTarget, 09.2017: Infrastructure as a Service (IaaS) ; URL: <a>https://searchcloudcomputing.techtarget.com/definition/Infrastructure-as-a-Service-IaaS</a> (abgerufen am 21.06.2018)
-
-<a name="ref_rous17b">[ROUS17b]</a>: Rouse, Margaret ; TechTarget, 11.2017: XaaS (Everything as a Service) ; URL: <a>https://searchcloudcomputing.techtarget.com/definition/XaaS-anything-as-a-service</a> (abgerufen am 27.06.2018)
-
-<a name="ref_shaw17">[SHAW17]</a>: Shaw, Keith ; NetworkWorld, 19.12.2017: What is a hypervisor? ; URL: <a>https://www.networkworld.com/article/3243262/virtualization/what-is-a-hypervisor.html</a> (abgerufen am 21.06.2018)
-
-<a name="ref_stat16">[STAT16]</a>: Statt, Nick ; The Verge: How an army of vulnerable gadgets took down the web today ; URL: <a>https://www.theverge.com/2016/10/21/13362354/dyn-dns-ddos-attack-cause-outage-status-explained</a> (abgerufen am 27.05.2018)
-
-<a name="ref_watt17">[WATT17]</a>: Watts, Stephen ; BMC Blogs, 22.09.2017: SaaS vs PaaS vs IaaS: What's The Difference and How To Choose ; URL: <a>https://www.bmc.com/blogs/saas-vs-paas-vs-iaas-whats-the-difference-and-how-to-choose/</a> (abgerufen am 26.06.2018)
-
-<a name="ref_wiki18">[WIKI18]</a>: Wikipedia, 26.06.2018: As a service ; URL: <a>https://en.wikipedia.org/wiki/As_a_service</a> (abgerufen am 27.06.2018)
+<table style="width:100%">
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_avra16">[AVRA16]</a></td>
+        <td style="width:90%">Avram, Abel ; InfoQ, 25.06.2016: FaaS, PaaS, and the Benefits of Serverless Architecture</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://www.infoq.com/news/2016/06/faas-serverless-architecture</a> (abgerufen am 27.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_aws18a">[AWS18a]</a></td>
+        <td style="width:90%">Amazon AWS: Produkte</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://aws.amazon.com/de/?nc2=h_lg</a> (abgerufen am 30.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_aws18b">[AWS18b]</a></td>
+        <td style="width:90%">Amazon AWS: AWS Free Tier</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://aws.amazon.com/free/</a> (abgerufen am 30.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_aws18c">[AWS18c]</a></td>
+        <td style="width:90%">Amazon AWS: AWS Customer Agreement</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://aws.amazon.com/agreement/</a> (abgerufen am 30.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_aws18d">[AWS18d]</a></td>
+        <td style="width:90%">Amazon AWS ; AWS Educate: Teach Tomorrow's Cloud Workforce Today</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://aws.amazon.com/education/awseducate/</a> (abgerufen am 30.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_aws18e">[AWS18e]</a></td>
+        <td style="width:90%">Amazon AWS: AWS Management Console</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://us-east-2.console.aws.amazon.com/console/home?region=us-east-2</a> (abgerufen am 30.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_aws18f">[AWS18f]</a></td>
+        <td style="width:90%">Amazon AWS: AWS Pop-up Loft</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://aws.amazon.com/start-ups/loft/</a> (abgerufen am 30.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_aws18g">[AWS18g]</a></td>
+        <td style="width:90%">Amazon AWS: AWS Pop-up Loft FAQ</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://aws.amazon.com/start-ups/loft/faq</a> (abgerufen am 30.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_aws18h">[AWS18h]</a></td>
+        <td style="width:90%">Amazon AWS: AWS IAM Dashboard</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://console.aws.amazon.com/iam/home?region=us-east-2#/users</a> (abgerufen am 30.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_aws18i">[AWS18i]</a></td>
+        <td style="width:90%">Amazon AWS: Verwalten von Rollen</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://aws.amazon.com/de/iam/details/manage-roles/?nc1=f_ls</a> (abgerufen am 30.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_aws18j">[AWS18j]</a></td>
+        <td style="width:90%">Amazon AWS: AWS Identity and Access Management (IAM)</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://aws.amazon.com/iam/?nc2=h_m1</a> (abgerufen am 30.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_aws18k">[AWS18k]</a></td>
+        <td style="width:90%">Amazon AWS: EC2 Launch Wizard</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://us-east-2.console.aws.amazon.com/ec2/v2/home?region=us-east-2#LaunchInstanceWizard:</a> (abgerufen am 30.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_aws18l">[AWS18l]</a></td>
+        <td style="width:90%">Amazon AWS: EC2</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://aws.amazon.com/de/ec2/</a> (abgerufen am 30.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_bian20">[BIAN20]</a></td>
+        <td style="width:90%">Bianchi, Alessandra ; Inc., 01.04.2000: Say good-bye to software as we know it and hello to ASP start-up</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://www.inc.com/magazine/20000401/18093.html</a> (abgerufen am 26.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_bsi18">[BSI18]</a></td>
+        <td style="width:90%">Bundesamt für Sicherheit in der Informationstechnik (BSI): Cloud Computing Grundlagen</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://www.bsi.bund.de/DE/Themen/DigitaleGesellschaft/CloudComputing/Grundlagen/Grundlagen_node.html</a> (abgerufen am 03.05.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_butl17">[BUTL17]</a></td>
+        <td style="width:90%">Butler, Brandon ; Network World, 21.09.2017: What is edge computing and how it's changing the network</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://www.networkworld.com/article/3224893/internet-of-things/what-is-edge-computing-and-how-it-s-changing-the-network.html</a> (abgerufen am 29.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_brad16">[BRAD16]</a></td>
+        <td style="width:90%">Bradbury, Danny ; The Register, 21.06.2016: DDoS, the cloud and you</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://www.theregister.co.uk/2016/07/21/ddos_the_cloud_and_you/</a> (abgerufen am 29.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_cisc13">[CISC13]</a></td>
+        <td style="width:90%">Cisco, 2013: Fog Computing, Ecosystem, Architecture and Applications</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://web.archive.org/web/20140922061044/http://www.cisco.com/web/about/ac50/ac207/crc_new/university/RFP/rfp13078.html</a> (abgerufen am 29.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_clou18">[CLOU18]</a></td>
+        <td style="width:90%">Cloud Harmony: CloudSquare Service Status</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://cloudharmony.com/status</a> (abgerufen am 29.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_drop18">[DROP18]</a></td>
+        <td style="width:90%">Dropbox DE: Datenschutzrichtlinien</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://www.dropbox.com/de/privacy</a> (abgerufen am 29.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_edwa17">[EDWA17]</a></td>
+        <td style="width:90%">Edwards, Elaine: The Irish Times, 16.10.2017: US supreme court to hear appeal in Microsoft warrant case</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://www.irishtimes.com/business/technology/us-supreme-court-to-hear-appeal-in-microsoft-warrant-case-1.3257825</a> (abgerufen am 29.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_elle17">[ELLE17]</a></td>
+        <td style="width:90%">Elle, Jessica ; Forestgiant, 05.04.2017: Fog VS Edge Computing</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://forestgiant.com/articles/fog-vs-edge/</a> (abgerufen am 26.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_rama17">[RAMA17]</a></td>
+        <td style="width:90%">Rama, Galdys ; AWS insider, 01.08.2017: Report: AWS Market Share Is Triple Azure's</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://awsinsider.net/articles/2017/08/01/aws-market-share-3x-azure.aspx</a> (abgerufen am 30.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_euds18">[EUDS18]</a></td>
+        <td style="width:90%">Intersoft Consulting: Datenschutz-Grundverordnung DSGVO</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://dsgvo-gesetz.de/</a> (abgerufen am 29.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_feld17">[FELD17]</a></td>
+        <td style="width:90%">Felde, Christian ; Blog of Christian Felde, 20.12.2017´: On edge architecture</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://blog.cfelde.com/2017/12/on-edge-architecture/</a> (abgerufen am 27.05.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_foot17">[FOOT17]</a></td>
+        <td style="width:90%">Foote, Keith D. ; Dataversity, 22.06.2017: A Brief History of Cloud Computing</td>
+    </tr>
+    <tr>
+        <td>URL: <a>http://www.dataversity.net/brief-history-cloud-computing/</a> (abgerufen am 27.05.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_forr06">[FORR06]</a></td>
+        <td style="width:90%">Forrest, Brady ; O'Reilly Radar, 25.09.2006: Zimki, hosted JavaScript environment</td>
+    </tr>
+    <tr>
+        <td>URL: <a>http://radar.oreilly.com/2006/09/zimki-hosted-javascript-enviro.html</a> (abgerufen am 26.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_gass16">[GASS16]</a></td>
+        <td style="width:90%">Gassner, Heinz ; Smart Industry Forum, 02.12.2016: What Do We Actually Mean By: IaaS, PaaS, SaaS?</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://smartindustryforum.org/what-do-we-actually-mean-by-iaas-paas-saas/</a> (abgerufen am 21.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_gedi18">[GEDI18]</a></td>
+        <td style="width:90%">GE Digital: What is Edge Computing?</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://www.ge.com/digital/blog/what-edge-computing#edge-computing-vs-cloud-computing-3</a> (abgerufen am 27.05.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_gile18">[GILE18]</a></td>
+        <td style="width:90%">Giles, Martin ; MIT Technology Review, 02.01.2018</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://www.technologyreview.com/s/609641/six-cyber-threats-to-really-worry-about-in-2018/</a> (abgerufen am 29.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_gree18">[GREE18]</a></td>
+        <td style="width:90%">Greenberg, Andy ; WIRED, 27.06.2018: Marketing firm Exactis leaked a personal info database with 340 million records</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://www.wired.com/story/exactis-database-leak-340-million-records/</a> (abgerufen am 29.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_han17">[HAN17]</a></td>
+        <td style="width:90%">Han, Bowei ; Medium, 05.11.2017: An Introduction to Serverless and FaaS (Function as a Service)</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://medium.com/@BoweiHan/an-introduction-to-serverless-and-faas-functions-as-a-service-fb5cec0417b2</a> (abgerufen am 27.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_hers17">[HERS17]</a></td>
+        <td style="width:90%">Hersher, Rebecca ; National Public Radio, 03.03.2017: Amazon And The $150 Million Typo</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://www.npr.org/sections/thetwo-way/2017/03/03/518322734/amazon-and-the-150-million-typo?t=1529930367722</a> (abgerufen am 29.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_ibmj09">[IBMJ09]</a></td>
+        <td style="width:90%">IBM Journal of Research and Development, 07.2009: The Reservoir model and architecture for open federated cloud computing</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://ieeexplore.ieee.org/document/5429058/</a> (abgerufen am 19.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_inno17">[INNO17]</a></td>
+        <td style="width:90%">Innocent, Johnson ; DZone / Cloud Zone, 09.03.2017: Cloud Computing Deployment Models</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://dzone.com/articles/cloud-computing-deployment-models</a> (abgerufen am 28.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_lark18">[LARK18]</a></td>
+        <td style="width:90%">Larkin, Andrew ; Cloudacademy, 26.06.2018</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://cloudacademy.com/blog/disadvantages-of-cloud-computing/</a> (abgerufen am 29.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_lynl18">[LYNL18]</a></td>
+        <td style="width:90%">Lynley, Matthew ; techcruch.com: Amazon may be developing AI chips for Alexa</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://techcrunch.com/2018/02/12/amazon-may-be-developing-ai-chips-for-alexa/</a> (abgerufen am 27.05.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_mark07">[MARK07]</a></td>
+        <td style="width:90%">Markham, Gervase ; Hacking for Christ, 25.09.2007: Zimki Shuts Down</td>
+    </tr>
+    <tr>
+        <td>URL: <a>http://blog.gerv.net/2007/09/zimki_shuts_down/</a> (abgerufen am 26.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_mill18">[MILL18]</a></td>
+        <td style="width:90%">Miller, Paul ; The Verge, 07.05.2018: What is edge computing?</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://www.theverge.com/circuitbreaker/2018/5/7/17327584/edge-computing-cloud-google-microsoft-apple-amazon</a> (abgerufen am 27.05.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_netw18">[NETW18]</a></td>
+        <td style="width:90%">Network-Karriere, 18.01.2018: EU-Datenschutz für personenbezgene Daten ab 2018 wirksam - Server-Standort entscheidend!</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://www.network-karriere.com/2018/01/18/eu-datenschutz-f%C3%BCr-personenbezogene-daten-ab-2018-wirksam-server-standort-entscheidend/</a> (abgerufen am 29.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_nist11">[NIST11]</a></td>
+        <td style="width:90%">National Institute of Standards and Technology (NIST) - The NIST Definition of Cloud Computing 2011</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://csrc.nist.gov/publications/detail/sp/800-145/final</a> (abgerufen am 03.05.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_open17">[OPEN17]</a></td>
+        <td style="width:90%">OpenFog, 09.02.2017: OpenFog Reference Architecture for Fog Computing</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://www.openfogconsortium.org/wp-content/uploads/OpenFog_Reference_Architecture_2_09_17-FINAL.pdf</a> (abgerufen am 10.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_opto18">[OPTO18]</a></td>
+        <td style="width:90%">OPTO 22: Fog Computing vs. Edge Computing</td>
+    </tr>
+    <tr>
+        <td>URL: <a>http://info.opto22.com/fog-vs-edge-computing</a> (abgerufen am 29.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_rega11">[REGA11]</a></td>
+        <td style="width:90%">Regalado, Antonio ; MIT Technology Review, 31.10.2011: Who Coined 'Cloud Computing'?</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://www.technologyreview.com/s/425970/who-coined-cloud-computing/</a> (abgerufen am 27.05.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_rous17a">[ROUS17a]</a></td>
+        <td style="width:90%">Rouse, Margaret ; TechTarget, 09.2017: Infrastructure as a Service (IaaS)</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://searchcloudcomputing.techtarget.com/definition/iaas-IaaS</a> (abgerufen am 21.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_rous17b">[ROUS17b]</a></td>
+        <td style="width:90%">Rouse, Margaret ; TechTarget, 11.2017: XaaS (Everything as a Service)</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://searchcloudcomputing.techtarget.com/definition/XaaS-anything-as-a-service</a> (abgerufen am 27.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_shaw17">[SHAW17]</a></td>
+        <td style="width:90%">Shaw, Keith ; NetworkWorld, 19.12.2017: What is a hypervisor?</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://www.networkworld.com/article/3243262/virtualization/what-is-a-hypervisor.html</a> (abgerufen am 21.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_stat16">[STAT16]</a></td>
+        <td style="width:90%">Statt, Nick ; The Verge: How an army of vulnerable gadgets took down the web today</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://www.theverge.com/2016/10/21/13362354/dyn-dns-ddos-attack-cause-outage-status-explained</a> (abgerufen am 27.05.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_utle18">[UTLE18]</a></td>
+        <td style="width:90%">Utley, Gary ; The CWPS Blog, 12.05.2018: 6 Most Common Cloud Computing Security Issues</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://www.cwps.com/blog/cloud-computing-security-issues</a> (abgerufen am 29.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_vene14">[VENE14]</a></td>
+        <td style="width:90%">Venezia, Paul ; InfoWorld, 23.06.2014: Murder in the Amazon cloud</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://www.infoworld.com/article/2608076/data-center/murder-in-the-amazon-cloud.html</a> (abgerufen am 29.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_ward18">[WARD18]</a></td>
+        <td style="width:90%">Ward, Susan ; The balance small business, 15.04.2018: The Cons of Cloud Computing</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://www.thebalancesmb.com/disadvantages-of-cloud-computing-4067218</a> (abgerufen am 29.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_watt17">[WATT17]</a></td>
+        <td style="width:90%">Watts, Stephen ; BMC Blogs, 22.09.2017: SaaS vs PaaS vs IaaS: What's The Difference and How To Choose</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://www.bmc.com/blogs/saas-vs-paas-vs-iaas-whats-the-difference-and-how-to-choose/</a> (abgerufen am 26.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_wiki18">[WIKI18]</a></td>
+        <td style="width:90%">Wikipedia, 26.06.2018: As a service</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://en.wikipedia.org/wiki/As_a_service</a> (abgerufen am 27.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_wood13">[WOOD13]</a></td>
+        <td style="width:90%">Wood, Peter ; SlideShare, 28.05.2013: Attacking the cloud with social engineering</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://www.slideshare.net/PeterWoodx/attacking-the-cloud-with-social-engineering</a> (abgerufen am 29.06.2018)</td>
+    </tr>
+</table>

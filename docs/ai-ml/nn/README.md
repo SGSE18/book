@@ -21,16 +21,32 @@ Die Ausgabe der _input function_ an die _activation function_ lässt sich folgen
 Wie in der Formel ersichtlich, erfolgt eine Weiterleitung von 1 an die _activation function_ wenn die Summe über die Produkte, zwischen Eingabevektorwert mit dem jeweiligen Gewicht (w), größer bzw. gleich dem Bias Gewicht (w 0,i) ist, andernfalls wird 0 weitergegeben.
 
 ## Aktivierungsfunktionen
-Zuletzt entscheidet die Aktivierungsfunktion über eine Aktivierung des Perzeptrons. Verschiedene Altivierungsfunktionen eignen sich für unterschiedliche Problemstellungen. In der Grafik ist auf der linken Seite eine Sprungfunktion und auf der rechten Seite eine sigmoide Funktion zu sehen. Die Sprungfunktion leitet eine Aktivierung des Perzeptrons ein sobald die Ausgabe der _input function_ größer 0 ist. Eine sigmoide Funktion würde in einem anderem Beispiel feinere Abstufungen erlauben, wenn die Ausgabe einer _input function_ nicht nur 0 oder 1 annehmen können und wird in neueren neuronalen Netzen überwiegend verwendet. 
+Zuletzt entscheidet die Aktivierungsfunktion über eine Aktivierung des Perzeptrons. Verschiedene Aktivierungsfunktionen eignen sich für unterschiedliche Problemstellungen.  
 
-<img src="./images/activation-functions.png" width="500" style="margin:20px">
+
+
+<img src="./images/step-function.png" width="300" style="margin:20px">
+
+Die Sprungfunktion wurde bei der ursprünglichen Definition des Perzeptrons eingeführt und leitet eine Aktivierung des Perzeptrons (Ausgabe: 1) ein, sobald die Ausgabe der _input function_ größer 0 ist. In neuronalen Netzen die nicht nur einfache Logikfunktionen berechnen, wird die Sprungfunktion aufgrund ihres extrem kleinen Ergebnisbereiches ( 0 oder 1) praktisch nicht mehr verwendet.
+
+Im weiteren Verlauf wird genauer auf neuronale Netze eingegangen, die sich von der ursprünglichen Definition des Perzeptrons unterscheiden. Diese neuronalen Netze benötigen fein-granulare Aktivierungsfunktionen, damit einzelne Neuronen (Perzeptrons) auch geringe Aktivierungen weiterleiten können. Die Anwendung der Sprungfunktion würde deaktivierte (tote) Bereiche innerhalb des neuronalen Netzes begünstigen. Die meistgenutzen Aktivierungsfunktionen in modernen neuronalen Netzen sind die sigmoide Funktion (links) sowie die ReLU Funktion (rechts).
+
+<img src="./images/sigmoid.png" width="300" style="margin:20px">
+<img src="./images/relu.png" width="300" style="margin:20px">
 
 ## Limitierung
-Ein einzelnes Perzeptron ist fähig die logischen Funktionen AND, OR und NOT abzubilden. Minsky und Papert wiesen 1969 nach, dass die XOR Funktion nicht abgebildet werden kann. linear separable Funktionen zu lösen.
+Ein einzelnes Perzeptron ist fähig die logischen Funktionen AND, OR und NOT abzubilden. Minsky und Papert wiesen 1969 nach, dass die XOR Funktion damit nicht abgebildet werden kann. Auch können nur linear separable Problemstellungen gelöst werden. Für komplexere Klassifizierungen ist ein mehrlagiges Perzeptron nötig, dieses kann erstmals als neuronales Netz bezeichnet werden.
 
-<img src="./images/separable.png" width="500" style="margin:20px">
+<img src="./images/separable.png" width="400" style="margin:20px">
 
 ## Mehrlagiges Perzeptron
+
+<img src="./images/multi-perceptron.png" width="400" style="margin:20px">
+
+Mit einem mehrlagigem Perzeptron sind komplexere Funktionen berechenbar, in oben stehendem Beispiel die logische XOR Funktion welche mit einem 2-lagigem Perzeptron berechnet werden kann. Es kann hierbei auch von _feed-forward neural network_ gesprochen werden, _feed-forward_ deshalb, weil Aktivierungen nur Richtung Ausgabe weitergereicht werden und diese keine Veränderungen in vorherigen Schichten (_layer_) des neuronalen Netzes bewirken. Bei neuralen Netzwerken, die mehr als eine verdeckte Schicht (_hidden layer_) zwischen Eingabe- und Ausgabe-Neuron besitzen, wird die Bezeichnung _deep neural network_ bzw. _deep feed-forward network_ verwendet.
+<img src="./images/perc-ff-dff.png" width="600" style="margin:10px">
+Quelle: Fjodor van Veen, Asimov Institute 
+
 
 ## Literaturverzeichnis
 
