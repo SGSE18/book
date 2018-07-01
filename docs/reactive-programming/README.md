@@ -88,7 +88,7 @@ Konzept trägt zur Lesbarkeit und Wartbarkeit des Codes bei.
 
 <center><b>3. Funktionen sind rein (Pure)</b></center>
 
-Funktionen verhalten sich im funktionalen Ansatz ähnlich wie mathemetische Funktionen. Bei einer mathematischen Funktion
+Funktionen verhalten sich im funktionalen Ansatz ähnlich wie mathematische Funktionen. Bei einer mathematischen Funktion
 wird ein oder mehrere Eingabewerte genau einem Ausgabewert zugeordnet. Egal wie oft diese Funktion mit den selben 
 Eingabewerten berechnet wird, sie führt immer zu dem selben Ergebnis. 
 Dies trifft auch auf die Funktionen im funktionalen Ansatz zu: Mit den selben Eingabeparametern erhält der Aufrufer 
@@ -133,7 +133,7 @@ var function gehalt_erhoehen(arbeiter, erhoehung){
 
 ## Reactive Programming
 
-Beim reaktiven Programmieren geht es darum, die Veränderung eines Zustandes zu beobachten und gegeben falls mit einer Veränderung
+Beim reaktiven Programmieren geht es darum, die Veränderung eines Zustandes zu beobachten und gegebenenfalls mit einer Veränderung
 des eigenen Zustandes zu reagieren. Eine Zustandsänderung könnte zum Beispiel das Drücken eines Knopfes auf einer Benutzeroberfläche oder
 aber das Abholen von Daten über einen HTTP Aufruf. Bibliotheken wie RxJS, xStream oder Most.js erlauben es von fast jeder Variable oder Objekt
 ein Observable zu erstellen. So kann unter RxJS beispielsweise mit dem `just()` Operator ein Observable von der Zahl 1 erstellt werden:
@@ -147,9 +147,9 @@ oneStream.subscribe(number =>{
 ```
 
 Ein Observable ist zu verstehen als ein Objekt, welche über einen bestimmten oder auch unbestimmten Zeitraum 
-Werte ausgibt (emitted). Ein Observable ist somit zu stehen als ein Stream von Daten. Um an die emitteten Daten zu gelangen, kann dem Stream über die `subscribe()` Methode gelauscht werden. Erst nachdem jemand auf den Stream
-subscribed hat, fängt der Stream an, Werte auszugeben. Dabei wird der Callback innerhalb der Subscribe Methode 
-in jedes mal ausgeführt, sobald ein neuer Wert von dem Stream emittet wurde. 
+Werte ausgibt (emitted). Ein Observable ist somit zu verstehen als ein Stream von Daten. Um an die emitteten Daten zu gelangen, kann dem Stream über die `subscribe()` Methode gelauscht werden. Erst nachdem ein Observer auf den Stream
+subscribt hat, fängt der Stream an, Werte auszugeben. Dabei wird der "Callback" innerhalb der `subscribe()` Methode 
+jedes mal ausgeführt, sobald ein neuer Wert vom Stream emittet wurde. 
 
 ```javascript
 var numbers = [1,2,3];
@@ -202,6 +202,14 @@ Um hier die parallele zur RxJS Bibliothek zu ziehen: Die mit `subscribe()` über
 Stream können beliebig viele Observer hinzugefügt werden. Das im UML angegebene Subject ist der eigentliche Stream. Die `registerObserver()`
 Methode ist die `subscribe()` Methode des Observables.
 
+Das Observerpattern lässt sich allerdings nur auf den Fall eines "Hot Observables" anwenden. Hier verhält es sich so das ein Observer 
+einen Wert nicht bekommt, falls dieser nach der Ausgabe des Wertes auf das Observables subscribt. Zudem ein Observer eines
+Observables den gleichen Wert, den auch alle anderen Observer bekommen würden. Die Instance des Observables, beziehungsweise des Producers
+wird geteilt.
+
+Im gegensatz dazu gibt es in RxJS auch "Cold Observables". Hier erhalten Observer durch den subscribe intern eine eigene Instanz des
+Observables, wodurch es vorkommen kann, dass Observer unterschiedliche Werte erhalten, obwohl sie das selbe Observable abonnieren. 
+ 
 ### Das Observable
 Das Observable ist ein Konstrukt mit der Aufgabe, die abonnierten Observer über neu erzeugte Werte zu informieren. Die Werte
 selbst stammen dabei von einem Producer, welcher im inneren des Observables Werte generiert.
@@ -724,7 +732,7 @@ Eingaben vom Nutzer zu verändern.
 ![Cycle Konzept](./images/mvc-diagram.svg "Konzept von CycleJS")
 <a>[[HDOR16]](#ref_hdor16)</a>
 
-Was zum normalen MVC Pattern nun noch fehlt ist ein Controller, der jeweils die View als auch das Model kennt und bei miteinander vereint. Dies wäre der Objektorinierte
+Was zum normalen MVC Pattern nun noch fehlt ist ein Controller, der jeweils die View als auch das Model kennt und bei miteinander vereint. Dies wäre der objektorientierte
 Ansatz. In einem funktonalem Framework wie CycleJS gibt es allerdings keine Objekte, die wiederum andere Objekte mit neuen Informationen updaten. Stattdessen
 eignet sich für ein solches Framework das Model-View-Intent Pattern.   
 Das eigentlich neue ist hier nur der Intent-Teil. Mit Intent ist gemeint, was der Nutzer mit einem Klick auf einen Knopf oder das Verschieben eines Reglers im Grundsatz
@@ -780,7 +788,7 @@ Childkomponete an die Parentkomponete und von dort an den DOM Driver weitergegeb
 
 Dieses Diagramm verdeutlicht die Struktur der Komponente sehr gut. Auch in der Sliderkomponente wird aus der Absicht eine vom Benutzer ausgeführte
 Aktion, welche an das Model weitergegeben wird und schlussendlich zur View wird, welche den virtuellen DOM an den Sink Stream der Komponente weitergibt.
-Zwischen diesen Schritten können Artefakte entstehen, welche ebenfalls für die Parentkomponente bestimmt sein kann und nicht der virtuelle DOM ist. Im
+Zwischen diesen Schritten können Artefakte entstehen, welche ebenfalls für die Parentkomponente bestimmt sein können und nicht der virtuelle DOM sind. Im
 Fall der Sliderkomponente wäre dies der momentane Wert der Sliderkomponente, welche ebenfalls über den Sink Stream an die Parentkomponente weitergegeben
 wird. Der aktuelle Wert wird in der Komponente vom `state$` Stream entnommen.
 
