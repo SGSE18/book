@@ -37,13 +37,13 @@ Autor: Björn Böing
     - [Elastic Compute Cloud (EC2)](#ec2)
     - [Simple Storage Service (S3)](#s3)
     - [AWS Lambda](#aws-lambda)
-- [Cloud Design Patterns](#cloud-design-pattern)
+- [Cloud Design Patterns](#cloud-design-patterns)
     - [Cache-aside](#cache-aside)
     - [Compensating Transaction](#compensating-transaction)
     - [Federated Identity](#federated-identity)
     - [Sharding](#sharding)
 - [Zusammenfassung](#zusammenfassung)
-    - [Aktuelle Trends](#aktuelle-trends)
+    - [Neuheiten und aktuelle Trends](#neuheiten-und-aktuelle-trends)
 
 
 ## Abkürzungsverzeichnis
@@ -722,12 +722,16 @@ Bei der Wahl der richtigen Sharding Strategie ist vor allem eine genaue Betracht
 
 ## Zusammenfassung
 
-### ?? Aktuelle Trends
+Obwohl der Cloud Computing Bereich schon viele Jahre produktiv im Einsatz ist, sind die Ideen und Konzepte noch nicht ausgeschöpft. Immer neue Technologien und Dienste ermöglichen vollkommen neue Einsatzgebiete und Anwendungsansätze für die Cloud. Anbieter wie Amazon erlauben es immer mehr Unternehmen ihre digitalen Prozesse und Softwareanwendungen in die Cloud zu verlagern, um dabei die immer schwerer wiegenden Vorteile von Cloud-Infrastrukturen zu nutzen.
 
-- Hier evtl. Ausblicke auf derzeitige Trends der verbreitesten Cloud Anbieter
-- https://www.golem.de/news/hpe-greenlake-hybrid-cloud-software-automatisiert-die-ressourcen-in-der-cloud-1806-135051.html
+Nachteile und Begrenzungen der Cloud können in manchen Fällen durch "neue" Bereiche wie Edge und Fog Computing ausgebessert werden. Viele anfängliche Probleme sind seit der ersten Cloud Dienste wie [Amazon EC2](#ec2) längst gelöst und durch Best Practices und [Design Patterns](#cloud-design-patterns) können viele Risiken schon durch Designentscheidungen umgangen werden.
 
-- Cloud native application (FaaS mit Microservices immer zentraler in Sachen Cloud) https://www.cncf.io/blog/2017/05/15/developing-cloud-native-applications/ 
+
+### Neuheiten und aktuelle Trends
+
+Die Hewlett Packard Enterprise (HPE) hat im Juni 2018 die _"Greenlake Hybrid Cloud"_ vorgestellt. Dieses Produkt soll dabei helfen Kosten zu sparen, indem automatisiert die richtigen Cloud-Ressourcen ausgewählt werden. Das Marktforschungsinstitut Gartner sagt, dass bis 2020 über 40% der Kunden zu viel für ihre Public Cloud bezahlen. Die Greenlake Hybrid Cloud ist derzeit mit Microsoft Azure und AWS kompatibel und stellt eine Art von Cloud dar, die sich selbst konfiguriert. [[NICK18]](#ref_nick18)
+
+Ein neues Buzzword im Bereich Cloud Computing stellt der Begriff _"Cloud Native Application"_ dar. Gemeint sind damit Anwendungen, die sich von ihrem Design, ihrer Entwicklung und der Form mit der sie bereitgestellt werden, von Natur aus in der Cloud wohl fühlen. Vor allem Anwendungen aus dem Microservice Bereich, die auf Basis von Containern bereitgestellt werden und für verteilte Anwendungsfälle konzipiert sind, können als Cloud Native Application bezeichnet werden. Geprägt wird dieser Begriff vor allem durch die _"Cloud Native Computing Foundation"_. Ebenso spielen aber Technologien wie Kubernetes mit ein, die eine hochgradig skalierbare Bereitstellung von Container-basierten Anwendungen ermöglichen. [[KUBE18]](#ref_kube18) [[OWEN17]](#ref_owen17)
 
 
 ## Literaturverzeichnis
@@ -1042,6 +1046,13 @@ Bei der Wahl der richtigen Sharding Strategie ist vor allem eine genaue Betracht
         <td>URL: <a>https://www.citusdata.com/blog/2018/01/10/sharding-in-plain-english/</a> (abgerufen am 01.07.2018)</td>
     </tr>
     <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_kube18">[KUBE18]</a></td>
+        <td style="width:90%">Kubernetes.io: Production-Grade Container Orchestrierung</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://kubernetes.io/</a> (abgerufen am 01.07.2018)</td>
+    </tr>
+    <tr>
         <td rowspan="2" style="width:10%"><a name="ref_lark18">[LARK18]</a></td>
         <td style="width:90%">Larkin, Andrew ; Cloudacademy, 26.06.2018</td>
     </tr>
@@ -1077,6 +1088,13 @@ Bei der Wahl der richtigen Sharding Strategie ist vor allem eine genaue Betracht
         <td>URL: <a>https://www.network-karriere.com/2018/01/18/eu-datenschutz-f%C3%BCr-personenbezogene-daten-ab-2018-wirksam-server-standort-entscheidend/</a> (abgerufen am 29.06.2018)</td>
     </tr>
     <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_nick18">[NICK18]</a></td>
+        <td style="width:90%">Nickel, Oliver ; Golem.de, 20.06.2018: Software automatisiert die Ressourcen in der Cloud</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://www.golem.de/news/hpe-greenlake-hybrid-cloud-software-automatisiert-die-ressourcen-in-der-cloud-1806-135051.html</a> (abgerufen am 01.07.2018)</td>
+    </tr>
+    <tr>
         <td rowspan="2" style="width:10%"><a name="ref_nist11">[NIST11]</a></td>
         <td style="width:90%">National Institute of Standards and Technology (NIST) - The NIST Definition of Cloud Computing 2011</td>
     </tr>
@@ -1096,6 +1114,13 @@ Bei der Wahl der richtigen Sharding Strategie ist vor allem eine genaue Betracht
     </tr>
     <tr>
         <td>URL: <a>http://info.opto22.com/fog-vs-edge-computing</a> (abgerufen am 29.06.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_owen17">[OWEN17]</a></td>
+        <td style="width:90%">Owen, Ken ; Cloud Native Computing Foundation, 15.05.2017: Developing Cloud Native Applications</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://www.cncf.io/blog/2017/05/15/developing-cloud-native-applications/</a> (abgerufen am 01.07.2018)</td>
     </tr>
     <tr>
         <td rowspan="2" style="width:10%"><a name="ref_rama17">[RAMA17]</a></td>
