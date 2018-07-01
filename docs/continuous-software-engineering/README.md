@@ -4,7 +4,8 @@ Autor: Nils Dralle
 
 ## Definition
 
-"Continuous Software Engineering" beschreibt eine Möglichkeit der iterativen Softwareentwicklung. Dabei wird der agile Softwareentwicklungsprozess unterstützt. Continuous Software Engineering ist interdisziplinär und bezieht im Gegensatz zu reinen agilen Softwareentwicklungsmodellen mehr als die reine Softwareentwicklung mit ein.
+"Continuous Software Engineering" beschreibt eine Möglichkeit der iterativen Softwareentwicklung. Dabei wird der agile Softwareentwicklungsprozess unterstützt. 
+Continuous Software Engineering ist interdisziplinär und bezieht im Gegensatz zu reinen agilen Softwareentwicklungsmodellen mehr als die reine Softwareentwicklung mit ein.
 Continuous Software Engineering lässt sich grob in folgende Teilbereiche einteilen:
 
 * Continuous Integration
@@ -38,6 +39,7 @@ Wenn die Software externe Ressourcen, beispielsweise Dateien, verwendet, müssen
 #### Artefakte
 
 Am Ende des Build-Prozesses muss die Anwendung in wiederverwendbare Artefakte, beispielsweise executables oder Container, verpackt werden. Damit kann die Anwendung auch außerhalb der Entwicklungsumgebung ausgeführt werden.
+Ein immer häufiger für diesen Schritt genutztes Werkzeug sind Container, wie sie zum Beispiel Docker bereitstellt. Dabei wird nicht nur die Anwendung eingepackt, sondern auch die Abhängigkeiten.
 
 #### Dokumentation
 
@@ -52,7 +54,7 @@ Viele Build-Tools sind Programmiersprachen-spezifisch. Für Java gibt es unter a
 * Ant
 
 Bei Ant muss sich der Entwickler selbst um alle Aspekte des Builds kümmern und beispielsweise Ablageorte für kompilierten Sourcecode selbst festlegen. Dadurch kann Ant aber auch auf fast jede Build-Umgebung angepasst werden.
-Ant orientiert sich stark an dem Unix-Build-Tool make, wird aber im Gegenstz zu diesem in XML geschrieben.
+Ant orientiert sich stark an dem Unix-Build-Tool make, wird aber im Gegensatz zu diesem in XML geschrieben.
 
 * Maven
 
@@ -70,7 +72,8 @@ Anders als bei Ant können bei Maven und Gradle (und einigen anderen Build-Tools
 
 ### Warum?
 
-Dadurch, dass Continuous Delivery vieles automatisiert und reproduzierbar macht, kann jede neue Version der Software daraufhin getestet werden, ob sie problemlos veröffentlicht werden kann. Somit werden Fehler schneller erkannt und können entsprechend behoben werden, bevor sie möglicherweise Monate später bei der Auslieferung der Software an den Kunden zu Problemen und Verzögerungen führen. Zudem kann die Software öfter als "gesamtes" getestet werden, und durch den hohen Grad an Automatisierung (und die bereits angesprochene Reproduzierbarkeit) ist sichergestellt, dass Fehler in der Testumgebung erkannt werden und nicht zu "false positives" führen.
+Dadurch, dass Continuous Delivery vieles automatisiert und reproduzierbar macht, kann jede neue Version der Software daraufhin getestet werden, ob sie problemlos veröffentlicht werden kann. Somit werden Fehler schneller erkannt und können entsprechend behoben werden, bevor sie möglicherweise Monate später bei der Auslieferung der Software an den Kunden zu Problemen und Verzögerungen führen. 
+Zudem kann die Software öfter als "gesamtes" getestet werden, und durch den hohen Grad an Automatisierung (und die bereits angesprochene Reproduzierbarkeit) ist sichergestellt, dass Fehler in der Testumgebung erkannt werden und nicht zu "false positives" führen.
 
 ### Vorteile der Automatisierung
 
@@ -126,8 +129,7 @@ Beim Continuous Testing testet das Testteam kontinuierlich den neuesten lauffäh
 ## Continuous Deployment
 
 Continuous Deployment ist eine Alternative zur Continuous Delivery, die zwar schneller, aber auch risikoreicher sein kann. Beim Continuous Deployment wird die Continuous Delivery Pipeline nicht sequentiell durchlaufen, sondern die Software nach minimalen Tests dem Endkunden zur Verfügung gestellt.
-Bei diesem Vorgehen bekommt der Kunde sehr schnell die neueste Version und der Entwickler bekommt sehr schnell Feedback zur neuen Version vom Kunden, aber das Risiko, dass Fehler in der Produktion landen, ist sehr hoch.
-  
+Bei diesem Vorgehen bekommt der Kunde sehr schnell die neueste Version und der Entwickler bekommt sehr schnell Feedback zur neuen Version vom Kunden, aber das Risiko, dass Fehler in der Produktion landen, ist sehr hoch.  
 
 # DevOps
 
@@ -137,7 +139,8 @@ Abbildung 2 - DevOps Cycle (Quelle: <a>[[PIEN18]](#ref_pien18)</a>)
 
 ## Definition
 
-DevOps ist ein Ansatz zur Prozessverbesserung in Unternehmen. Das heißt, Prozesse, insbesondere diejenigen, die IT  und IT-Operations betreffen, sollen schneller und effizienter werden. Als Teil von DevOps kann Continuous Software Engineering verwendet werden, dies ist jedoch nicht zwingend. Es geht darum, die am besten funktionierenden Prozesse für das Unternehmen zu finden. Anders als Continuous Software Engineering konzentriert sich DevOps dabei eher auf die Buisness Architektur des Unternehmens.
+DevOps ist ein Ansatz zur Prozessverbesserung in Unternehmen. Das heißt, Prozesse, insbesondere diejenigen, die IT und IT-Operations betreffen, sollen schneller und effizienter werden. 
+Als Teil von DevOps kann Continuous Software Engineering verwendet werden, dies ist jedoch nicht zwingend. Es geht darum, die am besten funktionierenden Prozesse für das Unternehmen zu finden. Anders als Continuous Software Engineering konzentriert sich DevOps dabei eher auf die Buisness Architektur des Unternehmens.
 DevOps ist Unternehmenskultur, keine Werkzeug zum lösen eines konkreten Problems. Werkzeuge des Continuous Engineering werden allerdings fast immer verwendet. Beispielsweise ist Automatisierung wichtiger Bestandteil von DevOps.
 
 ## Entwicklung/IT-Operations
@@ -203,8 +206,10 @@ ITIL ist nicht das selbe wie DevOps, allerdings gibt es für viele Prozesse in I
 ### Container
 
 Ein bei DevOps sehr häufig genutztes Tool sind Container. (Software-)Container kann man sich vorstellen als ein Image einer Laufzeitumgebung (wie z.b. eines Betriebssystems), welches speziell auf die Software zugeschnitten ist. Für Container kann Virtualisierung eingesetzt werden. Virtualisierung ist allerdings recht ressourcenintensiv, deshalb werden häufig Tools wie der containerd von Linux verwendet, um die vom Container genutzten Ressourcen und die vom Host-Betriebssystem genutzten auf Kernel-Ebene zu trennen. Ein Beispiel für ein solches Tool ist Docker von der Firma Docker Inc.
-Ein großer Vorteil von Container- (und teilweise auch Virtualisierungs-)umgebungen ist, sie ohne oder ohne größere Änderungen von z.b. einer Testumgebung in eine Produktionsumgebung umzuziehen. Dies reduziert den Administrationsaufwand erheblich und macht es sehr einfach, die Software zu deployen.
-Damit alle Plattformen, die Container unterstützen, kompatibel sind und ein Container ohne Anpassungen auf allen Plattformen lauffähig ist, wird Containerisierung von der Cloud Native Computing Foundation unter der Linux Foundation standardisiert. An der Cloud Native Computing Foundation sind viele große IT-Firmen beteiligt, beispielsweise Amazon, Microsoft und Google. Diese Firmen bieten mit AWS, Azure und Google Cloud ähnliche Cloud-Produkte, und über den Standard ist garantiert, dass Container, die bei einem Anbieter lauffähig sind, auch bei einem anderen Anbieter funktionieren.
+
+Ein großer Vorteil von Container- (und teilweise auch Virtualisierungs-)umgebungen ist, sie ohne oder ohne größere Änderungen von z.b. einer Testumgebung in eine Produktionsumgebung umzuziehen. Dies reduziert den Administrationsaufwand erheblich und macht es sehr einfach, die Software bereitzustellen.
+Damit alle Plattformen, die Container unterstützen, kompatibel sind und ein Container ohne Anpassungen auf allen Plattformen lauffähig ist, wird Containerisierung von der Cloud Native Computing Foundation unter der Linux Foundation standardisiert. 
+An der Cloud Native Computing Foundation sind viele große IT-Firmen beteiligt, beispielsweise Amazon, Microsoft und Google. Diese Firmen bieten mit AWS, Azure und Google Cloud ähnliche Cloud-Produkte, und über den Standard ist garantiert, dass Container, die bei einem Anbieter lauffähig sind, auch bei einem anderen Anbieter funktionieren.
 
 ### Docker
 
@@ -242,7 +247,6 @@ RUN apt-get install -y openjdk-8-jdk-headless
 VOLUME ["/var/hellojavadocker"]
 COPY HelloDocker.jar /var/hellojavadocker/
 CMD java -jar /var/hellojavadocker/HelloDocker.jar
-
 ```
 
 Listing 1 - Beispiel eines Dockerfile
@@ -260,14 +264,15 @@ Der Befehl COPY kopiert eine Datei vom Host in den Container, wo diese dann verw
 
 Abbildung 4 - Containerisierung vs. Virtualisierung (Quelle: <a>[[ROOD16]](#ref_rood16)</a>)
 
-Ähnlich wie bei der Virtualisierung wird auch bei der Containerisierung eine Gast-Betriebssystem innerhalb des Host-Systems emuliert, Containerisierung hat gegenüber der Virtualisierung aber den Unterschied, dass das Container-System sich Ressourcen mit dem Host-System teilt. Dies soll bei der Virtualisierung vermieden werden. Die obige Grafik soll den Unterschied verdeutlichen: Auf der linken Seite laufen mehrere vollständig voneinander getrennte Betriebssysteme zeitgleich auf einem System, auf der rechten läuft nur ein Betriebssystem und die Anwendung läuft mit ihren Abhängigkeiten in einem Container, der sich Betriebssystemressourcen mit anderen Containern teilt.
+Ähnlich wie bei der Virtualisierung wird auch bei der Containerisierung ein Gast-Betriebssystem innerhalb des Host-Systems emuliert, Containerisierung hat gegenüber der Virtualisierung aber den Unterschied, dass das Container-System sich Ressourcen mit dem Host-System teilt. Dies soll bei der Virtualisierung vermieden werden. Die obige Grafik soll den Unterschied verdeutlichen: Auf der linken Seite laufen mehrere vollständig voneinander getrennte Betriebssysteme zeitgleich auf einem System, auf der rechten läuft nur ein Betriebssystem. Die Anwendung läuft mit ihren Abhängigkeiten in einem Container, der sich Betriebssystemressourcen mit anderen Containern teilt.
 
 Im Falle der Containerisierung hat das zum Vorteil, das Ressourcen besser genutzt werden und der "Overhead" einer containerisierten Anwendung sehr viel geringer ist als der einer virtualisierten Anwendung. Dies erlaubt dem Entwickler, problemlos mehrere containerisierte Anwendungen gleichzeitig laufen zu lassen, was bei der Virtualisierung oft nicht ohne weiteres möglich ist. Docker ist kein System zur Virtualisierung, sondern zur Containerisierung.
 
 #### Betriebssystem-Container und Anwendungscontainer
 
 Es gibt zwei Arten von Container. Betriebssystem-Container sind Container, in denen wie in einer VM ein vollwertiges Betriebssystem läuft. Jeder Betriebssystem-Container hat ein eigenes Dateisystem, und in jedem Betriebssystem-Container können mehrere Anwendungen laufen. Ein solcher Ansatz wird beispielsweise von LXC verfolgt.
-Anwendungscontainer funktionieren anders. Anwendungscontainer haben kein eigenes Dateisystem, alle Daten werden außerhalb des Containers gespeichert. Jeder Container ist darauf ausgelegt, eine einzelne Anwendung auszuführen, und die ausgeführte Anwendung kann den Container selber nicht verändern. Dieser Ansatz ist schlanker als der der Betriebssystem-Container, allerdings kann die Isolierung vom Host-System auch nicht in gleichem Maße garantiert werden. Docker stellt Anwendungscontainer zur Verfügung.
+Anwendungscontainer gehen einen anderen Weg. Jeder Container ist darauf ausgelegt, eine einzelne Anwendung auszuführen, und die ausgeführte Anwendung kann den Container selber nicht verändern. Dieser Ansatz ist schlanker als der der Betriebssystem-Container, allerdings kann die Isolierung vom Host-System auch nicht in gleichem Maße garantiert werden. 
+Docker stellt Anwendungscontainer zur Verfügung.
 
 #### Tools für Docker
 
@@ -284,7 +289,7 @@ Diese Architektur ist auch als Microservice bekannt, deswegen soll hier nicht we
 #### Versionsverwaltung
 
 Docker hat eine integrierte Versionsverwaltung. Änderungen an einem Image werden innerhalb des Image in Form von Layern gespeichert. Mithilfe der Layer lässt sich die komplette Versionshistorie eines Image nachvollziehen.
-Zusätzlich zur Versionierung mithilfe von Layern können einzelne Versionsstände auch zum Release getaggt werden. Über Tags lassen sich unterschiedliche Versionsstände selektieren, wenn ein Container ausgeführt wird. Der standardmäßig von Docker genutzte Tag *latest* zeigt beispielsweise immer auf die neueste Version. Die Nutzung des Tags *latest* ist bei Nutzung eine Continuous Delivery/Deployment Pipeline nicht immer vorteilhaft: Bei der Nutzung von *latest* überprüft Docker mithilfe der Online-Plattform DockerHub, ob eine neuere Version des Image als die lokale verfügbar ist und installiert diese automatisch.
+Zusätzlich zur Versionierung mithilfe von Layern können einzelne Versionsstände auch zum Release getaggt werden. Über Tags lassen sich unterschiedliche Versionsstände selektieren, wenn ein Container ausgeführt wird. Der standardmäßig von Docker genutzte Tag *latest* sollte beispielsweise immer auf die neueste Version zeigen. Die Nutzung des Tags *latest* ist bei Nutzung eine Continuous Delivery/Deployment Pipeline nicht immer vorteilhaft: Bei der Nutzung von *latest* überprüft Docker mithilfe der Online-Plattform DockerHub, ob eine neuere Version des Image als die lokale verfügbar ist und installiert diese automatisch.
 		
 #### Sicherheit
 
@@ -303,6 +308,7 @@ Alle Informationen werden in JIRA in Tickets organisiert, die jeder am Projekt b
 ### Jenkins
 
 Jenkins ist ein serverbasiertes CI (Continuous Integration) und Continuous Delivery System. Jenkins ist open-source und ist darauf ausgelegt, möglichst viel zu automatisieren. Die Jenkins-Software basiert auf Java, es kann aber Quellcode in jeder beliebigen Programmiersprache gebaut un d getestet werde. Der Build- und Testprozess wird über Skripte gesteuert. Wo der zu bauende/testende Quellcode liegt, ist bei Jenkins (fast) egal: Mehrere VCS-Systeme wie Git und SVN werden unterstützt. 
+
 Mit der Erweiterung Blue Ocean kann Jenkins auch Continuous Delivery. Nach dem CI-Prozess können automatisiert beliebige Tests und Skripte ausgeführt werden. Blue Ocean unterstützt nicht nur sequentielle Pipelines, sondern kann Prozesse auch parallel ausführen. Das heißt, wenn ein Test auf mehreren Plattformen ausgeführt wird, werden die Tests auf allen Plattformen parallel ausgeführt. Wenn ein Test auf einer Plattform fehlschlägt, werden die Tests auf anderen Plattformen nicht beeinflusst.
 Blue Ocean kann mit populären Plattformen wie Github integriert werden. Das heißt, der Quellcode, der als Basis für den CI und Continuous Delivery Prozess dient, wird von Github geholt und das Ergebnis dieser Prozesse wird an Github zurückgemeldet und dort im Projekt angezeigt.
 
