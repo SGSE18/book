@@ -14,7 +14,7 @@ Autor: Björn Böing
         - [Infrastructure as a Service (IaaS)](#iaas)
         - [Platform as a Service (PaaS)](#paas)
         - [Software as a Service (SaaS)](#saas)
-        - [Function as a Service (FaaS)](#function-as-a-service)
+        - [Function as a Service (FaaS)](#faas)
         - [Everything as a Service (XaaS)](#everything-as-a-service)
     - [Bereitstellungsmodelle](#bereitstellungsmodelle)
         - [Public](#public)
@@ -156,7 +156,7 @@ Die Grundidee, dass einem Kunden die Aufgaben zur Wartung und Bezahlung von IT-I
 Im Vergleich zu ASPs stellen SaaS Anbieter in der Regel ihre eigene Software über die Cloud bereit, anstatt Software von Dritten anzubieten. Darüber hinaus wird für SaaS-Lösungen in den meisten Fällen einzig ein Browser benötigt und keine separat installierte Clientanwendung. Was den Unterschied in Wartung und Betrieb betrifft, so stellten ASPs für jeden ihrer Kunden eine eigene Instanz der gewünschten Anwendung zur Verfügung, während modere SaaS Lösungen, mit einem multimandantenfähiges System, mehrere Kunden über eine einzige Instanz versorgen können. Sowohl ASP als auch SaaS unterstützen, durch die Zentralisierung der laufenden Softwareanwendungen, das Prinzip von Continuous Delivery. Dies bedeutet, dass die Anwendungen, die über das Netzwerk bereitgestellt werden, in deutlich höherer Frequenz Updates erhalten können, ohne dabei den Endnutzer mit einbeziehen zu müssen. Anzumerken ist, dass SaaS Continuous Delivery stärker unterstützt, da dort die Client-Software in der Regel keine Updates benötigt. [[BIAN20]](#ref_bian20)
 
 
-<a name="function-as-a-service"></a>
+<a name="faas"></a>
 
 #### Function as a Service (FaaS)
 
@@ -339,7 +339,7 @@ Nutzer teilen, durch den steigenden Einsatz von Cloud-Anwendungen, viele private
 
 Solche Regelungen geben Cloud Anbietern viel Handlungsfreiraum, sodass in extremen Situationen auch Informationen ohne Durchsuchungsbeschluss offen gelegt werden können. Auf der anderen Seite können Anbieter in den meisten Ländern nicht dazu gezwungen werden Informationen an staatliche Behörden weiter zu geben. So hat ein amerikanisches Gericht entschieden, dass Microsoft nicht dazu gezwungen werden kann, Emails eines Nutzer an den amerikanischen Staat weiterzugeben, wenn diese Emails auf einem Server im Ausland liegen. Microsoft hat sich damals geweigert die Daten von einem irischen Server frei zu geben. [[EDWA17]](#ref_edwa17)
 
-Die seit dem 25.05.2018 wirksame EU-Datenschutz-Grundverordnung (EU-DSGVO) hat großen Einfluss auf die zu leistenden Datenschutzmaßnahmen von Unternehmen. Diese Grundverordnung beinhaltet zum einen, dass Unternehmen der EU dazu verpflichtet werden, dass personenbezogene Daten künftig innerhalb der EU-Grenzen gespeichert und _"nach datenschutzrechtlichen Bestimmungen und Vorgaben"_ verarbeitet werden müssen. Ob diese Vorgaben eingehalten werden, wird von Datenschutzexperten geprüft und Verstöße können dabei mit bis zu vier Prozent des Jahreseinkommens verantwortet werden. Außerdem sind Unternehmen auch dafür verantwortlich, dass diese sicherstellen, dass die EU-DSGVO von Drittanbietern eingehalten wird, bei denen ein Unternehmen Daten speichert. Dabei sind vor allem Unternehmen, die Clouddienste nutzen betroffen. Des weiteren müssen Einzelpersonen über jede Datenerhebung ausdrücklich und ausführlich informiert werden, was die Transparenz zum Umgang mit persönlichen Daten steigern soll. Die EU-DSGVO sieht auch vor, dass Daten auf Verlangen hin, möglichst unverzüglich, gelöscht oder korrigiert werden müssen. [[EUDS18]](#ref_euds18) [[NETW18]](#ref_netw18)
+Die seit dem 25.05.2018 wirksame EU-Datenschutz-Grundverordnung (EU-DSGVO) hat großen Einfluss auf die zu leistenden Datenschutzmaßnahmen von Unternehmen. Diese Grundverordnung beinhaltet zum einen, dass Unternehmen der EU dazu verpflichtet werden, dass personenbezogene Daten künftig innerhalb der EU-Grenzen gespeichert und _"nach datenschutzrechtlichen Bestimmungen und Vorgaben"_ verarbeitet werden müssen. Ob diese Vorgaben eingehalten werden, wird von Datenschutzexperten geprüft und Verstöße können dabei mit bis zu vier Prozent des Jahreseinkommens verantwortet werden. Außerdem sind Unternehmen auch dafür verantwortlich, dass diese sicherstellen, dass die EU-DSGVO von Drittanbietern eingehalten wird, bei denen ein Unternehmen Daten speichert. Dabei sind vor allem Unternehmen, die Clouddienste nutzen betroffen. Des Weiteren müssen Einzelpersonen über jede Datenerhebung ausdrücklich und ausführlich informiert werden, was die Transparenz zum Umgang mit persönlichen Daten steigern soll. Die EU-DSGVO sieht auch vor, dass Daten auf Verlangen hin, möglichst unverzüglich, gelöscht oder korrigiert werden müssen. [[EUDS18]](#ref_euds18) [[NETW18]](#ref_netw18)
 
 
 <a name="inflexibilität"></a>
@@ -559,7 +559,42 @@ Gartner, Inc. äußert sich wie folgt zu Amazon S3:
 
 ### AWS Lambda
 
-- FaaS
+Das bereits erläuterte [FaaS](#faas) Modell wird von Amazon mittels AWS Lambda angeboten. Dabei wird vollständig auf das Erzeugen von Infrastrukturen, wie Server, verzichtet und es kann sich gezielt auf die eigentliche Entwicklung von Funktionen konzentriert werden. Bezahlt werden muss nur für die Rechenzeit, die eine Funktion benötigt, wenn sie ausgeführt wird und auch nur dann, wenn sie tatsächlich ausgeführt wird. Neben dem Wegfallen von Verwaltungsaufgaben bezogen auf Server, bietet AWS Lambda eine automatische Skalierung der hinterlegten Funktionen, indem jede Anfrage separat und parallel ausgeführt wird. AWS Lambda unterstützt die folgenden Programmiersprachen beziehungsweise Lautzeitumgebungen:
+
+- C# (.NET Core 1.0 und 2.0)
+- Go 1.x
+- Java 8
+- Node.js (4.3, 6.10 und 8.10)
+- Python (2.7 und 3.6)
+
+Während die ersten drei lokal entwickelt werden müssen und anschließend in einer AWS Lambda Funktion hinterlegt werden können, steht für Node.js und Python ein Online-Editor bereit. Dieser Online-Editor ermöglicht die Bearbeitung von mehreren Dateien innerhalb eines Projektes mit Syntaxhighlighting und automatischer Codevervollständigung. Eine einfache AWS Lambda Funktion, hier in JavaScript geschrieben, sieht wie folgt aus:
+
+```javascript
+exports.handler = (event, context, callback) => {
+    // Succeed with the string "Hello world!"
+    callback(null, 'Hello world!');
+};
+```
+
+Bei der Erstellung von AWS Lambda Funktionen kann einerseits mit dem oben gezeigten Beispiel begonnen werden oder andererseits auch auf sogenannte Blueprints zurückgegriffen werden. Diese stellen von anderen Entwicklern veröffentliche Funktionen dar, die mit unterschiedlichen Lizenzen versehen sind. Darüberhinaus können auch vollständige Repositories genutzt werden, die beispielsweise fertige Erweiterungen von Amazon Alexa darstellen. Über das Webinterface können des Weiteren auch Test-Events hinterlegt werden, um die entwickelten Funktionalitäten zu überprüfen.
+
+Damit Lambda Funktionen Abruf ausgeführt werden können, muss ein sogenannter _"Trigger"_ definiert werden. Der Aufruf einer bestimmten REST-Schnittstelle stellt ein klassischen Beispiel dar, mit denen Serverless Anwendungen umgesetzt werden. Das bedeutet, dass Anwendungen REST-Anfragen schicken, hinter denen kein großes, umfangreiches Backend steht, sondern einzelne Funktionen. Die REST-API dient in solchen Fällen einzig der Orchestrierung verschiedener Funktionen.
+
+<a name="img_aws_lambda_example"></a>
+<div style="text-align:center">
+    <img alt="AWS Lambda Beispiel: Image Thumbnail Creation" src="./images/aws_lambda_example.png"/>
+    <br>
+
+Abb. 7: AWS Lambda Beispiel: Image Thumbnail Creation - Quelle: [[AWS18q]](#ref_aws18q)
+
+</div>
+
+Neben direkten Aufrufen, kann AWS Lambda auch auf speziell hinterlegte Events reagieren. Zu diesen gehören beispielsweise Nachrichten an ein Mobile/IoT Backend, Änderungen in einem Repository von CodeCommit und auch Dateiablagen in einem S3 Bucket. Funktionen von AWS Lambda können außerdem Zugriff auf weitere APIs und Ressourcen haben, die mittels einer passenden IAM-Rolle zugewiesen werden.
+
+Die [Abbildung 7](#img_aws_lambda_example) zeigt das beispielhafte Zusammespiel von Amazon S3 mit AWS Lambda. Dieses Szenario wird von _"The Seattle Times"_ genutzt, um Bildgrößen automatisch an unterschiedliche Geräte wie Desktop-PCs, Tablets und Smartphones anzupassen. In diesem Beispiel reagiert AWS Lambda auf das Hinzufügen von neuen Fotos in einen S3 Bucket und führt daraufhin Code aus, der zu dem neuen Bild die passenden Größen generiert. 
+
+[[AWS18q]](#ref_aws18q) [[AWS18r]](#ref_aws18r)
+
 
 ## Cloud Design Pattern
 
@@ -700,6 +735,20 @@ Gartner, Inc. äußert sich wie folgt zu Amazon S3:
     </tr>
     <tr>
         <td>URL: <a>https://aws.amazon.com/de/s3/</a> (abgerufen am 01.07.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_aws18q">[AWS18q]</a></td>
+        <td style="width:90%">Amazon AWS: AWS Lambda</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://aws.amazon.com/de/lambda/</a> (abgerufen am 01.07.2018)</td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:10%"><a name="ref_aws18r">[AWS18r]</a></td>
+        <td style="width:90%">Amazon AWS: AWS-Fallstudie: The Seattle Times</td>
+    </tr>
+    <tr>
+        <td>URL: <a>https://aws.amazon.com/de/solutions/case-studies/the-seattle-times/</a> (abgerufen am 01.07.2018)</td>
     </tr>
     <tr>
         <td rowspan="2" style="width:10%"><a name="ref_bian20">[BIAN20]</a></td>
