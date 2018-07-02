@@ -794,7 +794,7 @@ Die [Abbildung 7](#img_aws_lambda_example) zeigt das beispielhafte Zusammespiel 
 
 Wie in allen Bereichen der Softwareentwicklung, gibt es auch für Cloud Computing Leitfäden für die Verwendung und Implementierung von Anwendungen, genannt _"Design Patterns"_. Diese Patterns sind in der Regel so gestaltet, dass sie die Lösung zu einem konkreten Problem darstellen oder aber als generelle Hinweise zu sehen sind, die die Entwicklung und den Betrieb von Softwareanwendungen vereinfachen sollen.
 
-Das Buch _"Cloud Design Patterns"_ der Microsoft patterns & practive group ([[HOME14]](#ref_home14)) beinhaltet insgesamt 24 Design Patterns, die jeweils ein oder mehrere Problemfelder im Bereich Cloud Computing beschreiben und Lösungen erläutern. Diese Problemfelder sind:
+Das Buch _"Cloud Design Patterns"_ der Microsoft patterns & practices group ([[HOME14]](#ref_home14)) beinhaltet insgesamt 24 Design Patterns, die jeweils ein oder mehrere Problemfelder im Bereich Cloud Computing beschreiben und Lösungen erläutern. Diese Problemfelder sind:
 
 - __Erreichbarkeit__<br>
 Indikator für den Zeitraum, in dem ein System oder eine Anwendung erreichbar ist und funktioniert. Wird in der Regel in Prozent der Uptime eines System angegeben. Systemfehler, Angriffe und Auslastungen sind unter anderem Faktoren, die die Erreichbarkeit beeinflussen. 
@@ -803,22 +803,22 @@ Indikator für den Zeitraum, in dem ein System oder eine Anwendung erreichbar is
 Stellt einen Kernfaktor im Cloud Bereich dar und beeinflusst viele Qualitätsmerkmale. Typischerweise werden Daten dezentral gelagert, um eine gute Performanz, Skalierbarkeit und Erreichbarkeit zu erreichen. Dies bringt allerdings Herausforderungen mit sich, wie beispielsweise Datenkonsistenz und Synchronisierung.
 
 - __Design und Implementierung__<br>
-Beim Designen und Implementieren von Cloudanwendungen müssen eine Vielzahl von Entscheidungen getroffen werden, die unter anderem Wartbarkeit, Wiederverwendbarkeit und Bereitstellung betreffen. Diese Entscheidungen haben enorme Auswirkungen auf die Gesamtkosten und Qualität eines Produktes
+Beim Designen und Implementieren von Cloud Anwendungen müssen eine Vielzahl von Entscheidungen getroffen werden, die unter anderem Wartbarkeit, Wiederverwendbarkeit und Bereitstellung betreffen. Diese Entscheidungen haben enorme Auswirkungen auf die Gesamtkosten und Qualität eines Produktes
 
 - __Benachrichtigungen__<br>
 Durch die Dezentralisierung der Cloud wird eine Infrastruktur benötigt, die Benachrichtigungen und Kommunikation zwischen einzelnen Komponenten, Diensten und Anwendungen erlaubt. Dies wird häufig über asynchrone Nachrichten abgewickelt, was sehr vorteilhaft ist, aber auch Aufgaben zu Themen wie Idempotenz mit sich bringt.
 
 - __Management und Überwachung__<br>
-Da Cloudanwendungen in der Regel in einem externen Rechenzentrum laufen und/oder auf Basis von [IaaS](#iaas)/[PaaS](#paas) von Drittanbieter, können Probleme zum Management und zur Überwachung der bezogenen Ressourcen enstehen. Es müssen Informationen bereitgestellt werden, anhand derer der Status von laufenden Systemen überwacht werden kann.
+Da Cloud Anwendungen in der Regel in einem externen Rechenzentrum laufen und/oder auf Basis von [IaaS](#iaas)/[PaaS](#paas) von Drittanbieter, können Probleme zum Management und zur Überwachung der bezogenen Ressourcen enstehen. Es müssen Informationen bereitgestellt werden, anhand derer der Status von laufenden Systemen überwacht werden kann.
 
 - __Performanz und Skalierbarkeit__<br>
 Performanz stellt einen Indikator für die Reaktionsfähigkeit eines Systems dar, die für die Ausführung einer Aufgabe erreicht wird. Skalierbarkeit hingegen ist der Indikator dafür, wieviel Last ein System verträgt, ohne, dass die Performanz darunter leidet. Vor allem im Cloud Computing Bereich müssen Systeme automatisch hoch- und herunterskalieren können, um unvorhergesehenen Lastspitzen entgegen zu wirken, aber auch, um bei geringer Last Kosten zu sparen.
 
 - __Stabilität__<br>
-Die Stabilität eines Systems beschreibt die Fähigkeit, Ausfälle zu erkennen und diese abzufangen. Die Vernetzung von Cloudanwendungen bringt viele Abhängigkeiten mit sich, sodass Systemausfälle von zentralen Diensten zu ernsthaften Problemen und Inkonsistenzen führen kann. Stabile Systeme erkennen Ausfälle frühzeitig und wirken diesen schnell und effektiv entgegen.
+Die Stabilität eines Systems beschreibt die Fähigkeit, Ausfälle zu erkennen und diese abzufangen. Die Vernetzung von Cloud Anwendungen bringt viele Abhängigkeiten mit sich, sodass Systemausfälle von zentralen Diensten zu ernsthaften Problemen und Inkonsistenzen führen kann. Stabile Systeme erkennen Ausfälle frühzeitig und wirken diesen schnell und effektiv entgegen.
 
 - __Sicherheit__<br>
-Die öffentliche Zugänglichkeit von Cloudanwendungen, über das Internet, bringt eine Vielzahl von Gefahren mit sich, die durch geeigneten Sicherheitmaßnahmen abgewendet werden müssen. Diese Maßnahmen müssen schadhafte Angriffe unterbinden, Ungefugten den Zugriff verweigern und sensible Daten schützen.
+Die öffentliche Zugänglichkeit von Cloud Anwendungen, über das Internet, bringt eine Vielzahl von Gefahren mit sich, die durch geeigneten Sicherheitmaßnahmen abgewendet werden müssen. Diese Maßnahmen müssen schadhafte Angriffe unterbinden, Unbefugten den Zugriff verweigern und sensible Daten schützen.
 
 
 In den nachfolgenden Abschnitten sollen vier der von Microsoft veröffentlichen Design Pattern vorgestellt werden und dabei auch externe Quellen und Anregungen mit einfließen.
@@ -883,7 +883,7 @@ Die Funktion eines IdPs können auch Security Token Services (STSs) übernehmen.
 
 ### Sharding
 
-Das Speichern von Daten auf einem einzigen zentralen Server kann, vor allem bei großen Cloudanwendungen, von folgenden Einschränkungen betroffen werden:
+Das Speichern von Daten auf einem einzigen zentralen Server kann, vor allem bei großen Cloud Anwendungen, von folgenden Einschränkungen betroffen werden:
 
 - __Mangelnder Speicherplatz__<br>
 Gerade bei großen Anwendungen kann die Datenmenge in kurzer Zeit enorm anwachsen. Zwar kann mit weiteren Festplatten der verfügbare Speicher erhöht werden, dies stellt aber auf langfristiger Sicht nicht immer eine endgültige Lösung dar.
@@ -1246,7 +1246,7 @@ Ein neues Buzzword im Bereich Cloud Computing stellt der Begriff _"Cloud Native 
     </tr>
     <tr>
         <td rowspan="2" style="width:10%"><a name="ref_lark18">[LARK18]</a></td>
-        <td style="width:90%">Larkin, Andrew ; Cloudacademy, 26.06.2018</td>
+        <td style="width:90%">Larkin, Andrew ; Cloudacademy, 26.06.2018: Disadvantages of Cloud Computing</td>
     </tr>
     <tr>
         <td>URL: <a>https://cloudacademy.com/blog/disadvantages-of-cloud-computing/</a> (abgerufen am 29.06.2018)</td>
@@ -1340,7 +1340,7 @@ Ein neues Buzzword im Bereich Cloud Computing stellt der Begriff _"Cloud Native 
         <td style="width:90%">Rouse, Margaret ; TechTarget, 09.2017: Infrastructure as a Service (IaaS)</td>
     </tr>
     <tr>
-        <td>URL: <a>https://searchcloudcomputing.techtarget.com/definition/iaas-IaaS</a> (abgerufen am 21.06.2018)</td>
+        <td>URL: <a>https://searchcloudcomputing.techtarget.com/definition/Infrastructure-as-a-Service-IaaS</a> (abgerufen am 21.06.2018)</td>
     </tr>
     <tr>
         <td rowspan="2" style="width:10%"><a name="ref_rous17b">[ROUS17b]</a></td>
