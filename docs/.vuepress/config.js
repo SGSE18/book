@@ -76,7 +76,8 @@ module.exports = {
       {
         title: 'Embedded',
         children: [
-          '/embedded/'
+          '/embedded/',
+          '/iot/'
         ]
       },
       {
