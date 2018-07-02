@@ -12,19 +12,23 @@ Die starke Verbreitung von KI zum Erreichen unterschiedlichster Ziele hat dazu b
 ### Befürworter
 
 Eric Schmidt:
+
 Der ehemalige CEO von Google Eric Schmidt ist einer der bekanntesten Befürworter der Verbreitung von künstlicher Intelligenz. Schmidt arbeitet seit 2009 als Berater des US-Verteidigungsministeriums und ist unter anderem an Project Maven beteiligt. Er vertritt die Meinung, dass künstliche Intelligenz vom US-Militär sowohl defensiv als auch offensiv eingesetzt werden können sollte. [[THEV18]](#ref_thev18)
 
 Ronald Arkin:
+
 Ronald Arkin ist ein us-amerikanischer Wissenschaftler, der auf dem Gebiet der Robotik forscht und lehrt.[[DEUT13]](#ref_deut13) In den vergangenen Jahren hat sich Arkin mit der Forschung an autonomen Waffensystemen und dem Gebiet der Roboterethik beschäftigt. Er ist der Ansicht, dass durch den Einsatz von Robotern in der Kriegsführung Probleme wie zivile Verluste eingeschränkt werden können, da Maschienen keine Gefühle wie Hass oder Rache haben. Diese Eigenschaft kann laut Arkin dazu benutzt werden, um Waffensysteme zu erschaffen, die menschliche Soldaten ersetzten können. Obwohl eine vollständige Vermeidung von Kollateralschäden nicht möglich sei, könnten Roboter dennoch ethischer handeln und so zumindestens ungewollte Schäden minimieren. Arkin legt nach eigener Aussage jedoch Wert darauf, dass trotz des Einsatzes von autonomen Waffensystemen für Kampfeinsätze stets der Mensch die Prinzipien festlegt, nach denen ein Roboter handelt und auch die Verantwortung für die einzelnen Einsätze trägt.
 
 
 ### Kritiker
 
 Elon Musk:
+
 Der Tesla und SpaceX Chef Elon Musk gehört zu den prominentesten Kritikern der schnellen Entwicklung der künstlichen Intelligenz und hat in der Vergangenheit immer wieder auf die Gefahren hingewiesen, die seiner Meinung nach von der Technologie ausgehen. Daher sind die Szenarien, die Musk in der Zukunft für möglich hält, durchaus düster:
 Er sieht in einer unkontrollierten Entwicklung der KI eine große Gefahr für die gesamte Menschheit, die noch größer ist, als die von Atomwaffen ausgehende Bedrohung. [[HEIS18]](#ref_heis18)  Daher ist seiner Meinung nach zur Zeit das nationale Streben von Staaten nach der Vorherschaft im Bereich der künstlichen Intelligenz der wahrscheinlichste Auslöser für einen dritten Weltkrieg. [[FAZ17]](#ref_faz17)  Um diese Gefahr zu begrenzen fordert Musk die Einführung von Regulierungen für die Forschung im Bereich der künstlichen Intelligenz, so wie deren Anwendung. Um die Einhaltung dieser Regeln zu gewährleisten, müsse es jedoch eine öffentliche Stelle geben, die vollständige Einsicht erhält und so sicherstellen kann, dass ausschließlich sichere Techniken benutzt werden. [[HEIS18]](#ref_heis18)
 
 Stephen Hawking:
+
 Ein weiterer Kritiker der schnellen Entwicklung der künstlichen Intelligenz ist der britische Astrophysiker Stephen Hawking, der seit vielen Jahren bis noch kurz vor seinem Tod im März 2018 auf die Gefahren hinwies, die er in einer unkontrollierten Weiterentwicklung von KI sieht. Die Bedrohungen, die Hawking aufzeigt, reichen von einer Ersetzung des Menschen am Arbeitsmarkt, was zu einer hohen Arbeitslosenquote weltweit führen würde, bis hin zu einer Auslöschung der Menschheit durch ihre eigenen Maschienen. [[HEIS16a]](#ref_heis16a) [[HEIS16b]](#ref_heis16b)
 Da Stephen Hawking sich jedoch selber als Optimist betrachtete, glaubte er, dass die Risiken der KI rechtzeitig erkannt und eingedämmt werden können.
 
@@ -50,27 +54,32 @@ Zu Beginn dieser Betrachtung muss definiert werden, worauf der Fokus gelegt werd
 Um die Ursachen eines solchen schädlichen Fehlverhaltens finden zu können, beschreiben Dario Amodei et al. fünf abstrakte Fehlerquellen:
 
 1. Negative Seiteneffekte:
+
 Es muss verhindert werden, dass bei der Erfüllung der eigentlichen Aufgabe andere, nicht erwünschte  Ereignisse stattfinden. Veranschaulicht könnte dies z.B. ein Putzroboter sein, der zwar einen Raum erfolgreich sauber gemacht hat, jedoch währenddessen eine Vase umgeworfen hat, da er dadurch seine Aufgabe schneller erfüllen konnte. Um ein solches Verhalten zu verhindern kann versucht werden, mit Hilfe der Belohnungsfunktion einzelne Handlungen zu bestrafen. Dies hat jedoch den Nachteil, dass es aufgrund der Anzahl nur sehr schwer möglich ist, alle möglichen unerwünschten Szenarien zu bedenken und einzeln zu verbieten.
 Ein weiterer Ansatz zur Vermeidung von ungewollten Einflüssen einer KI auf ihre Umwelt ist es, einen Ursprungszustand zu definieren und basierend auf der Abweichung von diesem die Belohnung der KI zu reduzieren. Es ergibt sich allerdings das Problem, dass sich viele Umgebungen stetig verändern, da z.B. andere Aktoren wie Menschen vorhanden sind und so die KI nicht alleine für Abweichungen vom Startzustand verantwortlich ist.
 Ein weiterer Ansatz ist daher das Erlernen von Vorgehensweisen, die den Einfluss auf die Umgebung minimieren, indem auch hier Methoden aus der KI eingesetzt werden. Dies hat vor allem den Vorteil, dass abstraktere Konzepte erlernt werden können und so z.B. der Putzroboter nicht nur eine bestimmte Vase nicht umwirft, sondern auch andere Objekte nicht beschädigt.
 
 2. Reward Hacking:
+
 Beim sogenannten Reward Hacking handelt es sich um ein Verhalten von künstlicher Intelligenz, bei dem ein Weg gefunden wird, die vom Menschen vorgegebene Belohnungsfunktion zu maximieren, indem eine Vorgehensweise genutzt wird, die zwar formal korrekt ist, jedoch nicht mit den Intentionen des Erschaffers übereinstimmt.
 Dies kann von offensichtlichen Lücken wie einem Putzroboter der seine Kameras ausschaltet und folglich keinen Schmutz mehr wahrnimmt bis hin zu Implementierungsdetails, z.B. ein so schlechtes Verhalten das einen Bufferunderflow erzeugt und auf diesem Weg die Belohnungsfunktion maximiert, reichen. Mit steigender Komplexität der Systeme steigt auch die Wahrscheinlichkeit, dass es möglich ist, die der KI zugrundegelegte Belohnungsfunktion auf eine unerwartete Weise zu erfüllen. Es müssen daher Wege gefunden werden, genau dies zu verhindern.
 Ein erster Schritt zur Verhinderung von Reward Hacking ist es, während der Entwicklung einen Fokus darauf zu legen, dass von technischer Seite z.B. kein Bufferunderflow möglich ist.  Diese Herangehensweise kann zwar nicht verhindern, dass logische Lücken genutzt werden können um an Belohnung zu gelangen, jedoch wird die Gesammtwahrscheinlichkeit für Reward Hacking gesenkt.
 Ein weiterer Ansatz ist das sogenannte Reward Capping. Hierbei wird der tatsächlich erreichte Belohnungswert mit einem erwarteten verglichen, um Fälle zu finden, in denen eine zu hohe Belohnung erreicht worden ist und somit wahrscheinlich Reward Hacking stattgefunden hat.
 
 3. Mangelnde Trainingsdaten:
+
 Durch die steigende Komplexität der Aufgaben, die von KI-Systemen verrichtet werden, kann es vorkommen, dass es an verfügbaren Trainingsdaten mangelt. Soll z.B. die Sauberkeit eines kompletten Büros durch einen Menschen bewertet werden, ist es zu aufwändig dies für tausende Zustände zu tun. Aus diesem Grund muss die betreffende KI mit Hilfe weniger Beispieldaten unter Zuhilfenahme einfaerer Metriken wie z.B. die Sauberkeit des Bodens oder dem Vorhandensein von Spinnenweben die menschliche Meinung herleiten. Dies kann jedoch dazu führen, dass das eigentliche Ziel nicht vollständig abgebildet wird. Diese Abweichung kann allerdings reduziert werden, indem gelegentlich direktes menschliches Feedback zum aktuellen Zustand gegeben wird, welches dann zur Verbesserung genutzt werden kann.
 Außerdem kann versucht werden, aus dem Verhalten der Menschen, die in Kontakt mit dem KI-System kommen Rückschlüsse zu ziehen und so damit indirektes Feedback zu bekommen: wie oft greift z.B. der Mensch selber zu unterschiedlichen Putzutensielien um Schmutz zu beseitigen, den der Roboter nicht berücksichtigt hat.
 
 4. Sicheres Experimentieren:
+
 Soll sich ein KI-System während des Betriebs verbessern, ist es unter Umständen notwendig, dass selbstständig Versuche durchgeführt werden, um neue und eventuell bessere Wege zur Erfüllung einer Aufgabe zu finden. Allerdings kann es vorkommen, dass diese Versuche negative Auswirkungen für die Umwelt oder das experimentierende System selber mit sich bringen. 
-Will z.B. ein Putzroboter herausfinden, wie eine Steckdose am besten zu säubern ist, könnte er versuchen einen nassen Mop zu verwenden, was einen Stromausfall oder schlimmere Folgen nach sich ziehen könnte. Es muss daher also sichergestellt werden, dass die KI Experimente nur innerhalb eines Rahmens ausführt in der sie keine Bedrohung für sich selber oder andere darstellt. Eine einfache jedoch effektive Möglichkeit einen solchen Rahmen zu schaffen besteht darin, der KI einen Menschen zur Vervügung zu stellen, der die Versuche überwacht und einschreiten kann, sollte dies notwendig werden. 
+Will z.B. ein Putzroboter herausfinden, wie eine Steckdose am besten zu säubern ist, könnte er versuchen einen nassen Mopp zu verwenden, was einen Stromausfall oder schlimmere Folgen nach sich ziehen könnte. Es muss daher also sichergestellt werden, dass die KI Experimente nur innerhalb eines Rahmens ausführt in der sie keine Bedrohung für sich selber oder andere darstellt. Eine einfache jedoch effektive Möglichkeit einen solchen Rahmen zu schaffen besteht darin, der KI einen Menschen zur Vervügung zu stellen, der die Versuche überwacht und einschreiten kann, sollte dies notwendig werden. 
 Problematisch hierbei ist jedoch einerseits, dass eventuell zu viele Versuche ausgeführt werden, als dass eine menschliche Überwachung praktikabel ist und andererseits arbeiten die meisten KIs mit einer Geschwindigkeit die so hoch ist, dass ein Mensch den Vorgängen nicht folgen und somit auch nicht eingreifen kann.
 Ein weiterer effektiver Ansatz zur Minimierung der Auswirkungen von Versuchen einer KI ist die Verlagerung dieser in eine virtuelle Welt. Die Simulation muss jedoch sehr genau mit der realen Umgebung der KI übereinstimmen so dass diese Vorgehensweise je nach Szenario mit einem großen Aufwand verbunden sein kann. Zudem kann es vorkommen, dass die zu simulierende Welt so komplex ist, dass ein Experimentieren der KI in der Realität nicht vermeidbar ist.
 
 5. Umgebungswechsel:
+
 Eine weitere Quelle für gefährliches Verhalten einer künstlichen Intelligenz ergibt sich, wenn diese aus ihrer antrainierten Umgebung in eine neue gesetzt wird, in der andere Bedingungen wie z.B. aus Sicht der KI unbekannte Aktoren oder Gegenstände vorhanden sind. Wurde z.B. ein Putzroboter in einem Büro trainiert und anschließend in einer Fabrik eingesetzt, könnte er Verhalten zeigen, das in seiner neuen Umgebung, an die er noch nicht angepasst ist, Gefahren mit sich bringt.
 Eine solche Unangepasstheit kann auch dazu führen, dass die KI ihre eigenen Fehler nicht erkennt oder sie sogar als gut bewertet. Es ist daher sinnvoll, dass eine KI selber gut einschätzen kann, mit welcher Wahrscheinlichkeit die Aktionen die sie ausführt fehlerhaft sind. Wird ein System in eine neuartige Umgebung gesetzt, ist also häufig ein ähnliches Verhalten erwünscht, wie es Menschen in einer neuen Situation zeigen: Es muss erkannt werden, dass noch keinerlei Herangehensweisen bekannt sind und es sollte versucht werden, sich ohne größe Einflüsse auf die Umwelt vorsichtig an die neuen Gegebenheiten anzupassen. Zusätzlich hilfreich bei einer solchen Anpassung kann es sein, auf die direkte Hilfe des Menschen oder den Lernstand einer ähnlichen Maschiene zurückzugreifen.
 
