@@ -256,10 +256,9 @@ Für Webanwendungen gewinnt Front-End immer mehr an Bedeutung, während Back-End
 | __Vorteile__                    | __Nachteile__                                          |
 |---------------------------------|--------------------------------------------------------|
 | Unabhängig                      | Erhöhter Betriebsaufwand                               |
-| Einfacher einzusetzen           | Erhöhte Komplexität (z.B. Infrastruktur, Kommunikation)|
-| Hohe Testbarkeit                | Schlechtere Performance                                |
-| Unabhängige Technologiestacks   | Restrukturierung kann sehr komplex werden              |
-| Unabhängig im Fehlerfall        |                                                        |
+| Hohe Testbarkeit                | Erhöhte Komplexität (z.B. Infrastruktur, Kommunikation)|
+| Unabhängige Technologiestacks   | Schlechtere Performance                                |
+| Unabhängig im Fehlerfall        | Restrukturierung kann sehr komplex werden              |
 | Parallele Entwicklung möglich   |                                                        |
 
 Tabelle angepasst aus <a>[[LECH17]](#ref_Lech17)</a>
