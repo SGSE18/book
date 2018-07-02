@@ -41,9 +41,11 @@ Quelle: <a>[[SUN14]](#ref_sun14)</a>
 Quelle: Fjodor van Veen, Asimov Institute 
 
 
-Im Gegensatz zu _feed-forward_ Netzen, sind RNNs in der Lage, unmittelbar vorhergehende Entscheidungen zu speichern und in die Berechnung miteinzubeziehen. Daher finden RNNs vorallem Anwendung bei sequenziellen Datenströmen, dazu zählen beispielsweise Sensordaten, Spracherkennung oder Maschinenübersetzung.
+Im Gegensatz zu _feed-forward_ Netzen, sind RNNs in der Lage, unmittelbar vorhergehende Entscheidungen zu speichern und in die Berechnung miteinzubeziehen. Dies bedeutet, dass ein trainiertes RNN Model sich nicht rein statisch verhält, sondern gänzlich neue Informationen kurzzeitig erinnern kann und daher flexibler ist. In dieser Hinsicht ähnelt das Netzwerk der menschlichen Neuronenaktivität.
+Daher finden RNNs vorallem Anwendung bei sequenziellen Datenströmen, dazu zählen beispielsweise Sensordaten, Spracherkennung oder Maschinenübersetzung.
 
-## Long short-term memory (LSTM)
+Besonders bei Sprachverarbeitung (_natural language processing_) ist direkt ersichtlich, dass eine Einbeziehung vorangegangener Wörter bzgl. Grammatik und Satzstruktur anderen Ansätzen deutlich überlegen ist.
+
 
 # Quellen:
 

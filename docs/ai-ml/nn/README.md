@@ -60,9 +60,22 @@ t(d): Erwarteter Wert zu Trainingbeispiel _d_
 
 Die Quadratfunktion sorgt für einen, in jedem Fall, positiven Fehlerwert und somit für eine bessere Vergleichbarkeit, unabhängig davon ob der Ausgabewert unter- oder überschritten wird.
 
+<img src="./images/total-error.png" width="200" style="margin:20px">
+
+Für den Gesamtfehler eines neuronalen Netzes werden die Fehlerwerte jedes einzelnen Neurons summiert.
+
 ## Backpropagation
 
-## Optimum
+Damit der Einfluss jedes einzelnen Neurons auf den Fehler gemessen und die Gewichte individuell angepasst werden können ist die Fehlerrückführung (_back propagation_) essentiell für das Training neuronaler Netze.
+
+Ziel ist es, den individuellen Fehler zu verringern, dazu wird durch Differenzierung der Fehlerfunktion (Gradientenabstieg) jedes einzelnen Neurons die Steigung der Fehlerfunktion berechnet und das Gewicht so verschoben, dass die Steigung minimiert wird, bis schließlich nach einigen Iterationen jedes Neuron sein globales Minimum erreicht hat.
+
+<img src="./images/gradient-desc.png" width="500" style="margin:20px">
+Quelle (Abb. bearbeitet): https://rasbt.github.io/mlxtend/user_guide/general_concepts/gradient-optimization/
+
+In folgender Visualisierung wird deutlich wie das globale Minimum für ein Neuron mit zwei Gewichten (zwei Eingabewerten) durch Gradientenabstieg erfolgt.
+
+<img src="./images/grad-2d.png" width="500" style="margin:20px">
 
 
 ## Literaturverzeichnis

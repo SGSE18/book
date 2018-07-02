@@ -5,7 +5,7 @@ Sie bestehen aus zwei getrennten neuralen Netzwerken: einem generativem und eine
 
 In einem beliebten Beispiel würde ein _discriminator_ Netzwerk versuchen echte Werke eines Kunstmalers, von Fälschungen zu unterscheiden. Das _generator_ Netzwerk, dass die Eingabedaten für den _discriminator_ liefert, würde wiederum versuchen immer bessere Fälschungen zu erzeugen. Aus dem Zusammenspiel der beiden Netzwerke, lernt das _discriminator_ Netzwerk immer besser zwischen Echtheit und Fälschung zu unterscheiden, während das _generator_ Netzwerk immer bessere Fälschungen konstruiert.
 
-Anwendung findet dieser Ansatz vorallem wenn nicht genügend Trainingsdaten vorhanden sind bzw. sich durch eine Vervielfachung bedeutend stabilere Modelle trainieren lassen.  Der Erfolg von _Deep Learning_ beruht auf einer enorm großen Anzahl an Daten um generalisieren zu können. Da ein generatives Netz aus einem bestehenden Trainingsdatensatz eine vielfache Anzahl an neuen Daten erzeugen kann...
+Anwendung findet dieser Ansatz vorallem wenn nicht genügend Trainingsdaten vorhanden sind bzw. sich durch eine Vervielfachung bedeutend stabilere Modelle trainieren lassen.  Der Erfolg von _Deep Learning_ beruht auf einer enorm großen Anzahl an Daten um generalisieren zu können. Ein generatives Netz kann aus einem bestehenden Trainingsdatensatz eine vielfache Anzahl an neuen Daten erzeugen. (_augmentation_)
 
 
 
