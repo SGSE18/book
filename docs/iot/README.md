@@ -10,14 +10,14 @@ Autor: Lukas Stuckstette
 [[VEC]](#VEC)
 
 ## Einleitung
-Internet Of Things (IoT), zu Deutsch ‘Internet der Dinge’, beschreibt ein Netzwerk physikalischer Dinge wie Smart-Home-Geräte, Autos oder generell eingebettete Systeme. Das Netzwerk ermöglicht es diesen mit Sensoren und Akteuren ausgestatteten Dingen sich miteinander zu verbinden,zu kommunizieren und Daten auszutauschen.[[QUS18]](#QUS18)
+Internet Of Things (IoT), zu Deutsch ‘Internet der Dinge’, beschreibt ein Netzwerk physikalischer Dinge wie Smart-Home-Geräte, Autos oder generell eingebettete Systeme. Das Netzwerk ermöglicht es diesen mit Sensoren und Akteuren ausgestatteten Dingen sich miteinander zu verbinden, zu kommunizieren und Daten auszutauschen.[[QUS18]](#QUS18)
 
-Historisch gesehen basieren die Grundlagen des IoT auf verschiedenen Disziplinen wie zum Beispiel Echtzeit Analysen, maschinelles Lernen, Big Data, eingebetteten Systemen und vielen mehr[[ROU18]](#ROU18). Bereits 1982 wurde an der Carnegie Mellon University in den USA ein modifizierter Getränkeautomat entwickelt, welcher in der Lage war über das Internet den Füllstand und die Getränketemperatur mitzuteilen [[PAL14]](#PAL14). Der Begriff “Internet of Things” wurde wahrscheinlich erstmals 1999 in einer Präsentation des Unternehmens Procter & Gamble von Kevin Ashton genannt.[[ASH09]](#ASH09)
+Historisch gesehen basieren die Grundlagen des IoT auf verschiedenen Disziplinen wie zum Beispiel Echtzeit Analysen, maschinellem Lernen, Big Data, eingebetteten Systemen und vielen mehr[[ROU18]](#ROU18). Bereits 1982 wurde an der Carnegie Mellon University in den USA ein modifizierter Getränkeautomat entwickelt, welcher in der Lage war über das Internet den Füllstand und die Getränketemperatur mitzuteilen [[PAL14]](#PAL14). Der Begriff “Internet of Things” wurde wahrscheinlich erstmals 1999 in einer Präsentation des Unternehmens Procter & Gamble von Kevin Ashton genannt.[[ASH09]](#ASH09)
 
-Der Markt für IoT Applikationen scheint auf absehbare Zeit deutlich so wachsen - Laut dem Marktforschungsunternehmen Gartner stieg die Anzahl der vernetzten Geräte 2017 um 31% auf einen Stand von 8,4 Milliarden. Prognosen zufolge werden es 2020 bereits 20,4 Milliarden sein.
+Der Markt für IoT Applikationen scheint auf absehbare Zeit deutlich zu wachsen - Laut dem Marktforschungsunternehmen Gartner stieg die Anzahl der vernetzten Geräte 2017 um 31% auf einen Stand von 8,4 Milliarden. Prognosen zufolge werden es 2020 bereits 20,4 Milliarden sein.
 [[KÖH18]](#KÖH18)
 
-Im folgenden werfen wir einen genaueren Blick auf die Bereiche:
+Im Folgenden werfen wir einen genaueren Blick auf die Bereiche:
 - IoT-Security
 	- Umsetzungshinweise des BSI
 	- IoT & Botnet
@@ -32,14 +32,11 @@ Im folgenden werfen wir einen genaueren Blick auf die Bereiche:
 	- Discovery
 	- Datenübertragung
 
- Abschließend folgt ein kurzer Überblick über die mit dieser Ausarbeitung verbundene Softwaredemo.
-
-
 ## IoT-Security
 
 ### Umsetzungshinweise des BSI
-Das Bundesamt für Sicherheit in der Informationstechnik (BSI) Stellt einen Katalog unter [[BSI1]](#BSI1) zur verfügung, in welchem umfangreiche Vorkehrungen und Schutzmaßnahmen erläutert werden, um eine sichere IoT-Applikation zu entwickeln.
-Der Katalog definiert zunächst einen Entwicklungs Lebenszyklus:
+Das Bundesamt für Sicherheit in der Informationstechnik (BSI) stellt einen Katalog unter [[BSI1]](#BSI1) zur Verfügung, in welchem umfangreiche Vorkehrungen und Schutzmaßnahmen erläutert werden, um eine sichere IoT-Applikation zu entwickeln.
+Der Katalog definiert zunächst einen Entwicklungs-Lebenszyklus:
 
 1. Planung und Konzeption
 	- Definition des Einsatzes von IoT-Geräten innerhalb der Institution
@@ -68,23 +65,23 @@ Der Maßnahmenkatalog wird vom BSI in drei Bereiche geteilt: Basismaßnahmen, St
 2. Regelmäßige Aktualisierung
 	- Während des Betriebs regelmäßiges Prüfen, ob Updates/Patches verfügbar sind
 	- Zeitnahe Installation von Updates
-	- Bei bekannten nicht behebbaren Schwachstellen abschalten des Betriebs
+	- Bei bekannten nicht behebbaren Schwachstellen Abschalten des Betriebs
 	- Updates/Patches nur aus vertrauenswürdigen Quellen
 
 3. Aktivieren von Auto-Update-Mechanismen
 	- Autoupdates realisieren regelmäßige Aktualisierung
-	- In kritischen Umgebungen oder bei hohem Anspruch an die IoT-Geräte hat manuelle Wartung vorrang aufgrund möglicher unerwarteter Auswirkungen
+	- In kritischen Umgebungen oder bei hohem Anspruch an die IoT-Geräte hat manuelle Wartung Vorrang aufgrund möglicher unerwarteter Auswirkungen
 	- Automatische Updates nur aus vertrauenswürdigen Quellen
 	- Transportverschlüsselung (HTTPS) -> Man-in-the-Middle-Angriff
 
-4. Einschränkung des Netzzugriff
+4. Einschränkung des Netzzugriffs
 	- Firewall für zuvor definierte ein- und ausgehende Verbindungen
 	- Ausgehende Verbindungen genau definieren
 	- Eingehende Verbindungen nur mit Authentisierung
-	- Keine Netzwerk-Externen Zugriffe auf das IoT-Gerät
+	- Keine netzwerkexternen Zugriffe auf das IoT-Gerät
 	- Schließen von Port 23 (Telnet)
 	- SSH (Port 22) nur mit hinreichend sicheren Passwörtern, besser zertifikatsbasierter Zugriff
-	- Empfohlen: SSH lieber über Zufallsport zwischen 10000-65535
+	- Empfohlen: SSH über Zufallsport zwischen 10000-65535
 	- Empfohlen: IoT-Geräte in gesondertem physikalischen Netzwerk oder Virtual Local Area Network (VLAN) laufen lassen
 
 5. Aufnahme von IoT-Geräten in Sicherheitsrichtlinien
@@ -115,7 +112,7 @@ Der Maßnahmenkatalog wird vom BSI in drei Bereiche geteilt: Basismaßnahmen, St
 	- Alle nicht benötigten Protokolle deaktivieren
 
 10. Restriktive Rechtevergabe
-	- Restriktive Vergabe von Berechtigungen , so dass Benutzer nur auf Dienste zugreifen können, den sie für ihre Aufgaben benötigen
+	- Restriktive Vergabe von Berechtigungen , so dass Benutzer nur auf Dienste zugreifen können, die sie für ihre Aufgaben benötigen
 
 11. Überwachung des Netzverkehrs
 	- Kommunikation regelmäßig auf Auffälligkeiten kontrollieren
@@ -127,33 +124,33 @@ Der Maßnahmenkatalog wird vom BSI in drei Bereiche geteilt: Basismaßnahmen, St
 	- Sichere Protokolle verwenden
 
 ### IoT & Botnet
-Ein klassisches Botnet ist eine Ansammlung von mit Malware infizierter Computer oder Server, oftmals als Zombi bezeichnet, welche es einem Angreifer ermöglicht den Computer/Server zu kontrollieren und Befehle auszuführen. Ein solches Botnet wird häufig dazu eingesetzt distributed-denial-of-service (DDoS) Angriffe auszuführen, spam Mails zu versenden oder Identitätsdiebstahl zu begehen.
+Ein klassisches Botnet ist eine Ansammlung von mit Malware infizierter Computer oder Server, oftmals als Zombi bezeichnet, welche es einem Angreifer ermöglichen den Computer/Server zu kontrollieren und Befehle auszuführen. Ein solches Botnet wird häufig dazu eingesetzt distributed-denial-of-service (DDoS) Angriffe auszuführen, Spam Mails zu versenden oder Identitätsdiebstahl zu begehen.
 
-IoT Botnets ähneln klassischen Botnets dahingehend, dass ebenfalls IoT-Geräte mit Malware infiziert werden und anschließend vom Angreifer für Angriffe missbraucht werden können, jedoch liegt der Fokus bei IoT Botnets eher auf der verbreitung der Malware und damit einhergehend eine vergrößerung des Botnets. Während klassische Botnets oftmals eine Größenordnung von tausenden bis zehntausenden Computern/Servern infizieren, ist ein IoT Botnet in der Regel deutlich größer mit einer durchschnittlichen Anzahl von hunderttausenden infizierten Geräten.
+IoT Botnets ähneln klassischen Botnets dahingehend, dass ebenfalls IoT-Geräte mit Malware infiziert werden und anschließend vom Angreifer für Angriffe missbraucht werden können, jedoch liegt der Fokus bei IoT Botnets eher auf der Verbreitung der Malware und damit einhergehend eine Vergrößerung des Botnets. Während klassische Botnets oftmals eine Größenordnung von tausenden bis zehntausenden Computern/Servern infizieren, ist ein IoT Botnet in der Regel deutlich größer mit einer durchschnittlichen Anzahl von hunderttausenden infizierten Geräten.
 
 Nicht nur durch den stetig wachsenden Markt an IoT-Geräten und Applikationen steigt das Interesse der Angreifer, auch durch oftmals vernachlässigte Sicherheitseinstellungen der IoT-Geräte sind IoT Botnets eine wachsende Bedrohung. Folgende Punkte zeigen einige Gründe, warum Angreifer IoT-Geräte bevorzugen:
 
-- Leichte Beute da IoT-Geräte oftmals mit standard Kennwörtern in Betrieb genommen werden und ihre Services öffentlich machen
+- Leichte Beute, da IoT-Geräte oftmals mit Standardkennwörtern in Betrieb genommen werden und ihre Services öffentlich machen
 - Always-On Geräte sind die Regel
 - Viele Hersteller liefern Geräte mit mangelhaften Standardeinstellungen wie admin:password
 - Malware kann simpel Kennwörter ändern um Nutzer und andere Angreifer auszusperren
 - IoT-Geräte werden selten gewartet oder überwacht
 
-Eines der bekanntesten IoT Botnets ist das 2016 entdeckte Botnet Mirai, welches für Rekord brechende DDoS Attacken auf die Plattformen von Krebs, OVH und Dyn verantwortlich war. Das Botnet griff hauptsächlich integrierte Fernsehkameras, Router und Videorecorder an und war in der Lage bis zu 1 Tbps an Traffic zu erzeugen. Im Darknet wurden anschließend Dienstleistungen des Mirai Botnet zum Verkauf Angeboten.
+Eines der bekanntesten IoT Botnets ist das 2016 entdeckte Botnet Mirai, welches für Rekord brechende DDoS Attacken auf die Plattformen von Krebs, OVH und Dyn verantwortlich war. Das Botnet griff hauptsächlich integrierte Fernsehkameras, Router und Videorecorder an und war in der Lage bis zu 1 Tbps an Traffic zu erzeugen. Im Darknet wurden anschließend Dienstleistungen des Mirai Botnet zum Verkauf angeboten.
 [[RAD18]](#RAD18)
 
 ![ref_traditional_vs_spa](./images/mirai.jpg "Mirai in AlphayBay, einem Darknet Marktplatz")
 Mirai in AlphayBay, einem Darknet Marktplatz [[RAD16]](#RAD16)
 
 ## IoT-Architekturmuster
-Im folgenden werden typische IoT Software Architekturmuster erläutert.
+Im Folgenden werden typische IoT Software Architekturmuster erläutert.
 
 ### Event-Driven Architecture
-Event-Driven Architecture (EDA) ist ein Architekturstil, wo Komponenten ereignisgesteuert agieren und die Interaktion durch Austausch von Ereignissen erfolgt.
-Bei einer EDA liegt der Fokus der Softwarearchitektur auf Ereignissen. Ereignisse können dabei beliebigen Inhalt haben - sie können Aktivitäten, Vorgänge, Entscheidungen etc. abbilden. Ein Ereignis zeigt immer eine Veränderung eines Zustandes an und können verschiedenen Abstraktionsebenen zugeordnet werden:
+Event-Driven Architecture (EDA) ist ein Architekturstil, in welchem Komponenten ereignisgesteuert agieren und die Interaktion durch Austausch von Ereignissen erfolgt.
+Bei einer EDA liegt der Fokus der Softwarearchitektur auf Ereignissen. Ereignisse können dabei beliebigen Inhalt haben - sie können Aktivitäten, Vorgänge, Entscheidungen etc. abbilden. Ein Ereignis zeigt immer eine Veränderung eines Zustandes an und kann verschiedenen Abstraktionsebenen zugeordnet werden:
 
 - Technische Ereignisse
-	- z.B. änderung eines Sensorwertes
+	- z.B. Änderung eines Sensorwertes
 - Systemereignisse
 	- Technologie bezogen
 	- z.B. eine HTTP-Request
@@ -161,7 +158,7 @@ Bei einer EDA liegt der Fokus der Softwarearchitektur auf Ereignissen. Ereigniss
 	- Abbildung auf Geschäftslogik
 	- z.B. Kündigung eines Vertrages
 
-Die Kernfunktionalität einer Event-Driven Softwarearchitektur ist das ereignisgesteuerte Verarbeiten Eintreffender Ereignisse aus internen oder externen Quellen. Wie die nachfolgende Abbildung verdeutlicht, wird dieser Prozess durch drei Grundschritte realisiert: Zunächst erkennen von eintreffenden Ereignissen, Verarbeiten der Ereignisses und anschließendes Reagieren darauf.
+Die Kernfunktionalität einer Event-Driven Softwarearchitektur ist das ereignisgesteuerte Verarbeiten eintreffender Ereignisse aus internen oder externen Quellen. Wie die nachfolgende Abbildung verdeutlicht, wird dieser Prozess durch drei Grundschritte realisiert: Zunächst Erkennen von eintreffenden Ereignissen, Verarbeiten der Ereignisses und anschließendes Reagieren darauf.
 
 [[BRU10]](#BRU10)
 
@@ -224,16 +221,16 @@ const events = new EventEmitter();
 events.on('foo', () => { console.log('foo'); });
 events.emit('foo'); // Gibt "foo" aus
 events.off('foo');
-events.emit('foo'); // Nichts geschiet
+events.emit('foo'); // Nichts passiert
 ```
 ### Client-Server Architecture
-Die Client-Server Architecture ist eine weit verbreitete Softwarearchitektur für verteilte Systeme. Ein oder Mehrere Clients senden Anfragen an einen Server, welcher diese Verarbeitet und eine generierte Antwort zurück an den Client schickt. Ein Typisches Beispiel für eine Solche Architektur ist der Aufruf einer Webseite, wobei der Browser als Client und der HTTP(S)-Webserver als Server fungiert.
+Die Client-Server Architecture ist eine weit verbreitete Softwarearchitektur für verteilte Systeme. Ein oder mehrere Clients senden Anfragen an einen Server, welcher diese Verarbeitet und eine generierte Antwort zurück an den Client schickt. Ein typisches Beispiel für eine solche Architektur ist der Aufruf einer Webseite, wobei der Browser als Client und der HTTP(S)-Webserver als Server fungiert.
 [[OLU14]](#OLU14)
 
 ![ref_traditional_vs_spa](./images/client-server-model.png "Client-Server Architecture")
 Client-Server Architecture [[VIG11]](#VIG11)
 
-JavaScript Beispielcode eines HTTP-Webservers, abrufbar über einen Browser
+JavaScript Beispielcode eines HTTP-Webservers, abrufbar über einen Browser:
 
 ```js
 var http = require('http');
@@ -244,31 +241,31 @@ http.createServer(function (req, res) {
 }).listen(80); //Der Server läuft auf Port 80
 
 ```
-Auf eine HTTP-GET anfrage antwortet der Server mit "Hello World!".
+Auf eine HTTP-GET Anfrage antwortet der Server mit "Hello World!".
 
 ### Service-Oriented Architecture
-Service-Oriented Architecture (SOA) beschreibt eine Softwarearchitektur aus verschiedenen entkoppelten Services, welche eine definierte Schnittstelle besitzen und kombiniert werden können um eine Applikation abzubilden. Die Services sind aufgrund ihrer universellen Schnittstelle Plattformunabhängig.
+Service-Oriented Architecture (SOA) beschreibt eine Softwarearchitektur aus verschiedenen entkoppelten Services, welche eine definierte Schnittstelle besitzen und kombiniert werden können um eine Applikation abzubilden. Die Services sind aufgrund ihrer universellen Schnittstelle plattformunabhängig.
 [[PER03]](#PER03)
 
 ![ref_traditional_vs_spa](./images/soa.png "Service-Oriented Architecture")
 Service-Oriented Architecture [[ALS17]](#ALS17)
 
-Die obige Abbildung zeigt die Typischen Komponenten einer SOA: Ein “Service Provider” stellt die zur verfügung stehenden Services bereit und registriert diese bei der “Service Registry”. Falls nun ein “Service Customer” einen spezifischen Service Nutzen will, so fragt dieser die “Service Registry” nach dem gewünschten Service und erhält, sofern  der Service registriert wurde, eine eindeutige Identifikation des Services, woraufhin sich der “Service Customer” direkt mit dem Service verbinden und nutzen kann.
+Die obige Abbildung zeigt die typischen Komponenten einer SOA: Ein “Service Provider” stellt die zur Verfügung stehenden Services bereit und registriert diese bei der “Service Registry”. Falls nun ein “Service Customer” einen spezifischen Service nutzen will, so fragt dieser die “Service Registry” nach dem gewünschten Service und erhält, sofern  der Service registriert wurde, eine eindeutige Identifikation des Services, woraufhin sich der “Service Customer” direkt mit dem Service verbinden und ihn nutzen kann.
 
 ## IoT-Protokolle
-Im folgenden werden einige typische Protokolle und Technologien des Internet of Things erläutert. Anstatt diese Protokolle auf klassische hierarchische Modelle wie das OSI-Modell abzubilden, werden im folgend 5 Schichten einer typischen IoT-Applikation dargestellt und jeweils einige gängige Protokolle / Technologien gegebenenfalls mit Beispielen erläutert.
+Im Folgenden werden einige typische Protokolle und Technologien des Internet of Things erläutert. Anstatt diese Protokolle auf klassische hierarchische Modelle wie das OSI-Modell abzubilden, werden folgend 5 Schichten einer typischen IoT-Applikation dargestellt und jeweils einige gängige Protokolle / Technologien gegebenenfalls mit Beispielen erläutert.
 [[POS18]](#POS18)
 
 ### Infrastruktur
 
 #### IPv4/IPv6
-IPv4 und sein Nachfolger IPv6 sind Internet Layer Protokolle zur Datenübertragung in Paketvermittelnden Netzwerken. Zu sendende Daten werden mit Header-Daten versehen und in Paketen verschickt. Im gegensatz zu IPv4 werden Adressen in IPv6 mit 128-bit adressiert, wodurch erheblich mehr IP-Adressen vergeben werden können im vergleich zu 32-bit bei IPv4. Es wurden einige weitere Protokolle entwickelt wie QUIC (Google), NanoIP uvm., jedoch werden diese extrem selten eingesetzt im vergleich zu IPv4/IPv6.
+IPv4 und sein Nachfolger IPv6 sind Internet Layer Protokolle zur Datenübertragung in paketvermittelnden Netzwerken. Zu sendende Daten werden mit Header-Daten versehen und in Paketen verschickt. Im Gegensatz zu IPv4 werden Adressen in IPv6 mit 128-bit adressiert, wodurch erheblich mehr IP-Adressen vergeben werden können im Vergleich zu 32-bit bei IPv4. Es wurden einige weitere Protokolle entwickelt, wie QUIC (Google), NanoIP uvm., jedoch werden diese extrem selten eingesetzt im Vergleich zu IPv4/IPv6.
 [[DEE17]](#DEE17)
 
 ### Identifikation
 
 #### URI
-Uniform Resource Identifier (URI) bezeichnet eine Zeichenfolge die zur Identifizierung einer physikalischen oder abstrakten Ressource genutzt werden kann. URIs werden meistens zur Bezeichnung von Ressources Im Internet (Webseiten, Dateien, Services, Mailadressen etc.) eingesetzt. Der aktuelle Standard wird unter [[BER05]](#BER05) spezifiziert.
+Uniform Resource Identifier (URI) bezeichnet eine Zeichenfolge, die zur Identifizierung einer physikalischen oder abstrakten Ressource genutzt werden kann. URIs werden meistens zur Bezeichnung von Ressources Im Internet (Webseiten, Dateien, Services, Mailadressen etc.) eingesetzt. Der aktuelle Standard wird unter [[BER05]](#BER05) spezifiziert.
 Die Syntax eines URI ist wie folgt aufgebaut:
 ```
 URI = scheme:[//authority]path[?query][#fragment]
@@ -279,20 +276,20 @@ https://john.doe@www.example.com:123/forum/questions/?tag=networking&order=newes
 ```
 
 #### ucode
-“ucode” ist ein Zahlenbasiertes Identifikationssystem für physikalische Objekte. Das System nutzt einen 128-bit code um eindeutige Identifikatoren zu erstellen. “ucode” wird von der in Tokyo Japan ansässigen non-profit Organisation “uID center” verwaltet. Eine Abfrage eines ucodes funktioniert ähnlich eines DNS-lookups und muss von einem zentral verwalteten Server des “uID centers” erfolgen.
+“ucode” ist ein zahlenbasiertes Identifikationssystem für physikalische Objekte. Das System nutzt einen 128-bit code um eindeutige Identifikatoren zu erstellen. “ucode” wird von der in Tokyo Japan ansässigen non-profit Organisation “uID center” verwaltet. Eine Abfrage eines ucodes funktioniert ähnlich wie ein DNS-lookups und muss von einem zentral verwalteten Server des “uID centers” erfolgen.
 [[UID09]](#UID09)
 
 ### Transport
-Ähnlich konventioneller verteilter Systeme erfolgt der Transport der Datenpakete über die üblichen Wege wie Ethernet, WiFi, Bluetooth oder NFC, mit der erweiterung von Mobilfunk.
+Ähnlich konventioneller verteilter Systeme erfolgt der Transport der Datenpakete über die üblichen Wege wie Ethernet, WiFi, Bluetooth oder NFC, mit der Erweiterung von Mobilfunk.
 
 ### Discovery
 
 #### mDNS
-“multicast Domain Name Service” (mDNS) dient dazu in kleinen Netzwerken Namen zu IP-Adressen zu übersetzen, ohne dabei einen DNS-Server zu benötigen - ist jedoch mit normalen DNS basierten Netzwerken kompatibel.  mDNS wurde 2013 von Stuart Cheshire veröffentlicht.
+“multicast Domain Name Service” (mDNS) dient dazu in kleinen Netzwerken Namen in IP-Adressen zu übersetzen, ohne dabei einen DNS-Server zu benötigen - ist jedoch mit normalen DNS basierten Netzwerken kompatibel.  mDNS wurde 2013 von Stuart Cheshire veröffentlicht.
 [[CHE13]](#CHE13)
 
 #### HyperCat
-HyperCat ist ein JSON basiertes Protokoll um Kataloge von URIs zu veröffentlichen. Dazu sollte ein server unter einer bekannten Adresse,  z.B. 'http://hub.com/cat', ein JSON Objekt zur verfügung stellen, in welchem alle erreichbaren Ressourcen inklusive MIME-Types aufgelistet sind.
+HyperCat ist ein JSON basiertes Protokoll um Kataloge von URIs zu veröffentlichen. Dazu sollte ein Server unter einer bekannten Adresse,  z.B. 'http://hub.com/cat', ein JSON Objekt zur Verfügung stellen, in welchem alle erreichbaren Ressourcen inklusive MIME-Types aufgelistet sind.
 [[HYP]](#HYP)
 
 ### Datenübertragung
@@ -319,10 +316,11 @@ client.on('message', function (topic, message) {
 })
 
 ```
-Der obige Code zeigt die Verbindung mit dem dedizierten MQTT Broker “mqtt://test.mosquitto.org”, anschließend ein subscribe und direkt zu demonstrationszwecken ein publish in der client.on(‘connect’,...) Funktion. Die listener Funktion client.on(‘message’,...) wird automatisch aufgerufen und gibt ‘Hello mqtt’ auf der Konsole aus.
+Der obige Code zeigt die Verbindung mit dem dedizierten MQTT Broker “mqtt://test.mosquitto.org”, anschließend einen 
+"subscribe" und direkt zu Demonstrationszwecken einen "publish" in der client.on(‘connect’,...) Funktion. Die listener Funktion client.on(‘message’,...) wird automatisch aufgerufen und gibt ‘Hello mqtt’ auf der Konsole aus.
 
 #### REST
-Representational State Transfer (REST) bietet eine zustandslose Schnittstelle für verteilte Systeme, insbesondere Webservices. REST basiert auf den CRUD-HTTP Operationen GET, PUT, POST, DELETE und UPDATE und ermöglicht Zugriff auf Ressourcen durch definierte URIs. Roy Fielding definierte REST erstmals im Jahr 2000 durch seine Doktorarbeit “Architectural Styles and the Design of Network-based Software Architectures” an der UC Irvine.
+Representational State Transfer (REST) bietet eine zustandslose Schnittstelle für verteilte Systeme, insbesondere Webservices. REST basiert auf den CRUD-HTTP Operationen GET, PUT, POST, DELETE, UPDATE und ermöglicht Zugriff auf Ressourcen durch definierte URIs. Roy Fielding definierte REST erstmals im Jahr 2000 durch seine Doktorarbeit “Architectural Styles and the Design of Network-based Software Architectures” an der UC Irvine.
 [[BOO14]](#BOO14)
 
 JavaScript Code Beispiel:
@@ -379,7 +377,7 @@ var ws = new WebSocket('ws://localhost:40510');
         console.log(ev);
     }
 ```
-Der Obige Code zeigt eine Kommunikation zwischen Server und Client: Der Client sendet in der ws.onopen Funktion die Nachricht “connected” an den definierten Server, woraufhin dieser sekündlich die aktuelle Uhrzeit an den Clienten schickt.
+Der obige Code zeigt eine Kommunikation zwischen Server und Client: Der Client sendet in der ws.onopen Funktion die Nachricht “connected” an den definierten Server, woraufhin dieser sekündlich die aktuelle Uhrzeit an den Clienten schickt.
 
 ## Literaturverzeichnis
 
