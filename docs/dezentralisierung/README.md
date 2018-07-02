@@ -296,7 +296,7 @@ Jedoch kann das Abrufen eines IPFS-Objektes über ein Gateway beim erstmaligen Z
 mehrere Minuten dauern.
 
 ##### IPNS
-Das Inter-Planetary-Naming-System, kurz IPNS, ermöglicht es die PeerID mit einem Hashwert eines Objektes zu referenzieren. Dazu wird der Befehl `ipfs name publish <HASH>` genutzt. So kann mittels `<GATEWAY>/ip**n**s/<PEERID>` auf den assoziierten Inhalt zuzugreifen.
+Das Inter-Planetary-Naming-System, kurz IPNS, ermöglicht es die PeerID mit einem Hashwert eines Objektes zu referenzieren. Dazu wird der Befehl `ipfs name publish <HASH>` genutzt. So kann mittels `<GATEWAY>/ipns/<PEERID>` auf den assoziierten Inhalt zuzugreifen.
 Jedoch ist der referenzierte Hash manuell anzupassen, dieser ändert sich aufgrund der unveränderlichen Datenstruktur nicht.
 
 

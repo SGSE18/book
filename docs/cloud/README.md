@@ -23,7 +23,7 @@ Autor: Björn Böing
         - [Hybrid](#hybrid)
     - [Edge Computing](#edge-computing)
     - [Fog Computing](#fog-computing)
-    - [Nachteile & Begrenzungen](#nachteile-begrenzungen)
+    - [Einschränkungen & Hinweise](#hinweise)
         - [Distributed-Denial-of-Service (DDoS) Angriffe](#ddos)
         - [Layer 8 Fehler](#layer-8-fehler)
         - [Mangelhafte Backups](#mangelhafte-backups)
@@ -251,7 +251,7 @@ Populär wurde der Begriff "Cloud Computing", als Amazon 2006 ihre [Elastic Comp
 
 ## Grundlagen & weiterführende Konzepte
 
-In diesem Abschnitt werden zum einen grundlegende Informationen, wie die [Service-](#servicemodelle) und [Bereitstellungsmodelle](#bereitstellungsmodelle) im Cloud Bereich, vorgestellt, aber andererseits auch auf weiterführende Konzepte wie [Edge Computing](#edge-computing) eingegangen. Darüberhinaus werden verschiedene [Nachteile & Begrenzungen](#nachteile-begrenzungen) betrachtet, die Cloud Computing mit sich bringt.
+In diesem Abschnitt werden zum einen grundlegende Informationen, wie die [Service-](#servicemodelle) und [Bereitstellungsmodelle](#bereitstellungsmodelle) im Cloud Bereich, vorgestellt, aber andererseits auch auf weiterführende Konzepte wie [Edge Computing](#edge-computing) eingegangen. Darüberhinaus werden verschiedene [Einschränkungen & Hinweise](#hinweise) erläutert, die beim Cloud Computing zu beachten sind.
 
 
 ### Charakteristika
@@ -391,7 +391,7 @@ Eine _"Public Cloud"_ beschreibt eine öffentlich zugängliche Cloud-Infrastrukt
 
 #### Private
 
-Unternehmen, die die Cloud-Infrastruktur eines Dritten allein nutzen oder die die Bereitstellung und Wartung selbstständig erledigen wollen, greifen häufig auf eine _"Private Cloud"_ zurück. Diese erlaubt es ihnen die vorhergehend beschriebenen [Servicemodelle](#servicemodelle) zentral zu betreiben und müssen so nicht zwingend auf einen Dritten vertrauen. Ein Unternehmen kann somit sowohl Betreiber als auch Nutzer einer Cloud sein und darüberhinaus auch Zweigstellen Zugriff auf die Private Cloud ermöglichen. [[INNO17]](#ref_inno17) [[NIST11]](#ref_nist11)
+Unternehmen, die die Cloud-Infrastruktur eines Dritten allein nutzen oder die die Bereitstellung und Wartung selbstständig erledigen wollen, greifen häufig auf eine _"Private Cloud"_ zurück. Diese erlaubt es ihnen die vorhergehend beschriebenen [Servicemodelle](#servicemodelle) zentral zu betreiben und müssen so nicht zwingend auf einen Dritten vertrauen. Ein Unternehmen kann somit sowohl Betreiber als auch Nutzer einer Cloud sein und darüberhinaus auch Zweigstellen Zugriff auf die Private Cloud ermöglichen. Eine Private Cloud entspricht in den meisten Fällen der traditionellen IT-Infrastruktur. [[INNO17]](#ref_inno17) [[NIST11]](#ref_nist11)
 
 
 #### Community
@@ -480,11 +480,11 @@ Die schrittweise Verarbeitung und Konvertierung von gesammelten Daten stellt ein
 [[CISC13]](#cisc13) [[ELLE17]](#ref_elle17) [[OPEN17]](#ref_open17) [[OPTO18]](#ref_opto18)
 
 
-<a name="nachteile-begrenzungen"></a>
+<a name="hinweise"></a>
 
-### Nachteile & Begrenzungen
+### Einschränkungen & Hinweise
 
-Cloud Computing bietet durch die Erschwinglichkeit, Effektivität und Skalierbarkeit viele Vorteile für Unternehmen. Kosten, Arbeitsaufwand und auch benötigtes Know-How können von einen Anbieter übernommen werden und ermöglicht den Unternehmen dadurch, sich auf das eigene Tagesgeschäft zu fokussieren. Trotz alledem bringt der Umstieg zur Cloud auch Nachteile und Sicherheitsrisiken mit sich.
+Cloud Computing bietet durch die Erschwinglichkeit, Effektivität und Skalierbarkeit viele Vorteile für Unternehmen. Kosten, Arbeitsaufwand und auch benötigtes Know-How können von einen Anbieter übernommen werden und ermöglicht den Unternehmen dadurch, sich auf das eigene Tagesgeschäft zu fokussieren. Trotz alledem bringt der Umstieg zur Cloud auch Einschränkungen und Sicherheitsrisiken mit sich.
 
 
 <a name="ddos"></a>
@@ -544,7 +544,7 @@ Die seit dem 25.05.2018 wirksame EU-Datenschutz-Grundverordnung (EU-DSGVO) hat g
 
 #### Inflexibilität und geringere Kontrolle
 
-Neben den bereits erläuterten Sicherheitsaspekten, bei denen vor allem Abhängigkeit zu einem Dritten, Risiken in Sachen Sicherheitlücken und Privatsphäre herausstechen, gibt es in Sachen Cloud Computing weitere Nachteile und auch Begrenzungen.
+Neben den bereits erläuterten Sicherheitsaspekten, bei denen vor allem Abhängigkeit zu einem Dritten, Risiken in Sachen Sicherheitlücken und Privatsphäre herausstechen, gibt es weitere Einschränken beim Cloud Computing.
 
 Im Vergleich zu standardmäßigen on premise Anwendungen und selbstständig verwalteten IT-Infrastrukturen, schränken Clouddienste die Kontrolle und Flexibilität ein. Über die End-User Licence Agreement (EULA) können Anbieter enorme Einschränkungen machen, was Kunden mit den genutzten Diensten machen können.
 
@@ -656,7 +656,7 @@ arn:aws:s3:::my_corporate_bucket/exampleobject.png
 
 ### Elastic Compute Cloud (EC2)
 
-Der _"Elastic Compute Cloud"_ (EC2) Dienst, stellt einen der ältesten und beliebtesten Dienste dar, den AWS anbietet und bildet das Servicemodell [PaaS](#paas) dar. Über diesen Dienst können virtuelle Rechenkapazitäten auf einfache Weise erstellt, gestartet, gestoppt und verwaltet werden. Hierbei kann auf fertige Instanz-Templates, sogenannte Amazon Machine Images (AMIs), zurückgegriffen werden. Bezahlt werden müssen nur die Instanzen, die tatsächlich auch laufen. Das Erstellen einer EC2 Instanz ist in sieben Schritte aufgeteilt, die nachfolgend detailliert vorgestellt werden:
+Der _"Elastic Compute Cloud"_ (EC2) Dienst, stellt einen der ältesten und beliebtesten Dienste dar, den AWS anbietet. Über diesen Dienst können virtuelle Rechenkapazitäten auf einfache Weise erstellt, gestartet, gestoppt und verwaltet werden. Hierbei kann auf fertige Instanz-Templates, sogenannte Amazon Machine Images (AMIs), zurückgegriffen werden. Bezahlt werden müssen nur die Instanzen, die tatsächlich auch laufen. Das Erstellen einer EC2 Instanz ist in sieben Schritte aufgeteilt, die nachfolgend detailliert vorgestellt werden:
 
 
 __1. Amazon Machine Image (AMI) wählen__
@@ -916,7 +916,7 @@ Bei der Wahl der richtigen Sharding Strategie ist vor allem eine genaue Betracht
 
 Obwohl der Cloud Computing Bereich schon viele Jahre produktiv im Einsatz ist, sind die Ideen und Konzepte noch nicht ausgeschöpft. Immer neue Technologien und Dienste ermöglichen vollkommen neue Einsatzgebiete und Anwendungsansätze für die Cloud. Anbieter wie Amazon erlauben es immer mehr Unternehmen ihre digitalen Prozesse und Softwareanwendungen in die Cloud zu verlagern, um dabei in den Genuss der immer schwerer wiegenden Vorteile von Cloud-Infrastrukturen zu kommen.
 
-Nachteile und Begrenzungen der Cloud können in manchen Fällen durch "neue" Bereiche wie Edge und Fog Computing ausgebessert werden. Viele anfängliche Probleme sind seit der ersten Cloud-Dienste wie [Amazon EC2](#ec2) längst gelöst und durch Best Practices und [Design Patterns](#cloud-design-patterns) können viele Risiken schon durch Designentscheidungen umgangen werden.
+Einschränkungen der Cloud können in manchen Fällen durch "neue" Bereiche wie Edge und Fog Computing ausgebessert werden. Viele anfängliche Probleme sind seit der ersten Cloud-Dienste wie [Amazon EC2](#ec2) längst gelöst und durch Best Practices und [Design Patterns](#cloud-design-patterns) können viele Risiken schon durch Designentscheidungen umgangen werden.
 
 
 ### Neuheiten und aktuelle Trends

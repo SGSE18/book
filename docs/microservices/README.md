@@ -148,13 +148,6 @@ Ein Service ist nicht gegen Ausfälle und Fehler geschützt, deshalb sollte er i
 
 Eine Software sollte so entworfen werden, dass statt es bei größeren Änderungen zu verwerfen, diese weiterentwickelt werden kann. Die wichtigsten Eigenschaften eines Komponenten sind Austauschbarkeit und Erweiterungsfähigkeit - wie kann eine Komponente überarbeitet werden, ohne dass andere Komponenten davon betroffen sind. Oftmals wird ein Service verworfen anstatt auf lange Sicht überarbeitet zu werden. Manchmal macht es Sinn mehrere Dienste zu gruppieren, falls diese immer wieder Abhängigkeiten während Änderungen zeigen. <a>[[LEWI14]](#ref_Lewi14)</a>
 
-In dieser Liste sind die Vorraussetzungen für Microservices zusammengefasst: <a>[[NAMI14]](#ref_Nami14)</a>
-1. Request/Response calls mit willkürlich strukturierten Daten
-2. Asynchrone Events in Echtzeit
-3. Bidirektionale Requests und Responses
-4. Requests und Responses können willkürlich geschachtelt sein
-5. Nachrichtenformat: wie JSON, XML
-
 ### Client-Kommunikation mit Microservices
 
 __Direct Client-to-Microservice Communication__
@@ -189,12 +182,12 @@ Humane Registry ist eine automatisierte Dokumentation für Microservices, design
 - _Automation_: Entwickler haben selten Zeit eine Dokumentation zu pflegen
 - _Einfachheit_: eine Erweiterung der Informationen sollte unkompliziert sein
 
-Solch ein Dokumentationswerkzeug durchsucht den Quellcode des Systems und stellt detaillierte Informationen darüber bereit, welcher entwickler wann und wieviel zum Microservices beigetragen hat. So können Mitarbeiter sehen an wem sie sich in bestimmten Fällen wenden können. Mithilfe von Daten aus verschiedensten Systemen, wie Continuous-Integration-Servern, von Versionsverwaltungsprogrammen und Issue-Tracking-Systemen, wird eine übergreifende Dokumentation erschaffen. <a>[[FOWL08]](#ref_Fowl08)</a>
+Solch ein Dokumentationswerkzeug durchsucht den Quellcode des Systems und stellt detaillierte Informationen darüber bereit, welcher Entwickler wann und wieviel zum Microservices beigetragen hat. So können Mitarbeiter sehen an wem sie sich in bestimmten Fällen wenden können. Mithilfe von Daten aus verschiedensten Systemen, wie Continuous-Integration-Servern, von Versionsverwaltungsprogrammen und Issue-Tracking-Systemen, wird eine übergreifende Dokumentation erschaffen. <a>[[FOWL08]](#ref_Fowl08)</a>
 
 ## Serverless
 
 Serverless steht für Serverless computing und wird in zwei Bereichen eingesetzt:
-1. Es wird komplett auf die serverseitige Logik verzichtet und stattdessen werden Cloud-Services von Drittanbietern integriert. Übliche Anwender sind Single-Page-Webanwendungen und mobile Apps. Zu solchen Cloud-Services zählen Datenbanken, Authentifizierungsmechanismen und so weiter. Weshalb dieser Typ von Microservices auch __Backend as a Service__ genannt wird.
+1. Es wird komplett auf die serverseitige Logik verzichtet und stattdessen werden Cloud-Services von Drittanbietern integriert. Übliche Anwender sind Single-Page-Webanwendungen und mobile Apps. Zu solchen Cloud-Services zählen Datenbanken, Authentifizierungsmechanismen und so weiter. Weshalb dieser Typ auch __Backend as a Service__ genannt wird.
 2. Ein anderer Bereich von Serverless ist __Function as a Service__ (FaaS). In diesem Szenario wird serverseitige Logik immer noch vom Entwickler geschrieben, jedoch verpackt in Container und von einer Cloud gemanagt. Diese Container sind zustandslos, ereignisgesteuert und kurzlebig.
 
 Die folgende Abbildung zeigt die Unterschiede zwischen der üblichen Architektur und Serverless. Die Authentifizierung erfolgt über den Cloud-Service. Der Client hat Zugriff auf die Produkt-Datenbank, welche von Drittanbietern gehostet wird. Ein Teil der früheren Serverlogik der alten Architektur kann in den Client implementiert werden, siehe Single-Page-Webanwendung. Mit HTTP-Anfragen kann über die API eine Suche in der Datenbank getriggert werden - es ist nicht nötig, dass ständig ein Server am laufen sein muss. Es ist möglich Teile von eigenem Quellcode zu verwenden, falls die Programmiersprache unterstützt wird. Die Funktionalität "Kaufen" kann ebenfalls durch "Function as a Service" ersetzt werden. Zum einen, um den Client leichtgewichtiger zu halten, zum anderen aus Sicherheit. <a>[[ROBE18]](#ref_Robe18)</a>
@@ -267,7 +260,7 @@ Für Webanwendungen gewinnt Front-End immer mehr an Bedeutung, während Back-End
 | Hohe Testbarkeit                | Schlechtere Performance                                |
 | Unabhängige Technologiestacks   | Restrukturierung kann sehr komplex werden              |
 | Unabhängig im Fehlerfall        |                                                        |
-| Parallele entwicklung möglich   |                                                        |
+| Parallele Entwicklung möglich   |                                                        |
 
 Tabelle angepasst aus <a>[[LECH17]](#ref_Lech17)</a>
 
