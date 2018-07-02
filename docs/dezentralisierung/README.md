@@ -6,6 +6,10 @@
 
 *Autor: Patrick Lukas Starzynski*
 
+<a href="https://github.com/Sorong/sgse_presentation"> Link zur Präsentation</a>
+
+<a href="https://github.com/Sorong/ipfs_demo"> Link zur Softwaredemo</a>
+
 ## Allgemeines
 
 ### Das Internet
@@ -415,7 +419,7 @@ In der Abbildung zu sehen, ist das Erstellen eines neuen Repository, erkennbar i
 Sobald Änderungen registiert werden, werden die Dateien entsprechend synchronisiert. Die Besonderheit am `sync` Befehl ist, dass die Verbindung aktiv bleibt, gegensätzlich wird beim `dat pull` die Verbindung unmittelbar nach der Synchronisation geschlossen.
 #### Hashbase und HTTP-Gateway
 
-Da mit Hilfe von DAT, durch den Freigabemechanismus dezentrale Anwendungen theoretisch realisiert werden können, steht durch hashbase.io (<a href="https://hashbase.io/">hier</a>) eine Plattfor zur Verfügung, da ein DAT-Repository dauerhaft zur Verfügung stellt.
+Da mit Hilfe von DAT, durch den Freigabemechanismus dezentrale Anwendungen theoretisch realisiert werden können, steht durch hashbase.io (<a href="https://hashbase.io/">hier</a>) eine Plattform zur Verfügung, die ein DAT-Repository dauerhaft zur Verfügung stellt.
 Zur Nutzung in einem aktuellen Browser kann ein Repository via HTTP, durch `dat sync --http`, synchronisiert werden. Hashbase.io stellt diesen Service ebenfalls zur Verfügung.
 
 ### Beakerbrowser
